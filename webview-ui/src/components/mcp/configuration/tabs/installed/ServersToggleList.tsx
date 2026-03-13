@@ -28,7 +28,7 @@ const ServersToggleList = ({
 		</div>
 	) : (
 		<div className="flex flex-col items-center gap-3 my-5 text-(--vscode-descriptionForeground)">
-			No MCP servers installed
+			설치된 MCP 서버가 없습니다
 		</div>
 	)
 }

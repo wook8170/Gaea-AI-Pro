@@ -1,13 +1,13 @@
-import { memo } from "react"
-import { cn } from "@/lib/utils"
-import { MarkdownRow } from "./MarkdownRow"
 import { Int64Request } from "@shared/proto/cline/common"
 import { CheckIcon } from "lucide-react"
+import { memo } from "react"
 import { PLATFORM_CONFIG, PlatformType } from "@/config/platform.config"
+import { cn } from "@/lib/utils"
 import { TaskServiceClient } from "@/services/grpc-client"
 import { CopyButton } from "../common/CopyButton"
 import SuccessButton from "../common/SuccessButton"
 import { QuoteButtonState } from "./ChatRow"
+import { MarkdownRow } from "./MarkdownRow"
 import QuoteButton from "./QuoteButton"
 
 interface CompletionOutputRowProps {
@@ -43,7 +43,7 @@ export const CompletionOutputRow = memo(
 					<div className={cn(headClassNames, "justify-between px-1")}>
 						<div className="flex gap-2 items-center">
 							<CheckIcon className="size-3 text-success" />
-							<span className="text-success font-bold">Task Completed</span>
+							<span className="text-success font-bold">작업 완료</span>
 						</div>
 						<CopyButton className="text-success" textToCopy={text} />
 					</div>
@@ -105,7 +105,7 @@ const CompletionOutputActionRow = memo(
 						width: "100%",
 					}}>
 					<i className="codicon codicon-new-file" style={{ marginRight: 6 }} />
-					View Changes
+					변경 사항 보기
 				</SuccessButton>
 
 				{PLATFORM_CONFIG.type === PlatformType.VSCODE && (
@@ -126,7 +126,7 @@ const CompletionOutputActionRow = memo(
 							width: "100%",
 						}}>
 						<i className="codicon codicon-comment-discussion" style={{ marginRight: 6 }} />
-						{explainChangesDisabled ? "Explaining..." : "Explain Changes"}
+						{explainChangesDisabled ? "설명 중..." : "변경 사항 설명"}
 					</SuccessButton>
 				)}
 			</div>

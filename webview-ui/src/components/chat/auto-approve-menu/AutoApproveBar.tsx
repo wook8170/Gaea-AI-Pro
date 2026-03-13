@@ -47,7 +47,7 @@ const AutoApproveBar = ({ style }: AutoApproveBarProps) => {
 		})
 
 		if (actionsToShow.length === 0) {
-			return <span className={baseClasses}>None</span>
+			return <span className={baseClasses}>없음</span>
 		}
 
 		return (
@@ -100,11 +100,11 @@ const AutoApproveBar = ({ style }: AutoApproveBarProps) => {
 				/>
 
 				<div className="pt-4 pb-3.5 px-3.5">
-					<div className="text-sm mb-1">Auto-approve: YOLO</div>
+					<div className="text-sm mb-1">자동 승인: YOLO</div>
 					<div className="text-muted-foreground text-xs">
-						YOLO mode is enabled.{" "}
+						YOLO 모드가 활성화되었습니다.{" "}
 						<span className="underline cursor-pointer hover:text-foreground" onClick={handleNavigateToFeatures}>
-							Disable it in Settings
+							설정에서 비활성화하세요
 						</span>
 						.
 					</div>
@@ -159,7 +159,7 @@ const AutoApproveBar = ({ style }: AutoApproveBarProps) => {
 				ref={buttonRef}
 				tabIndex={0}>
 				<div className="flex flex-nowrap items-center gap-1 min-w-0 flex-1">
-					<span className="whitespace-nowrap">Auto-approve:</span>
+					<span className="whitespace-nowrap">자동 승인:</span>
 					{getEnabledActionsText()}
 				</div>
 				{isModalVisible ? <ChevronDownIcon size={16} /> : <ChevronRightIcon size={16} />}

@@ -111,12 +111,12 @@ export abstract class WebviewProvider {
 				<link rel="stylesheet" type="text/css" href="${stylesUrl}">
 				<link href="${codiconsUrl}" rel="stylesheet" />
 				<meta http-equiv="Content-Security-Policy" content="default-src 'none';
-					connect-src https://*.posthog.com https://*.cline.bot; 
+					connect-src https://*.posthog.com; 
 					font-src ${this.getCspSource()} data:; 
 					style-src ${this.getCspSource()} 'unsafe-inline'; 
 					img-src ${this.getCspSource()} https: data:; 
 					script-src 'nonce-${nonce}' 'unsafe-eval';">
-				<title>Cline</title>
+				<title>Gaea AI Pro</title>
 			</head>
 			<body>
 				<noscript>You need to enable JavaScript to run this app.</noscript>
@@ -173,7 +173,7 @@ export abstract class WebviewProvider {
 				HostProvider.window.showMessage({
 					type: ShowMessageType.ERROR,
 					message:
-						"Cline: Local webview dev server is not running, HMR will not work. Please run 'npm run dev:webview' before launching the extension to enable HMR. Using bundled assets.",
+						"Gaea AI Pro: 로컬 웹뷰 개발 서버가 실행 중이지 않아 HMR(Hot Module Replacement)이 작동하지 않습니다. HMR을 활성화하려면 확장 프로그램을 실행하기 전에 'npm run dev:webview'를 실행해 주세요. 현재는 빌드된 에셋을 사용합니다.",
 				})
 			}
 
@@ -216,7 +216,7 @@ export abstract class WebviewProvider {
 					<meta http-equiv="Content-Security-Policy" content="${csp.join("; ")}">
 					<link rel="stylesheet" type="text/css" href="${stylesUrl}">
 					<link href="${codiconsUrl}" rel="stylesheet" />
-					<title>Cline</title>
+					<title>Gaea AI Pro</title>
 				</head>
 				<body>
 					<div id="root"></div>

@@ -29,12 +29,12 @@ const ViewHeader = ({ title, onDone, showEnvironmentSuffix, environment }: ViewH
 				</h3>
 				{showSubtext && (
 					<span className="absolute left-0 top-8 -translate-y-1 text-xs text-description whitespace-nowrap">
-						{capitalizedEnv} environment
+						{capitalizedEnv} 환경
 					</span>
 				)}
 			</div>
-			<Button size="header" onClick={onDone}>
-				Done
+			<Button onClick={onDone} size="header">
+				완료
 			</Button>
 		</div>
 	)

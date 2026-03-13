@@ -30,12 +30,12 @@ import McpToolRow from "./McpToolRow"
 
 // constant JSX.Elements
 const TimeoutOptions = [
-	{ value: "30", label: "30 seconds" },
-	{ value: "60", label: "1 minute" },
-	{ value: "300", label: "5 minutes" },
-	{ value: "600", label: "10 minutes" },
-	{ value: "1800", label: "30 minutes" },
-	{ value: "3600", label: "1 hour" },
+	{ value: "30", label: "30초" },
+	{ value: "60", label: "1분" },
+	{ value: "300", label: "5분" },
+	{ value: "600", label: "10분" },
+	{ value: "1800", label: "30분" },
+	{ value: "3600", label: "1시간" },
 ].map((option) => (
 	<VSCodeOption key={option.value} value={option.value}>
 		{option.label}
@@ -93,7 +93,7 @@ const ServerRow = ({
 	const handleTimeoutChange = (e: any) => {
 		const select = e.target as HTMLSelectElement
 		const value = select.value
-		const num = parseInt(value)
+		const num = Number.parseInt(value)
 		setTimeoutValue(value)
 
 		McpServiceClient.updateMcpTimeout({
@@ -230,7 +230,7 @@ const ServerRow = ({
 							handleRestart()
 						}}
 						size="icon"
-						title="Restart Server"
+						title="서버 재시작"
 						variant="icon">
 						<RefreshCcwIcon />
 					</Button>
@@ -243,7 +243,7 @@ const ServerRow = ({
 							handleDelete()
 						}}
 						size="icon"
-						title="Delete Server"
+						title="서버 삭제"
 						variant="icon">
 						<Trash2Icon />
 					</Button>
@@ -265,7 +265,7 @@ const ServerRow = ({
 						</div>
 					</TooltipTrigger>
 					<TooltipContent className="max-w-xs" hidden={!isAlwaysEnabled} side="top">
-						This server can't be disabled because it is enabled by your organization
+						이 서버는 조직에서 활성화했으므로 비활성화할 수 없습니다
 					</TooltipContent>
 				</Tooltip>
 				<div
@@ -288,7 +288,7 @@ const ServerRow = ({
 								McpServiceClient.authenticateMcpServer(StringRequest.create({ value: server.name }))
 							}}
 							variant="default">
-							Authenticate
+							인증하기
 						</Button>
 					) : (
 						<Button
@@ -296,7 +296,7 @@ const ServerRow = ({
 							disabled={server.status === "connecting"}
 							onClick={handleRestart}
 							variant="secondary">
-							{server.status === "connecting" || isRestarting ? "Retrying..." : "Retry Connection"}
+							{server.status === "connecting" || isRestarting ? "재시도 중..." : "연결 재시도"}
 						</Button>
 					)}
 
@@ -306,7 +306,7 @@ const ServerRow = ({
 							disabled={isDeleting}
 							onClick={handleDelete}
 							variant="danger">
-							{isDeleting ? "Deleting..." : "Delete Server"}
+							{isDeleting ? "삭제 중..." : "서버 삭제"}
 						</Button>
 					)}
 				</div>
@@ -314,11 +314,11 @@ const ServerRow = ({
 				isExpanded && (
 					<div className="bg-text-block-background p-2.5 pt-0 text-sm rounded-b-sm">
 						<VSCodePanels>
-							<VSCodePanelTab id="tools">Tools ({server.tools?.length || 0})</VSCodePanelTab>
+							<VSCodePanelTab id="tools">도구 ({server.tools?.length || 0})</VSCodePanelTab>
 							<VSCodePanelTab id="resources">
-								Resources ({[...(server.resourceTemplates || []), ...(server.resources || [])].length || 0})
+								리소스 ({[...(server.resourceTemplates || []), ...(server.resources || [])].length || 0})
 							</VSCodePanelTab>
-							<VSCodePanelTab id="prompts">Prompts ({server.prompts?.length || 0})</VSCodePanelTab>
+							<VSCodePanelTab id="prompts">프롬프트 ({server.prompts?.length || 0})</VSCodePanelTab>
 
 							<VSCodePanelView id="tools-view">
 								{server.tools && server.tools.length > 0 ? (
@@ -329,7 +329,7 @@ const ServerRow = ({
 												className="mb-1 text-xs"
 												data-tool="all-tools"
 												onChange={handleAutoApproveChange}>
-												Auto-approve all tools
+												모든 도구 자동 승인
 											</VSCodeCheckbox>
 										)}
 										{server.tools.map((tool) => (
@@ -337,7 +337,7 @@ const ServerRow = ({
 										))}
 									</div>
 								) : (
-									<div className="text-description py-2.5">No tools found</div>
+									<div className="text-description py-2.5">도구를 찾을 수 없습니다</div>
 								)}
 							</VSCodePanelView>
 
@@ -353,7 +353,7 @@ const ServerRow = ({
 										))}
 									</div>
 								) : (
-									<div className="py-2.5 text-description">No resources found</div>
+									<div className="py-2.5 text-description">리소스를 찾을 수 없습니다</div>
 								)}
 							</VSCodePanelView>
 
@@ -377,14 +377,14 @@ const ServerRow = ({
 											padding: "10px 0",
 											color: "var(--vscode-descriptionForeground)",
 										}}>
-										No prompts found
+										프롬프트를 찾을 수 없습니다
 									</div>
 								)}
 							</VSCodePanelView>
 						</VSCodePanels>
 
 						<div className="my-2.5 mx-1.5">
-							<label className="block mb-1 text-[13px]">Request Timeout</label>
+							<label className="block mb-1 text-[13px]">요청 제한 시간(Timeout)</label>
 							<VSCodeDropdown className="w-full" onChange={handleTimeoutChange} value={timeoutValue}>
 								{TimeoutOptions}
 							</VSCodeDropdown>
@@ -394,7 +394,7 @@ const ServerRow = ({
 							disabled={server.status === "connecting" || isRestarting}
 							onClick={handleRestart}
 							variant="secondary">
-							{server.status === "connecting" || isRestarting ? "Restarting..." : "Restart Server"}
+							{server.status === "connecting" || isRestarting ? "재시작 중..." : "서버 재시작"}
 						</Button>
 
 						{!isRemoteManagedServer && (
@@ -403,7 +403,7 @@ const ServerRow = ({
 								disabled={isDeleting}
 								onClick={handleDelete}
 								variant="danger">
-								{isDeleting ? "Deleting..." : "Delete Server"}
+								{isDeleting ? "삭제 중..." : "서버 삭제"}
 							</Button>
 						)}
 					</div>

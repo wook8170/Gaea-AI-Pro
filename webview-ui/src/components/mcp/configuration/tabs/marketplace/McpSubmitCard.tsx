@@ -31,11 +31,11 @@ const McpSubmitCard = () => {
 						fontWeight: 600,
 						color: "var(--vscode-foreground)",
 					}}>
-					Submit MCP Server
+					MCP 서버 제출하기
 				</h3>
 				<p style={{ fontSize: "13px", margin: 0, color: "var(--vscode-descriptionForeground)" }}>
-					Help others discover great MCP servers by submitting an issue to{" "}
-					<a href="https://github.com/cline/mcp-marketplace">github.com/cline/mcp-marketplace</a>
+					다른 사용자들이 훌륭한 MCP 서버를 발견할 수 있도록{" "}
+					<a href="https://github.com/cline/mcp-marketplace">GitHub 저장소</a>에 이슈를 제출해주세요.
 				</p>
 			</div>
 		</div>

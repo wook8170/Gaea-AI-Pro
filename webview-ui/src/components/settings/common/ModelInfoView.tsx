@@ -100,7 +100,7 @@ const formatCompactPrice = (price: number | undefined): string => {
 		return "N/A"
 	}
 	if (price === 0) {
-		return "Free"
+		return "무료"
 	}
 	if (price < 0.01) {
 		return `$${price.toFixed(4)}/M`
@@ -211,19 +211,19 @@ export const ModelInfoView = ({
 			<InfoRow>
 				{modelInfo.contextWindow !== undefined && modelInfo.contextWindow > 0 && (
 					<InfoItem>
-						<InfoLabel>Context: </InfoLabel>
+						<InfoLabel>문맥(Context): </InfoLabel>
 						<InfoValue>{formatCompactContext(modelInfo.contextWindow)}</InfoValue>
 					</InfoItem>
 				)}
 				{modelInfo.inputPrice !== undefined && (
 					<InfoItem>
-						<InfoLabel>Input: </InfoLabel>
+						<InfoLabel>입력(Input): </InfoLabel>
 						<InfoValue>{formatCompactPrice(modelInfo.inputPrice)}</InfoValue>
 					</InfoItem>
 				)}
 				{modelInfo.outputPrice !== undefined && (
 					<InfoItem>
-						<InfoLabel>Output: </InfoLabel>
+						<InfoLabel>출력(Output): </InfoLabel>
 						<InfoValue>
 							{hasThinkingConfig && modelInfo.thinkingConfig?.outputPrice !== undefined
 								? formatCompactPrice(modelInfo.thinkingConfig.outputPrice)
@@ -236,23 +236,23 @@ export const ModelInfoView = ({
 			{/* Collapsible Advanced Section */}
 			<CollapsibleHeader onClick={() => setAdvancedExpanded(!advancedExpanded)}>
 				<CollapsibleArrow $isExpanded={advancedExpanded}>▶</CollapsibleArrow>
-				Advanced
+				고급 설정
 			</CollapsibleHeader>
 			<CollapsibleContent $isExpanded={advancedExpanded}>
 				<AdvancedSection>
 					{/* Capabilities */}
 					<AdvancedRow>
-						<AdvancedLabel>Images</AdvancedLabel>
-						<AdvancedValue>{hasImages ? "Yes" : "No"}</AdvancedValue>
+						<AdvancedLabel>이미지 지원</AdvancedLabel>
+						<AdvancedValue>{hasImages ? "예" : "아니요"}</AdvancedValue>
 					</AdvancedRow>
 					<AdvancedRow>
-						<AdvancedLabel>Browser</AdvancedLabel>
-						<AdvancedValue>{hasBrowser ? "Yes" : "No"}</AdvancedValue>
+						<AdvancedLabel>브라우저 사용</AdvancedLabel>
+						<AdvancedValue>{hasBrowser ? "예" : "아니요"}</AdvancedValue>
 					</AdvancedRow>
 					{!isGemini && (
 						<AdvancedRow>
-							<AdvancedLabel>Prompt Caching</AdvancedLabel>
-							<AdvancedValue>{hasCaching ? "Yes" : "No"}</AdvancedValue>
+							<AdvancedLabel>프롬프트 캐싱</AdvancedLabel>
+							<AdvancedValue>{hasCaching ? "예" : "아니요"}</AdvancedValue>
 						</AdvancedRow>
 					)}
 
@@ -261,13 +261,13 @@ export const ModelInfoView = ({
 						<>
 							{modelInfo.cacheReadsPrice !== undefined && (
 								<AdvancedRow>
-									<AdvancedLabel>Cache Reads</AdvancedLabel>
+									<AdvancedLabel>캐시 읽기</AdvancedLabel>
 									<AdvancedValue>{formatCompactPrice(modelInfo.cacheReadsPrice)}</AdvancedValue>
 								</AdvancedRow>
 							)}
 							{modelInfo.cacheWritesPrice !== undefined && (
 								<AdvancedRow>
-									<AdvancedLabel>Cache Writes</AdvancedLabel>
+									<AdvancedLabel>캐시 쓰기</AdvancedLabel>
 									<AdvancedValue>{formatCompactPrice(modelInfo.cacheWritesPrice)}</AdvancedValue>
 								</AdvancedRow>
 							)}
@@ -277,7 +277,7 @@ export const ModelInfoView = ({
 					{/* Tiered Pricing */}
 					{hasTiers && (
 						<div style={{ marginTop: 8 }}>
-							<div style={{ fontWeight: 500, marginBottom: 4 }}>Tiered Pricing:</div>
+							<div style={{ fontWeight: 500, marginBottom: 4 }}>계층형 가격책정(Tiered Pricing):</div>
 							{modelInfo.tiers && (
 								<>
 									<div>
@@ -298,15 +298,15 @@ export const ModelInfoView = ({
 					{/* Provider Routing */}
 					{showProviderRouting && onProviderSortingChange && (
 						<ProviderRoutingContainer>
-							<ProviderRoutingLabel>Provider Routing</ProviderRoutingLabel>
+							<ProviderRoutingLabel>제공자 라우팅(Provider Routing)</ProviderRoutingLabel>
 							<VSCodeDropdown
 								onChange={(e: any) => onProviderSortingChange(e.target.value)}
 								style={{ width: "100%" }}
 								value={providerSorting || ""}>
-								<VSCodeOption value="">Default</VSCodeOption>
-								<VSCodeOption value="price">Price</VSCodeOption>
-								<VSCodeOption value="throughput">Throughput</VSCodeOption>
-								<VSCodeOption value="latency">Latency</VSCodeOption>
+								<VSCodeOption value="">기본값</VSCodeOption>
+								<VSCodeOption value="price">가격순</VSCodeOption>
+								<VSCodeOption value="throughput">처리량순(Throughput)</VSCodeOption>
+								<VSCodeOption value="latency">지연시간순(Latency)</VSCodeOption>
 							</VSCodeDropdown>
 							<p
 								style={{
@@ -316,11 +316,12 @@ export const ModelInfoView = ({
 									color: "var(--vscode-descriptionForeground)",
 								}}>
 								{!providerSorting &&
-									"Load balance across providers (AWS, Google Vertex, etc.), prioritizing price while considering uptime"}
-								{providerSorting === "price" && "Sort by price, prioritizing the lowest cost provider"}
+									"여러 제공자(AWS, Google Vertex 등) 간에 부하를 분산하며, 가동 시간을 고려하면서 가격을 우선시합니다."}
+								{providerSorting === "price" && "가격을 기준으로 정렬하여 가장 저렴한 제공자를 우선시합니다."}
 								{providerSorting === "throughput" &&
-									"Sort by throughput, prioritizing highest throughput (may increase cost)"}
-								{providerSorting === "latency" && "Sort by response time, prioritizing lowest latency"}
+									"처리량을 기준으로 정렬하여 가장 높은 처리량을 우선시합니다 (비용이 증가할 수 있음)."}
+								{providerSorting === "latency" &&
+									"응답 시간을 기준으로 정렬하여 가장 낮은 지연시간을 우선시합니다."}
 							</p>
 						</ProviderRoutingContainer>
 					)}

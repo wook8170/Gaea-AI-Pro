@@ -21,19 +21,19 @@ const AddRemoteServerForm = ({ onServerAdded }: { onServerAdded: () => void }) =
 		e.preventDefault()
 
 		if (!serverName.trim()) {
-			setError("Server name is required")
+			setError("서버 이름이 필요합니다")
 			return
 		}
 
 		if (!serverUrl.trim()) {
-			setError("Server URL is required")
+			setError("서버 URL이 필요합니다")
 			return
 		}
 
 		try {
 			new URL(serverUrl)
 		} catch (_err) {
-			setError("Invalid URL format")
+			setError("잘못된 URL 형식입니다")
 			return
 		}
 
@@ -59,17 +59,18 @@ const AddRemoteServerForm = ({ onServerAdded }: { onServerAdded: () => void }) =
 			onServerAdded()
 		} catch (error) {
 			setIsSubmitting(false)
-			setError(error instanceof Error ? error.message : "Failed to add server")
+			setError(error instanceof Error ? error.message : "서버 추가 실패")
 		}
 	}
 
 	return (
 		<div className="p-4 px-5">
 			<div className="text-(--vscode-foreground) mb-2">
-				Add a remote MCP server by providing a name and its URL endpoint. Learn more{" "}
+				이름과 URL 엔드포인트를 입력하여 원격 MCP 서버를 추가하세요. 자세한 내용은{" "}
 				<VSCodeLink href={LINKS.DOCUMENTATION.REMOTE_MCP_SERVER_DOCS} style={{ display: "inline" }}>
-					here.
+					여기
 				</VSCodeLink>
+				를 확인하세요.
 			</div>
 
 			<form onSubmit={handleSubmit}>
@@ -83,7 +84,7 @@ const AddRemoteServerForm = ({ onServerAdded }: { onServerAdded: () => void }) =
 						}}
 						placeholder="mcp-server"
 						value={serverName}>
-						Server Name
+						서버 이름
 					</VSCodeTextField>
 				</div>
 
@@ -97,12 +98,14 @@ const AddRemoteServerForm = ({ onServerAdded }: { onServerAdded: () => void }) =
 						}}
 						placeholder="https://example.com/mcp-server"
 						value={serverUrl}>
-						Server URL
+						서버 URL
 					</VSCodeTextField>
 				</div>
 
 				<div className="mb-3">
-					<label className={`block text-sm font-medium mb-2 ${isSubmitting ? "opacity-50" : ""}`}>Transport Type</label>
+					<label className={`block text-sm font-medium mb-2 ${isSubmitting ? "opacity-50" : ""}`}>
+						전송 유형(Transport Type)
+					</label>
 					<VSCodeRadioGroup
 						disabled={isSubmitting}
 						onChange={(e) => {
@@ -122,7 +125,7 @@ const AddRemoteServerForm = ({ onServerAdded }: { onServerAdded: () => void }) =
 				{error && <div className="mb-3 text-(--vscode-errorForeground)">{error}</div>}
 
 				<VSCodeButton className="w-full" disabled={isSubmitting} type="submit">
-					{isSubmitting ? "Connecting..." : "Add Server"}
+					{isSubmitting ? "연결 중..." : "서버 추가"}
 				</VSCodeButton>
 
 				<VSCodeButton
@@ -133,7 +136,7 @@ const AddRemoteServerForm = ({ onServerAdded }: { onServerAdded: () => void }) =
 						})
 					}}
 					style={{ width: "100%", marginBottom: "5px", marginTop: 15 }}>
-					Edit Configuration
+					구성 편집
 				</VSCodeButton>
 			</form>
 		</div>

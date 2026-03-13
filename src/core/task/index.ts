@@ -379,7 +379,8 @@ export class Task {
 
 		if (isMultiRootWorkspace && checkpointsEnabled) {
 			// Set checkpoint manager error message to display warning in TaskHeader
-			this.taskState.checkpointManagerErrorMessage = "Checkpoints are not currently supported in multi-root workspaces."
+			this.taskState.checkpointManagerErrorMessage =
+				"현재 멀티 루트 워크스페이스에서는 체크포인트 기능이 지원되지 않습니다."
 		}
 
 		// Initialize checkpoint manager based on workspace configuration
@@ -418,7 +419,7 @@ export class Task {
 			} catch (error) {
 				Logger.error("Failed to initialize checkpoint manager:", error)
 				if (this.stateManager.getGlobalSettingsKey("enableCheckpointsSetting")) {
-					const errorMessage = error instanceof Error ? error.message : "Unknown error"
+					const errorMessage = error instanceof Error ? error.message : "알 수 없는 오류"
 					HostProvider.window.showMessage({
 						type: ShowMessageType.ERROR,
 						message: `Failed to initialize checkpoint manager: ${errorMessage}`,
@@ -1647,7 +1648,7 @@ export class Task {
 			}
 
 			// Notify UI that hook was cancelled
-			await this.say("hook_output_stream", "\nHook execution cancelled by user")
+			await this.say("hook_output_stream", "\n사용자에 의해 훅 실행이 취소되었습니다.")
 
 			// Return success - let caller (abortTask) handle next steps
 			// DON'T call abortTask() here to avoid infinite recursion
@@ -1968,7 +1969,7 @@ export class Task {
 					// If the conversation has more than 3 messages, we can truncate again. If not, then the conversation is bricked.
 					// ToDo: Allow the user to change their input if this is the case.
 					if (truncatedConversationHistory.length > 3) {
-						clineError.message = "Context window exceeded. Click retry to truncate the conversation and try again."
+						clineError.message = "컨텍스트 창을 초과했습니다. 다시 시도를 클릭하여 대화를 자르고 다시 시도하세요."
 						this.taskState.didAutomaticallyRetryFailedApiRequest = false
 					}
 				}
@@ -2287,8 +2288,8 @@ export class Task {
 			// In yolo mode, don't wait for user input - fail the task
 			if (this.stateManager.getGlobalSettingsKey("yoloModeToggled")) {
 				const errorMessage =
-					`[YOLO MODE] Task failed: Too many consecutive mistakes (${this.taskState.consecutiveMistakeCount}). ` +
-					`The model may not be capable enough for this task. Consider using a more capable model.`
+					`[YOLO 모드] 작업 실패: 너무 많은 연속적인 실수(${this.taskState.consecutiveMistakeCount}회)가 발생했습니다. ` +
+					`현재 모델이 이 작업에 적합하지 않을 수 있습니다. 더 성능이 좋은 모델을 사용해 보세요.`
 				await this.say("error", errorMessage)
 				// End the task loop with failure
 				return true // didEndLoop = true, signals task completion/failure
@@ -2297,15 +2298,15 @@ export class Task {
 			const autoApprovalSettings = this.stateManager.getGlobalSettingsKey("autoApprovalSettings")
 			if (autoApprovalSettings.enableNotifications) {
 				showSystemNotification({
-					subtitle: "Error",
-					message: "Cline is having trouble. Would you like to continue the task?",
+					subtitle: "오류",
+					message: "Gaea AI Pro에서 문제가 발생했습니다. 작업을 계속하시겠습니까?",
 				})
 			}
 			const { response, text, images, files } = await this.ask(
 				"mistake_limit_reached",
 				this.api.getModel().id.includes("claude")
-					? `This may indicate a failure in Cline's thought process or inability to use a tool properly, which can be mitigated with some user guidance (e.g. "Try breaking down the task into smaller steps").`
-					: "Cline uses complex prompts and iterative task execution that may be challenging for less capable models. For best results, it's recommended to use Claude 4.5 Sonnet for its advanced agentic coding capabilities.",
+					? `Gaea AI Pro의 생각 과정에 오류가 있거나 도구를 제대로 사용하지 못하는 상태일 수 있습니다. 이는 사용자의 적절한 가이드(예: "작업을 더 작은 단계로 나누어 보세요")를 통해 해결될 수 있습니다.`
+					: "Gaea AI Pro는 복잡한 프롬프트와 반복적인 작업 수행을 사용하므로 성능이 낮은 모델에서는 효율이 떨어질 수 있습니다. 최상의 결과를 얻으려면 고급 에이전트 코딩 기능이 뛰어난 Claude 3.5 Sonnet을 사용하는 것이 좋습니다.",
 			)
 			if (response === "messageResponse") {
 				// Display the user's message in the chat UI
@@ -2355,7 +2356,7 @@ export class Task {
 			try {
 				await ensureCheckpointInitialized({ checkpointManager: this.checkpointManager })
 			} catch (error) {
-				const errorMessage = error instanceof Error ? error.message : "Unknown error"
+				const errorMessage = error instanceof Error ? error.message : "알 수 없는 오류"
 				Logger.error("Failed to initialize checkpoint manager:", errorMessage)
 				this.taskState.checkpointManagerErrorMessage = errorMessage // will be displayed right away since we saveClineMessages next which posts state to webview
 				HostProvider.window.showMessage({
@@ -3120,8 +3121,8 @@ export class Task {
 				})
 
 				const baseErrorMessage =
-					"Invalid API Response: The provider returned an empty or unparsable response. This is a provider-side issue where the model failed to generate valid output or returned tool calls that Cline cannot process. Retrying the request may help resolve this issue."
-				const errorText = reqId ? `${baseErrorMessage} (Request ID: ${reqId})` : baseErrorMessage
+					"잘못된 API 응답: 제공자가 비어 있거나 해석할 수 없는 응답을 반환했습니다. 이는 모델이 유효한 출력을 생성하지 못했거나 Gaea AI Pro가 처리할 수 없는 도구 호출을 반환한 제공자 측의 문제입니다. 요청을 다시 시도하면 이 문제를 해결하는 데 도움이 될 수 있습니다."
+				const errorText = reqId ? `${baseErrorMessage} (요청 ID: ${reqId})` : baseErrorMessage
 
 				await this.say("error", errorText)
 				await this.messageStateHandler.addToApiConversationHistory({
@@ -3129,7 +3130,7 @@ export class Task {
 					content: [
 						{
 							type: "text",
-							text: "Failure: I did not provide a response.",
+							text: "실패: 응답이 제공되지 않았습니다.",
 						},
 					],
 					modelInfo,
@@ -3147,7 +3148,7 @@ export class Task {
 
 				let response: ClineAskResponse
 
-				const noResponseErrorMessage = "No assistant message was received. Would you like to retry the request?"
+				const noResponseErrorMessage = "어시스턴트로부터 응답을 받지 못했습니다. 다시 시도하시겠습니까?"
 
 				if (this.taskState.autoRetryAttempts < 3) {
 					// Auto-retry enabled with max 3 attempts: automatically approve the retry

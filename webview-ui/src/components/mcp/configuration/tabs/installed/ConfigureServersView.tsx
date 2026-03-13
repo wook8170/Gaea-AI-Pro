@@ -19,18 +19,17 @@ const ConfigureServersView = () => {
 					marginBottom: "16px",
 					marginTop: "5px",
 				}}>
-				The{" "}
 				<VSCodeLink href="https://github.com/modelcontextprotocol" style={{ display: "inline" }}>
-					Model Context Protocol
+					Model Context Protocol(MCP)
 				</VSCodeLink>{" "}
-				enables communication with locally running MCP servers that provide additional tools and resources to extend
-				Cline's capabilities. You can use{" "}
+				은 로컬에서 실행 중인 MCP 서버와 통신하여 Gaea-AI-Pro의 기능을 확장할 수 있는 추가 도구와 리소스를 제공합니다.{" "}
 				<VSCodeLink href="https://github.com/modelcontextprotocol/servers" style={{ display: "inline" }}>
-					community-made servers
+					커뮤니티에서 만든 서버
 				</VSCodeLink>{" "}
-				or ask Cline to create new tools specific to your workflow (e.g., "add a tool that gets the latest npm docs").{" "}
+				를 사용하거나, Gaea-AI-Pro에게 특정 워크플로우를 위한 새로운 도구를 만들어달라고 요청할 수 있습니다 (예: "최신 npm
+				문서를 가져오는 도구 추가해줘").{" "}
 				<VSCodeLink href="https://x.com/sdrzn/status/1867271665086074969" style={{ display: "inline" }}>
-					See a demo here.
+					데모 보기.
 				</VSCodeLink>
 			</div>
 
@@ -38,7 +37,7 @@ const ConfigureServersView = () => {
 			{hasRemoteMCPServers && (
 				<div className="flex items-center gap-2 px-5 py-3 mb-4 bg-vscode-textBlockQuote-background border-l-[3px] border-vscode-textLink-foreground">
 					<i className="codicon codicon-lock text-sm" />
-					<span className="text-base">Your organization manages some MCP servers</span>
+					<span className="text-base">조직에서 일부 MCP 서버를 관리합니다</span>
 				</div>
 			)}
 
@@ -54,13 +53,13 @@ const ConfigureServersView = () => {
 						})
 					}}
 					style={{ width: "100%", marginBottom: "5px" }}>
-					<span className="codicon codicon-server" style={{ marginRight: "6px" }}></span>
-					Configure MCP Servers
+					<span className="codicon codicon-server" style={{ marginRight: "6px" }} />
+					MCP 서버 구성
 				</VSCodeButton>
 
 				<div style={{ textAlign: "center" }}>
 					<VSCodeLink onClick={() => navigateToSettings("features")} style={{ fontSize: "12px" }}>
-						Advanced MCP Settings
+						고급 MCP 설정
 					</VSCodeLink>
 				</div>
 			</div>

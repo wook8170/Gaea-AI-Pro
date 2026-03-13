@@ -23,9 +23,9 @@ interface FocusChainProps {
 }
 
 // Static strings to avoid recreating them
-const COMPLETED_MESSAGE = "All tasks have been completed!"
+const COMPLETED_MESSAGE = "모든 작업이 완료되었습니다!"
 const TODO_LIST_LABEL = "To-Do list"
-const NEW_STEPS_MESSAGE = "New steps will be generated if you continue the task"
+const NEW_STEPS_MESSAGE = "작업을 계속하면 새로운 단계가 생성됩니다"
 const CLICK_TO_EDIT_TITLE = "Click to edit to-do list in file"
 
 // Optimized header component with minimal re-renders

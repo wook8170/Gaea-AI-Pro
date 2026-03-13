@@ -15,8 +15,8 @@ interface ReasoningEffortSelectorProps {
 
 const ReasoningEffortSelector = ({
 	currentMode,
-	label = "Reasoning Effort",
-	description = "Higher effort improves depth, but uses more tokens.",
+	label = "추론 수준(Reasoning Effort)",
+	description = "수준이 높을수록 깊이 있는 추론이 가능하지만, 더 많은 토큰을 사용합니다.",
 	allowedEfforts = OPENAI_REASONING_EFFORT_OPTIONS,
 }: ReasoningEffortSelectorProps) => {
 	const { apiConfiguration } = useExtensionState()
@@ -41,7 +41,7 @@ const ReasoningEffortSelector = ({
 				<SelectContent>
 					{allowedEfforts.map((effort) => (
 						<SelectItem key={effort} value={effort}>
-							{effort.charAt(0).toUpperCase() + effort.slice(1)}
+							{effort === "low" ? "낮음" : effort === "medium" ? "중간" : effort === "high" ? "높음" : effort}
 						</SelectItem>
 					))}
 				</SelectContent>

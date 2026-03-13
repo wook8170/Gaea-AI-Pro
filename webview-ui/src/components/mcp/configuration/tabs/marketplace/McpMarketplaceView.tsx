@@ -73,7 +73,7 @@ const McpMarketplaceView = () => {
 		}
 	}, [mcpMarketplaceCatalog])
 
-	const fetchMarketplace = (forceRefresh: boolean = false) => {
+	const fetchMarketplace = (forceRefresh = false) => {
 		if (forceRefresh) {
 			setIsRefreshing(true)
 		} else {
@@ -88,7 +88,7 @@ const McpMarketplaceView = () => {
 				})
 				.catch((error) => {
 					console.error("Error refreshing MCP marketplace:", error)
-					setError("Failed to load marketplace data")
+					setError("마켓플레이스 데이터를 불러오지 못했습니다")
 					setIsLoading(false)
 					setIsRefreshing(false)
 				})
@@ -125,7 +125,7 @@ const McpMarketplaceView = () => {
 				<div style={{ color: "var(--vscode-errorForeground)" }}>{error}</div>
 				<VSCodeButton appearance="secondary" onClick={() => fetchMarketplace(true)}>
 					<span className="codicon codicon-refresh" style={{ marginRight: "6px" }} />
-					Retry
+					재시도
 				</VSCodeButton>
 			</div>
 		)
@@ -142,7 +142,7 @@ const McpMarketplaceView = () => {
 				{/* Search row */}
 				<VSCodeTextField
 					onInput={(e) => setSearchQuery((e.target as HTMLInputElement).value)}
-					placeholder="Search MCPs..."
+					placeholder="서버 검색..."
 					style={{ width: "100%" }}
 					value={searchQuery}>
 					<div
@@ -155,7 +155,7 @@ const McpMarketplaceView = () => {
 					/>
 					{searchQuery && (
 						<div
-							aria-label="Clear search"
+							aria-label="검색어 지우기"
 							className="codicon codicon-close"
 							onClick={() => setSearchQuery("")}
 							slot="end"
@@ -185,7 +185,7 @@ const McpMarketplaceView = () => {
 							fontWeight: 500,
 							flexShrink: 0,
 						}}>
-						Filter:
+						필터:
 					</span>
 					<div
 						style={{
@@ -199,7 +199,7 @@ const McpMarketplaceView = () => {
 								width: "100%",
 							}}
 							value={selectedCategory || ""}>
-							<VSCodeOption value="">All Categories</VSCodeOption>
+							<VSCodeOption value="">모든 카테고리</VSCodeOption>
 							{categories.map((category) => (
 								<VSCodeOption key={category} value={category}>
 									{category}
@@ -223,7 +223,7 @@ const McpMarketplaceView = () => {
 							fontWeight: 500,
 							marginTop: "3px",
 						}}>
-						Sort:
+						정렬:
 					</span>
 					<VSCodeRadioGroup
 						onChange={(e) => setSortBy((e.target as HTMLInputElement).value as typeof sortBy)}
@@ -233,10 +233,10 @@ const McpMarketplaceView = () => {
 							marginTop: "-2.5px",
 						}}
 						value={sortBy}>
-						<VSCodeRadio value="downloadCount">Most Installs</VSCodeRadio>
-						<VSCodeRadio value="newest">Newest</VSCodeRadio>
-						<VSCodeRadio value="stars">GitHub Stars</VSCodeRadio>
-						<VSCodeRadio value="name">Name</VSCodeRadio>
+						<VSCodeRadio value="downloadCount">설치순</VSCodeRadio>
+						<VSCodeRadio value="newest">최신순</VSCodeRadio>
+						<VSCodeRadio value="stars">추천순(Stars)</VSCodeRadio>
+						<VSCodeRadio value="name">이름순</VSCodeRadio>
 					</VSCodeRadioGroup>
 				</div>
 			</div>
@@ -265,7 +265,7 @@ const McpMarketplaceView = () => {
 			{remoteConfigSettings?.allowedMCPServers && (
 				<div className="flex items-center gap-2 px-5 py-3 mx-5 mb-4 bg-vscode-textBlockQuote-background border-l-[3px] border-vscode-textLink-foreground">
 					<i className="codicon codicon-lock text-sm" />
-					<span className="text-[13px]">Your organization has pre-configured the available MCP servers</span>
+					<span className="text-[13px]">조직에서 사용 가능한 MCP 서버를 미리 구성했습니다</span>
 				</div>
 			)}
 
@@ -281,8 +281,8 @@ const McpMarketplaceView = () => {
 							color: "var(--vscode-descriptionForeground)",
 						}}>
 						{searchQuery || selectedCategory
-							? "No matching MCP servers found"
-							: "No MCP servers found in the marketplace"}
+							? "일치하는 MCP 서버를 찾을 수 없습니다"
+							: "마켓플레이스에서 MCP 서버를 찾을 수 없습니다"}
 					</div>
 				) : (
 					filteredItems.map((item) => (

@@ -313,17 +313,17 @@ export const ChatRowContent = memo(
 				case "error":
 					return [
 						<span className="codicon codicon-error text-error mb-[-1.5px]" />,
-						<span className="text-error font-bold">Error</span>,
+						<span className="text-error font-bold">오류</span>,
 					]
 				case "mistake_limit_reached":
 					return [
 						<CircleXIcon className="text-error size-2" />,
-						<span className="text-error font-bold">Cline is having trouble...</span>,
+						<span className="text-error font-bold">Gaea-AI-Pro에 문제가 발생했습니다...</span>,
 					]
 				case "command":
 					return [
 						<TerminalIcon className="text-foreground size-2" />,
-						<span className="font-bold text-foreground">Cline wants to execute this command:</span>,
+						<span className="font-bold text-foreground">Gaea-AI-Pro가 이 명령어를 실행하려고 합니다:</span>,
 					]
 				case "use_mcp_server":
 					const mcpServerUse = JSON.parse(message.text || "{}") as ClineAskUseMcpServer
@@ -334,17 +334,17 @@ export const ChatRowContent = memo(
 							<span className="codicon codicon-server text-foreground mb-[-1.5px]" />
 						),
 						<span className="ph-no-capture font-bold text-foreground break-words">
-							Cline wants to {mcpServerUse.type === "use_mcp_tool" ? "use a tool" : "access a resource"} on the{" "}
+							Gaea-AI-Pro가 {mcpServerUse.type === "use_mcp_tool" ? "도구를 사용" : "리소스에 액세스"}하려고 합니다:{" "}
 							<code className="break-all">
 								{getMcpServerDisplayName(mcpServerUse.serverName, mcpMarketplaceCatalog)}
 							</code>{" "}
-							MCP server:
+							MCP 서버:
 						</span>,
 					]
 				case "completion_result":
 					return [
 						<span className="codicon codicon-check text-success mb-[-1.5px]" />,
-						<span className="text-success font-bold">Task Completed</span>,
+						<span className="text-success font-bold">작업 완료</span>,
 					]
 				case "api_req_started":
 					// API request rows no longer render the request payload/cost accordion.
@@ -353,7 +353,7 @@ export const ChatRowContent = memo(
 				case "followup":
 					return [
 						<span className="codicon codicon-question text-foreground mb-[-1.5px]" />,
-						<span className="font-bold text-foreground">Cline has a question:</span>,
+						<span className="font-bold text-foreground">Gaea-AI-Pro가 질문이 있습니다:</span>,
 					]
 				default:
 					return [null, null]
@@ -402,7 +402,7 @@ export const ChatRowContent = memo(
 			const names = conditionalRulesInfo.rules.map((r: { name: string }) => r.name).join(", ")
 			return (
 				<div className={HEADER_CLASSNAMES}>
-					<span style={{ fontWeight: "bold" }}>Conditional rules applied:</span>
+					<span style={{ fontWeight: "bold" }}>조건부 규칙이 적용되었습니다:</span>
 					<span className="ph-no-capture break-words whitespace-pre-wrap">{names}</span>
 				</div>
 			)
@@ -466,7 +466,7 @@ export const ChatRowContent = memo(
 								<SquareMinusIcon className="size-2" />
 								{tool.operationIsLocatedInWorkspace === false &&
 									toolIcon("sign-out", "yellow", -90, "This file is outside of your workspace")}
-								<span style={{ fontWeight: "bold" }}>Cline wants to delete this file:</span>
+								<span style={{ fontWeight: "bold" }}>Gaea-AI-Pro가 이 파일을 삭제하려고 합니다:</span>
 							</div>
 							<CodeAccordian
 								// isLoading={message.partial}
@@ -484,7 +484,7 @@ export const ChatRowContent = memo(
 								<FilePlus2Icon className="size-2" />
 								{tool.operationIsLocatedInWorkspace === false &&
 									toolIcon("sign-out", "yellow", -90, "This file is outside of your workspace")}
-								<span className="font-bold">Cline wants to create a new file:</span>
+								<span className="font-bold">Gaea-AI-Pro가 새 파일을 생성하려고 합니다:</span>
 							</div>
 							{backgroundEditEnabled && tool.path && tool.content ? (
 								<DiffEditRow patch={tool.content} path={tool.path} startLineNumbers={tool.startLineNumbers} />
@@ -538,7 +538,7 @@ export const ChatRowContent = memo(
 							<div className={HEADER_CLASSNAMES}>
 								{toolIcon("folder-opened")}
 								{tool.operationIsLocatedInWorkspace === false &&
-									toolIcon("sign-out", "yellow", -90, "This is outside of your workspace")}
+									toolIcon("sign-out", "yellow", -90, "이 작업은 워크스페이스 외부에서 수행됩니다")}
 								<span style={{ fontWeight: "bold" }}>
 									{message.type === "ask"
 										? "Gaea-AI-Pro가 이 디렉토리의 최상위 파일 목록을 보려고 합니다:"
@@ -560,7 +560,7 @@ export const ChatRowContent = memo(
 							<div className={HEADER_CLASSNAMES}>
 								{toolIcon("folder-opened")}
 								{tool.operationIsLocatedInWorkspace === false &&
-									toolIcon("sign-out", "yellow", -90, "This is outside of your workspace")}
+									toolIcon("sign-out", "yellow", -90, "이 작업은 워크스페이스 외부에서 수행됩니다")}
 								<span style={{ fontWeight: "bold" }}>
 									{message.type === "ask"
 										? "Gaea-AI-Pro가 이 디렉토리의 모든 파일을 재귀적으로 보려고 합니다:"
@@ -641,7 +641,7 @@ export const ChatRowContent = memo(
 									{isExpanded ? (
 										<div>
 											<div className="flex items-center mb-2">
-												<span className="font-bold mr-1">Summary:</span>
+												<span className="font-bold mr-1">요약:</span>
 												<div className="grow" />
 												<ChevronDownIcon className="my-0.5 shrink-0 size-4" />
 											</div>
@@ -665,7 +665,7 @@ export const ChatRowContent = memo(
 							<div className={HEADER_CLASSNAMES}>
 								<Link2Icon className="size-2" />
 								{tool.operationIsLocatedInWorkspace === false &&
-									toolIcon("sign-out", "yellow", -90, "This URL is external")}
+									toolIcon("sign-out", "yellow", -90, "이 URL은 외부 주소입니다")}
 								<span className="font-bold">
 									{message.type === "ask"
 										? "Gaea-AI-Pro가 이 URL에서 콘텐츠를 가져오려고 합니다:"
@@ -694,7 +694,7 @@ export const ChatRowContent = memo(
 							<div className={HEADER_CLASSNAMES}>
 								<SearchIcon className="size-2 rotate-90" />
 								{tool.operationIsLocatedInWorkspace === false &&
-									toolIcon("sign-out", "yellow", -90, "This search is external")}
+									toolIcon("sign-out", "yellow", -90, "이 검색은 외부 서비스에서 수행됩니다")}
 								<span className="font-bold">
 									{message.type === "ask"
 										? "Gaea-AI-Pro가 다음 내용을 웹에서 검색하려고 합니다:"

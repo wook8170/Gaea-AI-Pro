@@ -435,11 +435,13 @@ const ClineRulesToggleModal: React.FC = () => {
 		<div className="inline-flex min-w-0 max-w-full items-center" ref={modalRef}>
 			<div className="inline-flex w-full items-center" ref={buttonRef}>
 				<Tooltip>
-					{!isVisible && <TooltipContent>Manage Cline Rules & Workflows</TooltipContent>}
+					{!isVisible && <TooltipContent>Gaea-AI-Pro 규칙 및 워크플로우 관리</TooltipContent>}
 					<TooltipTrigger>
 						<VSCodeButton
 							appearance="icon"
-							aria-label={isVisible ? "Hide Cline Rules & Workflows" : "Show Cline Rules & Workflows"}
+							aria-label={
+								isVisible ? "Gaea-AI-Pro 규칙 및 워크플로우 숨기기" : "Gaea-AI-Pro 규칙 및 워크플로우 표시"
+							}
 							className="p-0 m-0 flex items-center"
 							onClick={() => setIsVisible(!isVisible)}>
 							<i className="codicon codicon-law" style={{ fontSize: "12.5px" }} />
@@ -466,18 +468,18 @@ const ClineRulesToggleModal: React.FC = () => {
 									borderBottom: "1px solid var(--vscode-panel-border)",
 								}}>
 								<TabButton isActive={currentView === "rules"} onClick={() => setCurrentView("rules")}>
-									Rules
+									규칙
 								</TabButton>
 								<TabButton isActive={currentView === "workflows"} onClick={() => setCurrentView("workflows")}>
-									Workflows
+									워크플로우
 								</TabButton>
 								{hooksEnabled && (
 									<TabButton isActive={currentView === "hooks"} onClick={() => setCurrentView("hooks")}>
-										Hooks
+										훅
 									</TabButton>
 								)}
 								<TabButton isActive={currentView === "skills"} onClick={() => setCurrentView("skills")}>
-									Skills
+									스킬
 								</TabButton>
 							</div>
 						</div>
@@ -488,8 +490,8 @@ const ClineRulesToggleModal: React.FC = () => {
 								<i className="codicon codicon-lock text-sm" />
 								<span className="text-base">
 									{currentView === "rules"
-										? "Your organization manages some rules"
-										: "Your organization manages some workflows"}
+										? "조직에서 일부 규칙을 관리합니다"
+										: "조직에서 일부 워크플로우를 관리합니다"}
 								</span>
 							</div>
 						) : null}
@@ -498,8 +500,8 @@ const ClineRulesToggleModal: React.FC = () => {
 						<div className="text-xs text-description mb-4">
 							{currentView === "rules" ? (
 								<p>
-									Rules allow you to provide Cline with system-level guidance. Think of them as a persistent way
-									to include context and preferences for your projects or globally for every conversation.{" "}
+									규칙을 통해 Gaea-AI-Pro에게 시스템 수준의 가이드를 제공할 수 있습니다. 프로젝트 또는 모든
+									대화에 대해 지속적으로 컨텍스트와 기본 설정을 포함하는 방법입니다.{" "}
 									<VSCodeLink
 										className="text-xs"
 										href="https://docs.gaea-ai-pro.bot/features/cline-rules"
@@ -509,9 +511,9 @@ const ClineRulesToggleModal: React.FC = () => {
 								</p>
 							) : currentView === "workflows" ? (
 								<p>
-									Workflows allow you to define a series of steps to guide Cline through a repetitive set of
-									tasks, such as deploying a service or submitting a PR. To invoke a workflow, type{" "}
-									<span className="text-foreground font-bold">/workflow-name</span> in the chat.{" "}
+									워크플로우를 사용하면 서비스 배포나 PR 제출과 같이 반복적인 작업 세트를 통해 Gaea-AI-Pro를
+									안내하는 일련의 단계를 정의할 수 있습니다. 워크플로우를 호출하려면 채팅창에{" "}
+									<span className="text-foreground font-bold">/워크플로우-이름</span> 을 입력하세요.{" "}
 									<VSCodeLink
 										className="text-xs inline"
 										href="https://docs.gaea-ai-pro.bot/features/slash-commands/workflows">
@@ -520,14 +522,14 @@ const ClineRulesToggleModal: React.FC = () => {
 								</p>
 							) : currentView === "skills" ? (
 								<p>
-									Skills are reusable instruction sets that Cline can activate on-demand. When a task matches a
-									skill's description, Cline uses the <span className="font-bold">use_skill</span> tool to load
-									the full instructions.
+									스킬은 Gaea-AI-Pro가 필요에 따라 활성화할 수 있는 재사용 가능한 지침 세트입니다. 작업이 스킬
+									설명과 일치할 때, Gaea-AI-Pro는 <span className="font-bold">use_skill</span> 도구를 사용하여
+									전체 지침을 로드합니다.
 								</p>
 							) : (
 								<p>
-									Hooks allow you to execute custom scripts at specific points in Cline's execution lifecycle,
-									enabling automation and integration with external tools.
+									훅을 사용하면 Gaea-AI-Pro의 실행 수명 주기의 특정 시점에서 사용자 지정 스크립트를 실행하여
+									외부 도구와의 자동화 및 통합을 지원할 수 있습니다.
 								</p>
 							)}
 						</div>
@@ -540,7 +542,7 @@ const ClineRulesToggleModal: React.FC = () => {
 								{/* Remote Rules Section */}
 								{hasRemoteRules && (
 									<div className="mb-3">
-										<div className="text-sm font-normal mb-2">Enterprise Rules</div>
+										<div className="text-sm font-normal mb-2">엔터프라이즈 규칙</div>
 										<div className="flex flex-col gap-0">
 											{remoteGlobalRules.map((rule) => {
 												const enabled = rule.alwaysEnabled || remoteRulesToggles[rule.name] === true
@@ -563,7 +565,7 @@ const ClineRulesToggleModal: React.FC = () => {
 
 								{/* Global Rules Section */}
 								<div className="mb-3">
-									<div className="text-sm font-normal mb-2">Global Rules</div>
+									<div className="text-sm font-normal mb-2">전역 규칙</div>
 
 									{/* File-based Global Rules */}
 									<RulesToggleList
@@ -579,7 +581,7 @@ const ClineRulesToggleModal: React.FC = () => {
 
 								{/* Local Rules Section */}
 								<div className="-mb-2.5">
-									<div className="text-sm font-normal mb-2">Workspace Rules</div>
+									<div className="text-sm font-normal mb-2">워크스페이스 규칙</div>
 									<RulesToggleList
 										isGlobal={false}
 										listGap="small"
@@ -624,7 +626,7 @@ const ClineRulesToggleModal: React.FC = () => {
 								{/* Remote Workflows Section */}
 								{hasRemoteWorkflows && (
 									<div className="mb-3">
-										<div className="text-sm font-normal mb-2">Enterprise Workflows</div>
+										<div className="text-sm font-normal mb-2">엔터프라이즈 워크플로우</div>
 										<div className="flex flex-col gap-0">
 											{remoteGlobalWorkflows.map((workflow) => {
 												const enabled =
@@ -648,7 +650,7 @@ const ClineRulesToggleModal: React.FC = () => {
 
 								{/* Global Workflows Section */}
 								<div className="mb-3">
-									<div className="text-sm font-normal mb-2">Global Workflows</div>
+									<div className="text-sm font-normal mb-2">전역 워크플로우</div>
 
 									{/* File-based Global Workflows */}
 									<RulesToggleList
@@ -664,7 +666,7 @@ const ClineRulesToggleModal: React.FC = () => {
 
 								{/* Local Workflows Section */}
 								<div className="-mb-2.5">
-									<div className="text-sm font-normal mb-2">Workspace Workflows</div>
+									<div className="text-sm font-normal mb-2">워크스페이스 워크플로우</div>
 									<RulesToggleList
 										isGlobal={false}
 										listGap="small"
@@ -706,7 +708,7 @@ const ClineRulesToggleModal: React.FC = () => {
 
 								{/* Global Hooks */}
 								<div className="mb-3">
-									<div className="text-sm font-normal mb-2">Global Hooks</div>
+									<div className="text-sm font-normal mb-2">전역 훅</div>
 									<div className="flex flex-col gap-0">
 										{globalHooks
 											.sort((a, b) => a.name.localeCompare(b.name))
@@ -780,7 +782,7 @@ const ClineRulesToggleModal: React.FC = () => {
 							<>
 								{/* Global Skills Section */}
 								<div className="mb-3">
-									<div className="text-sm font-normal mb-2">Global Skills</div>
+									<div className="text-sm font-normal mb-2">전역 스킬</div>
 									<div className="flex flex-col gap-0">
 										{globalSkills
 											.sort((a, b) => a.name.localeCompare(b.name))

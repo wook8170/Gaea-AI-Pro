@@ -21,7 +21,7 @@ export const ThinkingRow = memo(
 		isVisible,
 		isExpanded,
 		onToggle,
-		title = "Thinking",
+		title = "추론 중",
 		isStreaming = false,
 		showChevron = true,
 	}: ThinkingRowProps) => {
