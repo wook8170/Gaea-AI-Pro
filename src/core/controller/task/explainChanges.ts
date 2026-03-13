@@ -34,7 +34,7 @@ export async function explainChanges(controller: Controller, request: ExplainCha
 		if (!controller.task) {
 			HostProvider.window.showMessage({
 				type: ShowMessageType.ERROR,
-				message: "No active task",
+				message: "활성 작업이 없습니다.",
 			})
 			relinquishButton()
 			return Empty.create({})
@@ -44,7 +44,7 @@ export async function explainChanges(controller: Controller, request: ExplainCha
 		if (!checkpointManager) {
 			HostProvider.window.showMessage({
 				type: ShowMessageType.ERROR,
-				message: "Checkpoints not enabled",
+				message: "체크포인트가 활성화되지 않았습니다.",
 			})
 			relinquishButton()
 			return Empty.create({})
@@ -54,7 +54,7 @@ export async function explainChanges(controller: Controller, request: ExplainCha
 		if (!checkpointManager.config?.enableCheckpoints) {
 			HostProvider.window.showMessage({
 				type: ShowMessageType.INFORMATION,
-				message: "Checkpoints are disabled in settings. Cannot review changes.",
+				message: "설정에서 체크포인트가 비활성화되어 있습니다. 변경 사항을 검토할 수 없습니다.",
 			})
 			relinquishButton()
 			return Empty.create({})
@@ -65,7 +65,7 @@ export async function explainChanges(controller: Controller, request: ExplainCha
 		if (!messageStateHandler) {
 			HostProvider.window.showMessage({
 				type: ShowMessageType.ERROR,
-				message: "Message state handler not available",
+				message: "메시지 상태 핸들러를 사용할 수 없습니다.",
 			})
 			relinquishButton()
 			return Empty.create({})
@@ -121,7 +121,7 @@ export async function explainChanges(controller: Controller, request: ExplainCha
 			Logger.error(`[explainChanges] Checkpoint tracker not available`)
 			HostProvider.window.showMessage({
 				type: ShowMessageType.ERROR,
-				message: "Checkpoint tracker not available",
+				message: "체크포인트 트래커를 사용할 수 없습니다.",
 			})
 			relinquishButton()
 			return Empty.create({})
@@ -142,7 +142,7 @@ export async function explainChanges(controller: Controller, request: ExplainCha
 		if (!previousCheckpointHash) {
 			HostProvider.window.showMessage({
 				type: ShowMessageType.ERROR,
-				message: "Unexpected error: No checkpoint hash found",
+				message: "예기치 않은 오류: 체크포인트 해시를 찾을 수 없습니다.",
 			})
 			relinquishButton()
 			return Empty.create({})
@@ -152,7 +152,7 @@ export async function explainChanges(controller: Controller, request: ExplainCha
 		if (!changedFiles?.length) {
 			HostProvider.window.showMessage({
 				type: ShowMessageType.INFORMATION,
-				message: "No changes found to review",
+				message: "검토할 변경 사항이 없습니다.",
 			})
 			relinquishButton()
 			return Empty.create({})
@@ -163,7 +163,7 @@ export async function explainChanges(controller: Controller, request: ExplainCha
 		if (!apiConfiguration) {
 			HostProvider.window.showMessage({
 				type: ShowMessageType.ERROR,
-				message: "API configuration not available",
+				message: "API 설정을 사용할 수 없습니다.",
 			})
 			relinquishButton()
 			return Empty.create({})
@@ -185,7 +185,7 @@ export async function explainChanges(controller: Controller, request: ExplainCha
 
 		// If 2 or fewer files, open the diff view first so user sees it immediately
 		if (!shouldRevealComments) {
-			await openDiffView("Explain Changes", changedFiles)
+			await openDiffView("변경 사항 설명", changedFiles)
 		}
 
 		// Capture reference to the task for abort checking
@@ -233,7 +233,7 @@ export async function explainChanges(controller: Controller, request: ExplainCha
 
 		// After all comments are done, open the multi-diff view to show everything together (if 3+ files)
 		if (shouldRevealComments) {
-			await openDiffView("Explain Changes", changedFiles)
+			await openDiffView("변경 사항 설명", changedFiles)
 		}
 
 		// Relinquish button after comments are done
@@ -244,7 +244,7 @@ export async function explainChanges(controller: Controller, request: ExplainCha
 		Logger.error("Error in explainChanges:", errorMessage)
 		HostProvider.window.showMessage({
 			type: ShowMessageType.ERROR,
-			message: "Failed to explain changes: " + errorMessage,
+			message: "변경 사항 설명 실패: " + errorMessage,
 		})
 		sendRelinquishControlEvent()
 		return Empty.create({})

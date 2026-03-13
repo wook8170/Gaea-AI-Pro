@@ -77,7 +77,7 @@ async function orchestrateWorkspaceCommitMsgGeneration(controller: Controller, r
 	if (reposWithChanges.length === 0) {
 		HostProvider.window.showMessage({
 			type: ShowMessageType.INFORMATION,
-			message: "No changes found in any workspace repositories",
+			message: "워크스페이스 저장소에서 변경 사항을 찾을 수 없습니다.",
 		})
 		return
 	}
@@ -143,7 +143,7 @@ async function promptRepoSelection(repos: any[]) {
 	})
 
 	return await vscode.window.showQuickPick(repoItems, {
-		placeHolder: "Select repository for commit message generation",
+		placeHolder: "커밋 메시지를 생성할 저장소를 선택하세요.",
 	})
 }
 
@@ -159,7 +159,7 @@ async function generateCommitMsgForRepository(controller: Controller, repository
 	await vscode.window.withProgress(
 		{
 			location: vscode.ProgressLocation.SourceControl,
-			title: `Generating commit message for ${repoPath.split(path.sep).pop() || "repository"}...`,
+			title: `${repoPath.split(path.sep).pop() || "저장소"}에 대한 커밋 메시지 생성 중...`,
 			cancellable: true,
 		},
 		() => performCommitMsgGeneration(controller, gitDiff, inputBox),
@@ -223,7 +223,7 @@ async function performCommitMsgGeneration(controller: Controller, gitDiff: strin
 		const errorMessage = error instanceof Error ? error.message : String(error)
 		HostProvider.window.showMessage({
 			type: ShowMessageType.ERROR,
-			message: `Failed to generate commit message: ${errorMessage}`,
+			message: `커밋 메시지 생성 실패: ${errorMessage}`,
 		})
 	} finally {
 		vscode.commands.executeCommand("setContext", "cline.isGeneratingCommit", false)

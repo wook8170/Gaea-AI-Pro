@@ -498,7 +498,7 @@ export class TaskCheckpointManager implements ICheckpointManager {
 				if (!changedFiles?.length) {
 					HostProvider.window.showMessage({
 						type: ShowMessageType.INFORMATION,
-						message: "No changes found",
+						message: "변경 사항이 없습니다.",
 					})
 					relinquishButton()
 					return
@@ -509,7 +509,7 @@ export class TaskCheckpointManager implements ICheckpointManager {
 				if (!changedFiles?.length) {
 					HostProvider.window.showMessage({
 						type: ShowMessageType.INFORMATION,
-						message: "No changes found",
+						message: "변경 사항이 없습니다.",
 					})
 					relinquishButton()
 					return
@@ -517,7 +517,7 @@ export class TaskCheckpointManager implements ICheckpointManager {
 			}
 
 			// Open multi-diff editor
-			const title = seeNewChangesSinceLastTaskCompletion ? "New changes" : "Changes since snapshot"
+			const title = seeNewChangesSinceLastTaskCompletion ? "새로운 변경 사항" : "스냅샷 이후 변경 사항"
 			const diffs = changedFiles.map((file) => ({
 				filePath: file.absolutePath,
 				leftContent: file.before,
