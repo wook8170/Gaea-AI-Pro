@@ -164,8 +164,8 @@ export const LMStudioProvider = ({ currentMode }: LMStudioProviderProps) => {
 				</VSCodeLink>{" "}
 				feature with <code>lms server start</code> to use it with this extension.{" "}
 				<div className="text-error">
-					<span className="font-semibold">Note:</span> Cline uses complex prompts and works best with Claude models.
-					Less capable models may not work as expected.
+					<span className="font-semibold">참고:</span> Gaea AI Pro는 복잡한 프롬프트(complex prompts)를 사용하므로
+					Claude 모델에서 가장 잘 작동합니다. 성능이 낮은 모델은 예상대로 작동하지 않을 수 있습니다.
 				</div>
 			</div>
 		</div>

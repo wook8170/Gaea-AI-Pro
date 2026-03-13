@@ -25,17 +25,17 @@ export class VscodeCommentReviewController extends CommentReviewController imple
 
 	/** The currently streaming comment thread */
 	private streamingThread: vscode.CommentThread | null = null
-	private streamingContent: string = ""
+	private streamingContent = ""
 
 	constructor() {
 		super()
 		// Create the comment controller
-		this.commentController = vscode.comments.createCommentController("cline-ai-review", "Cline AI Review")
+		this.commentController = vscode.comments.createCommentController("gaea-ai-review", "Gaea AI Pro 리뷰")
 
 		// Configure options for the reply input
 		this.commentController.options = {
-			placeHolder: "Ask a question about this code...",
-			prompt: "Reply to Cline",
+			placeHolder: "이 코드에 대해 궁금한 점을 물어보세요...",
+			prompt: "Gaea AI Pro에게 답장하기",
 		}
 
 		// Configure the commenting range provider (optional - allows commenting on any line)
@@ -105,7 +105,7 @@ export class VscodeCommentReviewController extends CommentReviewController imple
 			body: new vscode.MarkdownString(comment.comment),
 			mode: vscode.CommentMode.Preview,
 			author: {
-				name: "Cline",
+				name: "Gaea AI Pro",
 				iconPath: vscode.Uri.parse(CLINE_AVATAR_URL),
 			},
 		}
@@ -134,7 +134,7 @@ export class VscodeCommentReviewController extends CommentReviewController imple
 		endLine: number,
 		relativePath?: string,
 		fileContent?: string,
-		revealComment: boolean = false,
+		revealComment = false,
 	): void {
 		// Use virtual diff URI if relativePath and fileContent are provided
 		let uri: vscode.Uri
@@ -149,10 +149,10 @@ export class VscodeCommentReviewController extends CommentReviewController imple
 
 		// Create with placeholder
 		const commentObj: vscode.Comment = {
-			body: new vscode.MarkdownString("_Thinking..._"),
+			body: new vscode.MarkdownString("_생각 중..._"),
 			mode: vscode.CommentMode.Preview,
 			author: {
-				name: "Cline",
+				name: "Gaea AI Pro",
 				iconPath: vscode.Uri.parse(CLINE_AVATAR_URL),
 			},
 		}
@@ -215,10 +215,10 @@ export class VscodeCommentReviewController extends CommentReviewController imple
 
 		// Update the comment body - reassigning comments triggers VS Code to refresh the UI
 		const commentObj: vscode.Comment = {
-			body: new vscode.MarkdownString(this.streamingContent || "_Thinking..._"),
+			body: new vscode.MarkdownString(this.streamingContent || "_생각 중..._"),
 			mode: vscode.CommentMode.Preview,
 			author: {
-				name: "Cline",
+				name: "Gaea AI Pro",
 				iconPath: vscode.Uri.parse(CLINE_AVATAR_URL),
 			},
 		}
@@ -235,12 +235,12 @@ export class VscodeCommentReviewController extends CommentReviewController imple
 		}
 
 		// Finalize with trimmed content
-		const finalContent = this.streamingContent.trim() || "_No comment generated_"
+		const finalContent = this.streamingContent.trim() || "_생성된 코멘트가 없습니다_"
 		const commentObj: vscode.Comment = {
 			body: new vscode.MarkdownString(finalContent),
 			mode: vscode.CommentMode.Preview,
 			author: {
-				name: "Cline",
+				name: "Gaea AI Pro",
 				iconPath: vscode.Uri.parse(CLINE_AVATAR_URL),
 			},
 		}
@@ -328,10 +328,10 @@ export class VscodeCommentReviewController extends CommentReviewController imple
 			let streamingContent = ""
 			const updateStreamingComment = (content: string) => {
 				const streamingComment: vscode.Comment = {
-					body: new vscode.MarkdownString(content || "_Thinking..._"),
+					body: new vscode.MarkdownString(content || "_생각 중..._"),
 					mode: vscode.CommentMode.Preview,
 					author: {
-						name: "Cline",
+						name: "Gaea AI Pro",
 						iconPath: vscode.Uri.parse(CLINE_AVATAR_URL),
 					},
 				}
@@ -340,10 +340,10 @@ export class VscodeCommentReviewController extends CommentReviewController imple
 
 			// Add initial thinking placeholder
 			const thinkingComment: vscode.Comment = {
-				body: new vscode.MarkdownString("_Thinking..._"),
+				body: new vscode.MarkdownString("_생각 중..._"),
 				mode: vscode.CommentMode.Preview,
 				author: {
-					name: "Cline",
+					name: "Gaea AI Pro",
 					iconPath: vscode.Uri.parse(CLINE_AVATAR_URL),
 				},
 			}
@@ -365,11 +365,11 @@ export class VscodeCommentReviewController extends CommentReviewController imple
 					// Show error
 					const errorComment: vscode.Comment = {
 						body: new vscode.MarkdownString(
-							`_Error getting response: ${error instanceof Error ? error.message : "Unknown error"}_`,
+							`_응답을 가져오는 중 오류 발생: ${error instanceof Error ? error.message : "알 수 없는 오류"}_`,
 						),
 						mode: vscode.CommentMode.Preview,
 						author: {
-							name: "Cline",
+							name: "Gaea AI Pro",
 							iconPath: vscode.Uri.parse(CLINE_AVATAR_URL),
 						},
 					}

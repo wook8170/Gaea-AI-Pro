@@ -8,31 +8,31 @@ export interface SlashCommand {
 export const BASE_SLASH_COMMANDS: SlashCommand[] = [
 	{
 		name: "newtask",
-		description: "Create a new task with context from the current task",
+		description: "현재 작업의 컨텍스트를 유지하면서 새 작업을 시작합니다",
 		section: "default",
 		cliCompatible: true,
 	},
 	{
 		name: "deep-planning",
-		description: "Create a comprehensive implementation plan before coding",
+		description: "코딩을 시작하기 전에 종합적인 구현 계획을 수립합니다",
 		section: "default",
 		cliCompatible: true,
 	},
 	{
 		name: "smol",
-		description: "Condenses your current context window",
+		description: "현재 컨텍스트 윈도우를 압축합니다",
 		section: "default",
 		cliCompatible: true,
 	},
 	{
 		name: "newrule",
-		description: "Create a new Cline rule based on your conversation",
+		description: "대화 내용을 바탕으로 새로운 Gaea AI Pro 규칙을 만듭니다",
 		section: "default",
 		cliCompatible: true,
 	},
 	{
 		name: "reportbug",
-		description: "Create a Github issue with Cline",
+		description: "Gaea AI Pro를 사용하여 GitHub 이슈를 생성합니다",
 		section: "default",
 		cliCompatible: true,
 	},
@@ -42,7 +42,7 @@ export const BASE_SLASH_COMMANDS: SlashCommand[] = [
 export const VSCODE_ONLY_COMMANDS: SlashCommand[] = [
 	{
 		name: "explain-changes",
-		description: "Explain code changes between git refs (PRs, commits, branches, etc.)",
+		description: "Git ref(PR, 커밋, 브랜치 등) 간의 코드 변경 사항을 설명합니다",
 		section: "default",
 	},
 ]
@@ -51,49 +51,49 @@ export const VSCODE_ONLY_COMMANDS: SlashCommand[] = [
 export const CLI_ONLY_COMMANDS: SlashCommand[] = [
 	{
 		name: "help",
-		description: "Learn how to use Cline CLI",
+		description: "Gaea AI Pro CLI 사용 방법을 알아봅니다",
 		section: "default",
 		cliCompatible: true,
 	},
 	{
 		name: "settings",
-		description: "Change API provider, auto-approve, and feature settings",
+		description: "API 제공자, 자동 승인 및 기능 설정을 변경합니다",
 		section: "default",
 		cliCompatible: true,
 	},
 	{
 		name: "models",
-		description: "Change the model used for the current mode",
+		description: "현재 모드에서 사용할 모델을 변경합니다",
 		section: "default",
 		cliCompatible: true,
 	},
 	{
 		name: "history",
-		description: "Browse and search task history",
+		description: "작업 히스토리를 찾아보고 검색합니다",
 		section: "default",
 		cliCompatible: true,
 	},
 	{
 		name: "clear",
-		description: "Clear the current task and start fresh",
+		description: "현재 작업을 지우고 새로 시작합니다",
 		section: "default",
 		cliCompatible: true,
 	},
 	{
 		name: "exit",
-		description: "Alternative to Ctrl+C",
+		description: "작업 종료 (Ctrl+C 대용)",
 		section: "default",
 		cliCompatible: true,
 	},
 	{
 		name: "q",
-		description: "Alternative to Ctrl+C",
+		description: "작업 종료 (Ctrl+C 대용)",
 		section: "default",
 		cliCompatible: true,
 	},
 	{
 		name: "skills",
-		description: "View and manage installed skills",
+		description: "설치된 스킬을 확인하고 관리합니다",
 		section: "default",
 		cliCompatible: true,
 	},

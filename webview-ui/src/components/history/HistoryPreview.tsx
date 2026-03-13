@@ -17,8 +17,8 @@ const HistoryPreview = ({ showHistoryView }: HistoryPreviewProps) => {
 
 	const formatDate = (timestamp: number) => {
 		const date = new Date(timestamp)
-		return date?.toLocaleString("en-US", {
-			month: "short",
+		return date?.toLocaleString("ko-KR", {
+			month: "long",
 			day: "numeric",
 		})
 	}
@@ -118,14 +118,15 @@ const HistoryPreview = ({ showHistoryView }: HistoryPreviewProps) => {
 						style={{
 							marginRight: "4px",
 							transform: "scale(0.9)",
-						}}></span>
+						}}
+					/>
 					<span
 						style={{
 							fontWeight: 500,
 							fontSize: "0.85em",
 							textTransform: "uppercase",
 						}}>
-						Recent
+						최근 대화
 					</span>
 				</div>
 				{taskHistory.filter((item) => item.ts && item.task).length > 0 && (
@@ -134,7 +135,7 @@ const HistoryPreview = ({ showHistoryView }: HistoryPreviewProps) => {
 						className="history-view-all-btn"
 						onClick={() => showHistoryView()}
 						type="button">
-						View All
+						전체 보기
 						<span className="codicon codicon-chevron-right" />
 					</button>
 				)}
@@ -177,7 +178,7 @@ const HistoryPreview = ({ showHistoryView }: HistoryPreviewProps) => {
 								fontSize: "var(--vscode-font-size)",
 								padding: "10px 0",
 							}}>
-							No recent tasks
+							최근 대화 기록이 없습니다
 						</div>
 					)}
 				</div>

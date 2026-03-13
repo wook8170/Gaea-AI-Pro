@@ -72,15 +72,7 @@ const AutoApproveModal: React.FC<AutoApproveModalProps> = ({ isVisible, setIsVis
 					maxHeight: "60vh",
 				}}>
 				<div className="mb-2.5 text-muted-foreground text-xs cursor-pointer" onClick={() => setIsVisible(false)}>
-					Gaea-AI-Pro가 승인 요청 없이 다음 작업을 수행하도록 허용합니다.{" "}
-					<a
-						className="text-link hover:text-link-hover"
-						href="https://docs.gaea-ai-pro.bot/features/auto-approve#auto-approve"
-						rel="noopener"
-						style={{ fontSize: "inherit" }}
-						target="_blank">
-						Docs
-					</a>
+					Gaea-AI-Pro가 승인 요청 없이 다음 작업을 수행하도록 허용합니다.
 				</div>
 
 				<div

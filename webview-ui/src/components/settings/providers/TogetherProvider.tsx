@@ -26,10 +26,22 @@ export const TogetherProvider = ({ showModelOptions, isPopup, currentMode }: Tog
 	return (
 		<div>
 			<ApiKeyField
+				helpText="이 키는 로컬에 저장되며 이 확장에서 API 요청을 보내는 데만 사용됩니다. (참고: Gaea AI Pro는 복잡한 프롬프트(complex prompts)를 사용하므로 Claude 모델에서 가장 잘 작동합니다. 성능이 낮은 모델은 예상대로 작동하지 않을 수 있습니다.)"
 				initialValue={apiConfiguration?.togetherApiKey || ""}
 				onChange={(value) => handleFieldChange("togetherApiKey", value)}
 				providerName="Together"
 			/>
+			<p
+				style={{
+					fontSize: "12px",
+					marginTop: 3,
+					color: "var(--vscode-descriptionForeground)",
+				}}>
+				<span style={{ color: "var(--vscode-errorForeground)" }}>
+					(<span style={{ fontWeight: 500 }}>참고:</span> Gaea AI Pro는 복잡한 프롬프트(complex prompts)를 사용하므로
+					Claude 모델에서 가장 잘 작동합니다. 성능이 낮은 모델은 예상대로 작동하지 않을 수 있습니다.)
+				</span>
+			</p>
 			<DebouncedTextField
 				initialValue={togetherModelId || ""}
 				onChange={(value) =>
@@ -39,17 +51,6 @@ export const TogetherProvider = ({ showModelOptions, isPopup, currentMode }: Tog
 				style={{ width: "100%" }}>
 				<span style={{ fontWeight: 500 }}>Model ID</span>
 			</DebouncedTextField>
-			<p
-				style={{
-					fontSize: "12px",
-					marginTop: 3,
-					color: "var(--vscode-descriptionForeground)",
-				}}>
-				<span style={{ color: "var(--vscode-errorForeground)" }}>
-					(<span style={{ fontWeight: 500 }}>Note:</span> Cline uses complex prompts and works best with Claude models.
-					Less capable models may not work as expected.)
-				</span>
-			</p>
 		</div>
 	)
 }
