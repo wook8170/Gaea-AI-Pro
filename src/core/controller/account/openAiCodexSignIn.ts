@@ -25,7 +25,7 @@ export async function openAiCodexSignIn(controller: Controller, _: EmptyRequest)
 			.then(async () => {
 				HostProvider.window.showMessage({
 					type: ShowMessageType.INFORMATION,
-					message: "Successfully signed in to OpenAI Codex",
+					message: "OpenAI Codex에 성공적으로 로그인되었습니다.",
 				})
 				await controller.postStateToWebview()
 			})
@@ -37,7 +37,7 @@ export async function openAiCodexSignIn(controller: Controller, _: EmptyRequest)
 				if (!errorMessage.includes("timed out")) {
 					HostProvider.window.showMessage({
 						type: ShowMessageType.ERROR,
-						message: `OpenAI Codex sign in failed: ${errorMessage}`,
+						message: `OpenAI Codex 로그인 실패: ${errorMessage}`,
 					})
 				}
 			})

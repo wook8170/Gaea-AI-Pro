@@ -579,11 +579,11 @@ export class OpenAiCodexOAuthManager {
 
 						res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" })
 						res.end(`<!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Authentication Successful</title>
+<title>인증 성공</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -613,9 +613,9 @@ export class OpenAiCodexOAuthManager {
   <div class="icon">
     <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
   </div>
-  <h1>Authentication Successful</h1>
-  <p>You're now signed in to OpenAI Codex. You can close this window and return to your IDE.</p>
-  <p class="closing">This window will close automatically...</p>
+  <h1>인증이 완료되었습니다</h1>
+  <p>OpenAI Codex에 성공적으로 로그인되었습니다. 이 창을 닫고 IDE로 돌아가셔도 좋습니다.</p>
+  <p class="closing">이 창은 잠시 후 자동으로 닫힙니다...</p>
 </div>
 <script>setTimeout(() => window.close(), 3000);</script>
 </body>
