@@ -138,7 +138,7 @@ export const CheckpointOverlay = ({ messageTs }: CheckpointOverlayProps) => {
 					}
 				}}
 				style={{ cursor: compareDisabled ? "wait" : "pointer" }}
-				title="Compare">
+				title="비교">
 				<i className="codicon codicon-diff-multiple" style={{ position: "absolute" }} />
 			</VSCodeButton>
 			<div ref={containerRef} style={{ position: "relative" }}>
@@ -146,7 +146,7 @@ export const CheckpointOverlay = ({ messageTs }: CheckpointOverlayProps) => {
 					appearance="secondary"
 					onClick={() => setShowRestoreConfirm(true)}
 					style={{ cursor: "pointer" }}
-					title="Restore">
+					title="복원">
 					<i className="codicon codicon-discard" style={{ position: "absolute" }} />
 				</VSCodeButton>
 				{showRestoreConfirm && (
@@ -158,9 +158,9 @@ export const CheckpointOverlay = ({ messageTs }: CheckpointOverlayProps) => {
 								style={{
 									cursor: restoreBothDisabled ? "wait" : "pointer",
 								}}>
-								Restore Task and Workspace
+								작업 및 워크스페이스 복원
 							</VSCodeButton>
-							<p>Restores the task and your project's files back to a snapshot taken at this point</p>
+							<p>이 시점의 스냅샷으로 작업과 프로젝트 파일을 되돌립니다</p>
 						</RestoreOption>
 						<RestoreOption>
 							<VSCodeButton
@@ -169,9 +169,9 @@ export const CheckpointOverlay = ({ messageTs }: CheckpointOverlayProps) => {
 								style={{
 									cursor: restoreTaskDisabled ? "wait" : "pointer",
 								}}>
-								Restore Task Only
+								작업만 복원
 							</VSCodeButton>
-							<p>Deletes messages after this point (does not affect workspace)</p>
+							<p>이 시점 이후의 메시지를 삭제합니다 (워크스페이스에는 영향 없음)</p>
 						</RestoreOption>
 						<RestoreOption>
 							<VSCodeButton
@@ -180,9 +180,9 @@ export const CheckpointOverlay = ({ messageTs }: CheckpointOverlayProps) => {
 								style={{
 									cursor: restoreWorkspaceDisabled ? "wait" : "pointer",
 								}}>
-								Restore Workspace Only
+								워크스페이스만 복원
 							</VSCodeButton>
-							<p>Restores your project's files to a snapshot taken at this point (task may become out of sync)</p>
+							<p>이 시점의 스냅샷으로 프로젝트 파일을 되돌립니다 (작업과 동기화가 맞지 않을 수 있음)</p>
 						</RestoreOption>
 					</RestoreConfirmTooltip>
 				)}

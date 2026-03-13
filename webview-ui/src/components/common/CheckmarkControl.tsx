@@ -183,7 +183,7 @@ export const CheckmarkControl = ({ messageTs, isCheckpointCheckedOut }: Checkmar
 					className={cn("text-[9px] text-description shrink-0", {
 						"text-link": isCheckpointCheckedOut,
 					})}>
-					{isCheckpointCheckedOut ? "Checkpoint (restored)" : "Checkpoint"}
+					{isCheckpointCheckedOut ? "체크포인트 (복원됨)" : "체크포인트"}
 				</span>
 				<DottedLine $isCheckedOut={isCheckpointCheckedOut} />
 				<ButtonGroup>
@@ -205,7 +205,7 @@ export const CheckmarkControl = ({ messageTs, isCheckpointCheckedOut }: Checkmar
 							}
 						}}
 						style={{ cursor: compareDisabled ? "wait" : "pointer" }}>
-						Compare
+						비교
 					</CustomButton>
 					<DottedLine $isCheckedOut={isCheckpointCheckedOut} small />
 					<div ref={refs.setReference} style={{ position: "relative", marginTop: -2 }}>
@@ -213,7 +213,7 @@ export const CheckmarkControl = ({ messageTs, isCheckpointCheckedOut }: Checkmar
 							$isCheckedOut={isCheckpointCheckedOut}
 							isActive={showRestoreConfirm}
 							onClick={() => setShowRestoreConfirm(true)}>
-							Restore
+							복원
 						</CustomButton>
 						{showRestoreConfirm &&
 							createPortal(
@@ -231,13 +231,13 @@ export const CheckmarkControl = ({ messageTs, isCheckpointCheckedOut }: Checkmar
 												cursor: restoreBothDisabled ? "wait" : "pointer",
 											}}>
 											<i className="codicon codicon-debug-restart" style={{ marginRight: "6px" }} />
-											Restore Files & Task
+											파일 및 작업 복원
 										</Button>
-										<p>Revert files and clear messages after this point</p>
+										<p>이 시점 이후의 파일을 되돌리고 메시지를 삭제합니다</p>
 									</PrimaryRestoreOption>
 
 									<MoreOptionsToggle onClick={() => setShowMoreOptions(!showMoreOptions)}>
-										More options
+										더 많은 옵션
 										<i
 											className={`codicon codicon-chevron-${showMoreOptions ? "up" : "down"}`}
 											style={{ marginLeft: "4px", fontSize: "10px" }}
@@ -262,9 +262,9 @@ export const CheckmarkControl = ({ messageTs, isCheckpointCheckedOut }: Checkmar
 														className="codicon codicon-file-symlink-directory"
 														style={{ marginRight: "6px" }}
 													/>
-													Restore Files Only
+													파일만 복원
 												</Button>
-												<p>Revert files to this checkpoint</p>
+												<p>이 체크포인트로 파일을 되돌립니다</p>
 											</RestoreOption>
 											<RestoreOption>
 												<Button
@@ -278,9 +278,9 @@ export const CheckmarkControl = ({ messageTs, isCheckpointCheckedOut }: Checkmar
 														className="codicon codicon-comment-discussion"
 														style={{ marginRight: "6px" }}
 													/>
-													Restore Task Only
+													작업만 복원
 												</Button>
-												<p>Clear messages after this point</p>
+												<p>이 시점 이후의 메시지를 삭제합니다</p>
 											</RestoreOption>
 										</AdditionalOptions>
 									)}
