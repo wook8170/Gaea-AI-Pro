@@ -181,15 +181,15 @@ export class MultiRootCheckpointManager implements ICheckpointManager {
 	async restoreCheckpoint(): Promise<any> {
 		const primaryRoot = this.workspaceManager.getPrimaryRoot()
 		if (!primaryRoot) {
-			Logger.error("[MultiRootCheckpointManager] No primary root found")
-			return { error: "No primary workspace found" }
+			Logger.error("[MultiRootCheckpointManager] 기본 워크스페이스 루트를 찾을 수 없습니다.")
+			return { error: "기본 워크스페이스를 찾을 수 없습니다." }
 		}
 
 		const tracker = this.trackers.get(primaryRoot.path)
 
 		if (!tracker) {
-			Logger.error(`[MultiRootCheckpointManager] No tracker found for primary root: ${primaryRoot.path}`)
-			return { error: "No checkpoint tracker for primary workspace" }
+			Logger.error(`[MultiRootCheckpointManager] 기본 루트에 대한 트래커를 찾을 수 없습니다: ${primaryRoot.path}`)
+			return { error: "기본 워크스페이스에 대한 체크포인트 트래커가 없습니다." }
 		}
 
 		Logger.log(`[MultiRootCheckpointManager] Restoring checkpoint for primary root: ${primaryRoot.name}`)
@@ -273,7 +273,7 @@ export class MultiRootCheckpointManager implements ICheckpointManager {
 			if (!this.enableCheckpoints || !this.initialized) {
 				HostProvider.window.showMessage({
 					type: ShowMessageType.ERROR,
-					message: "Checkpoint manager is not initialized.",
+					message: "체크포인트 매니저가 초기화되지 않았습니다.",
 				})
 				return
 			}
@@ -282,7 +282,7 @@ export class MultiRootCheckpointManager implements ICheckpointManager {
 			if (!primaryRoot) {
 				HostProvider.window.showMessage({
 					type: ShowMessageType.ERROR,
-					message: "No primary workspace root configured.",
+					message: "기본 워크스페이스 루트가 설정되지 않았습니다.",
 				})
 				return
 			}
@@ -291,7 +291,7 @@ export class MultiRootCheckpointManager implements ICheckpointManager {
 			if (!tracker) {
 				HostProvider.window.showMessage({
 					type: ShowMessageType.ERROR,
-					message: "No checkpoint tracker available for the primary workspace.",
+					message: "기본 워크스페이스에서 사용할 수 있는 체크포인트 트래커가 없습니다.",
 				})
 				return
 			}
@@ -302,7 +302,7 @@ export class MultiRootCheckpointManager implements ICheckpointManager {
 			Logger.error("[MultiRootCheckpointManager] Failed to present multifile diff:", errorMessage)
 			HostProvider.window.showMessage({
 				type: ShowMessageType.ERROR,
-				message: "Failed to present diff: " + errorMessage,
+				message: "diff 표시 실패: " + errorMessage,
 			})
 		}
 	}

@@ -14,13 +14,16 @@
  */
 @layer base {
 	* {
-		@apply border-border outline-ring/50 text-base;
+		@apply border-border outline-ring/50;
+		font-size: 14px;
 	}
 	body {
 		@apply bg-background text-foreground;
 	}
 	p {
-		@apply my-0 py-0 text-inherit leading-5 block line-clamp-3;
+		@apply my-0 py-0 text-inherit block line-clamp-3;
+		font-size: 14px;
+		line-height: 28px;
 		margin-block-start: 1em;
 		margin-block-end: 1em;
 		margin-inline-start: 0px;
@@ -28,8 +31,8 @@
 		unicode-bidi: isolate;
 	}
 	span {
-		@apply leading-5;
-		font-size: inherit;
+		font-size: 14px;
+		line-height: 28px;
 		color: inherit;
 	}
 	pre {

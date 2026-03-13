@@ -111,6 +111,7 @@ export interface ExtensionState {
 	banners?: BannerCardData[]
 	welcomeBanners?: BannerCardData[]
 	openAiCodexIsAuthenticated?: boolean
+	subagentTerminalOutputLineLimit?: number
 }
 
 export interface ClineMessage {

@@ -143,7 +143,7 @@ class CheckpointTracker {
 			try {
 				await simpleGit().version()
 			} catch (_error) {
-				throw new Error("Git must be installed to use checkpoints.") // FIXME: must match what we check for in TaskHeader to show link
+				throw new Error("체크포인트를 사용하려면 Git이 설치되어 있어야 합니다.") // FIXME: must match what we check for in TaskHeader to show link
 			}
 
 			// Validate and normalize workspace paths - for now, we just use the first valid path
@@ -152,7 +152,7 @@ class CheckpointTracker {
 
 			for (const workspacePath of pathsToValidate) {
 				if (!workspacePath) {
-					throw new Error("At least one workspace path must be provided")
+					throw new Error("최소 하나 이상의 워크스페이스 경로가 제공되어야 합니다.")
 				}
 
 				await validateWorkspacePath(workspacePath)
@@ -210,7 +210,7 @@ class CheckpointTracker {
 	 * - Stage or commit files
 	 */
 	public async commit(): Promise<string | undefined> {
-		let lockAcquired: boolean = false
+		let lockAcquired = false
 
 		try {
 			await this.sendCheckpointSubscriptionEvent("CHECKPOINT_COMMIT", true)
@@ -222,7 +222,7 @@ class CheckpointTracker {
 			// Locking failed due to conflicting lock
 			if (!lockResult.acquired && !lockResult.skipped) {
 				throw new Error(
-					"Failed to acquire checkpoint folder lock - another Cline instance may be performing checkpoint operations",
+					"체크포인트 폴더 잠금을 획득하지 못했습니다. 다른 Gaea AI Pro 인스턴스가 체크포인트 작업을 수행 중일 수 있습니다.",
 				)
 			}
 
@@ -265,7 +265,7 @@ class CheckpointTracker {
 				taskId: this.taskId,
 				error,
 			})
-			throw new Error(`Failed to create checkpoint: ${error instanceof Error ? error.message : String(error)}`)
+			throw new Error(`체크포인트 생성 실패: ${error instanceof Error ? error.message : String(error)}`)
 		} finally {
 			if (lockAcquired) {
 				Logger.info("Releasing checkpoint folder lock")
@@ -334,7 +334,7 @@ class CheckpointTracker {
 	 * - Reset to target commit
 	 */
 	public async resetHead(commitHash: string): Promise<void> {
-		let lockAcquired: boolean = false
+		let lockAcquired = false
 
 		try {
 			Logger.info(`Resetting to checkpoint: ${commitHash}`)
@@ -345,7 +345,7 @@ class CheckpointTracker {
 			// Locking failed due to conflicting lock
 			if (!lockResult.acquired && !lockResult.skipped) {
 				throw new Error(
-					"Failed to acquire checkpoint folder lock - another Cline instance may be performing checkpoint operations",
+					"체크포인트 폴더 잠금을 획득하지 못했습니다. 다른 Gaea AI Pro 인스턴스가 체크포인트 작업을 수행 중일 수 있습니다.",
 				)
 			}
 

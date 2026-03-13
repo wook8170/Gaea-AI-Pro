@@ -14,12 +14,12 @@ interface CreditLimitErrorProps {
 }
 
 const DEFAULT_BUY_CREDITS_URL = {
-	USER: "https://app.cline.bot/dashboard/account?tab=credits&redirect=true",
-	ORG: "https://app.cline.bot/dashboard/organization?tab=credits&redirect=true",
+	USER: "https://app.gaea-ai-pro.bot/dashboard/account?tab=credits&redirect=true",
+	ORG: "https://app.gaea-ai-pro.bot/dashboard/organization?tab=credits&redirect=true",
 }
 
 const CreditLimitError: React.FC<CreditLimitErrorProps> = ({
-	message = "You have run out of credits.",
+	message = "크레딧이 부족합니다.",
 	buyCreditsUrl,
 	currentBalance,
 	totalPromotions,
@@ -56,19 +56,17 @@ const CreditLimitError: React.FC<CreditLimitErrorProps> = ({
 				<div className="mb-3">
 					{currentBalance ? (
 						<div className="text-foreground">
-							Current Balance: <span className="font-bold">{currentBalance.toFixed(2)}</span>
+							현재 잔액: <span className="font-bold">{currentBalance.toFixed(2)}</span>
 						</div>
 					) : null}
-					{totalSpent ? <div className="text-foreground">Total Spent: {totalSpent.toFixed(2)}</div> : null}
-					{totalPromotions ? (
-						<div className="text-foreground">Total Promotions: {totalPromotions.toFixed(2)}</div>
-					) : null}
+					{totalSpent ? <div className="text-foreground">총 지출액: {totalSpent.toFixed(2)}</div> : null}
+					{totalPromotions ? <div className="text-foreground">총 프로모션: {totalPromotions.toFixed(2)}</div> : null}
 				</div>
 			</div>
 
 			<VSCodeButtonLink className="w-full mb-2" href={fullBuyCreditsUrl}>
 				<span className="codicon codicon-credit-card mr-[6px] text-[14px]" />
-				Buy Credits
+				크레딧 충전하기
 			</VSCodeButtonLink>
 
 			<VSCodeButton
@@ -86,7 +84,7 @@ const CreditLimitError: React.FC<CreditLimitErrorProps> = ({
 					}
 				}}>
 				<span className="codicon codicon-refresh mr-1.5" />
-				Retry Request
+				다시 시도
 			</VSCodeButton>
 		</div>
 	)

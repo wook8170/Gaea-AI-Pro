@@ -15,12 +15,12 @@ export const AccountWelcomeView = () => {
 			<ClineLogoVariable className="size-16 mb-4" environment={environment} />
 
 			<p>
-				Sign up for an account to get access to the latest models, billing dashboard to view usage and credits, and more
-				upcoming features.
+				계정을 생성하여 최신 모델을 사용하고, 사용량 및 크레딧을 확인할 수 있는 빌링 대시보드와 더불어 향후 추가될 다양한
+				기능들을 만나보세요.
 			</p>
 
 			<VSCodeButton className="w-full mb-4" disabled={isLoginLoading} onClick={handleSignIn}>
-				Sign up with Cline
+				Gaea AI Pro로 시작하기
 				{isLoginLoading && (
 					<span className="ml-1 animate-spin">
 						<span className="codicon codicon-refresh" />
@@ -29,8 +29,8 @@ export const AccountWelcomeView = () => {
 			</VSCodeButton>
 
 			<p className="text-(--vscode-descriptionForeground) text-xs text-center m-0">
-				By continuing, you agree to the <VSCodeLink href="https://gaea-ai-pro.bot/tos">Terms of Service</VSCodeLink> and{" "}
-				<VSCodeLink href="https://gaea-ai-pro.bot/privacy">Privacy Policy.</VSCodeLink>
+				계속 진행함으로써 귀하는 <VSCodeLink href="https://gaea-ai-pro.bot/tos">서비스 약관</VSCodeLink> 및{" "}
+				<VSCodeLink href="https://gaea-ai-pro.bot/privacy">개인정보 처리방침</VSCodeLink>에 동의하게 됩니다.
 			</p>
 		</div>
 	)

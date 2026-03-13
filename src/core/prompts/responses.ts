@@ -8,45 +8,45 @@ const CONTEXT_WINDOW_WARNING_THRESHOLD_PERCENT = 50
 
 export const formatResponse = {
 	duplicateFileReadNotice: () =>
-		`[[NOTE] This file read has been removed to save space in the context window. Refer to the latest file read for the most up to date version of this file.]`,
+		`[[참고] 이 파일 읽기 기록은 컨텍스트 창 공간을 절약하기 위해 제거되었습니다. 이 파일의 최신 내용은 가장 최근의 파일 읽기 기록을 참조하십시오.]`,
 
 	contextTruncationNotice: () =>
-		`[NOTE] Some previous conversation history with the user has been removed to maintain optimal context window length. The initial user task has been retained for continuity, while intermediate conversation history has been removed. Keep this in mind as you continue assisting the user. Pay special attention to the user's latest messages.`,
+		`[참고] 최적의 컨텍스트 창 길이를 유지하기 위해 사용자와의 이전 대화 기록 중 일부가 제거되었습니다. 연속성을 위해 초기 사용자 작업 내용은 유지되었으나, 중간 대화 내용은 삭제되었습니다. 사용자를 계속 지원할 때 이 점을 유의하십시오. 특히 사용자의 최신 메시지에 집중해 주세요.`,
 
 	processFirstUserMessageForTruncation: () => {
-		return "[Continue assisting the user!]"
+		return "[사용자 지원을 계속합니다!]"
 	},
 
 	condense: () =>
-		`The user has accepted the condensed conversation summary you generated. This summary covers important details of the historical conversation with the user which has been truncated.\n<explicit_instructions type="condense_response">It's crucial that you respond by ONLY asking the user what you should work on next. You should NOT take any initiative or make any assumptions about continuing with work. For example you should NOT suggest file changes or attempt to read any files.\nWhen asking the user what you should work on next, you can reference information in the summary which was just generated. However, you should NOT reference information outside of what's contained in the summary for this response. Keep this response CONCISE.</explicit_instructions>`,
+		`사용자가 생성된 대화 요약본을 수락했습니다. 이 요약은 잘려나간 이전 대화의 중요한 세부 사항들을 포함하고 있습니다.\n<explicit_instructions type="condense_response">이후 응답 시 오직 사용자에게 다음에 수행할 작업이 무엇인지 물어보는 답변만 해야 합니다. 작업을 계속 진행하는 것에 대해 어떠한 주도권도 갖거나 가정을 해서는 안 됩니다. 예를 들어, 파일 변경을 제안하거나 파일을 읽으려 시도해서는 안 됩니다.\n다음에 무엇을 할지 물어볼 때 방금 생성된 요약 정보는 참조할 수 있습니다. 하지만 이 응답에서는 요약 내용 이외의 정보는 참조하지 마십시오. 응답은 간결하게 작성해 주십시오.</explicit_instructions>`,
 
-	toolDenied: () => `The user denied this operation.`,
+	toolDenied: () => `사용자가 이 작업을 거부했습니다.`,
 
-	toolError: (error?: string) => `The tool execution failed with the following error:\n<error>\n${error}\n</error>`,
+	toolError: (error?: string) => `도구 실행 중 다음 오류가 발생했습니다:\n<error>\n${error}\n</error>`,
 
 	clineIgnoreError: (path: string) =>
-		`Access to ${path} is blocked by the .clineignore file settings. You must try to continue in the task without using this file, or ask the user to update the .clineignore file. (Gaea-AI-Pro)`,
+		`${path}에 대한 액세스가 .clineignore 파일 설정에 의해 차단되었습니다. 이 파일을 사용하지 않고 작업을 계속 진행하거나, 사용자에게 .clineignore 파일 업데이트를 요청해야 합니다. (Gaea-AI-Pro)`,
 
 	permissionDeniedError: (reason: string) =>
-		`Command execution blocked by GAEA_AI_PRO_COMMAND_PERMISSIONS: ${reason}. You must try a different approach or ask the user to update the permission settings.`,
+		`GAEA_AI_PRO_COMMAND_PERMISSIONS에 의해 명령 실행이 차단되었습니다: ${reason}. 다른 접근 방식을 시도하거나 사용자에게 권한 설정 업데이트를 요청하십시오.`,
 
 	noToolsUsed: (usingNativeToolCalls: boolean) =>
-		`[ERROR] You did not use a tool in your previous response! Please retry with a tool use.
+		`[오류] 이전 응답에서 도구를 사용하지 않았습니다! 도구 사용을 포함하여 다시 시도해 주세요.
 
 ${usingNativeToolCalls ? "" : toolUseInstructionsReminder}
 
-# Next Steps
+# 다음 단계
 
-If you have completed the user's task, use the attempt_completion tool. 
-If you require additional information from the user, use the ask_followup_question tool. 
-Otherwise, if you have not completed the task and do not need additional information, then proceed with the next step of the task. 
-(This is an automated message, so do not respond to it conversationally.)`,
+사용자의 작업을 완료했다면, attempt_completion 도구를 사용하십시오.
+사용자의 추가 정보가 필요하다면, ask_followup_question 도구를 사용하십시오.
+그 외에 작업을 완료하지 않았고 추가 정보가 필요하지 않다면, 작업의 다음 단계를 진행하십시오.
+(이 메시지는 자동으로 생성된 것이므로 일상적인 대화로 응답하지 마십시오.)`,
 
 	tooManyMistakes: (feedback?: string) =>
-		`You seem to be having trouble proceeding. The user has provided the following feedback to help guide you:\n<feedback>\n${feedback}\n</feedback>`,
+		`작업 진행에 어려움을 겪고 있는 것 같습니다. 사용자가 도움을 주기 위해 다음과 같은 피드백을 제공했습니다:\n<feedback>\n${feedback}\n</feedback>`,
 
 	missingToolParameterError: (paramName: string) =>
-		`Missing value for required parameter '${paramName}'. Please retry with complete response.\n\n${toolUseInstructionsReminder}`,
+		`필수 매개변수 '${paramName}'의 값이 누락되었습니다. 전체 응답과 함께 다시 시도해 주세요.\n\n${toolUseInstructionsReminder}`,
 
 	/**
 	 * Specialized error for write_to_file when the 'content' parameter is missing.
@@ -305,14 +305,14 @@ Otherwise, if you have not completed the task and do not need additional informa
 
 	fileContextWarning: (editedFiles: string[]): string => {
 		const fileCount = editedFiles.length
-		const fileVerb = fileCount === 1 ? "file has" : "files have"
-		const fileDemonstrativePronoun = fileCount === 1 ? "this file" : "these files"
-		const filePersonalPronoun = fileCount === 1 ? "it" : "they"
+		const fileVerb = fileCount === 1 ? "파일이" : "파일들이"
+		const fileDemonstrativePronoun = fileCount === 1 ? "이 파일" : "이 파일들"
+		const filePersonalPronoun = fileCount === 1 ? "이것" : "이것들"
 
 		return (
-			`<explicit_instructions>\nCRITICAL FILE STATE ALERT: ${fileCount} ${fileVerb} been externally modified since your last interaction. Your cached understanding of ${fileDemonstrativePronoun} is now stale and unreliable. Before making ANY modifications to ${fileDemonstrativePronoun}, you must execute read_file to obtain the current state, as ${filePersonalPronoun} may contain completely different content than what you expect:\n` +
+			`<explicit_instructions>\n중요 파일 상태 알림: 마지막 상호작용 이후 ${fileCount}개의 ${fileVerb} 외부에서 수정되었습니다. ${fileDemonstrativePronoun}에 대해 알고 있는 정보는 이제 오래되어 신뢰할 수 없습니다. ${fileDemonstrativePronoun}을 수정하기 전에 반드시 read_file을 실행하여 현재 상태를 확인하십시오. 예상과 완전히 다른 내용이 포함되어 있을 수 있습니다:\n` +
 			`${editedFiles.map((file) => ` ${path.resolve(file).toPosix()}`).join("\n")}\n` +
-			`Failure to re-read before editing will result in replace_in_file edit errors, requiring subsequent attempts and wasting tokens. You DO NOT need to re-read these files after subsequent edits, unless instructed to do so.\n</explicit_instructions>`
+			`수정 전 다시 읽지 않으면 replace_in_file 편집 오류가 발생하여 재시도가 필요하게 되고 토큰이 낭비됩니다. 이후 추가 지침이 없는 한, 편집 후 이 파일들을 다시 읽을 필요는 없습니다.\n</explicit_instructions>`
 		)
 	},
 }
@@ -336,17 +336,17 @@ const formatImagesIntoBlocks = (images?: string[]): Anthropic.ImageBlockParam[] 
 		: []
 }
 
-const toolUseInstructionsReminder = `# Reminder: Instructions for Tool Use
-Tool uses are formatted using XML-style tags. The tool name is enclosed in opening and closing tags, and each parameter is similarly enclosed within its own set of tags. Here's the structure:
+const toolUseInstructionsReminder = `# 참고: 도구 사용 지침
+도구 사용은 XML 스타일 태그를 사용하여 형식화됩니다. 도구 이름은 여는 태그와 닫는 태그로 감싸지며, 각 매개변수 또한 자체 태그 세트 내에 포함됩니다. 구조는 다음과 같습니다:
 <tool_name>
-<parameter1_name>value1</parameter1_name>
-<parameter2_name>value2</parameter2_name>
+<parameter1_name>값1</parameter1_name>
+<parameter2_name>값2</parameter2_name>
 ...
 </tool_name>
-For example:
+예시:
 <attempt_completion>
 <result>
-I have completed the task...
+작업을 완료했습니다...
 </result>
 </attempt_completion>
-Always adhere to this format for all tool uses to ensure proper parsing and execution.`
+적절한 구문 분석 및 실행을 위해 모든 도구 사용 시 항상 이 형식을 준수하십시오.`

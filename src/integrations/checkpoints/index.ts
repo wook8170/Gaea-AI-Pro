@@ -115,12 +115,12 @@ export class TaskCheckpointManager implements ICheckpointManager {
 	 * @param isAttemptCompletionMessage - Whether this checkpoint is for an attempt completion message
 	 * @param completionMessageTs - Optional timestamp of the completion message to update with checkpoint hash
 	 */
-	async saveCheckpoint(isAttemptCompletionMessage: boolean = false, completionMessageTs?: number): Promise<void> {
+	async saveCheckpoint(isAttemptCompletionMessage = false, completionMessageTs?: number): Promise<void> {
 		try {
 			// If checkpoints are disabled or previously encountered a timeout error, return early
 			if (
 				!this.config.enableCheckpoints ||
-				this.state.checkpointManagerErrorMessage?.includes("Checkpoints initialization timed out.")
+				this.state.checkpointManagerErrorMessage?.includes("체크포인트 초기화 시간이 초과되었습니다.")
 			) {
 				return
 			}
@@ -141,7 +141,7 @@ export class TaskCheckpointManager implements ICheckpointManager {
 			else if (
 				!this.state.checkpointTracker &&
 				isAttemptCompletionMessage &&
-				!this.state.checkpointManagerErrorMessage?.includes("Checkpoints initialization timed out.")
+				!this.state.checkpointManagerErrorMessage?.includes("체크포인트 초기화 시간이 초과되었습니다.")
 			) {
 				await this.checkpointTrackerCheckAndInit()
 			}
@@ -305,7 +305,7 @@ export class TaskCheckpointManager implements ICheckpointManager {
 							)
 							HostProvider.window.showMessage({
 								type: ShowMessageType.ERROR,
-								message: "Failed to restore checkpoint: " + errorMessage,
+								message: "체크포인트 복구 실패: " + errorMessage,
 							})
 							didWorkspaceRestoreFail = true
 						}
@@ -320,7 +320,7 @@ export class TaskCheckpointManager implements ICheckpointManager {
 							)
 							HostProvider.window.showMessage({
 								type: ShowMessageType.ERROR,
-								message: "Failed to restore offset checkpoint: " + errorMessage,
+								message: "오프셋 체크포인트 복구 실패: " + errorMessage,
 							})
 							didWorkspaceRestoreFail = true
 						}
@@ -339,12 +339,12 @@ export class TaskCheckpointManager implements ICheckpointManager {
 							)
 							HostProvider.window.showMessage({
 								type: ShowMessageType.ERROR,
-								message: "Failed to restore checkpoint: " + errorMessage,
+								message: "체크포인트 복구 실패: " + errorMessage,
 							})
 							didWorkspaceRestoreFail = true
 						}
 					} else {
-						const errorMessage = "Failed to restore checkpoint: No valid checkpoint hash found"
+						const errorMessage = "체크포인트 복구 실패: 유효한 체크포인트 해시를 찾을 수 없습니다."
 						Logger.error(`[TaskCheckpointManager] ${errorMessage} for task ${this.task.taskId}`)
 						HostProvider.window.showMessage({
 							type: ShowMessageType.ERROR,
@@ -531,7 +531,7 @@ export class TaskCheckpointManager implements ICheckpointManager {
 			Logger.error(`[TaskCheckpointManager] Failed to present multifile diff for task ${this.task.taskId}:`, errorMessage)
 			HostProvider.window.showMessage({
 				type: ShowMessageType.ERROR,
-				message: "Failed to retrieve diff set: " + errorMessage,
+				message: "diff 세트 검색 실패: " + errorMessage,
 			})
 			relinquishButton()
 		}
@@ -709,19 +709,19 @@ export class TaskCheckpointManager implements ICheckpointManager {
 			case "task":
 				HostProvider.window.showMessage({
 					type: ShowMessageType.INFORMATION,
-					message: "Task messages have been restored to the checkpoint",
+					message: "작업 메시지가 체크포인트 시점으로 복구되었습니다.",
 				})
 				break
 			case "workspace":
 				HostProvider.window.showMessage({
 					type: ShowMessageType.INFORMATION,
-					message: "Workspace files have been restored to the checkpoint",
+					message: "워크스페이스 파일이 체크포인트 시점으로 복구되었습니다.",
 				})
 				break
 			case "taskAndWorkspace":
 				HostProvider.window.showMessage({
 					type: ShowMessageType.INFORMATION,
-					message: "Task and workspace have been restored to the checkpoint",
+					message: "작업과 워크스페이스가 모두 체크포인트 시점으로 복구되었습니다.",
 				})
 				break
 		}
@@ -814,9 +814,9 @@ export class TaskCheckpointManager implements ICheckpointManager {
 			Logger.error("Failed to initialize checkpoint tracker:", errorMessage)
 
 			// If the error was a timeout, we disable all checkpoint operations for the rest of the task
-			if (errorMessage.includes("Checkpoints taking too long to initialize")) {
+			if (errorMessage.includes("체크포인트 초기화에 너무 많은 시간이 소요됩니다")) {
 				await this.setcheckpointManagerErrorMessage(
-					"Checkpoints initialization timed out. Consider re-opening Cline in a project that uses git, or disabling checkpoints.",
+					"체크포인트 초기화가 중단되었습니다. Git을 사용하는 프로젝트에서 Gaea AI Pro를 다시 열거나 체크포인트를 비활성화하는 것을 고려해 보세요.",
 				)
 			} else {
 				await this.setcheckpointManagerErrorMessage(errorMessage)
