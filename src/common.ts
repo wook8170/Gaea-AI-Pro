@@ -98,8 +98,8 @@ async function showVersionUpdateAnnouncement(stateManager: StateManager) {
 			if (lastShownAnnouncementId !== latestAnnouncementId) {
 				// Show notification when there's a new announcement (major/minor updates or fresh installs)
 				const message = previousVersion
-					? `Cline has been updated to v${currentVersion}`
-					: `Welcome to Cline v${currentVersion}`
+					? `Gaea AI Pro가 v${currentVersion}으로 업데이트되었습니다.`
+					: `Gaea AI Pro v${currentVersion}에 오신 것을 환영합니다!`
 				HostProvider.window.showMessage({
 					type: ShowMessageType.INFORMATION,
 					message,

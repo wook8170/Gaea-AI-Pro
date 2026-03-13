@@ -47,7 +47,7 @@ export async function validateWorkspacePath(workspacePath: string): Promise<void
 		await access(workspacePath, constants.R_OK)
 	} catch (error) {
 		throw new Error(
-			`Cannot access workspace directory. Please ensure VS Code has permission to access your workspace. Error: ${error instanceof Error ? error.message : String(error)}`,
+			`워크스페이스 디렉토리에 접근할 수 없습니다. VS Code가 워크스페이스에 접근할 수 있는지 확인해주세요. 오류: ${error instanceof Error ? error.message : String(error)}`,
 		)
 	}
 
@@ -58,13 +58,13 @@ export async function validateWorkspacePath(workspacePath: string): Promise<void
 
 	switch (workspacePath) {
 		case homedir:
-			throw new Error("Cannot use checkpoints in home directory")
+			throw new Error("홈 디렉토리에서 체크포인트를 사용할 수 없습니다.")
 		case desktopPath:
-			throw new Error("Cannot use checkpoints in Desktop directory")
+			throw new Error("데스크탑 디렉토리에서 체크포인트를 사용할 수 없습니다.")
 		case documentsPath:
-			throw new Error("Cannot use checkpoints in Documents directory")
+			throw new Error("문서 디렉토리에서 체크포인트를 사용할 수 없습니다.")
 		case downloadsPath:
-			throw new Error("Cannot use checkpoints in Downloads directory")
+			throw new Error("다운로드 디렉토리에서 체크포인트를 사용할 수 없습니다.")
 	}
 }
 
@@ -87,7 +87,7 @@ export async function validateWorkspacePath(workspacePath: string): Promise<void
 export async function getWorkingDirectory(): Promise<string> {
 	const cwd = await getCwd()
 	if (!cwd) {
-		throw new Error("No workspace detected. Please open Cline in a workspace to use checkpoints.")
+		throw new Error("워크스페이스가 감지되지 않았습니다. 체크포인트를 사용하려면 워크스페이스를 열어주세요.")
 	}
 
 	await validateWorkspacePath(cwd)
@@ -102,7 +102,7 @@ export async function getWorkingDirectory(): Promise<string> {
  */
 export function hashWorkingDir(workingDir: string): string {
 	if (!workingDir) {
-		throw new Error("Working directory path cannot be empty")
+		throw new Error("워크스페이스 경로가 비어있을 수 없습니다.")
 	}
 	let hash = 0
 	for (let i = 0; i < workingDir.length; i++) {

@@ -104,7 +104,7 @@ export class AttemptCompletionHandler implements IToolHandler, IPartialBlockHand
 		// Show notification if enabled
 		if (config.autoApprovalSettings.enableNotifications) {
 			showSystemNotification({
-				subtitle: "Task Completed",
+				subtitle: "작업 완료",
 				message: result.replace(/\n/g, " "),
 			})
 		}
@@ -177,7 +177,7 @@ export class AttemptCompletionHandler implements IToolHandler, IPartialBlockHand
 			} else {
 				// Manual approval flow - need to ask for approval
 				showNotificationForApproval(
-					`Cline wants to execute a command: ${command}`,
+					`Gaea AI Pro가 명령어를 실행하려 합니다: ${command}`,
 					config.autoApprovalSettings.enableNotifications,
 				)
 

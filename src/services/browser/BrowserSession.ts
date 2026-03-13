@@ -8,7 +8,7 @@ import * as chromeLauncher from "chrome-launcher"
 import os from "os"
 import pWaitFor from "p-wait-for"
 import * as path from "path"
-// @ts-ignore
+// @ts-expect-error
 import type { LoggerMessage, ScreenshotOptions } from "puppeteer-core"
 import { Browser, connect, launch, Page, TimeoutError } from "puppeteer-core"
 import { StateManager } from "@/core/storage/StateManager"
@@ -40,17 +40,17 @@ export class BrowserSession {
 	private page?: Page
 	private currentMousePosition?: string
 	private cachedWebSocketEndpoint?: string
-	private lastConnectionAttempt: number = 0
-	private isConnectedToRemote: boolean = false
+	private lastConnectionAttempt = 0
+	private isConnectedToRemote = false
 	private useWebp: boolean
 
 	// Telemetry tracking properties
-	private sessionStartTime: number = 0
+	private sessionStartTime = 0
 	private browserActions: string[] = []
 	private ulid?: string
 	private stateManager: StateManager
 
-	constructor(stateManager: StateManager, useWebp: boolean = true) {
+	constructor(stateManager: StateManager, useWebp = true) {
 		this.stateManager = stateManager
 		this.useWebp = useWebp
 	}
@@ -104,7 +104,7 @@ export class BrowserSession {
 			const userDataDir = path.join(os.tmpdir(), "chrome-debug-profile")
 			const installation = chromeLauncher.Launcher.getFirstInstallation()
 			if (!installation) {
-				throw new Error("Could not find Chrome installation on this system")
+				throw new Error("시스템에서 크롬 설치 경로를 찾을 수 없습니다")
 			}
 			Logger.info("chrome installation", installation)
 
@@ -135,12 +135,12 @@ export class BrowserSession {
 			const isRunning = await isPortOpen("localhost", DEBUG_PORT, 2000)
 
 			if (!isRunning) {
-				throw new Error("Chrome was launched but debug port is not responding")
+				throw new Error("크롬이 실행되었으나 디버그 포트가 응답하지 않습니다")
 			}
 
 			return `Browser successfully launched with debug mode\nUsing: ${installation}`
 		} catch (error) {
-			throw new Error(`Failed to relaunch Chrome: ${error instanceof Error ? error.message : globalThis.String(error)}`)
+			throw new Error(`크롬 재실행 실패: ${error instanceof Error ? error.message : globalThis.String(error)}`)
 		}
 	}
 
@@ -297,7 +297,7 @@ export class BrowserSession {
 				browserWSEndpoint = response.data.webSocketDebuggerUrl
 
 				if (!browserWSEndpoint) {
-					throw new Error("Could not find webSocketDebuggerUrl in the response")
+					throw new Error("응답에서 webSocketDebuggerUrl을 찾을 수 없습니다")
 				}
 
 				Logger.info(`Found WebSocket browser endpoint: ${browserWSEndpoint}`)
@@ -463,7 +463,7 @@ export class BrowserSession {
 					action: this.browserActions[this.browserActions.length - 1],
 				})
 			}
-			throw new Error("Failed to take screenshot.")
+			throw new Error("스크린샷 캡처에 실패했습니다.")
 		}
 
 		// this.page.removeAllListeners() <- causes the page to crash!

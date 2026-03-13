@@ -37,7 +37,7 @@ export class UrlContentFetcher {
 	// must make sure to call launchBrowser before and closeBrowser after using this
 	async urlToMarkdown(url: string): Promise<string> {
 		if (!this.browser || !this.page) {
-			throw new Error("Browser not initialized")
+			throw new Error("브라우저가 초기화되지 않았습니다")
 		}
 		/*
 		- networkidle2 is equivalent to playwright's networkidle where it waits until there are no more than 2 network connections for at least 500 ms.

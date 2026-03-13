@@ -241,7 +241,7 @@ export class ExecuteCommandToolHandler implements IFullyManagedTool {
 		} else {
 			// Manual approval flow
 			showNotificationForApproval(
-				`Cline wants to execute a command: ${actualCommand}`,
+				`Gaea AI Pro가 명령어를 실행하려 합니다: ${actualCommand}`,
 				config.autoApprovalSettings.enableNotifications,
 			)
 
@@ -293,8 +293,8 @@ export class ExecuteCommandToolHandler implements IFullyManagedTool {
 			// if the command was auto-approved, and it's long running we need to notify the user after some time has passed without proceeding
 			timeoutId = setTimeout(() => {
 				showSystemNotification({
-					subtitle: "Command is still running",
-					message: "An auto-approved command has been running for 30s, and may need your attention.",
+					subtitle: "명령어가 계속 실행 중입니다",
+					message: "자동 승인된 명령어가 30초 동안 실행 중이며, 확인이 필요할 수 있습니다.",
 				})
 			}, 30_000)
 		}

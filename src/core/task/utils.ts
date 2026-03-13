@@ -8,7 +8,7 @@ import { MessageStateHandler } from "./message-state"
 export const showNotificationForApproval = (message: string, notificationsEnabled: boolean) => {
 	if (notificationsEnabled) {
 		showSystemNotification({
-			subtitle: "Approval Required",
+			subtitle: "승인 필요",
 			message,
 		})
 	}

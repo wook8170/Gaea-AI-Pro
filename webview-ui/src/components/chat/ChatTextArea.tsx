@@ -1603,15 +1603,15 @@ const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 						<TooltipTrigger>
 							<SwitchContainer data-testid="mode-switch" disabled={false} onClick={onModeToggle}>
 								<Slider isAct={mode === "act"} isPlan={mode === "plan"} />
-								{["Plan", "Act"].map((m) => (
+								{["계획", "실행"].map((m) => (
 									<div
-										aria-checked={mode === m.toLowerCase()}
+										aria-checked={mode === (m === "계획" ? "plan" : "act")}
 										className={cn(
 											"pt-0.5 pb-px px-2 z-10 text-xs w-1/2 text-center bg-transparent",
-											mode === m.toLowerCase() ? "text-white" : "text-input-foreground",
+											mode === (m === "계획" ? "plan" : "act") ? "text-white" : "text-input-foreground",
 										)}
 										onMouseLeave={() => setShownTooltipMode(null)}
-										onMouseOver={() => setShownTooltipMode(m.toLowerCase() === "plan" ? "plan" : "act")}
+										onMouseOver={() => setShownTooltipMode(m === "계획" ? "plan" : "act")}
 										role="switch">
 										{m}
 									</div>

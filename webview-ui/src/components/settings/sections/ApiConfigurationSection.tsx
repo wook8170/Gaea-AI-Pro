@@ -35,7 +35,7 @@ const ApiConfigurationSection = ({ renderSectionHeader, initialModelTab }: ApiCo
 									opacity: 1,
 									cursor: "pointer",
 								}}>
-								기획 모드 (Plan)
+								계획 모드 (Plan)
 							</TabButton>
 							<TabButton
 								disabled={currentTab === "act"}
@@ -78,10 +78,10 @@ const ApiConfigurationSection = ({ renderSectionHeader, initialModelTab }: ApiCo
 								console.error("Failed to update separate models setting:", error)
 							}
 						}}>
-						기획(Plan)과 실행(Act) 모드에 서로 다른 모델 사용
+						계획(Plan)과 실행(Act) 모드에 서로 다른 모델 사용
 					</VSCodeCheckbox>
 					<p className="text-xs mt-[5px] text-(--vscode-descriptionForeground)">
-						기획 모드와 실행 모드 간 전환 시 이전 모드에서 사용한 API 및 모델 설정이 유지됩니다. 이는 강력한 추론
+						계획 모드와 실행 모드 간 전환 시 이전 모드에서 사용한 API 및 모델 설정이 유지됩니다. 이는 강력한 추론
 						모델로 계획을 설계하고, 저렴한 코딩 모델로 실제 작업을 수행할 때 유용합니다.
 					</p>
 				</div>

@@ -16,7 +16,7 @@ async function showMacOSNotification(options: NotificationOptions): Promise<void
 	try {
 		await execa("osascript", ["-e", script])
 	} catch (error) {
-		throw new Error(`Failed to show macOS notification: ${error}`)
+		throw new Error(`macOS 알림 표시 실패: ${error}`)
 	}
 }
 
@@ -41,13 +41,13 @@ async function showWindowsNotification(options: NotificationOptions): Promise<vo
     $xml = New-Object Windows.Data.Xml.Dom.XmlDocument
     $xml.LoadXml($template)
     $toast = [Windows.UI.Notifications.ToastNotification]::new($xml)
-    [Windows.UI.Notifications.ToastNotificationManager]::CreateToastNotifier("Cline").Show($toast)
+    [Windows.UI.Notifications.ToastNotificationManager]::CreateToastNotifier("Gaea AI Pro").Show($toast)
     `
 
 	try {
 		await execa("powershell", ["-Command", script])
 	} catch (error) {
-		throw new Error(`Failed to show Windows notification: ${error}`)
+		throw new Error(`Windows 알림 표시 실패: ${error}`)
 	}
 }
 
@@ -60,16 +60,16 @@ async function showLinuxNotification(options: NotificationOptions): Promise<void
 	try {
 		await execa("notify-send", [title, fullMessage])
 	} catch (error) {
-		throw new Error(`Failed to show Linux notification: ${error}`)
+		throw new Error(`Linux 알림 표시 실패: ${error}`)
 	}
 }
 
 export async function showSystemNotification(options: NotificationOptions): Promise<void> {
 	try {
-		const { title = "Cline", message } = options
+		const { title = "Gaea AI Pro", message } = options
 
 		if (!message) {
-			throw new Error("Message is required")
+			throw new Error("메시지 내용이 필요합니다")
 		}
 
 		const escapedOptions = {
@@ -90,7 +90,7 @@ export async function showSystemNotification(options: NotificationOptions): Prom
 				await showLinuxNotification(escapedOptions)
 				break
 			default:
-				throw new Error("Unsupported platform")
+				throw new Error("지원되지 않는 플랫폼입니다")
 		}
 	} catch (error) {
 		Logger.error("Could not show system notification", error)

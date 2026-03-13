@@ -1,30 +1,30 @@
 ---
-title: "Quick Start"
-sidebarTitle: "Quick Start"
-description: "Get Cline running in under 2 minutes."
+title: "빠른 시작"
+sidebarTitle: "빠른 시작"
+description: "2분 안에 Gaea AI Pro를 시작하세요."
 ---
 
-Cline is an AI-powered coding assistant that works directly inside your editor. You describe what you want in plain text, and Cline writes code, creates files, runs terminal commands, and even tests web apps in a browser, all while asking for your permission before making any changes.
+Gaea AI Pro는 에디터 내부에서 직접 작동하는 AI 기반 코딩 비서입니다. 자연어로 원하는 내용을 설명하면 Gaea AI Pro가 코드를 작성하고, 파일을 생성하고, 터미널 명령을 실행하며, 심지어 브라우저에서 웹 앱을 테스트하기도 합니다. 이 모든 과정에서 변경 사항을 적용하기 전에 여러분의 승인을 구합니다.
 
-Think of it as pair programming with an AI that can actually touch your files and run your tools, but only when you say so.
+여러분의 파일에 직접 접근하고 도구를 실행할 수 있지만, 오직 여러분이 허락할 때만 작동하는 AI와 함께 페어 프로그래밍을 한다고 생각하시면 됩니다.
 
-This guide gets you from zero to working code in under 2 minutes.
+이 가이드를 통해 2분 이내에 실제 작동하는 코드를 만들어 보겠습니다.
 
 <Info>
-  **What You'll Need:**
-  - One of: **VS Code**, **Cursor**, **Windsurf**, **Antigravity**, a **JetBrains IDE**, or **Node.js 20+** (for CLI)
-  - An internet connection (Cline connects to AI models in the cloud)
-  - ~2 minutes
+  **준비물:**
+  - 다음 중 하나: **VS Code**, **Cursor**, **Windsurf**, **Antigravity**, **JetBrains IDE** 또는 **Node.js 20+** (CLI용)
+  - 인터넷 연결 (Gaea AI Pro는 클라우드의 AI 모델에 연결됩니다)
+  - 약 2분의 시간
 </Info>
 
-## 1. Install
+## 1. 설치
 
 <Tabs>
   <Tab title="VS Code / Cursor / Windsurf / Antigravity">
-    Open Extensions (`Cmd+Shift+X` on Mac, `Ctrl+Shift+X` on Windows/Linux), search **Cline**, click **Install**.
+    확장 프로그램 창을 엽니다 (Mac은 `Cmd+Shift+X`, Windows/Linux는 `Ctrl+Shift+X`), **Cline**을 검색하고 **설치(Install)**를 클릭합니다. (현재 버전 이름은 마켓플레이스 등록 상황에 따라 다를 수 있습니다.)
   </Tab>
   <Tab title="JetBrains">
-    Go to **Settings > Plugins > Marketplace**, search **Cline**, click **Install**, then restart your IDE.
+    **Settings > Plugins > Marketplace**로 이동하여 **Cline**을 검색하고 **Install**을 클릭한 후 IDE를 재시작합니다.
   </Tab>
   <Tab title="CLI">
     ```bash
@@ -34,68 +34,68 @@ This guide gets you from zero to working code in under 2 minutes.
 </Tabs>
 
 <Tip>
-For detailed installation instructions including troubleshooting, see the [full installation guide](/getting-started/installing-cline).
+문제 해결을 포함한 상세한 설치 지침은 [전체 설치 가이드](/getting-started/installing-cline)를 참조하세요.
 </Tip>
 
-## 2. Authenticate
+## 2. 인증
 
-Click the Cline icon in your editor's sidebar, then click **Sign Up**. You'll authenticate at [app.cline.bot](https://app.cline.bot) and return to your editor ready to go.
+에디터 사이드바에서 Gaea AI Pro 아이콘을 클릭한 다음, **Sign Up**을 클릭합니다. [app.cline.bot](https://app.cline.bot)에서 인증을 마치고 에디터로 돌아오면 준비가 완료됩니다.
 
-Authenticating gives you access to multiple AI models without managing separate API keys. Your account includes both free and paid models. Free models are labeled **FREE** in the model selector. For paid models, you can add credits in your [account dashboard](https://app.cline.bot/dashboard). You're always in control of which model you use.
+인증을 하면 별도의 API 키 관리 없이 여러 AI 모델을 사용할 수 있습니다. 계정에는 무료 모델과 유료 모델이 모두 포함되어 있습니다. 무료 모델은 모델 선택기에서 **FREE**라고 표시됩니다. 유료 모델의 경우 [계정 대시보드](https://app.cline.bot/dashboard)에서 크레딧을 추가할 수 있습니다. 어떤 모델을 사용할지는 항상 여러분이 결정합니다.
 
-Send any message to confirm you're connected, then move on to building something.
+아무 메시지나 보내서 연결을 확인한 다음, 결과물을 만들어 보겠습니다.
 
 <Note>
-**CLI users:** Run `cline auth` to authenticate from your terminal.
+**CLI 사용자:** 터미널에서 `cline auth`를 실행하여 인증하세요.
 </Note>
 
-## 3. Build Something
+## 3. 결과물 만들기
 
-Now let's have Cline write some code. Open any folder in your editor, then paste this:
+이제 Gaea AI Pro가 코드를 작성하게 해보겠습니다. 에디터에서 폴더를 연 다음, 아래 내용을 입력해 보세요:
 
 ```text
-Create a Python function that checks if a string is a palindrome. Include tests.
+문자열이 회문(palindrome)인지 확인하는 Python 함수를 작성해줘. 테스트 코드도 포함해줘.
 ```
 
-Cline will analyze your request, create a new file, and ask for your approval before writing anything to disk. Click **Approve** to create the file.
+Gaea AI Pro가 요청을 분석하고, 새 파일을 생성하며, 디스크에 기록하기 전에 여러분의 승인을 요청할 것입니다. **Approve**를 클릭하여 파일을 생성하세요.
 
-That's it. You have working code with tests.
+이제 테스트 코드가 포함된 작동하는 코드를 갖게 되었습니다. 매우 간단하죠?
 
 <Note>
-**Not seeing file changes?** You might be in **Plan Mode**, where Cline discusses the approach without modifying files. Look for the **Plan/Act toggle** at the bottom of the Cline panel and switch to **Act** to let Cline start writing code. [Learn more about Plan & Act →](/core-workflows/plan-and-act)
+**파일 변경 사항이 보이지 않나요?** Gaea AI Pro가 파일을 수정하지 않고 접근 방식만 논의하는 **계획(Plan) 모드**에 있을 수 있습니다. 패널 하단의 **계획/실행(Plan/Act) 토글**을 확인하고 **실행(Act)**으로 전환하여 코드를 작성하게 하세요. [계획 및 실행에 대해 더 알아보기 →](/core-workflows/plan-and-act)
 </Note>
 
-## 4. You're All Set
+## 4. 모든 준비가 끝났습니다
 
-Let's recap what you just did:
+방금 무엇을 했는지 정리해 보겠습니다:
 
-1. **Installed Cline** in your editor
-2. **Authenticated** to connect to AI models
-3. **Built working code**: Cline wrote it, you approved it
+1. 에디터에 **Gaea AI Pro를 설치**했습니다.
+2. AI 모델 연결을 위해 **인증**을 마쳤습니다.
+3. **실제 코드를 구축**했습니다: Gaea AI Pro가 작성하고 여러분이 승인했습니다.
 
-Every step of the way, Cline showed you exactly what it planned to do and waited for your approval. This is Cline's **human-in-the-loop** model: every file edit, terminal command, and browser action is shown to you first and only happens after you click Approve. You can review exactly what's changing, reject anything you don't want, and stay fully in control of your codebase. Nothing happens behind your back.
+모든 단계에서 Gaea AI Pro는 무엇을 할 계획인지 정확히 보여주고 여러분의 승인을 기다렸습니다. 이것이 Gaea AI Pro의 **인간 개입(human-in-the-loop)** 모델입니다. 모든 파일 수정, 터미널 명령어, 브라우저 작업은 먼저 여러분에게 보여지며, **Approve**를 클릭한 후에만 실행됩니다. 무엇이 바뀌는지 정확히 검토하고, 원치 않는 것은 거부하며, 코드베이스에 대한 완전한 제어권을 유지할 수 있습니다. 여러분 몰래 일어나는 일은 없습니다.
 
-## What Else Can Cline Do?
+## Gaea AI Pro로 무엇을 더 할 수 있나요?
 
-The palindrome example is just the beginning. Here are some prompts to explore Cline's full capabilities:
+회문 예제는 시작에 불과합니다. Gaea AI Pro의 전체 기능을 살펴보려면 다음과 같이 요청해 보세요:
 
-- `Read my project and explain the architecture`: Cline navigates and analyzes your codebase
-- `Find and fix the bug in src/utils.ts`: Cline reads files, proposes edits, and can run tests
-- `Run my test suite and fix any failures`: Cline executes terminal commands and iterates on problems
-- `Open a browser and test my app at localhost:3000`: Cline launches a browser and interacts with pages
-- `Set up an MCP server for my database`: Cline can connect to external tools and APIs
+- `내 프로젝트를 읽고 아키텍처를 설명해줘`: 코드를 탐색하고 분석합니다.
+- `src/utils.ts의 버그를 찾아서 수정해줘`: 파일을 읽고 수정을 제안하며 테스트를 실행할 수 있습니다.
+- `테스트 스위트를 실행하고 실패하는 부분을 고쳐줘`: 터미널 명령을 실행하고 문제를 반복해서 해결합니다.
+- `브라우저를 열고 localhost:3000에서 앱을 테스트해줘`: 브라우저를 실행하고 페이지와 상호 작용합니다.
+- `내 데이터베이스를 위한 MCP 서버를 설정해줘`: 외부 도구 및 API와 연결할 수 있습니다.
 
-Cline works best when you give it clear, specific instructions. The more context you provide about what you want, the better the results.
+Gaea AI Pro는 명확하고 구체적인 지침을 줄 때 가장 잘 작동합니다. 원하는 내용에 대해 더 많은 맥락을 제공할수록 더 좋은 결과를 얻을 수 있습니다.
 
 <AccordionGroup>
-  <Accordion title="How does Cline work under the hood?">
-    Cline runs entirely in your editor (or terminal). When you send a message, it goes to the AI model you've selected (like Claude, GPT-4, or Gemini). The model's response is parsed into actions (file edits, terminal commands, browser interactions) which Cline presents to you for approval. Your code never passes through Cline's servers. It goes directly from your machine to your chosen AI provider.
+  <Accordion title="Gaea AI Pro는 내부적으로 어떻게 작동하나요?">
+    Gaea AI Pro는 전적으로 여러분의 에디터(또는 터미널) 내에서 실행됩니다. 메시지를 보내면 여러분이 선택한 AI 모델(Claude, GPT-4, Gemini 등)로 전달됩니다. 모델의 응답은 Gaea AI Pro가 여러분에게 승인을 요청하는 작업(파일 수정, 터미널 명령, 브라우저 상호 작용)으로 파싱됩니다. 여러분의 코드는 절대 Gaea AI Pro의 서버를 통과하지 않으며, 여러분의 장치에서 선택한 AI 제공업체로 직접 전달됩니다.
   </Accordion>
 </AccordionGroup>
 
-## Next Steps
+## 다음 단계
 
-- [What is Cline?](/getting-started/what-is-cline): Understand Cline's full capabilities and how it works
-- [Build Your First Project](/getting-started/your-first-project): Hands-on tutorial building a complete todo app
-- [Select Your Model](/getting-started/authorizing-with-cline): Connect Claude, GPT-4, Gemini, DeepSeek, or local models
-- [Core Workflows](/core-workflows/task-management): Learn the patterns you'll use daily with Cline
+- [Gaea AI Pro란 무엇인가요?](/getting-started/what-is-cline): Gaea AI Pro의 전체 기능과 작동 방식 이해
+- [첫 번째 프로젝트 구축하기](/getting-started/your-first-project): 할 일(Todo) 앱을 처음부터 구축해 보는 실전 튜토리얼
+- [모델 선택하기](/getting-started/authorizing-with-cline): Claude, GPT-4, Gemini, DeepSeek 또는 로컬 모델 연결
+- [핵심 워크플로우](/core-workflows/task-management): 매일 사용하게 될 유용한 패턴 학습
