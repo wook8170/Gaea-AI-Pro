@@ -91,7 +91,7 @@ const FEATURE_SETTINGS = {
 		stateKey: "subagentsEnabled",
 		default: false,
 		label: "Subagents",
-		description: "Let Cline run focused subagents in parallel to explore the codebase for you",
+		description: "Let Gaea AI Pro run focused subagents in parallel to explore the codebase for you",
 	},
 	autoCondense: {
 		stateKey: "useAutoCondense",
@@ -632,7 +632,7 @@ export const SettingsPanelContent: React.FC<SettingsPanelContentProps> = ({
 						label: "Enable notifications",
 						type: "checkbox",
 						value: autoApproveSettings.enableNotifications,
-						description: "System alerts when Cline needs your attention",
+						description: "System alerts when Gaea AI Pro needs your attention",
 					},
 				)
 				return result
@@ -658,7 +658,7 @@ export const SettingsPanelContent: React.FC<SettingsPanelContentProps> = ({
 						description: "Help improve Gaea-AI-Pro by sending anonymous usage data",
 					},
 					{ key: "separator", label: "", type: "separator", value: "" },
-					{ key: "version", label: "", type: "readonly", value: `Cline v${CLI_VERSION}` },
+					{ key: "version", label: "", type: "readonly", value: `Gaea AI Pro v${CLI_VERSION}` },
 				]
 
 			case "account":
@@ -668,7 +668,7 @@ export const SettingsPanelContent: React.FC<SettingsPanelContentProps> = ({
 				}
 				// If not logged in, show login option
 				if (!accountEmail) {
-					return [{ key: "login", label: "Sign in with Cline", type: "action", value: "" }]
+					return [{ key: "login", label: "Sign in with Gaea AI Pro", type: "action", value: "" }]
 				}
 				// Logged in - show account info
 				const accountItems: ListItem[] = [

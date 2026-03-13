@@ -1,4 +1,4 @@
-# Cline
+# Gaea AI Pro
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/7123f9d1-afeb-48d5-93fa-e750dec0ebba" width="70%" />
@@ -26,7 +26,7 @@
 </table>
 </div>
 
-Meet Cline, an AI assistant that lives in your terminal.
+Meet Gaea AI Pro, an AI assistant that lives in your terminal.
 
 Cline can handle complex software development tasks step-by-step. With tools that let him create & edit files, explore large projects, use the browser, and execute terminal commands (after you grant permission), he can assist you in ways that go beyond code completion or tech support.
 
@@ -34,7 +34,7 @@ Cline can handle complex software development tasks step-by-step. With tools tha
 npm i -g cline
 
 # cd into your project and run:
-cline
+gaea-cli
 ```
 
 > Move your mouse around under the Cline icon for a surprise!
@@ -55,7 +55,7 @@ Cline supports API providers like ChatGPT, Anthropic, OpenAI, Google Gemini, AWS
 
 ### Stay in Control with Human-in-the-Loop
 
-Cline asks for your approval before running commands, editing files, or taking any action. Review each step and approve or reject as you go—or enable auto-approve to let Cline work autonomously to completion.
+Gaea AI Pro asks for your approval before running commands, editing files, or taking any action. Review each step and approve or reject as you go—or enable auto-approve to let Gaea AI Pro work autonomously to completion.
 
 <!-- Transparent pixel to create line break after floating image -->
 
@@ -65,7 +65,7 @@ Cline asks for your approval before running commands, editing files, or taking a
 
 ### Plan & Act Modes
 
-Toggle to Plan Mode to discuss implementation and architecture with Cline. He'll ask clarifying questions, explore your codebase, and present a plan for you to align on. Once you're satisfied, switch to Act Mode and let Cline execute the plan.
+Toggle to Plan Mode to discuss implementation and architecture with Gaea AI Pro. He'll ask clarifying questions, explore your codebase, and present a plan for you to align on. Once you're satisfied, switch to Act Mode and let Gaea AI Pro execute the plan.
 
 <!-- Transparent pixel to create line break after floating image -->
 
@@ -78,4 +78,4 @@ Get the same Cline experience with enterprise-grade controls: SSO (SAML/OIDC), g
 
 ## License
 
-[Apache 2.0 © 2026 Cline Bot Inc.](./LICENSE)
+[Apache 2.0 © 2026 Gaea AI Pro](./LICENSE)

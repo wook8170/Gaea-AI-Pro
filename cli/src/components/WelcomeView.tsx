@@ -1,6 +1,6 @@
 /**
  * Welcome view component
- * Shows an interactive prompt when user starts cline without a command
+ * Shows an interactive prompt when user starts Gaea AI Pro without a command
  * Supports file mentions with @
  */
 
@@ -29,24 +29,15 @@ interface WelcomeViewProps {
 	controller?: any
 }
 
-// ASCII art Cline logo
-const CLINE_LOGO = [
-	"            :::::::            ",
-	"           :::::::::           ",
-	"       :::::::::::::::::       ",
-	"    :::::::::::::::::::::::    ",
-	"   :::::::::::::::::::::::::   ",
-	"  :::::::::::::::::::::::::::  ",
-	"  :::::::   :::::::   :::::::  ",
-	" :::::::     :::::     ::::::: ",
-	"::::::::     :::::     ::::::::",
-	"::::::::     :::::     ::::::::",
-	" :::::::     :::::     ::::::: ",
-	"  :::::::   :::::::   :::::::  ",
-	"  :::::::::::::::::::::::::::  ",
-	"   :::::::::::::::::::::::::   ",
-	"    :::::::::::::::::::::::    ",
-	"       ::::::::::::::::       ",
+import { COLORS } from "../constants/colors"
+
+// ASCII art Gaea AI Pro logo
+const GAEA_AI_PRO_LOGO = [
+	" ██████   █████  ███████  █████      █████  ██      ██████  ██████   ██████  ",
+	"██       ██   ██ ██      ██   ██    ██   ██ ██      ██   ██ ██   ██ ██    ██ ",
+	"██   ███ ███████ █████   ███████    ███████ ██      ██████  ██████  ██    ██ ",
+	"██    ██ ██   ██ ██      ██   ██    ██   ██ ██      ██      ██   ██ ██    ██ ",
+	" ██████  ██   ██ ███████ ██   ██    ██   ██ ██      ██      ██   ██  ██████  ",
 ]
 
 const SEARCH_DEBOUNCE_MS = 150
@@ -245,11 +236,10 @@ export const WelcomeView: React.FC<WelcomeViewProps> = ({ onSubmit, onExit, cont
 				</Box>
 			)}
 
-			{/* Cline logo - centered */}
 			<Box alignItems="center" flexDirection="column">
-				{CLINE_LOGO.map((line, idx) => (
+				{GAEA_AI_PRO_LOGO.map((line, idx) => (
 					// biome-ignore lint/suspicious/noArrayIndexKey: static array that never changes
-					<Text color="white" key={idx}>
+					<Text color={COLORS.primaryNavy} key={idx}>
 						{line}
 					</Text>
 				))}

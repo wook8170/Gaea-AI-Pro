@@ -4,7 +4,13 @@
  */
 
 export const COLORS = {
-	// Primary brand color - light purple-blue
+	// Primary brand color - Gaeasoft Navy
+	primaryNavy: "#1B2A74",
+
+	// Point color - Gaeasoft Green
+	pointGreen: "#22913B",
+
+	// Primary brand color - light purple-blue (legacy)
 	primaryBlue: "#B1B9F9",
 
 	// Plan mode color

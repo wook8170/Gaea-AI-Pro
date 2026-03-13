@@ -156,7 +156,7 @@ export const AccountInfoView: React.FC<AccountInfoViewProps> = React.memo(({ con
 				<Text color="gray">Provider: </Text>
 				<Text color="cyan">Cline</Text>
 				<Text color="gray"> • </Text>
-				<Text color="yellow">Not logged in (run 'cline auth' to sign in)</Text>
+				<Text color="yellow">Not logged in (run 'gaea-cli auth' to sign in)</Text>
 			</Box>
 		)
 	}

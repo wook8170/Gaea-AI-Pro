@@ -106,7 +106,7 @@ webview-ui/src/components/settings/sections/TerminalSettingsSection.tsx:161:				
 webview-ui/src/components/settings/sections/TerminalSettingsSection.tsx:171:								href="https://docs.cline.bot/troubleshooting/terminal-quick-fixes"
 webview-ui/src/components/settings/sections/TerminalSettingsSection.tsx:179:								href="https://docs.cline.bot/troubleshooting/terminal-integration-guide"
 webview-ui/src/components/settings/sections/FeatureSettingsSection.tsx:1:import { UpdateSettingsRequest } from "@shared/proto/cline/state"
-webview-ui/src/components/settings/sections/FeatureSettingsSection.tsx:39:		description: "Let Cline run focused subagents in parallel to explore the codebase for you.",
+webview-ui/src/components/settings/sections/FeatureSettingsSection.tsx:39:		description: "Let Gaea AI Pro run focused subagents in parallel to explore the codebase for you.",
 webview-ui/src/components/settings/sections/FeatureSettingsSection.tsx:97:		id: "cline-web-tools",
 webview-ui/src/components/settings/sections/FeatureSettingsSection.tsx:98:		label: "Cline Web Tools",
 webview-ui/src/components/settings/sections/FeatureSettingsSection.tsx:100:		stateKey: "clineWebToolsEnabled",

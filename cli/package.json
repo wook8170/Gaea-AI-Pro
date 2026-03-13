@@ -1,11 +1,12 @@
 {
 	"name": "cline",
 	"version": "2.7.0",
-	"description": "Autonomous coding agent CLI - capable of creating/editing files, running commands, using the browser, and more",
+	"description": "Gaea AI Pro CLI",
 	"main": "dist/lib.mjs",
 	"types": "dist/lib.d.ts",
 	"bin": {
-		"cline": "./dist/cli.mjs"
+		"cline": "./dist/cli.mjs",
+		"gaea-cli": "./dist/cli.mjs"
 	},
 	"exports": {
 		".": {
@@ -58,16 +59,16 @@
 		"cli"
 	],
 	"author": {
-		"name": "Cline Bot Inc."
+		"name": "Gaea AI Pro"
 	},
 	"license": "Apache-2.0",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/cline/cline"
+		"url": "https://github.com/wook8170/gaea-ai-pro"
 	},
-	"homepage": "https://cline.bot",
+	"homepage": "https://gaea-ai-pro.bot",
 	"bugs": {
-		"url": "https://github.com/cline/cline/issues"
+		"url": "https://github.com/wook8170/gaea-ai-pro/issues"
 	},
 	"devDependencies": {
 		"@types/marked": "^5.0.2",

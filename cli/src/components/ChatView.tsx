@@ -142,7 +142,16 @@ import { waitFor } from "../utils/timeout"
 import { isFileEditTool, parseToolFromMessage } from "../utils/tools"
 import { shutdownEvent } from "../vscode-shim"
 import { ActionButtons, type ButtonActionType, getButtonConfig, getVisibleButtons } from "./ActionButtons"
-import { AsciiMotionCli, StaticRobotFrame } from "./AsciiMotionCli"
+
+// ASCII art Gaea AI Pro logo
+const GAEA_AI_PRO_LOGO = [
+	" ██████   █████  ███████  █████      █████  ██      ██████  ██████   ██████  ",
+	"██       ██   ██ ██      ██   ██    ██   ██ ██      ██   ██ ██   ██ ██    ██ ",
+	"██   ███ ███████ █████   ███████    ███████ ██      ██████  ██████  ██    ██ ",
+	"██    ██ ██   ██ ██      ██   ██    ██   ██ ██      ██      ██   ██ ██    ██ ",
+	" ██████  ██   ██ ███████ ██   ██    ██   ██ ██      ██      ██   ██  ██████  ",
+]
+
 import { ChatMessage } from "./ChatMessage"
 import { FileMentionMenu } from "./FileMentionMenu"
 import { HelpPanelContent } from "./HelpPanelContent"
@@ -1463,7 +1472,13 @@ export const ChatView: React.FC<ChatViewProps> = ({
 						// Show static robot frame in header (first frame, looking straight ahead)
 						return (
 							<Box flexDirection="column" key="header">
-								<StaticRobotFrame />
+								<Box alignItems="center" flexDirection="column" width="100%">
+									{GAEA_AI_PRO_LOGO.map((line, idx) => (
+										<Text color={COLORS.primaryNavy} key={idx}>
+											{line}
+										</Text>
+									))}
+								</Box>
 								<Text> </Text>
 								<Text bold color="white">
 									{centerText("What can I do for you?")}
@@ -1487,7 +1502,13 @@ export const ChatView: React.FC<ChatViewProps> = ({
 				{/* Animated robot and welcome text - only shown before messages start and user hasn't interacted */}
 				{isWelcomeState && (
 					<Box flexDirection="column" marginBottom={1}>
-						<AsciiMotionCli onInteraction={() => setUserScrolled(true)} />
+						<Box alignItems="center" flexDirection="column" width="100%">
+							{GAEA_AI_PRO_LOGO.map((line, idx) => (
+								<Text color={COLORS.primaryNavy} key={idx}>
+									{line}
+								</Text>
+							))}
+						</Box>
 						<Text> </Text>
 						<Text bold color="white">
 							{centerText("What can I do for you?")}
