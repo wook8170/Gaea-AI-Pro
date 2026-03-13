@@ -58,8 +58,8 @@ export const NousResearchProvider = ({ showModelOptions, isPopup, currentMode }:
 							color: "var(--vscode-descriptionForeground)",
 						}}>
 						<span style={{ color: "var(--vscode-errorForeground)" }}>
-							(<span style={{ fontWeight: 500 }}>Note:</span> Cline uses complex prompts and works best with Claude
-							models. Less capable models may not work as expected.)
+							(<span style={{ fontWeight: 500 }}>참고:</span> Gaea AI Pro는 복잡한 프롬프트를 사용하며 Claude 모델에
+							최적화되어 있습니다. 성능이 낮은 모델에서는 예상대로 동작하지 않을 수 있습니다.)
 						</span>
 					</p>
 				</>
