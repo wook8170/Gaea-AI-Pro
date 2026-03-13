@@ -1,7 +1,7 @@
-# No Black Box: Full Visibility & Control
+# 블랙박스가 아닙니다: 완벽한 투명성과 제어
 
-**Cline operates with complete transparency, showing you every file read and every proposed diff.**
+**Gaea AI Pro는 완벽히 투명하게 동작하여, 진행 과정과 모든 변경 제안 사항들을 보여줍니다.**
 
-Understand exactly what Cline is doing and why—no obfuscation. Review all actions and approve changes before they're made. Cline uses checkpoints, allowing you to easily revert if needed, maintaining full control over your codebase. With BYO-key, you also have clear cost transparency.
+Gaea AI Pro가 무엇을 왜 하는지 정확히 파악할 수 있습니다. 숨겨진 동작은 전혀 없습니다. 코드를 반영하기 전에 모든 변경사항을 먼저 검토하고 승인하세요. Gaea AI Pro는 체크포인트 기능을 지원하여 원할 때마다 쉽게 변경 전으로 되돌릴 수 있으며, 코드 권한을 완전히 쥐도록 돕습니다. 외부 키 사용 시 발생 비용 역시 투명하게 표시됩니다.
 
-![Cline Transparency Demo](https://storage.googleapis.com/cline_public_images/docs/assets/clines-transparency-hifi-5_compress.webp)
+![Gaea AI Pro 투명성 시연](https://storage.googleapis.com/cline_public_images/docs/assets/clines-transparency-hifi-5_compress.webp)

@@ -1,7 +1,7 @@
-# Unlock Specialized Capabilities with MCP
+# MCP로 확장 가능한 능력
 
-**The Model Context Protocol (MCP) connects Cline to a world of powerful tools.**
+**모델 컨텍스트 프로토콜(MCP)은 Gaea AI Pro를 강력한 도구의 세상으로 연결합니다.**
 
-Go beyond local code. With the Model Context Protocol (MCP), Cline accesses vital context from external datasources like databases and APIs. It can interact with these platforms and leverage a growing marketplace of specialized, secure tools to tackle complex, real-world development tasks.
+로컬 코드를 넘어서세요. MCP를 통해 Gaea AI Pro는 데이터베이스나 API와 같은 외부 데이터 소스에서 핵심 정보에 접근합니다. 이러한 플랫폼과 상호 작용하며 점점 늘어나는 전문적이고 안전한 마켓플레이스 도구들을 활용해, 복잡한 실전 개발 문제들을 해결할 수 있습니다.
 
-![Cline MCP Servers Demo](https://storage.googleapis.com/cline_public_images/docs/assets/clines-mcp-servers-4_compress.webp)
+![Gaea AI Pro MCP 서버 시연](https://storage.googleapis.com/cline_public_images/docs/assets/clines-mcp-servers-4_compress.webp)

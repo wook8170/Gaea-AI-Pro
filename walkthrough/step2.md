@@ -1,7 +1,7 @@
-# Deep Codebase Intelligence
+# 깊이 있는 코드베이스 이해
 
-**Cline starts with broad context and explores deeply where needed.**
+**Gaea AI Pro는 넓은 문맥부터 파악하고, 필요한 곳은 깊이 탐색합니다.**
 
-Cline is designed with inherent codebase intelligence. It doesn't operate in a vacuum, but starts with a structural understanding of your project. Before making changes, it performs targeted agentic exploration to gain any additional specific context required, ensuring its actions are always well-informed and aligned with your architecture.
+Gaea AI Pro는 코드베이스 자체에 대한 높은 이해도를 가지도록 설계되었습니다. 단순 백지 상태에서 시작하는 것이 아니라, 프로젝트 구조를 온전히 이해한 상태로 동작합니다. 코드를 수정하기 전에, 목적에 맞는 에이전트 탐색을 통해 구체적인 맥락을 확보하여 항상 정확한 정보와 아키텍처에 맞춰 행동합니다.
 
-![Cline Deep Codebase Intelligence Demo](https://storage.googleapis.com/cline_public_images/docs/assets/cline-reading-codebase-hifi-2_compress.webp)
+![Gaea AI Pro 코드베이스 이해 시연](https://storage.googleapis.com/cline_public_images/docs/assets/cline-reading-codebase-hifi-2_compress.webp)

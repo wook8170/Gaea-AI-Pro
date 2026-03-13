@@ -1,7 +1,7 @@
-# Beyond Autocomplete: True Agentic Planning
+# 단순한 자동완성 그 이상: 진정한 에이전트형 계획
 
-**Cline analyzes your request, explores your code, and presents a clear plan.**
+**Gaea AI Pro는 요청을 분석하고 코드를 탐색하여 명확한 계획을 제시합니다.**
 
-Watch Cline break down complex tasks, ask clarifying questions, and outline its approach. Understand the 'why' before any code is written, ensuring changes align with your architecture and intent.
+Gaea AI Pro가 복잡한 작업을 잘게 나누고, 원활히 수행될 수 있게 질문하여 파악하고, 접근 방식을 계획하는 과정을 지켜보세요. 코드가 작성되기 전에 '이유'를 이해함으로써, 변경 사항이 아키텍처와 사용자 의도에 완벽하게 일치하는지 확인할 수 있습니다.
 
-![Cline planning demonstration](https://storage.googleapis.com/cline_public_images/docs/assets/cline-plan-hifi-1_compress.webp)
+![Gaea AI Pro 계획 시연](https://storage.googleapis.com/cline_public_images/docs/assets/cline-plan-hifi-1_compress.webp)
