@@ -181,8 +181,9 @@
 			},
 			{
 				"command": "cline.focusChatInput",
-				"title": "Jump to Chat Input",
-				"category": "Cline"
+				"title": "Gaea AI Pro 열기",
+				"category": "Cline",
+				"icon": "$(cline-icon)"
 			},
 			{
 				"command": "cline.generateGitCommitMessage",
@@ -313,6 +314,13 @@
 				{
 					"command": "cline.addTerminalOutputToChat",
 					"group": "navigation"
+				}
+			],
+			"editor/title": [
+				{
+					"command": "cline.focusChatInput",
+					"group": "navigation@0",
+					"when": "editorTextFocus"
 				}
 			],
 			"scm/title": [
