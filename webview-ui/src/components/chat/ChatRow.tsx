@@ -431,8 +431,8 @@ export const ChatRowContent = memo(
 					const content = tool?.content || ""
 					const isApplyingPatch = content?.startsWith("%%bash") && !content.endsWith("*** End Patch\nEOF")
 					const editToolTitle = isApplyingPatch
-						? "Cline is creating patches to edit this file:"
-						: "Cline wants to edit this file:"
+						? "Gaea-AI-Pro가 이 파일을 수정하기 위해 패치를 생성 중입니다:"
+						: "Gaea-AI-Pro가 이 파일을 수정하려고 합니다:"
 					return (
 						<div>
 							<div className={HEADER_CLASSNAMES}>
@@ -507,7 +507,7 @@ export const ChatRowContent = memo(
 								{isImage ? <ImageUpIcon className="size-2" /> : <FileCode2Icon className="size-2" />}
 								{tool.operationIsLocatedInWorkspace === false &&
 									toolIcon("sign-out", "yellow", -90, "This file is outside of your workspace")}
-								<span className="font-bold">Cline wants to read this file:</span>
+								<span className="font-bold">Gaea-AI-Pro가 이 파일을 읽으려고 합니다:</span>
 							</div>
 							<div className="bg-code rounded-sm overflow-hidden border border-editor-group-border">
 								<div
@@ -541,8 +541,8 @@ export const ChatRowContent = memo(
 									toolIcon("sign-out", "yellow", -90, "This is outside of your workspace")}
 								<span style={{ fontWeight: "bold" }}>
 									{message.type === "ask"
-										? "Cline wants to view the top level files in this directory:"
-										: "Cline viewed the top level files in this directory:"}
+										? "Gaea-AI-Pro가 이 디렉토리의 최상위 파일 목록을 보려고 합니다:"
+										: "Gaea-AI-Pro가 이 디렉토리의 최상위 파일 목록을 확인했습니다:"}
 								</span>
 							</div>
 							<CodeAccordian
@@ -563,8 +563,8 @@ export const ChatRowContent = memo(
 									toolIcon("sign-out", "yellow", -90, "This is outside of your workspace")}
 								<span style={{ fontWeight: "bold" }}>
 									{message.type === "ask"
-										? "Cline wants to recursively view all files in this directory:"
-										: "Cline recursively viewed all files in this directory:"}
+										? "Gaea-AI-Pro가 이 디렉토리의 모든 파일을 재귀적으로 보려고 합니다:"
+										: "Gaea-AI-Pro가 이 디렉토리의 모든 파일을 재귀적으로 확인했습니다:"}
 								</span>
 							</div>
 							<CodeAccordian
@@ -585,8 +585,8 @@ export const ChatRowContent = memo(
 									toolIcon("sign-out", "yellow", -90, "This file is outside of your workspace")}
 								<span style={{ fontWeight: "bold" }}>
 									{message.type === "ask"
-										? "Cline wants to view source code definition names used in this directory:"
-										: "Cline viewed source code definition names used in this directory:"}
+										? "Gaea-AI-Pro가 이 디렉토리에서 사용된 소스 코드 정의 이름을 보려고 합니다:"
+										: "Gaea-AI-Pro가 이 디렉토리에서 사용된 소스 코드 정의 이름을 확인했습니다:"}
 								</span>
 							</div>
 							<CodeAccordian
@@ -605,7 +605,8 @@ export const ChatRowContent = memo(
 								{tool.operationIsLocatedInWorkspace === false &&
 									toolIcon("sign-out", "yellow", -90, "This is outside of your workspace")}
 								<span className="font-bold">
-									Cline wants to search this directory for <code className="break-all">{tool.regex}</code>:
+									Gaea-AI-Pro가 이 디렉토리에서 다음 정규식으로 검색하려고 합니다{" "}
+									<code className="break-all">{tool.regex}</code>:
 								</span>
 							</div>
 							<SearchResultsDisplay
@@ -622,7 +623,7 @@ export const ChatRowContent = memo(
 						<div>
 							<div className={HEADER_CLASSNAMES}>
 								<FoldVerticalIcon className="size-2" />
-								<span className="font-bold">Cline is condensing the conversation:</span>
+								<span className="font-bold">Gaea-AI-Pro가 대화 내용을 요약하는 중입니다:</span>
 							</div>
 							<div className="bg-code overflow-hidden border border-editor-group-border rounded-[3px]">
 								<div
@@ -667,8 +668,8 @@ export const ChatRowContent = memo(
 									toolIcon("sign-out", "yellow", -90, "This URL is external")}
 								<span className="font-bold">
 									{message.type === "ask"
-										? "Cline wants to fetch content from this URL:"
-										: "Cline fetched content from this URL:"}
+										? "Gaea-AI-Pro가 이 URL에서 콘텐츠를 가져오려고 합니다:"
+										: "Gaea-AI-Pro가 이 URL에서 콘텐츠를 가져왔습니다:"}
 								</span>
 							</div>
 							<div
@@ -696,8 +697,8 @@ export const ChatRowContent = memo(
 									toolIcon("sign-out", "yellow", -90, "This search is external")}
 								<span className="font-bold">
 									{message.type === "ask"
-										? "Cline wants to search the web for:"
-										: "Cline searched the web for:"}
+										? "Gaea-AI-Pro가 다음 내용을 웹에서 검색하려고 합니다:"
+										: "Gaea-AI-Pro가 다음 내용을 웹에서 검색했습니다:"}
 								</span>
 							</div>
 							<div className="bg-code border border-editor-group-border overflow-hidden rounded-xs select-text py-[9px] px-2.5">
@@ -712,7 +713,7 @@ export const ChatRowContent = memo(
 						<div>
 							<div className={HEADER_CLASSNAMES}>
 								<LightbulbIcon className="size-2" />
-								<span className="font-bold">Cline loaded the skill:</span>
+								<span className="font-bold">Gaea-AI-Pro가 다음 스킬을 불러왔습니다:</span>
 							</div>
 							<div className="bg-code border border-editor-group-border overflow-hidden rounded-xs py-[9px] px-2.5">
 								<span className="ph-no-capture font-medium">{tool.path}</span>
@@ -935,12 +936,12 @@ export const ChatRowContent = memo(
 						return (
 							<div className="text-foreground flex items-center opacity-70 text-[12px] py-1 px-0">
 								<i className="codicon codicon-book mr-1.5" />
-								Loading MCP documentation
+								MCP 문서 로드 중
 							</div>
 						)
 					case "generate_explanation": {
 						let explanationInfo: ClineSayGenerateExplanation = {
-							title: "code changes",
+							title: "코드 변경 사항",
 							fromRef: "",
 							toRef: "",
 							status: "generating",
@@ -976,12 +977,12 @@ export const ChatRowContent = memo(
 									)}
 									<span className="font-semibold">
 										{isGenerating
-											? "Generating explanation"
+											? "설명 생성 중"
 											: isError
-												? "Failed to generate explanation"
+												? "설명 생성 실패"
 												: wasCancelled
-													? "Explanation cancelled"
-													: "Generated explanation"}
+													? "설명 생성 취소됨"
+													: "설명 생성 완료"}
 									</span>
 								</div>
 								{isError && explanationInfo.error && (
@@ -997,7 +998,7 @@ export const ChatRowContent = memo(
 												</code>
 												<ArrowRightIcon className="inline size-2 mx-1" />
 												<code className="bg-quote rounded-sm py-0.5 px-1.5">
-													{explanationInfo.toRef || "working directory"}
+													{explanationInfo.toRef || "작업 디렉토리"}
 												</code>
 											</div>
 										)}
@@ -1029,17 +1030,17 @@ export const ChatRowContent = memo(
 							<div className="flex flex-col bg-warning/20 p-2 rounded-xs border border-error">
 								<div className="flex items-center mb-1">
 									<TriangleAlertIcon className="mr-2 size-2 stroke-3 text-error" />
-									<span className="font-medium text-foreground">Shell Integration Unavailable</span>
+									<span className="font-medium text-foreground">셸 통합(Shell Integration) 사용 불가</span>
 								</div>
 								<div className="text-foreground opacity-80">
-									Cline may have trouble viewing the command's output. Please update VSCode (
-									<code>CMD/CTRL + Shift + P</code> → "Update") and make sure you're using a supported shell:
-									zsh, bash, fish, or PowerShell (<code>CMD/CTRL + Shift + P</code> → "Terminal: Select Default
-									Profile").
+									Gaea-AI-Pro가 명령어의 출력을 보는 데 어려움을 겪을 수 있습니다. VS Code를 업데이트(
+									<code>CMD/CTRL + Shift + P</code> → "Update")하고 지원되는 셸(zsh, bash, fish, PowerShell)을
+									사용 중인지 확인해 주세요(
+									<code>CMD/CTRL + Shift + P</code> → "Terminal: Select Default Profile").
 									<a
 										className="px-1"
-										href="https://github.com/cline/cline/wiki/Troubleshooting-%E2%80%90-Shell-Integration-Unavailable">
-										Still having trouble?
+										href="https://github.com/gaea-ai-pro/gaea-ai-pro/wiki/Troubleshooting-%E2%80%90-Shell-Integration-Unavailable">
+										여전히 문제가 발생하나요?
 									</a>
 								</div>
 							</div>
@@ -1055,7 +1056,7 @@ export const ChatRowContent = memo(
 									{errorMessage && (
 										<p className="m-0 whitespace-pre-wrap text-error wrap-anywhere text-xs">{errorMessage}</p>
 									)}
-									<div className="flex flex-col bg-quote p-0 rounded-[3px] text-[12px] p-3">
+									<div className="flex flex-col bg-quote rounded-[3px] text-[12px] p-3">
 										<div className="flex items-center mb-1">
 											{isFailed && !isRequestInProgress ? (
 												<TriangleAlertIcon className="mr-2 size-2" />
@@ -1063,19 +1064,19 @@ export const ChatRowContent = memo(
 												<RefreshCwIcon className="mr-2 size-2 animate-spin" />
 											)}
 											<span className="font-medium text-foreground">
-												{isFailed ? "Auto-Retry Failed" : "Auto-Retry in Progress"}
+												{isFailed ? "자동 재시도 실패" : "자동 재시도 진행 중"}
 											</span>
 										</div>
 										<div className="text-foreground opacity-80">
 											{isFailed ? (
 												<span>
-													Auto-retry failed after <strong>{maxAttempts}</strong> attempts. Manual
-													intervention required.
+													<strong>{maxAttempts}</strong>번의 시도 후 자동 재시도에 실패했습니다. 수동
+													조치가 필요합니다.
 												</span>
 											) : (
 												<span>
-													Attempt <strong>{attempt}</strong> of <strong>{maxAttempts}</strong> -
-													Retrying in {delaySeconds} seconds...
+													<strong>{maxAttempts}</strong>번 중 <strong>{attempt}</strong>번째 시도 -
+													{delaySeconds}초 후 재시도 중...
 												</span>
 											)}
 										</div>
@@ -1103,11 +1104,11 @@ export const ChatRowContent = memo(
 							<div className="p-2 bg-link/10 border border-link/30 rounded-xs">
 								<div className="flex items-center mb-1">
 									<LightbulbIcon className="mr-1.5 size-2 text-link" />
-									<span className="font-medium text-foreground">Shell integration issues</span>
+									<span className="font-medium text-foreground">셸 통합(Shell integration) 문제</span>
 								</div>
 								<div className="text-foreground opacity-90 mb-2">
-									Since you're experiencing repeated shell integration issues, we recommend switching to
-									Background Terminal mode for better reliability.
+									셸 통합 문제가 반복적으로 발생하고 있습니다. 더 나은 안정성을 위해 백그라운드
+									터미널(Background Terminal) 모드로 전환하는 것을 권장합니다.
 								</div>
 								<button
 									className={cn(
@@ -1126,9 +1127,7 @@ export const ChatRowContent = memo(
 										}
 									}}>
 									<SettingsIcon className="size-2" />
-									{isBackgroundModeEnabled
-										? "Background Terminal Enabled"
-										: "Enable Background Terminal (Recommended)"}
+									{isBackgroundModeEnabled ? "백그라운드 터미널 활성화됨" : "백그라운드 터미널 활성화 (권장)"}
 								</button>
 							</div>
 						)
@@ -1231,7 +1230,9 @@ export const ChatRowContent = memo(
 							<div>
 								<div className={HEADER_CLASSNAMES}>
 									<FilePlus2Icon className="size-2" />
-									<span className="text-foreground font-bold">Cline wants to start a new task:</span>
+									<span className="text-foreground font-bold">
+										Gaea-AI-Pro가 새로운 작업을 시작하려고 합니다:
+									</span>
 								</div>
 								<NewTaskPreview context={message.text || ""} />
 							</div>
@@ -1241,7 +1242,9 @@ export const ChatRowContent = memo(
 							<div>
 								<div className={HEADER_CLASSNAMES}>
 									<FilePlus2Icon className="size-2" />
-									<span className="text-foreground font-bold">Cline wants to condense your conversation:</span>
+									<span className="text-foreground font-bold">
+										Gaea-AI-Pro가 대화 내용을 요약하려고 합니다:
+									</span>
 								</div>
 								<NewTaskPreview context={message.text || ""} />
 							</div>
@@ -1251,7 +1254,9 @@ export const ChatRowContent = memo(
 							<div>
 								<div className={HEADER_CLASSNAMES}>
 									<FilePlus2Icon className="size-2" />
-									<span className="text-foreground font-bold">Cline wants to create a Github issue:</span>
+									<span className="text-foreground font-bold">
+										Gaea-AI-Pro가 GitHub 이슈를 생성하려고 합니다:
+									</span>
 								</div>
 								<ReportBugPreview data={message.text || ""} />
 							</div>

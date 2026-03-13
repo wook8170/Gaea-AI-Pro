@@ -32,15 +32,15 @@ const ConnectionStatusIndicator = ({
 			{isChecking ? (
 				<>
 					<Spinner />
-					<StatusText>Checking connection...</StatusText>
+					<StatusText>연결 확인 중...</StatusText>
 				</>
 			) : isConnected === true ? (
 				<>
 					<CheckIcon className="codicon codicon-check" />
-					<StatusText style={{ color: "var(--vscode-terminal-ansiGreen)" }}>Connected</StatusText>
+					<StatusText style={{ color: "var(--vscode-terminal-ansiGreen)" }}>연결됨</StatusText>
 				</>
 			) : isConnected === false ? (
-				<StatusText style={{ color: "var(--vscode-errorForeground)" }}>Not connected</StatusText>
+				<StatusText style={{ color: "var(--vscode-errorForeground)" }}>연결되지 않음</StatusText>
 			) : null}
 		</StatusContainer>
 	)
@@ -144,7 +144,7 @@ export const BrowserSettingsSection: React.FC<BrowserSettingsSectionProps> = ({ 
 				console.error("Error relaunching Chrome:", error)
 				setRelaunchResult({
 					success: false,
-					message: `Error relaunching Chrome: ${error.message}`,
+					message: `Chrome 재실행 오류: ${error.message}`,
 				})
 				setDebugMode(false)
 			})
@@ -167,7 +167,7 @@ export const BrowserSettingsSection: React.FC<BrowserSettingsSectionProps> = ({ 
 							onChange={(e) =>
 								updateSetting("browserSettings", { disableToolUse: (e.target as HTMLInputElement).checked })
 							}>
-							Disable browser tool usage
+							브라우저 도구 사용 비활성화
 						</VSCodeCheckbox>
 						<p
 							style={{
@@ -175,14 +175,14 @@ export const BrowserSettingsSection: React.FC<BrowserSettingsSectionProps> = ({ 
 								color: "var(--vscode-descriptionForeground)",
 								margin: "4px 0 0 0px",
 							}}>
-							Prevent Cline from using browser actions (e.g. launch, click, type).
+							Gaea-AI-Pro가 브라우저 작업(실행, 클릭, 입력 등)을 수행하지 못하도록 합니다.
 						</p>
 					</div>
 
 					<CollapsibleContent isOpen={isSubSettingsOpen}>
 						<div style={{ marginBottom: 15 }}>
 							<div style={{ marginBottom: 8 }}>
-								<label style={{ fontWeight: "500", display: "block", marginBottom: 5 }}>Viewport size</label>
+								<label style={{ fontWeight: "500", display: "block", marginBottom: 5 }}>뷰포트 크기</label>
 								<VSCodeDropdown
 									onChange={(event) => handleViewportChange(event as Event)}
 									style={{ width: "100%" }}
@@ -208,7 +208,7 @@ export const BrowserSettingsSection: React.FC<BrowserSettingsSectionProps> = ({ 
 									color: "var(--vscode-descriptionForeground)",
 									margin: 0,
 								}}>
-								Set the size of the browser viewport for screenshots and interactions.
+								스크린샷 및 상호작용을 위한 브라우저 뷰포트 크기를 설정합니다.
 							</p>
 						</div>
 
@@ -246,22 +246,22 @@ export const BrowserSettingsSection: React.FC<BrowserSettingsSectionProps> = ({ 
 									color: "var(--vscode-descriptionForeground)",
 									margin: "0 0 6px 0px",
 								}}>
-								Enable Cline to use your Chrome
+								Gaea-AI-Pro가 사용자의 Chrome을 사용하도록 허용합니다.
 								{isBundled
-									? "(not detected on your machine)"
+									? "(사용자 시스템에서 감지되지 않음)"
 									: detectedChromePath
 										? ` (${detectedChromePath})`
 										: ""}
-								. You can specify a custom path below. Using a remote browser connection requires starting Chrome
-								in debug mode
+								. 아래에서 사용자 정의 경로를 지정할 수 있습니다. 원격 브라우저 연결을 사용하려면 Chrome을 디버그
+								모드
 								{browserSettings.remoteBrowserEnabled ? (
 									<>
 										{" "}
-										manually (<code>--remote-debugging-port=9222</code>) or using the button below. Enter the
-										host address or leave it blank for automatic discovery.
+										수동(<code>--remote-debugging-port=9222</code>)으로 시작하거나 아래 버튼을 사용하세요.
+										호스트 주소를 입력하거나 자동 검색을 위해 비워두세요.
 									</>
 								) : (
-									"."
+									"로 시작해야 합니다."
 								)}
 							</p>
 							{/* Moved remote-specific settings to appear directly after enabling remote connection */}
@@ -282,7 +282,7 @@ export const BrowserSettingsSection: React.FC<BrowserSettingsSectionProps> = ({ 
 												disabled={debugMode}
 												onClick={relaunchChromeDebugMode}
 												style={{ flex: 1 }}>
-												{debugMode ? "Launching Browser..." : "Launch Browser with Debug Mode"}
+												{debugMode ? "브라우저 실행 중..." : "디버그 모드로 브라우저 실행"}
 											</VSCodeButton>
 										</div>
 									)}
@@ -312,7 +312,8 @@ export const BrowserSettingsSection: React.FC<BrowserSettingsSectionProps> = ({ 
 											fontSize: "12px",
 											color: "var(--vscode-descriptionForeground)",
 											margin: 0,
-										}}></p>
+										}}
+									/>
 								</div>
 							)}
 							{/* Chrome Executable Path section now follows remote-specific settings */}
@@ -320,7 +321,7 @@ export const BrowserSettingsSection: React.FC<BrowserSettingsSectionProps> = ({ 
 								<label
 									htmlFor="chrome-executable-path"
 									style={{ fontWeight: "500", display: "block", marginBottom: 5 }}>
-									Chrome Executable Path (Optional)
+									Chrome 실행 경로 (선택 사항)
 								</label>
 								<DebouncedTextField
 									id="chrome-executable-path"
@@ -335,7 +336,7 @@ export const BrowserSettingsSection: React.FC<BrowserSettingsSectionProps> = ({ 
 										color: "var(--vscode-descriptionForeground)",
 										margin: "4px 0 0 0",
 									}}>
-									Leave blank to auto-detect.
+									자동 감지를 위해 비워두세요.
 								</p>
 							</div>
 							{/* Custom Browser Arguments section */}
@@ -343,7 +344,7 @@ export const BrowserSettingsSection: React.FC<BrowserSettingsSectionProps> = ({ 
 								<label
 									htmlFor="custom-browser-args"
 									style={{ fontWeight: "500", display: "block", marginBottom: 5 }}>
-									Custom Browser Arguments (Optional)
+									사용자 정의 브라우저 인자 (선택 사항)
 								</label>
 								<DebouncedTextField
 									id="custom-browser-args"
@@ -358,7 +359,7 @@ export const BrowserSettingsSection: React.FC<BrowserSettingsSectionProps> = ({ 
 										color: "var(--vscode-descriptionForeground)",
 										margin: "4px 0 0 0",
 									}}>
-									Space-separated arguments to pass to the browser executable.
+									브라우저 실행 파일에 전달할 공백으로 구분된 인자입니다.
 								</p>
 							</div>
 						</div>

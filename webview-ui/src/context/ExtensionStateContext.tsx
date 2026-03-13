@@ -769,7 +769,7 @@ export const ExtensionStateContextProvider: React.FC<{
 				const models = fromProtobufModels(response.models)
 				setClineModels((prev) => (Object.keys(models).length > 0 ? models : (prev ?? null)))
 			})
-			.catch((error: Error) => console.error("Failed to refresh Cline models:", error))
+			.catch((error: Error) => console.error("Gaea-AI-Pro 모델 목록을 갱신하지 못했습니다:", error))
 	}, [])
 
 	// Auto-refresh Cline models when provider is cline

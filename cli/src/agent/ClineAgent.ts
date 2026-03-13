@@ -1,5 +1,5 @@
 /**
- * ClineAgent - Decoupled ACP Agent implementation for Cline CLI.
+ * ClineAgent - Decoupled ACP Agent implementation for Gaea-AI-Pro CLI.
  *
  * This class implements the ACP (Agent Client Protocol) Agent interface,
  * allowing Cline to be used programmatically without stdio dependency.

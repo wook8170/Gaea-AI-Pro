@@ -1,5 +1,5 @@
 /**
- * Internal types for ACP integration with Cline CLI.
+ * Internal types for ACP integration with Gaea-AI-Pro CLI.
  *
  * This file re-exports all public types from ./public-types.ts and adds
  * internal-only Types that reference core modules (Controller, etc.).

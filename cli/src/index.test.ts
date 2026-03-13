@@ -14,7 +14,7 @@ describe("CLI Commands", () => {
 	beforeEach(() => {
 		// Create a fresh program instance for each test
 		program = new Command()
-		program.name("cline").description("Cline CLI - AI coding assistant").version("0.0.0")
+		program.name("cline").description("Gaea-AI-Pro CLI - AI coding assistant").version("0.0.0")
 		program.enablePositionalOptions()
 
 		// Define commands matching index.ts

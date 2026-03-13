@@ -1,6 +1,6 @@
 /**
  * Help panel content for inline display in ChatView
- * Explains Cline CLI features and links to documentation
+ * Explains Gaea-AI-Pro CLI features and links to documentation
  */
 
 import { Box, Text, useInput } from "ink"
@@ -95,7 +95,7 @@ export const HelpPanelContent: React.FC<HelpPanelContentProps> = ({ onClose }) =
 				</Box>
 
 				<Text>
-					For more help: <Text color={COLORS.primaryBlue}>https://docs.cline.bot/cline-cli</Text>
+					For more help: <Text color={COLORS.primaryBlue}>https://docs.gaea-ai-pro.bot/cline-cli</Text>
 				</Text>
 			</Box>
 		</Panel>

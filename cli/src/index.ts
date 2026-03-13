@@ -1,5 +1,5 @@
 /**
- * Cline CLI - TypeScript implementation with React Ink
+ * Gaea-AI-Pro CLI - TypeScript implementation with React Ink
  */
 
 import { spawn } from "node:child_process"
@@ -455,7 +455,7 @@ function setupSignalHandlers() {
 	process.on("SIGTERM", () => shutdown("SIGTERM"))
 
 	// Suppress known abort errors from unhandled rejections
-	// These occur when task is cancelled and async operations throw "Cline instance aborted"
+	// These occur when task is cancelled and async operations throw "Gaea-AI-Pro instance aborted"
 	process.on("unhandledRejection", (reason: unknown) => {
 		const message = reason instanceof Error ? reason.message : String(reason)
 		// Silently ignore abort-related errors - they're expected during task cancellation
@@ -504,7 +504,7 @@ async function initializeCli(options: InitOptions): Promise<CliContext> {
 	})
 
 	// Set up output channel and Logger early so ClineEndpoint.initialize logs are captured
-	const outputChannel = window.createOutputChannel("Cline CLI")
+	const outputChannel = window.createOutputChannel("Gaea-AI-Pro CLI")
 	const logToChannel = (message: string) => outputChannel.appendLine(message)
 
 	// Configure the shared Logging class early to capture all initialization logs
@@ -523,7 +523,7 @@ async function initializeCli(options: InitOptions): Promise<CliContext> {
 	}
 
 	outputChannel.appendLine(
-		`Cline CLI initialized. Data dir: ${DATA_DIR}, Extension dir: ${EXTENSION_DIR}, Log dir: ${CLINE_CLI_DIR.log}`,
+		`Gaea-AI-Pro CLI initialized. Data dir: ${DATA_DIR}, Extension dir: ${EXTENSION_DIR}, Log dir: ${CLINE_CLI_DIR.log}`,
 	)
 
 	HostProvider.initialize(
@@ -815,7 +815,7 @@ async function runAuth(options: {
 // Setup CLI commands
 const program = new Command()
 
-program.name("cline").description("Cline CLI - AI coding assistant in your terminal").version(CLI_VERSION)
+program.name("cline").description("Gaea-AI-Pro CLI - AI coding assistant in your terminal").version(CLI_VERSION)
 
 // Enable positional options to avoid conflicts between root and subcommand options with the same name
 program.enablePositionalOptions()
@@ -833,7 +833,7 @@ program
 	.option("-m, --model <model>", "Model to use for the task")
 	.option("-v, --verbose", "Show verbose output")
 	.option("-c, --cwd <path>", "Working directory for the task")
-	.option("--config <path>", "Path to Cline configuration directory")
+	.option("--config <path>", "Path to Gaea-AI-Pro configuration directory")
 	.option("--thinking [tokens]", "Enable extended thinking (default: 1024 tokens)")
 	.option("--reasoning-effort <effort>", "Reasoning effort: none|low|medium|high|xhigh")
 	.option("--max-consecutive-mistakes <count>", "Maximum consecutive mistakes before halting in yolo mode")
@@ -855,13 +855,13 @@ program
 	.description("List task history")
 	.option("-n, --limit <number>", "Number of tasks to show", "10")
 	.option("-p, --page <number>", "Page number (1-based)", "1")
-	.option("--config <path>", "Path to Cline configuration directory")
+	.option("--config <path>", "Path to Gaea-AI-Pro configuration directory")
 	.action(listHistory)
 
 program
 	.command("config")
 	.description("Show current configuration")
-	.option("--config <path>", "Path to Cline configuration directory")
+	.option("--config <path>", "Path to Gaea-AI-Pro configuration directory")
 	.action(showConfig)
 
 program
@@ -873,7 +873,7 @@ program
 	.option("-b, --baseurl <url>", "Base URL (optional, only for openai provider)")
 	.option("-v, --verbose", "Show verbose output")
 	.option("-c, --cwd <path>", "Working directory for the task")
-	.option("--config <path>", "Path to Cline configuration directory")
+	.option("--config <path>", "Path to Gaea-AI-Pro configuration directory")
 	.action(runAuth)
 
 const mcpCommand = program.command("mcp").description("Manage MCP servers")
@@ -885,13 +885,13 @@ mcpCommand
 	.argument("[targetOrCommand...]", "For stdio: use -- <command> [args]. For http/sse: provide <url>.")
 	.option("--type <type>", "Transport type: stdio (default), http, or sse", "stdio")
 	.option("-c, --cwd <path>", "Working directory for config resolution")
-	.option("--config <path>", "Path to Cline configuration directory")
+	.option("--config <path>", "Path to Gaea-AI-Pro configuration directory")
 	.action(addMcpServer)
 
 program
 	.command("version")
-	.description("Show Cline CLI version number")
-	.action(() => printInfo(`Cline CLI version: ${CLI_VERSION}`))
+	.description("Show Gaea-AI-Pro CLI version number")
+	.action(() => printInfo(`Gaea-AI-Pro CLI version: ${CLI_VERSION}`))
 
 program
 	.command("update")

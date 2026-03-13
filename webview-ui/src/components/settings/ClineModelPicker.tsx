@@ -384,17 +384,17 @@ const ClineModelPicker: React.FC<ClineModelPickerProps> = ({ isPopup, currentMod
 			</style>
 			<div style={{ display: "flex", flexDirection: "column" }}>
 				<label htmlFor="model-search">
-					<span style={{ fontWeight: 500 }}>Model</span>
+					<span style={{ fontWeight: 500 }}>모델</span>
 				</label>
 
 				<>
 					{/* Tabs */}
 					<TabsContainer style={{ marginTop: 4 }}>
 						<Tab active={activeTab === "recommended"} onClick={() => setActiveTab("recommended")}>
-							Recommended
+							추천 모델
 						</Tab>
 						<Tab active={activeTab === "free"} onClick={() => setActiveTab("free")}>
-							Free
+							무료 모델
 						</Tab>
 					</TabsContainer>
 
@@ -445,7 +445,7 @@ const ClineModelPicker: React.FC<ClineModelPickerProps> = ({ isPopup, currentMod
 							setIsDropdownVisible(true)
 						}}
 						onKeyDown={handleKeyDown}
-						placeholder="Search and select a model..."
+						placeholder="모델 검색 및 선택..."
 						role="combobox"
 						style={{
 							width: "100%",
@@ -455,7 +455,7 @@ const ClineModelPicker: React.FC<ClineModelPickerProps> = ({ isPopup, currentMod
 						value={searchTerm}>
 						{searchTerm && (
 							<div
-								aria-label="Clear search"
+								aria-label="검색 초기화"
 								className="input-icon-button codicon codicon-close"
 								onClick={() => {
 									setSearchTerm("")
@@ -559,8 +559,8 @@ const ClineModelPicker: React.FC<ClineModelPickerProps> = ({ isPopup, currentMod
 						marginTop: 0,
 						color: "var(--vscode-descriptionForeground)",
 					}}>
-					The extension automatically fetches the latest Cline model list. If you're unsure which model to choose, Cline
-					works best with <strong>anthropic/claude-sonnet-4.5</strong>.
+					이 확장 프로그램은 최신 Gaea-AI-Pro 모델 목록을 자동으로 가져옵니다. 어떤 모델을 선택해야 할지 모르겠다면,
+					Gaea-AI-Pro는 <strong>anthropic/claude-sonnet-4.5</strong> 모델에서 가장 잘 작동합니다.
 				</p>
 			)}
 		</div>

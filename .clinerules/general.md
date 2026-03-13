@@ -12,6 +12,12 @@ This file is the secret sauce for working effectively in this codebase. It captu
 
 **What NOT to add:** Stuff you can figure out from reading a few files, obvious patterns, or standard practices. This file should be high-signal, not comprehensive.
 
+## UI 자산 무결성 (Critical UI Asset Integrity)
+- **`codicon.ttf` 보호**: 웹뷰 아이콘 표시에 필수적인 `codicon.ttf` 및 `codicon.css` 경로는 어떠한 리브랜딩이나 문자열 치환 작업 중에도 변경되거나 삭제되어서는 안 됩니다.
+- **경로 유지**: `node_modules/@vscode/codicons/dist/`로 연결되는 모든 참조 경로는 패키지 업데이트 외의 목적으로 수정하는 것을 금지합니다.
+- **검증 절차**: UI 관련 변경 사항이 있는 경우, 반드시 `@.clinerules/workflows/icon-protection.md` 워크플로우를 따라 아이콘 표시 무결성을 확인해야 합니다.
+- **빌드 확인**: 빌드 후 `webview-ui/build/assets/codicon.ttf` 파일의 존재 여부를 상시 체크해야 합니다.
+
 ## Miscellaneous
 - This is a VS Code extension—check `package.json` for available scripts before trying to verify builds (e.g., `npm run compile`, not `npm run build`).
 - When creating PRs, contributors should not create changelog-entry files. Maintainers handle release versioning and changelog curation during the release process.

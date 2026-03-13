@@ -70,13 +70,13 @@ const ErrorRow = memo(({ message, errorType, apiRequestFailedMessage, apiReqStre
 							{/* Windows Powershell Issue */}
 							{errorMessage?.toLowerCase()?.includes("powershell") && (
 								<div>
-									It seems like you're having Windows PowerShell issues, please see this{" "}
+									Windows PowerShell 관련 문제가 발생한 것 같습니다. 이{" "}
 									<a
 										className="underline text-inherit"
-										href="https://github.com/cline/cline/wiki/TroubleShooting-%E2%80%90-%22PowerShell-is-not-recognized-as-an-internal-or-external-command%22">
-										troubleshooting guide
+										href="https://github.com/gaea-ai-pro/gaea-ai-pro/wiki/TroubleShooting-%E2%80%90-%22PowerShell-is-not-recognized-as-an-internal-or-external-command%22">
+										문제 해결 가이드
 									</a>
-									.
+									를 참조해 주세요.
 								</div>
 							)}
 
@@ -88,15 +88,15 @@ const ErrorRow = memo(({ message, errorType, apiRequestFailedMessage, apiReqStre
 								{/* The user is signed in or not using cline provider */}
 								{isClineProvider && !clineUser ? (
 									<Button className="w-full mb-4" disabled={isLoginLoading} onClick={handleSignIn}>
-										Sign in to Cline
+										Gaea-AI-Pro 서비스 로그인
 										{isLoginLoading && (
 											<span className="ml-1 animate-spin">
-												<span className="codicon codicon-refresh"></span>
+												<span className="codicon codicon-refresh" />
 											</span>
 										)}
 									</Button>
 								) : (
-									<span className="mb-4 text-description">(Click "Retry" below)</span>
+									<span className="mb-4 text-description">(아래의 "다시 시도" 버튼을 클릭해 주세요)</span>
 								)}
 							</div>
 						</p>
@@ -109,7 +109,7 @@ const ErrorRow = memo(({ message, errorType, apiRequestFailedMessage, apiReqStre
 			case "diff_error":
 				return (
 					<div className="flex flex-col p-2 rounded text-xs opacity-80 bg-quote text-foreground">
-						<div>The model used search patterns that don't match anything in the file. Retrying...</div>
+						<div>모델이 파일 내용과 일치하지 않는 검색 패턴을 사용했습니다. 다시 시도 중...</div>
 					</div>
 				)
 
@@ -117,8 +117,8 @@ const ErrorRow = memo(({ message, errorType, apiRequestFailedMessage, apiReqStre
 				return (
 					<div className="flex flex-col p-2 rounded text-xs opacity-80 bg-quote text-foreground">
 						<div>
-							Cline tried to access <code>{message.text}</code> which is blocked by the <code>.clineignore</code>
-							file.
+							Gaea-AI-Pro가 <code>.clineignore</code> 파일에 의해 차단된 <code>{message.text}</code>에 접근을
+							시도했습니다.
 						</div>
 					</div>
 				)

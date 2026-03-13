@@ -286,11 +286,11 @@ const ApiOptions = ({
 								<i className="codicon codicon-lock text-description text-sm" />
 							</div>
 						</TooltipTrigger>
-						<TooltipContent>Provider options are managed by your organization's remote configuration</TooltipContent>
+						<TooltipContent>제공자 옵션은 조직의 원격 설정에 의해 관리됩니다.</TooltipContent>
 					</Tooltip>
 				) : (
 					<label htmlFor="api-provider">
-						<span style={{ fontWeight: 500 }}>API Provider</span>
+						<span style={{ fontWeight: 500 }}>API 제공자</span>
 					</label>
 				)}
 				<ProviderDropdownWrapper ref={dropdownRef}>
@@ -306,7 +306,7 @@ const ApiOptions = ({
 							setIsDropdownVisible(true)
 						}}
 						onKeyDown={handleKeyDown}
-						placeholder="Search and select provider..."
+						placeholder="제공자 검색 및 선택..."
 						role="combobox"
 						style={{
 							width: "100%",
@@ -317,7 +317,7 @@ const ApiOptions = ({
 						value={searchTerm}>
 						{searchTerm && searchTerm !== currentProviderLabel && (
 							<div
-								aria-label="Clear search"
+								aria-label="검색 초기화"
 								className="input-icon-button codicon codicon-close"
 								onClick={() => {
 									setSearchTerm("")

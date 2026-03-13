@@ -95,7 +95,7 @@ export const WhatsNewModal: React.FC<WhatsNewModalProps> = ({ open, onClose, ver
 							<a
 								aria-label="Join our Discord"
 								className="text-[var(--vscode-foreground)] hover:text-[var(--vscode-textLink-activeForeground)] transition-colors"
-								href="https://discord.gg/cline"
+								href="https://discord.gg/gaea-ai-pro"
 								rel="noopener noreferrer"
 								target="_blank">
 								<DiscordIcon />
@@ -105,7 +105,7 @@ export const WhatsNewModal: React.FC<WhatsNewModalProps> = ({ open, onClose, ver
 							<a
 								aria-label="Star us on GitHub"
 								className="text-[var(--vscode-foreground)] hover:text-[var(--vscode-textLink-activeForeground)] transition-colors"
-								href="https://github.com/cline/cline"
+								href="https://github.com/gaea-ai-pro/gaea-ai-pro"
 								rel="noopener noreferrer"
 								target="_blank">
 								<GitHubIcon />
@@ -136,7 +136,7 @@ export const WhatsNewModal: React.FC<WhatsNewModalProps> = ({ open, onClose, ver
 						<p className="text-sm text-center" style={{ color: "var(--vscode-descriptionForeground)" }}>
 							Please support Cline by{" "}
 							<a
-								href="https://github.com/cline/cline"
+								href="https://github.com/gaea-ai-pro/gaea-ai-pro"
 								rel="noopener noreferrer"
 								style={{ color: "var(--vscode-textLink-foreground)" }}
 								target="_blank">

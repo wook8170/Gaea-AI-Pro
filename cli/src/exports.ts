@@ -1,8 +1,8 @@
 /**
- * Cline Library Exports
+ * Gaea-AI-Pro Library Exports
  *
- * This file exports the public API for programmatic use of Cline.
- * Use these classes and types to embed Cline into your applications.
+ * This file exports the public API for programmatic use of Gaea-AI-Pro.
+ * Use these classes and types to embed Gaea-AI-Pro into your applications.
  *
  * @example
  * ```typescript

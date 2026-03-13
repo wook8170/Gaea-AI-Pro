@@ -8,7 +8,7 @@
  * - `ClineAgent` - Decoupled agent for programmatic use (no stdio dependency)
  * - `AcpAgent` - Thin wrapper that bridges stdio connection to ClineAgent
  * - `ClineSessionEmitter` - Typed EventEmitter for per-session events
- * - `runAcpMode` - Function to run Cline in stdio-based ACP mode
+ * - `runAcpMode` - Function to run Gaea-AI-Pro in stdio-based ACP mode
  *
  * @module acp
  */
@@ -65,7 +65,7 @@ export function restoreConsole(): void {
 }
 
 export interface AcpModeOptions {
-	/** Path to Cline configuration directory */
+	/** Path to Gaea-AI-Pro configuration directory */
 	config?: string
 	/** Working directory (default: process.cwd()) */
 	cwd?: string

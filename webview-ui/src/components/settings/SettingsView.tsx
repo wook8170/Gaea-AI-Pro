@@ -48,61 +48,61 @@ interface SettingsTab {
 export const SETTINGS_TABS: SettingsTab[] = [
 	{
 		id: "api-config",
-		name: "API Configuration",
-		tooltipText: "API Configuration",
-		headerText: "API Configuration",
+		name: "API 설정",
+		tooltipText: "API 설정",
+		headerText: "API 설정",
 		icon: SlidersHorizontal,
 	},
 	{
 		id: "features",
-		name: "Features",
-		tooltipText: "Feature Settings",
-		headerText: "Feature Settings",
+		name: "기능",
+		tooltipText: "기능 설정",
+		headerText: "기능 설정",
 		icon: CheckCheck,
 	},
 	{
 		id: "browser",
-		name: "Browser",
-		tooltipText: "Browser Settings",
-		headerText: "Browser Settings",
+		name: "브라우저",
+		tooltipText: "브라우저 설정",
+		headerText: "브라우저 설정",
 		icon: SquareMousePointer,
 	},
 	{
 		id: "terminal",
-		name: "Terminal",
-		tooltipText: "Terminal Settings",
-		headerText: "Terminal Settings",
+		name: "터미널",
+		tooltipText: "터미널 설정",
+		headerText: "터미널 설정",
 		icon: SquareTerminal,
 	},
 	{
 		id: "general",
-		name: "General",
-		tooltipText: "General Settings",
-		headerText: "General Settings",
+		name: "일반",
+		tooltipText: "일반 설정",
+		headerText: "일반 설정",
 		icon: Wrench,
 	},
 	{
 		id: "remote-config",
-		name: "Remote Config",
-		tooltipText: "Remotely configured fields",
-		headerText: "Remote Config",
+		name: "원격 구성",
+		tooltipText: "원격으로 구성된 필드",
+		headerText: "원격 구성",
 		icon: HardDriveDownload,
 		hidden: ({ activeOrganization } = { activeOrganization: null }) =>
 			!activeOrganization || !isAdminOrOwner(activeOrganization),
 	},
 	{
 		id: "about",
-		name: "About",
-		tooltipText: "About Cline",
-		headerText: "About",
+		name: "정보",
+		tooltipText: "Gaea-AI-Pro 정보",
+		headerText: "정보",
 		icon: Info,
 	},
 	// Only show in dev mode
 	{
 		id: "debug",
-		name: "Debug",
-		tooltipText: "Debug Tools",
-		headerText: "Debug",
+		name: "디버그",
+		tooltipText: "디버그 도구",
+		headerText: "디버그",
 		icon: FlaskConical,
 		hidden: () => !IS_DEV,
 	},
@@ -258,7 +258,7 @@ const SettingsView = ({ onDone, targetSection }: SettingsViewProps) => {
 
 	return (
 		<Tab>
-			<ViewHeader environment={environment} onDone={onDone} title="Settings" />
+			<ViewHeader environment={environment} onDone={onDone} title="설정(Settings)" />
 
 			<div className="flex flex-1 overflow-hidden">
 				<TabList

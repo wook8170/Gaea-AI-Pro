@@ -1352,12 +1352,12 @@ const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 					onDrop={onDrop}>
 					{showDimensionError && (
 						<div className="absolute inset-2.5 bg-[rgba(var(--vscode-errorForeground-rgb),0.1)] border-2 border-error rounded-xs flex items-center justify-center z-10 pointer-events-none">
-							<span className="text-error font-bold text-xs text-center">Image dimensions exceed 7500px</span>
+							<span className="text-error font-bold text-xs text-center">이미지 크기가 7500px을 초과합니다.</span>
 						</div>
 					)}
 					{showUnsupportedFileError && (
 						<div className="absolute inset-2.5 bg-[rgba(var(--vscode-errorForeground-rgb),0.1)] border-2 border-error rounded-xs flex items-center justify-center z-10 pointer-events-none">
-							<span className="text-error font-bold text-xs">Files other than images are currently disabled</span>
+							<span className="text-error font-bold text-xs">이미지 외의 파일은 현재 업로드할 수 없습니다.</span>
 						</div>
 					)}
 					{showSlashCommandsMenu && (
@@ -1492,7 +1492,7 @@ const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 					/>
 					{!inputValue && selectedImages.length === 0 && selectedFiles.length === 0 && (
 						<div className="text-xs absolute bottom-5 left-6.5 right-16 text-(--vscode-input-placeholderForeground)/50 whitespace-nowrap overflow-hidden text-ellipsis pointer-events-none z-1">
-							Type @ for context, / for slash commands & workflows, hold shift to drag in files/images
+							콘텐츠 언급은 @, 명령/워크플로우 실행은 /, 파일 드래그 시 Shift 키를 누르세요.
 						</div>
 					)}
 					{(selectedImages.length > 0 || selectedFiles.length > 0) && (
@@ -1535,11 +1535,11 @@ const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 						{/* ButtonGroup - always in DOM but visibility controlled */}
 						<ButtonGroup className="absolute top-0 left-0 right-0 ease-in-out w-full h-5 z-10 flex items-center">
 							<Tooltip>
-								<TooltipContent>Add Context</TooltipContent>
+								<TooltipContent>문맥 추가</TooltipContent>
 								<TooltipTrigger>
 									<VSCodeButton
 										appearance="icon"
-										aria-label="Add Context"
+										aria-label="문맥 추가"
 										className="p-0 m-0 flex items-center"
 										data-testid="context-button"
 										onClick={handleContextButtonClick}>
@@ -1551,11 +1551,11 @@ const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 							</Tooltip>
 
 							<Tooltip>
-								<TooltipContent>Add Files & Images</TooltipContent>
+								<TooltipContent>파일 및 이미지 추가</TooltipContent>
 								<TooltipTrigger>
 									<VSCodeButton
 										appearance="icon"
-										aria-label="Add Files & Images"
+										aria-label="파일 및 이미지 추가"
 										className="p-0 m-0 flex items-center"
 										data-testid="files-button"
 										disabled={shouldDisableFilesAndImages}
@@ -1582,7 +1582,7 @@ const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 										onClick={handleModelButtonClick}
 										role="button"
 										tabIndex={0}
-										title="Open API Settings">
+										title="API 설정 열기">
 										<ModelButtonContent className="text-xs">{modelDisplayName}</ModelButtonContent>
 									</ModelDisplayButton>
 								</ModelButtonWrapper>
@@ -1595,9 +1595,9 @@ const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 							className="text-xs px-2 flex flex-col gap-1"
 							hidden={shownTooltipMode === null}
 							side="top">
-							{`In ${shownTooltipMode === "act" ? "Act" : "Plan"}  mode, Cline will ${shownTooltipMode === "act" ? "complete the task immediately" : "gather information to architect a plan"}`}
+							{`Gaea-AI-Pro는 ${shownTooltipMode === "act" ? "실행(Act)" : "계획(Plan)"} 모드에서 ${shownTooltipMode === "act" ? "작업을 즉시 완료합니다" : "계획을 설계하기 위한 정보를 수집합니다"}`}
 							<p className="text-description/80 text-xs mb-0">
-								Toggle w/ <kbd className="text-muted-foreground mx-1">{togglePlanActKeys}</kbd>
+								단축키로 전환: <kbd className="text-muted-foreground mx-1">{togglePlanActKeys}</kbd>
 							</p>
 						</TooltipContent>
 						<TooltipTrigger>

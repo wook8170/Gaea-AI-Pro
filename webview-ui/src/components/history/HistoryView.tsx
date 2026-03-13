@@ -26,13 +26,13 @@ const isToday = (timestamp: number): boolean => {
 }
 
 const HISTORY_FILTERS = {
-	newest: "Newest",
-	oldest: "Oldest",
-	mostExpensive: "Most Expensive",
-	mostTokens: "Most Tokens",
-	mostRelevant: "Most Relevant",
-	workspaceOnly: "Workspace Only",
-	favoritesOnly: "Favorites Only",
+	newest: "최신순",
+	oldest: "오래된순",
+	mostExpensive: "최고 비용순",
+	mostTokens: "최다 토큰순",
+	mostRelevant: "관련성순",
+	workspaceOnly: "현재 워크스페이스만",
+	favoritesOnly: "즐겨찾기만",
 }
 
 const HistoryView = ({ onDone }: HistoryViewProps) => {
@@ -157,9 +157,8 @@ const HistoryView = ({ onDone }: HistoryViewProps) => {
 		setSelectedItems((prev) => {
 			if (checked) {
 				return [...prev, itemId]
-			} else {
-				return prev.filter((id) => id !== itemId)
 			}
+			return prev.filter((id) => id !== itemId)
 		})
 	}, [])
 
@@ -256,10 +255,10 @@ const HistoryView = ({ onDone }: HistoryViewProps) => {
 
 		const groups: { tasks: any[]; label: string }[] = []
 		if (todayTasks.length > 0) {
-			groups.push({ tasks: todayTasks, label: "Today" })
+			groups.push({ tasks: todayTasks, label: "오늘" })
 		}
 		if (olderTasks.length > 0) {
-			groups.push({ tasks: olderTasks, label: "Older" })
+			groups.push({ tasks: olderTasks, label: "이전 기록" })
 		}
 
 		return {
@@ -292,7 +291,7 @@ const HistoryView = ({ onDone }: HistoryViewProps) => {
 	return (
 		<div className="fixed overflow-hidden inset-0 flex flex-col w-full">
 			{/* HEADER */}
-			<ViewHeader environment={environment} onDone={onDone} title="History" />
+			<ViewHeader environment={environment} onDone={onDone} title="대화 기록" />
 
 			{/* FILTERS */}
 			<div className="flex flex-col gap-3 px-3">
@@ -309,7 +308,7 @@ const HistoryView = ({ onDone }: HistoryViewProps) => {
 								setSortOption("mostRelevant")
 							}
 						}}
-						placeholder="Fuzzy search history..."
+						placeholder="대화 기록 검색..."
 						value={searchQuery}>
 						<div className="codicon codicon-search opacity-80 mt-0.5 !text-sm" slot="start" />
 						{searchQuery && (
@@ -421,10 +420,10 @@ const HistoryView = ({ onDone }: HistoryViewProps) => {
 			<div className="p-2.5 border-t border-t-border-panel">
 				<div className="flex gap-2.5 mb-2.5">
 					<Button className="flex-1" onClick={() => handleBatchHistorySelect(true)} variant="secondary">
-						Select All
+						전체 선택
 					</Button>
 					<Button className="flex-1" onClick={() => handleBatchHistorySelect(false)} variant="secondary">
-						Select None
+						전체 해제
 					</Button>
 				</div>
 				{selectedItems.length > 0 ? (
@@ -435,7 +434,7 @@ const HistoryView = ({ onDone }: HistoryViewProps) => {
 							handleDeleteSelectedHistoryItems(selectedItems)
 						}}
 						variant="danger">
-						Delete {selectedItems.length > 1 ? selectedItems.length : ""} Selected
+						선택된 항목 {selectedItems.length > 0 ? selectedItems.length : ""}개 삭제
 						{selectedItemsSize > 0 ? ` (${formatSize(selectedItemsSize)})` : ""}
 					</Button>
 				) : (
@@ -451,7 +450,7 @@ const HistoryView = ({ onDone }: HistoryViewProps) => {
 								.finally(() => setDeleteAllDisabled(false))
 						}}
 						variant="danger">
-						Delete All History{totalTasksSize !== null ? ` (${formatSize(totalTasksSize)})` : ""}
+						모든 대화 기록 삭제{totalTasksSize !== null ? ` (${formatSize(totalTasksSize)})` : ""}
 					</Button>
 				)}
 			</div>
@@ -460,7 +459,7 @@ const HistoryView = ({ onDone }: HistoryViewProps) => {
 }
 
 // https://gist.github.com/evenfrost/1ba123656ded32fb7a0cd4651efd4db0
-export const highlight = (fuseSearchResult: FuseResult<any>[], highlightClassName: string = "history-item-highlight") => {
+export const highlight = (fuseSearchResult: FuseResult<any>[], highlightClassName = "history-item-highlight") => {
 	const set = (obj: Record<string, any>, path: string, value: any) => {
 		const pathValue = path.split(".")
 		let i: number

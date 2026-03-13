@@ -12,11 +12,11 @@ type UserTypeSelection = {
 
 export const STEP_CONFIG = {
 	0: {
-		title: "How will you use Cline?",
-		description: "Select an option below to get started.",
+		title: "Gaea-AI-Pro를 어떻게 사용하실 건가요?",
+		description: "시작하려면 아래 옵션 중 하나를 선택하세요.",
 		buttons: [
-			{ text: "Continue", action: "next", variant: "default" },
-			{ text: "Login to Cline", action: "signin", variant: "secondary" },
+			{ text: "계속하기", action: "next", variant: "default" },
+			{ text: "Gaea-AI-Pro 서비스 로그인", action: "signin", variant: "secondary" },
 		],
 	},
 	[NEW_USER_TYPE.FREE]: {
@@ -48,7 +48,7 @@ export const STEP_CONFIG = {
 } as const
 
 export const USER_TYPE_SELECTIONS: UserTypeSelection[] = [
-	{ title: "Absolutely Free", description: "Get started at no cost", type: NEW_USER_TYPE.FREE },
-	{ title: "Frontier Model", description: "Claude 4.5, GPT-5 Codex, etc", type: NEW_USER_TYPE.POWER },
-	{ title: "Bring my own API key", description: "Use Cline with your provider of choice", type: NEW_USER_TYPE.BYOK },
+	{ title: "완전 무료", description: "비용 부담 없이 시작하기", type: NEW_USER_TYPE.FREE },
+	{ title: "최신 모델 (SOTA)", description: "Claude 4.5, GPT-5 Codex 등 최신 모델 사용", type: NEW_USER_TYPE.POWER },
+	{ title: "개인 API 키 사용", description: "원하는 서비스 제공자의 API 키로 Gaea-AI-Pro 사용", type: NEW_USER_TYPE.BYOK },
 ]

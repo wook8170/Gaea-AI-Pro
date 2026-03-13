@@ -210,7 +210,7 @@ export const ConfigViewWrapper: React.FC<ConfigViewWrapperProps> = ({
 			let folderPath: string
 
 			if (isGlobal) {
-				// Global folders are in dataDir (e.g., ~/.cline/)
+				// Global folders are in dataDir (e.g., ~/.gaea-ai-pro/)
 				const subFolder = folderType === "rules" ? "rules" : folderType
 				folderPath = path.join(dataDir, subFolder)
 			} else {

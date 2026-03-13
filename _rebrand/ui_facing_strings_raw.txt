@@ -1,0 +1,1416 @@
+webview-ui/src/App.tsx:1:import type { Boolean, EmptyRequest } from "@shared/proto/cline/common"
+webview-ui/src/App.tsx:11:import { useClineAuth } from "./context/ClineAuthContext"
+webview-ui/src/App.tsx:41:	const { clineUser, organizations, activeOrganization } = useClineAuth()
+webview-ui/src/App.tsx:74:					clineUser={clineUser}
+webview-ui/src/theme.css:3:	--color-cline: #9663f1;
+webview-ui/src/context/ExtensionStateContext.tsx:7:import type { UserInfo } from "@shared/proto/cline/account"
+webview-ui/src/context/ExtensionStateContext.tsx:8:import { EmptyRequest } from "@shared/proto/cline/common"
+webview-ui/src/context/ExtensionStateContext.tsx:9:import type { OpenRouterCompatibleModelInfo } from "@shared/proto/cline/models"
+webview-ui/src/context/ExtensionStateContext.tsx:10:import { OnboardingModelGroup, type TerminalProfile } from "@shared/proto/cline/state"
+webview-ui/src/context/ExtensionStateContext.tsx:11:import { convertProtoToClineMessage } from "@shared/proto-conversions/cline-message"
+webview-ui/src/context/ExtensionStateContext.tsx:35:	clineModels: Record<string, ModelInfo> | null
+webview-ui/src/context/ExtensionStateContext.tsx:73:	setGlobalClineRulesToggles: (toggles: Record<string, boolean>) => void
+webview-ui/src/context/ExtensionStateContext.tsx:74:	setLocalClineRulesToggles: (toggles: Record<string, boolean>) => void
+webview-ui/src/context/ExtensionStateContext.tsx:91:	refreshClineModels: () => void
+webview-ui/src/context/ExtensionStateContext.tsx:231:		clineMessages: [],
+webview-ui/src/context/ExtensionStateContext.tsx:246:		globalClineRulesToggles: {},
+webview-ui/src/context/ExtensionStateContext.tsx:247:		localClineRulesToggles: {},
+webview-ui/src/context/ExtensionStateContext.tsx:268:		clineWebToolsEnabled: { user: true, featureFlag: false },
+webview-ui/src/context/ExtensionStateContext.tsx:298:	const [clineModels, setClineModels] = useState<Record<string, ModelInfo> | null>(null)
+webview-ui/src/context/ExtensionStateContext.tsx:364:							// HACK: Preserve clineMessages if currentTaskItem is the same
+webview-ui/src/context/ExtensionStateContext.tsx:366:								stateData.clineMessages = stateData.clineMessages?.length
+webview-ui/src/context/ExtensionStateContext.tsx:367:									? stateData.clineMessages
+webview-ui/src/context/ExtensionStateContext.tsx:368:									: prevState.clineMessages
+webview-ui/src/context/ExtensionStateContext.tsx:514:					const partialMessage = convertProtoToClineMessage(protoMessage)
+webview-ui/src/context/ExtensionStateContext.tsx:517:						const lastIndex = findLastIndex(prevState.clineMessages, (msg) => msg.ts === partialMessage.ts)
+webview-ui/src/context/ExtensionStateContext.tsx:519:							const newClineMessages = [...prevState.clineMessages]
+webview-ui/src/context/ExtensionStateContext.tsx:520:							newClineMessages[lastIndex] = partialMessage
+webview-ui/src/context/ExtensionStateContext.tsx:521:							return { ...prevState, clineMessages: newClineMessages }
+webview-ui/src/context/ExtensionStateContext.tsx:765:	// Refresh Cline models function
+webview-ui/src/context/ExtensionStateContext.tsx:766:	const refreshClineModels = useCallback(() => {
+webview-ui/src/context/ExtensionStateContext.tsx:767:		ModelsServiceClient.refreshClineModelsRpc(EmptyRequest.create({}))
+webview-ui/src/context/ExtensionStateContext.tsx:770:				setClineModels((prev) => (Object.keys(models).length > 0 ? models : (prev ?? null)))
+webview-ui/src/context/ExtensionStateContext.tsx:772:			.catch((error: Error) => console.error("Failed to refresh Cline models:", error))
+webview-ui/src/context/ExtensionStateContext.tsx:775:	// Auto-refresh Cline models when provider is cline
+webview-ui/src/context/ExtensionStateContext.tsx:777:		const hasClineProvider =
+webview-ui/src/context/ExtensionStateContext.tsx:778:			state.apiConfiguration?.actModeApiProvider === "cline" || state.apiConfiguration?.planModeApiProvider === "cline"
+webview-ui/src/context/ExtensionStateContext.tsx:779:		if (hasClineProvider && clineModels === null) {
+webview-ui/src/context/ExtensionStateContext.tsx:780:			refreshClineModels()
+webview-ui/src/context/ExtensionStateContext.tsx:782:	}, [state.apiConfiguration?.actModeApiProvider, state.apiConfiguration?.planModeApiProvider, clineModels, refreshClineModels])
+webview-ui/src/context/ExtensionStateContext.tsx:789:		clineModels,
+webview-ui/src/context/ExtensionStateContext.tsx:812:		globalClineRulesToggles: state.globalClineRulesToggles || {},
+webview-ui/src/context/ExtensionStateContext.tsx:813:		localClineRulesToggles: state.localClineRulesToggles || {},
+webview-ui/src/context/ExtensionStateContext.tsx:855:		setGlobalClineRulesToggles: (toggles) =>
+webview-ui/src/context/ExtensionStateContext.tsx:858:				globalClineRulesToggles: toggles,
+webview-ui/src/context/ExtensionStateContext.tsx:860:		setLocalClineRulesToggles: (toggles) =>
+webview-ui/src/context/ExtensionStateContext.tsx:863:				localClineRulesToggles: toggles,
+webview-ui/src/context/ExtensionStateContext.tsx:912:		refreshClineModels,
+webview-ui/src/context/ClineAuthContext.tsx:1:import type { UserOrganization } from "@shared/proto/cline/account"
+webview-ui/src/context/ClineAuthContext.tsx:2:import { EmptyRequest } from "@shared/proto/cline/common"
+webview-ui/src/context/ClineAuthContext.tsx:9:export interface ClineUser {
+webview-ui/src/context/ClineAuthContext.tsx:17:export interface ClineAuthContextType {
+webview-ui/src/context/ClineAuthContext.tsx:18:	clineUser: ClineUser | null
+webview-ui/src/context/ClineAuthContext.tsx:23:export const ClineAuthContext = createContext<ClineAuthContextType | undefined>(undefined)
+webview-ui/src/context/ClineAuthContext.tsx:25:export const ClineAuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+webview-ui/src/context/ClineAuthContext.tsx:26:	const [user, setUser] = useState<ClineUser | null>(null)
+webview-ui/src/context/ClineAuthContext.tsx:49:		console.log("Extension: ClineAuthContext: user updated:", user?.uid)
+webview-ui/src/context/ClineAuthContext.tsx:87:		<ClineAuthContext.Provider
+webview-ui/src/context/ClineAuthContext.tsx:89:				clineUser: user,
+webview-ui/src/context/ClineAuthContext.tsx:94:		</ClineAuthContext.Provider>
+webview-ui/src/context/ClineAuthContext.tsx:98:export const useClineAuth = () => {
+webview-ui/src/context/ClineAuthContext.tsx:99:	const context = useContext(ClineAuthContext)
+webview-ui/src/context/ClineAuthContext.tsx:101:		throw new Error("useClineAuth must be used within a ClineAuthProvider")
+webview-ui/src/context/ClineAuthContext.tsx:106:export const useClineSignIn = () => {
+webview-ui/src/config/StorybookDecorator.tsx:8:import { ClineAuthContext, ClineAuthContextType, ClineAuthProvider, useClineAuth } from "@/context/ClineAuthContext"
+webview-ui/src/config/StorybookDecorator.tsx:48:					<ClineAuthProvider>
+webview-ui/src/config/StorybookDecorator.tsx:50:					</ClineAuthProvider>
+webview-ui/src/config/StorybookDecorator.tsx:66:const ClineAuthProviderWithOverrides: React.FC<{
+webview-ui/src/config/StorybookDecorator.tsx:67:	overrides?: Partial<ClineAuthContextType>
+webview-ui/src/config/StorybookDecorator.tsx:70:	const authContext = useClineAuth()
+webview-ui/src/config/StorybookDecorator.tsx:71:	return <ClineAuthContext.Provider value={{ ...authContext, ...overrides }}>{children}</ClineAuthContext.Provider>
+webview-ui/src/config/StorybookDecorator.tsx:75:	(overrideStates?: Partial<ExtensionStateContextType>, classNames?: string, authOverrides?: Partial<ClineAuthContextType>) =>
+webview-ui/src/config/StorybookDecorator.tsx:78:			<ClineAuthProviderWithOverrides overrides={authOverrides}>
+webview-ui/src/config/StorybookDecorator.tsx:82:			</ClineAuthProviderWithOverrides>
+webview-ui/src/Providers.tsx:4:import { ClineAuthProvider } from "./context/ClineAuthContext"
+webview-ui/src/Providers.tsx:13:					<ClineAuthProvider>
+webview-ui/src/Providers.tsx:15:					</ClineAuthProvider>
+webview-ui/src/utils/bannerUtils.tsx:1:import { BannerAction, BannerCardData } from "@shared/cline/banner"
+webview-ui/src/utils/getConfiguredProviders.ts:20:		return ["cline"] // Cline is always available
+webview-ui/src/utils/getConfiguredProviders.ts:23:	// Cline - always available (uses account-based auth)
+webview-ui/src/utils/getConfiguredProviders.ts:24:	configured.push("cline")
+webview-ui/src/utils/validate.ts:73:			case "cline":
+webview-ui/src/utils/validate.ts:184:	clineModels?: Record<string, ModelInfo>,
+webview-ui/src/utils/validate.ts:187:		const { apiProvider, openRouterModelId, clineModelId } = getModeSpecificFields(apiConfiguration, currentMode)
+webview-ui/src/utils/validate.ts:199:			case "cline":
+webview-ui/src/utils/validate.ts:200:				const clineResolvedModelId = clineModelId || openRouterDefaultModelId
+webview-ui/src/utils/validate.ts:201:				if (!clineResolvedModelId) {
+webview-ui/src/utils/validate.ts:204:				if (clineModels && !Object.keys(clineModels).includes(clineResolvedModelId)) {
+webview-ui/src/utils/environmentColors.ts:31:export function getClineEnvironmentClassname(environment: Environment | undefined, type = "text") {
+webview-ui/src/components/ui/button.stories.tsx:12:					"Displays different types of error messages in the chat interface, including API errors, credit limit errors, diff errors, and clineignore errors. Handles special error parsing for Cline provider errors and provides appropriate user actions.",
+webview-ui/src/components/ui/popover.stories.tsx:25:					<Button variant="cline">Open Popover</Button>
+webview-ui/src/components/ui/alert.stories.tsx:2:import ClineLogoWhite from "@/assets/ClineLogoWhite"
+webview-ui/src/components/ui/alert.stories.tsx:35:			<Alert icon={<ClineLogoWhite className="size-2" />} title="Brand" variant="cline">
+webview-ui/src/components/ui/dialog.stories.tsx:2:import ClineLogoWhite from "@/assets/ClineLogoWhite"
+webview-ui/src/components/ui/dialog.stories.tsx:99:					<ClineLogoWhite className="size-16" />
+webview-ui/src/components/ui/alert.tsx:15:				cline: "bg-cline/20 text-fg-cline border-cline [&>svg]:text-fg-cline",
+webview-ui/src/components/ui/select.stories.tsx:2:import ClineLogoWhite from "@/assets/ClineLogoWhite"
+webview-ui/src/components/ui/select.stories.tsx:85:					<ClineLogoWhite className="size-16" />
+webview-ui/src/components/ui/badge.tsx:15:				cline: "bg-cline border-cline",
+webview-ui/src/components/ui/button.tsx:22:				cline: "bg-cline border-foreground/20 text-cline-foreground",
+webview-ui/src/components/ui/badge.stories.tsx:21:	const variants = ["default", "info", "danger", "outline", "cline", "success", "warning"] as const
+webview-ui/src/components/ui/badge.stories.tsx:51:	const variants = ["cline", "danger", "success", "warning"] as const
+webview-ui/src/components/settings/sections/TerminalSettingsSection.tsx:1:import { UpdateTerminalConnectionTimeoutResponse } from "@shared/proto/index.cline"
+webview-ui/src/components/settings/sections/TerminalSettingsSection.tsx:110:							Select the default terminal Cline will use. 'Default' uses your VSCode global setting.
+webview-ui/src/components/settings/sections/TerminalSettingsSection.tsx:129:							Set how long Cline waits for shell integration to activate before executing commands. Increase this
+webview-ui/src/components/settings/sections/TerminalSettingsSection.tsx:143:							When enabled, Cline will reuse existing terminal windows that aren't in the current working directory.
+webview-ui/src/components/settings/sections/TerminalSettingsSection.tsx:161:								Choose whether Cline runs commands in the VS Code terminal or a background process.
+webview-ui/src/components/settings/sections/TerminalSettingsSection.tsx:171:								href="https://docs.cline.bot/troubleshooting/terminal-quick-fixes"
+webview-ui/src/components/settings/sections/TerminalSettingsSection.tsx:179:								href="https://docs.cline.bot/troubleshooting/terminal-integration-guide"
+webview-ui/src/components/settings/sections/FeatureSettingsSection.tsx:1:import { UpdateSettingsRequest } from "@shared/proto/cline/state"
+webview-ui/src/components/settings/sections/FeatureSettingsSection.tsx:39:		description: "Let Cline run focused subagents in parallel to explore the codebase for you.",
+webview-ui/src/components/settings/sections/FeatureSettingsSection.tsx:97:		id: "cline-web-tools",
+webview-ui/src/components/settings/sections/FeatureSettingsSection.tsx:98:		label: "Cline Web Tools",
+webview-ui/src/components/settings/sections/FeatureSettingsSection.tsx:100:		stateKey: "clineWebToolsEnabled",
+webview-ui/src/components/settings/sections/FeatureSettingsSection.tsx:101:		settingKey: "clineWebToolsEnabled",
+webview-ui/src/components/settings/sections/FeatureSettingsSection.tsx:106:		description: "Enables git worktree management for running parallel Cline tasks.",
+webview-ui/src/components/settings/sections/FeatureSettingsSection.tsx:206:		clineWebToolsEnabled,
+webview-ui/src/components/settings/sections/FeatureSettingsSection.tsx:218:			updateSetting("focusChainSettings", { ...focusChainSettings, remindClineInterval: value })
+webview-ui/src/components/settings/sections/FeatureSettingsSection.tsx:234:		clineWebToolsEnabled: clineWebToolsEnabled?.user,
+webview-ui/src/components/settings/sections/FeatureSettingsSection.tsx:244:		clineWebToolsEnabled: clineWebToolsEnabled?.featureFlag,
+webview-ui/src/components/settings/sections/FeatureSettingsSection.tsx:297:											value={focusChainSettings?.remindClineInterval || 6}
+webview-ui/src/components/settings/sections/ApiConfigurationSection.tsx:1:import { UpdateSettingsRequest } from "@shared/proto/cline/state"
+webview-ui/src/components/settings/sections/GeneralSettingsSection.tsx:45:						Help improve Cline by sending usage data and error reports. No code, prompts, or personal information are
+webview-ui/src/components/settings/sections/GeneralSettingsSection.tsx:49:							href="https://docs.cline.bot/more-info/telemetry"
+webview-ui/src/components/settings/sections/GeneralSettingsSection.tsx:56:							href="https://cline.bot/privacy"
+webview-ui/src/components/settings/sections/AboutSection.tsx:14:					<h2 className="text-lg font-semibold">Cline v{version}</h2>
+webview-ui/src/components/settings/sections/AboutSection.tsx:16:						An AI assistant that can use your CLI and Editor. Cline can handle complex software development tasks
+webview-ui/src/components/settings/sections/AboutSection.tsx:23:						<VSCodeLink href="https://x.com/cline">X</VSCodeLink>
+webview-ui/src/components/settings/sections/AboutSection.tsx:25:						<VSCodeLink href="https://discord.gg/cline">Discord</VSCodeLink>
+webview-ui/src/components/settings/sections/AboutSection.tsx:27:						<VSCodeLink href="https://www.reddit.com/r/cline/"> r/cline</VSCodeLink>
+webview-ui/src/components/settings/sections/AboutSection.tsx:32:						<VSCodeLink href="https://github.com/cline/cline">GitHub</VSCodeLink>
+webview-ui/src/components/settings/sections/AboutSection.tsx:34:						<VSCodeLink href="https://github.com/cline/cline/issues"> Issues</VSCodeLink>
+webview-ui/src/components/settings/sections/AboutSection.tsx:36:						<VSCodeLink href="https://github.com/cline/cline/discussions/categories/feature-requests?discussions_q=is%3Aopen+category%3A%22Feature+Requests%22+sort%3Atop">
+webview-ui/src/components/settings/sections/AboutSection.tsx:44:						<VSCodeLink href="https://docs.cline.bot/">Documentation</VSCodeLink>
+webview-ui/src/components/settings/sections/AboutSection.tsx:46:						<VSCodeLink href="https://cline.bot/">https://cline.bot</VSCodeLink>
+webview-ui/src/components/settings/sections/RemoteConfigSection.tsx:1:import { EmptyRequest } from "@shared/proto/index.cline"
+webview-ui/src/components/settings/sections/RemoteConfigSection.tsx:5:import { useClineAuth } from "@/context/ClineAuthContext"
+webview-ui/src/components/settings/sections/RemoteConfigSection.tsx:273:	const { activeOrganization } = useClineAuth()
+webview-ui/src/components/settings/sections/RemoteConfigSection.tsx:293:						<VSCodeLink href="https://app.cline.bot/dashboard/organization?tab=settings">dashboard</VSCodeLink>.
+webview-ui/src/components/settings/sections/FeatureSettingsSection.spec.tsx:16:		clineWebToolsEnabled: { user: true, featureFlag: true },
+webview-ui/src/components/settings/sections/FeatureSettingsSection.spec.tsx:18:		focusChainSettings: { enabled: false, remindClineInterval: 6 },
+webview-ui/src/components/settings/sections/BrowserSettingsSection.tsx:1:import { EmptyRequest, StringRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/settings/sections/BrowserSettingsSection.tsx:178:							Prevent Cline from using browser actions (e.g. launch, click, type).
+webview-ui/src/components/settings/sections/BrowserSettingsSection.tsx:249:								Enable Cline to use your Chrome
+webview-ui/src/components/settings/providers/LiteLlmProvider.tsx:2:import { UpdateApiConfigurationRequestNew } from "@shared/proto/index.cline"
+webview-ui/src/components/settings/providers/VSCodeLmProvider.tsx:1:import { EmptyRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/settings/providers/OcaProvider.tsx:2:import type { OcaAuthState, OcaUserInfo } from "@shared/proto/index.cline"
+webview-ui/src/components/settings/providers/OcaProvider.tsx:3:import { EmptyRequest, StringRequest } from "@shared/proto/index.cline"
+webview-ui/src/components/settings/providers/OcaProvider.tsx:307:							href="https://confluence.oraclecorp.com/confluence/display/AICODE/Oracle+Code+Assist+via+Cline"
+webview-ui/src/components/settings/providers/HicapProvider.tsx:1:import { EmptyRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/settings/providers/OpenRouterProvider.tsx:1:import { EmptyRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/settings/providers/ClineProvider.tsx:2:import { ClineAccountInfoCard } from "../ClineAccountInfoCard"
+webview-ui/src/components/settings/providers/ClineProvider.tsx:3:import ClineModelPicker from "../ClineModelPicker"
+webview-ui/src/components/settings/providers/ClineProvider.tsx:6: * Props for the ClineProvider component
+webview-ui/src/components/settings/providers/ClineProvider.tsx:8:interface ClineProviderProps {
+webview-ui/src/components/settings/providers/ClineProvider.tsx:16: * The Cline provider configuration component
+webview-ui/src/components/settings/providers/ClineProvider.tsx:18:export const ClineProvider = ({ showModelOptions, isPopup, currentMode, initialModelTab }: ClineProviderProps) => {
+webview-ui/src/components/settings/providers/ClineProvider.tsx:21:			{/* Cline Account Info Card */}
+webview-ui/src/components/settings/providers/ClineProvider.tsx:23:				<ClineAccountInfoCard />
+webview-ui/src/components/settings/providers/ClineProvider.tsx:28:					<ClineModelPicker
+webview-ui/src/components/settings/providers/NousresearchProvider.tsx:61:							(<span style={{ fontWeight: 500 }}>Note:</span> Cline uses complex prompts and works best with Claude
+webview-ui/src/components/settings/providers/OpenAICompatible.tsx:3:import { OpenAiModelsRequest } from "@shared/proto/cline/models"
+webview-ui/src/components/settings/providers/OpenAICompatible.tsx:401:					(<span style={{ fontWeight: 500 }}>Note:</span> Cline uses complex prompts and works best with Claude models.
+webview-ui/src/components/settings/providers/SapAiCoreProvider.tsx:1:import { SapAiCoreModelDeployment, SapAiCoreModelsRequest } from "@shared/proto/index.cline"
+webview-ui/src/components/settings/providers/RequestyProvider.tsx:2:import { StringRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/settings/providers/XaiProvider.tsx:50:						(<span style={{ fontWeight: 500 }}>Note:</span> Cline uses complex prompts and works best with Claude
+webview-ui/src/components/settings/providers/TogetherProvider.tsx:49:					(<span style={{ fontWeight: 500 }}>Note:</span> Cline uses complex prompts and works best with Claude models.
+webview-ui/src/components/settings/providers/LMStudioProvider.tsx:167:					<span className="font-semibold">Note:</span> Cline uses complex prompts and works best with Claude models.
+webview-ui/src/components/settings/providers/AihubmixProvider.tsx:2:import { EmptyRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/settings/providers/MoonshotProvider.tsx:2:import { UpdateApiConfigurationRequestNew } from "@shared/proto/index.cline"
+webview-ui/src/components/settings/providers/NebiusProvider.tsx:31:				helpText="This key is stored locally and only used to make API requests from this extension. (Note: Cline uses complex prompts and works best with Claude models. Less capable models may not work as expected.)"
+webview-ui/src/components/settings/providers/OllamaProvider.tsx:1:import { StringRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/settings/providers/OllamaProvider.tsx:143:					(<span style={{ fontWeight: 500 }}>Note:</span> Cline uses complex prompts and works best with Claude models.
+webview-ui/src/components/settings/GroqModelPicker.tsx:2:import { EmptyRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/settings/GroqModelPicker.tsx:266:					If you're unsure which model to choose, Cline works best with{" "}
+webview-ui/src/components/settings/HicapModelPicker.tsx:1:import { StringRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/settings/utils/settingsHandlers.ts:1:import { McpDisplayMode, UpdateSettingsRequest } from "@shared/proto/cline/state"
+webview-ui/src/components/settings/utils/useApiConfigurationHandlers.ts:2:import { UpdateApiConfigurationRequest } from "@shared/proto/cline/models"
+webview-ui/src/components/settings/utils/providerUtils.ts:80: * For providers with dynamic models (openrouter, cline, ollama, etc.), returns undefined.
+webview-ui/src/components/settings/utils/providerUtils.ts:147:		case "cline":
+webview-ui/src/components/settings/utils/providerUtils.ts:272:		case "cline":
+webview-ui/src/components/settings/utils/providerUtils.ts:279:			const clineModelId =
+webview-ui/src/components/settings/utils/providerUtils.ts:280:				(currentMode === "plan" ? apiConfiguration?.planModeClineModelId : apiConfiguration?.actModeClineModelId) ||
+webview-ui/src/components/settings/utils/providerUtils.ts:283:			const clineModelInfo =
+webview-ui/src/components/settings/utils/providerUtils.ts:284:				(currentMode === "plan" ? apiConfiguration?.planModeClineModelInfo : apiConfiguration?.actModeClineModelInfo) ||
+webview-ui/src/components/settings/utils/providerUtils.ts:289:				selectedModelId: clineModelId,
+webview-ui/src/components/settings/utils/providerUtils.ts:290:				selectedModelInfo: clineModelInfo,
+webview-ui/src/components/settings/utils/providerUtils.ts:528:			clineModelId: undefined,
+webview-ui/src/components/settings/utils/providerUtils.ts:542:			clineModelInfo: undefined,
+webview-ui/src/components/settings/utils/providerUtils.ts:568:	// Backward compatibility: Cline previously stored model selection in OpenRouter keys.
+webview-ui/src/components/settings/utils/providerUtils.ts:569:	const clineModelId =
+webview-ui/src/components/settings/utils/providerUtils.ts:570:		(mode === "plan" ? apiConfiguration.planModeClineModelId : apiConfiguration.actModeClineModelId) || openRouterModelId
+webview-ui/src/components/settings/utils/providerUtils.ts:571:	const clineModelInfo =
+webview-ui/src/components/settings/utils/providerUtils.ts:572:		(mode === "plan" ? apiConfiguration.planModeClineModelInfo : apiConfiguration.actModeClineModelInfo) ||
+webview-ui/src/components/settings/utils/providerUtils.ts:589:		clineModelId,
+webview-ui/src/components/settings/utils/providerUtils.ts:608:		clineModelInfo,
+webview-ui/src/components/settings/utils/providerUtils.ts:690:		case "cline":
+webview-ui/src/components/settings/utils/providerUtils.ts:691:			updates.planModeClineModelId = sourceFields.clineModelId
+webview-ui/src/components/settings/utils/providerUtils.ts:692:			updates.actModeClineModelId = sourceFields.clineModelId
+webview-ui/src/components/settings/utils/providerUtils.ts:693:			updates.planModeClineModelInfo = sourceFields.clineModelInfo
+webview-ui/src/components/settings/utils/providerUtils.ts:694:			updates.actModeClineModelInfo = sourceFields.clineModelInfo
+webview-ui/src/components/settings/SettingsView.tsx:2:import { ResetStateRequest } from "@shared/proto/cline/state"
+webview-ui/src/components/settings/SettingsView.tsx:3:import { UserOrganization } from "@shared/proto/index.cline"
+webview-ui/src/components/settings/SettingsView.tsx:18:import { useClineAuth } from "@/context/ClineAuthContext"
+webview-ui/src/components/settings/SettingsView.tsx:96:		tooltipText: "About Cline",
+webview-ui/src/components/settings/SettingsView.tsx:150:	const { activeOrganization } = useClineAuth()
+webview-ui/src/components/settings/PreferredLanguageSetting.tsx:44:			<p className="text-sm text-description mt-1">The language that Cline should use for communication.</p>
+webview-ui/src/components/settings/SapAiCoreModelPicker.tsx:2:import { SapAiCoreModelDeployment } from "@shared/proto/index.cline"
+webview-ui/src/components/settings/SapAiCoreModelPicker.tsx:73:		// Models that are both deployed AND supported in Cline
+webview-ui/src/components/settings/SapAiCoreModelPicker.tsx:79:		// Models that are supported in Cline but NOT deployed
+webview-ui/src/components/settings/ClineModelPicker.tsx:2:import { CLINE_RECOMMENDED_MODELS_FALLBACK } from "@shared/cline/recommended-models"
+webview-ui/src/components/settings/ClineModelPicker.tsx:3:import { EmptyRequest, StringRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/settings/ClineModelPicker.tsx:4:import { type ClineRecommendedModel, ClineRecommendedModelsResponse } from "@shared/proto/cline/models"
+webview-ui/src/components/settings/ClineModelPicker.tsx:49:export interface ClineModelPickerProps {
+webview-ui/src/components/settings/ClineModelPicker.tsx:62:const CLINE_RECOMMENDED_MODELS_RETRY_DELAY_MS = 5000
+webview-ui/src/components/settings/ClineModelPicker.tsx:69:	model: Pick<ClineRecommendedModel, "id" | "description" | "tags">,
+webview-ui/src/components/settings/ClineModelPicker.tsx:86:const RECOMMENDED_MODELS_FALLBACK: FeaturedModelCardEntry[] = CLINE_RECOMMENDED_MODELS_FALLBACK.recommended
+webview-ui/src/components/settings/ClineModelPicker.tsx:90:const FREE_MODELS_FALLBACK: FeaturedModelCardEntry[] = CLINE_RECOMMENDED_MODELS_FALLBACK.free
+webview-ui/src/components/settings/ClineModelPicker.tsx:94:const ClineModelPicker: React.FC<ClineModelPickerProps> = ({ isPopup, currentMode, showProviderRouting, initialTab }) => {
+webview-ui/src/components/settings/ClineModelPicker.tsx:96:	const { apiConfiguration, favoritedModelIds, clineModels, refreshClineModels } = useExtensionState()
+webview-ui/src/components/settings/ClineModelPicker.tsx:98:	const [searchTerm, setSearchTerm] = useState(modeFields.clineModelId || openRouterDefaultModelId)
+webview-ui/src/components/settings/ClineModelPicker.tsx:101:	const [clineRecommendedModels, setClineRecommendedModels] = useState<FeaturedModelCardEntry[]>([])
+webview-ui/src/components/settings/ClineModelPicker.tsx:102:	const [clineFreeModels, setClineFreeModels] = useState<FeaturedModelCardEntry[]>([])
+webview-ui/src/components/settings/ClineModelPicker.tsx:103:	const freeClineModelIds = useMemo(() => {
+webview-ui/src/components/settings/ClineModelPicker.tsx:105:			clineFreeModels.length > 0 ? clineFreeModels.map((model) => model.id) : FREE_MODELS_FALLBACK.map((model) => model.id)
+webview-ui/src/components/settings/ClineModelPicker.tsx:107:	}, [clineFreeModels])
+webview-ui/src/components/settings/ClineModelPicker.tsx:108:	const freeClineModelIdSet = useMemo(
+webview-ui/src/components/settings/ClineModelPicker.tsx:109:		() => new Set(freeClineModelIds.map((modelId) => normalizeModelId(modelId))),
+webview-ui/src/components/settings/ClineModelPicker.tsx:110:		[freeClineModelIds],
+webview-ui/src/components/settings/ClineModelPicker.tsx:114:		() => (clineRecommendedModels.length > 0 ? clineRecommendedModels : RECOMMENDED_MODELS_FALLBACK),
+webview-ui/src/components/settings/ClineModelPicker.tsx:115:		[clineRecommendedModels],
+webview-ui/src/components/settings/ClineModelPicker.tsx:117:	const freeModels = useMemo(() => (clineFreeModels.length > 0 ? clineFreeModels : FREE_MODELS_FALLBACK), [clineFreeModels])
+webview-ui/src/components/settings/ClineModelPicker.tsx:118:	const hasSuccessfulClineRecommendedModelsFetchRef = useRef(false)
+webview-ui/src/components/settings/ClineModelPicker.tsx:119:	const isFetchingClineRecommendedModelsRef = useRef(false)
+webview-ui/src/components/settings/ClineModelPicker.tsx:120:	const clineRecommendedModelsRetryTimeoutRef = useRef<number | null>(null)
+webview-ui/src/components/settings/ClineModelPicker.tsx:122:	const refreshClineRecommendedModels = useCallback(async (): Promise<boolean> => {
+webview-ui/src/components/settings/ClineModelPicker.tsx:125:				"refreshClineRecommendedModelsRpc",
+webview-ui/src/components/settings/ClineModelPicker.tsx:128:				ClineRecommendedModelsResponse.fromJSON,
+webview-ui/src/components/settings/ClineModelPicker.tsx:136:			setClineRecommendedModels(recommended)
+webview-ui/src/components/settings/ClineModelPicker.tsx:137:			setClineFreeModels(free)
+webview-ui/src/components/settings/ClineModelPicker.tsx:140:			console.error("Failed to refresh Cline recommended models:", error)
+webview-ui/src/components/settings/ClineModelPicker.tsx:145:	const clearClineRecommendedModelsRetryTimeout = useCallback(() => {
+webview-ui/src/components/settings/ClineModelPicker.tsx:146:		if (clineRecommendedModelsRetryTimeoutRef.current !== null) {
+webview-ui/src/components/settings/ClineModelPicker.tsx:147:			window.clearTimeout(clineRecommendedModelsRetryTimeoutRef.current)
+webview-ui/src/components/settings/ClineModelPicker.tsx:148:			clineRecommendedModelsRetryTimeoutRef.current = null
+webview-ui/src/components/settings/ClineModelPicker.tsx:152:	const fetchClineRecommendedModels = useCallback(async () => {
+webview-ui/src/components/settings/ClineModelPicker.tsx:153:		if (hasSuccessfulClineRecommendedModelsFetchRef.current || isFetchingClineRecommendedModelsRef.current) {
+webview-ui/src/components/settings/ClineModelPicker.tsx:156:		isFetchingClineRecommendedModelsRef.current = true
+webview-ui/src/components/settings/ClineModelPicker.tsx:157:		const succeeded = await refreshClineRecommendedModels()
+webview-ui/src/components/settings/ClineModelPicker.tsx:158:		isFetchingClineRecommendedModelsRef.current = false
+webview-ui/src/components/settings/ClineModelPicker.tsx:161:			hasSuccessfulClineRecommendedModelsFetchRef.current = true
+webview-ui/src/components/settings/ClineModelPicker.tsx:162:			clearClineRecommendedModelsRetryTimeout()
+webview-ui/src/components/settings/ClineModelPicker.tsx:166:		if (clineRecommendedModelsRetryTimeoutRef.current === null) {
+webview-ui/src/components/settings/ClineModelPicker.tsx:167:			clineRecommendedModelsRetryTimeoutRef.current = window.setTimeout(() => {
+webview-ui/src/components/settings/ClineModelPicker.tsx:168:				clineRecommendedModelsRetryTimeoutRef.current = null
+webview-ui/src/components/settings/ClineModelPicker.tsx:169:				void fetchClineRecommendedModels()
+webview-ui/src/components/settings/ClineModelPicker.tsx:170:			}, CLINE_RECOMMENDED_MODELS_RETRY_DELAY_MS)
+webview-ui/src/components/settings/ClineModelPicker.tsx:172:	}, [clearClineRecommendedModelsRetryTimeout, refreshClineRecommendedModels])
+webview-ui/src/components/settings/ClineModelPicker.tsx:176:			clearClineRecommendedModelsRetryTimeout()
+webview-ui/src/components/settings/ClineModelPicker.tsx:178:	}, [clearClineRecommendedModelsRetryTimeout])
+webview-ui/src/components/settings/ClineModelPicker.tsx:190:		const currentModelId = modeFields.clineModelId || openRouterDefaultModelId
+webview-ui/src/components/settings/ClineModelPicker.tsx:191:		setActiveTab(freeClineModelIdSet.has(normalizeModelId(currentModelId)) ? "free" : "recommended")
+webview-ui/src/components/settings/ClineModelPicker.tsx:192:	}, [modeFields.clineModelId, freeClineModelIdSet, initialTab])
+webview-ui/src/components/settings/ClineModelPicker.tsx:202:				clineModelId: { plan: "planModeClineModelId", act: "actModeClineModelId" },
+webview-ui/src/components/settings/ClineModelPicker.tsx:203:				clineModelInfo: { plan: "planModeClineModelInfo", act: "actModeClineModelInfo" },
+webview-ui/src/components/settings/ClineModelPicker.tsx:206:				clineModelId: newModelId,
+webview-ui/src/components/settings/ClineModelPicker.tsx:207:				clineModelInfo: clineModels?.[newModelId],
+webview-ui/src/components/settings/ClineModelPicker.tsx:215:		if (freeClineModelIdSet.has(normalizeModelId(selected.selectedModelId))) {
+webview-ui/src/components/settings/ClineModelPicker.tsx:228:	}, [apiConfiguration, currentMode, freeClineModelIdSet])
+webview-ui/src/components/settings/ClineModelPicker.tsx:231:		refreshClineModels()
+webview-ui/src/components/settings/ClineModelPicker.tsx:235:		void fetchClineRecommendedModels()
+webview-ui/src/components/settings/ClineModelPicker.tsx:236:	}, [fetchClineRecommendedModels])
+webview-ui/src/components/settings/ClineModelPicker.tsx:240:		const currentModelId = modeFields.clineModelId || openRouterDefaultModelId
+webview-ui/src/components/settings/ClineModelPicker.tsx:242:	}, [modeFields.clineModelId])
+webview-ui/src/components/settings/ClineModelPicker.tsx:258:		const unfilteredModelIds = Object.keys(clineModels ?? {}).sort((a, b) => a.localeCompare(b))
+webview-ui/src/components/settings/ClineModelPicker.tsx:259:		return filterOpenRouterModelIds(unfilteredModelIds, "cline", freeClineModelIds)
+webview-ui/src/components/settings/ClineModelPicker.tsx:260:	}, [clineModels, freeClineModelIds])
+webview-ui/src/components/settings/ClineModelPicker.tsx:357:			Object.entries(clineModels ?? {})?.some(([id, m]) => id === selectedModelId && m.thinkingConfig) ||
+webview-ui/src/components/settings/ClineModelPicker.tsx:373:	}, [clineModels, selectedModelId, selectedModelIdLower, showReasoningEffort])
+webview-ui/src/components/settings/ClineModelPicker.tsx:452:							zIndex: CLINE_MODEL_PICKER_Z_INDEX,
+webview-ui/src/components/settings/ClineModelPicker.tsx:562:					The extension automatically fetches the latest Cline model list. If you're unsure which model to choose, Cline
+webview-ui/src/components/settings/ClineModelPicker.tsx:570:export default ClineModelPicker
+webview-ui/src/components/settings/ClineModelPicker.tsx:577:const CLINE_MODEL_PICKER_Z_INDEX = 1_000
+webview-ui/src/components/settings/ClineModelPicker.tsx:588:	z-index: ${CLINE_MODEL_PICKER_Z_INDEX - 1};
+webview-ui/src/components/settings/common/ModelInfoView.tsx:173:	// Provider routing props (optional - only shown for Cline provider)
+webview-ui/src/components/settings/ClineAccountInfoCard.tsx:1:import { EmptyRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/settings/ClineAccountInfoCard.tsx:4:import { useClineAuth } from "@/context/ClineAuthContext"
+webview-ui/src/components/settings/ClineAccountInfoCard.tsx:8:export const ClineAccountInfoCard = () => {
+webview-ui/src/components/settings/ClineAccountInfoCard.tsx:9:	const { clineUser } = useClineAuth()
+webview-ui/src/components/settings/ClineAccountInfoCard.tsx:13:	const user = clineUser || undefined
+webview-ui/src/components/settings/ClineAccountInfoCard.tsx:37:						Sign Up with Cline
+webview-ui/src/components/settings/README.md:3:This directory contains the refactored API Options components for the Cline extension. The refactoring aims to improve maintainability, code organization, and reduce complexity by separating provider-specific code into modular components.
+webview-ui/src/components/settings/README.md:17:│   ├── ClineProvider.tsx       # Cline configuration
+webview-ui/src/components/settings/HuggingFaceModelPicker.tsx:2:import { EmptyRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/settings/RequestyModelPicker.tsx:3:import { EmptyRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/settings/RequestyModelPicker.tsx:267:						If you're unsure which model to choose, Cline works best with{" "}
+webview-ui/src/components/settings/OpenRouterModelPicker.tsx:2:import { StringRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/settings/OpenRouterModelPicker.tsx:377:					If you're unsure which model to choose, Cline works best with{" "}
+webview-ui/src/components/settings/ApiOptions.tsx:1:import { StringRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/settings/ApiOptions.tsx:22:import { ClineProvider } from "./providers/ClineProvider"
+webview-ui/src/components/settings/ApiOptions.tsx:361:			{apiConfiguration && selectedProvider === "cline" && (
+webview-ui/src/components/settings/ApiOptions.tsx:362:				<ClineProvider
+webview-ui/src/components/settings/BasetenModelPicker.tsx:269:					If you're unsure which model to choose, Cline works best with{" "}
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:1:import { EmptyRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:3:	ClineRulesToggles,
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:8:	ToggleClineRuleRequest,
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:13:} from "@shared/proto/cline/file"
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:28:const ClineRulesToggleModal: React.FC = () => {
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:30:		globalClineRulesToggles = {},
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:31:		localClineRulesToggles = {},
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:43:		setGlobalClineRulesToggles,
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:44:		setLocalClineRulesToggles,
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:83:					if (response.globalClineRulesToggles?.toggles) {
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:84:						setGlobalClineRulesToggles(response.globalClineRulesToggles.toggles)
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:86:					if (response.localClineRulesToggles?.toggles) {
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:87:						setLocalClineRulesToggles(response.localClineRulesToggles.toggles)
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:111:		setGlobalClineRulesToggles,
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:112:		setLocalClineRulesToggles,
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:195:	const globalRules = Object.entries(globalClineRulesToggles || {})
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:200:	const localRules = Object.entries(localClineRulesToggles || {})
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:234:		FileServiceClient.toggleClineRule(
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:235:			ToggleClineRuleRequest.create({
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:243:				if (response.globalClineRulesToggles?.toggles) {
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:244:					setGlobalClineRulesToggles(response.globalClineRulesToggles.toggles)
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:246:				if (response.localClineRulesToggles?.toggles) {
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:247:					setLocalClineRulesToggles(response.localClineRulesToggles.toggles)
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:254:				console.error("Error toggling Cline rule:", error)
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:283:			.then((response: ClineRulesToggles) => {
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:300:			.then((response: ClineRulesToggles) => {
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:352:		FileServiceClient.toggleClineRule(
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:353:			ToggleClineRuleRequest.create({
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:438:					{!isVisible && <TooltipContent>Manage Cline Rules & Workflows</TooltipContent>}
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:442:							aria-label={isVisible ? "Hide Cline Rules & Workflows" : "Show Cline Rules & Workflows"}
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:501:									Rules allow you to provide Cline with system-level guidance. Think of them as a persistent way
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:505:										href="https://docs.cline.bot/features/cline-rules"
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:512:									Workflows allow you to define a series of steps to guide Cline through a repetitive set of
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:517:										href="https://docs.cline.bot/features/slash-commands/workflows">
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:523:									Skills are reusable instruction sets that Cline can activate on-demand. When a task matches a
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:524:									skill's description, Cline uses the <span className="font-bold">use_skill</span> tool to load
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:529:									Hooks allow you to execute custom scripts at specific points in Cline's execution lifecycle,
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:555:														ruleType="cline"
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:573:										ruleType={"cline"}
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:587:										ruleType={"cline"}
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:688:											href="https://docs.cline.bot/features/hooks"
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:745:											{workspace.workspaceName}/.clinerules/hooks/
+webview-ui/src/components/cline-rules/ClineRulesToggleModal.tsx:859:export default ClineRulesToggleModal
+webview-ui/src/components/cline-rules/RuleRow.tsx:1:import { StringRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/cline-rules/RuleRow.tsx:2:import { DeleteSkillRequest, RuleFileRequest } from "@shared/proto/index.cline"
+webview-ui/src/components/cline-rules/RuleRow.tsx:126:					type: ruleType || "cline",
+webview-ui/src/components/cline-rules/HookRow.tsx:1:import { StringRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/cline-rules/HookRow.tsx:2:import { DeleteHookRequest, HooksToggles } from "@shared/proto/cline/file"
+webview-ui/src/components/cline-rules/NewRuleRow.tsx:1:import { CreateHookRequest, CreateSkillRequest, RuleFileRequest } from "@shared/proto/index.cline"
+webview-ui/src/components/cline-rules/NewRuleRow.tsx:128:						type: ruleType || "cline",
+webview-ui/src/components/cline-rules/NewRuleRow.tsx:170:								Choose a hook type to create. Hooks execute at specific points in Cline's lifecycle. Available:{" "}
+webview-ui/src/components/chat/task-header/buttons/DeleteTaskButton.tsx:1:import { StringArrayRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/chat/task-header/buttons/OpenDiskConversationHistoryButton.tsx:1:import { StringRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/chat/task-header/FocusChain.tsx:3:import { StringRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/chat/task-header/Highlights.tsx:2:import { StringRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/chat/task-header/TaskHeader.stories.tsx:1:import { ClineMessage } from "@shared/ExtensionMessage"
+webview-ui/src/components/chat/task-header/TaskHeader.stories.tsx:34:const createTask = (text: string, images?: string[], files?: string[]): ClineMessage => ({
+webview-ui/src/components/chat/task-header/TaskHeader.stories.tsx:44:const createMessages = (): ClineMessage[] => [
+webview-ui/src/components/chat/task-header/TaskHeader.stories.tsx:89:			clineMessages: createMessages(),
+webview-ui/src/components/chat/task-header/TaskHeader.stories.tsx:119:			clineMessages: createMessages(),
+webview-ui/src/components/chat/task-header/TaskHeader.stories.tsx:153:			clineMessages: createMessages(),
+webview-ui/src/components/chat/task-header/TaskHeader.stories.tsx:187:			clineMessages: createMessages(),
+webview-ui/src/components/chat/task-header/TaskHeader.stories.tsx:219:			clineMessages: createMessages(),
+webview-ui/src/components/chat/task-header/TaskHeader.stories.tsx:255:			clineMessages: createMessages(),
+webview-ui/src/components/chat/task-header/TaskHeader.stories.tsx:283:			clineMessages: createMessages(),
+webview-ui/src/components/chat/task-header/TaskHeader.stories.tsx:312:			clineMessages: createMessages(),
+webview-ui/src/components/chat/task-header/TaskHeader.stories.tsx:344:			clineMessages: createMessages(),
+webview-ui/src/components/chat/task-header/TaskHeader.stories.tsx:373:			clineMessages: createMessages(),
+webview-ui/src/components/chat/task-header/TaskHeader.stories.tsx:402:			clineMessages: createMessages(),
+webview-ui/src/components/chat/task-header/TaskHeader.stories.tsx:431:			clineMessages: createMessages(),
+webview-ui/src/components/chat/task-header/TaskHeader.stories.tsx:459:			clineMessages: [
+webview-ui/src/components/chat/task-header/StickyUserMessage.tsx:1:import { ClineMessage } from "@shared/ExtensionMessage"
+webview-ui/src/components/chat/task-header/StickyUserMessage.tsx:7:	readonly lastUserMessage: ClineMessage | null
+webview-ui/src/components/chat/task-header/util.ts:1:import { ClineMessage } from "@shared/ExtensionMessage"
+webview-ui/src/components/chat/task-header/util.ts:8: * @param message ClineMessage - The message to determine the color for
+webview-ui/src/components/chat/task-header/util.ts:11:export const getColor = (message: ClineMessage): string => {
+webview-ui/src/components/chat/task-header/CheckpointError.tsx:38:							href="https://github.com/cline/cline/wiki/Installing-Git-for-Checkpoints">
+webview-ui/src/components/chat/task-header/TaskHeader.tsx:1:import { ClineMessage } from "@shared/ExtensionMessage"
+webview-ui/src/components/chat/task-header/TaskHeader.tsx:20:	task: ClineMessage
+webview-ui/src/components/chat/OptionsButtons.tsx:1:import { AskResponseRequest } from "@shared/proto/cline/task"
+webview-ui/src/components/chat/ErrorBlockTitle.tsx:2:import { ClineError, ClineErrorType } from "../../../../src/services/error/ClineError"
+webview-ui/src/components/chat/ErrorBlockTitle.tsx:60:			const clineError = ClineError.parse(apiRequestFailedMessage)
+webview-ui/src/components/chat/ErrorBlockTitle.tsx:61:			const titleText = clineError?.isErrorType(ClineErrorType.Balance) ? "Credit Limit Reached" : "API Request Failed"
+webview-ui/src/components/chat/HookMessage.tsx:1:import { ClineMessage } from "@shared/ExtensionMessage"
+webview-ui/src/components/chat/HookMessage.tsx:2:import { EmptyRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/chat/HookMessage.tsx:26:function shouldExpandHookByDefault(message: ClineMessage, metadata: HookMetadata): boolean {
+webview-ui/src/components/chat/HookMessage.tsx:38:	message: ClineMessage
+webview-ui/src/components/chat/ErrorRow.stories.tsx:1:import { ClineMessage } from "@shared/ExtensionMessage"
+webview-ui/src/components/chat/ErrorRow.stories.tsx:9:const createMockMessage = (overrides: Partial<ClineMessage> = {}): ClineMessage => ({
+webview-ui/src/components/chat/ErrorRow.stories.tsx:18:	clineUser: null,
+webview-ui/src/components/chat/ErrorRow.stories.tsx:26:	clineMessages: [],
+webview-ui/src/components/chat/ErrorRow.stories.tsx:54:					"Displays different types of error messages in the chat interface, including API errors, credit limit errors, diff errors, and clineignore errors. Handles special error parsing for Cline provider errors and provides appropriate user actions.",
+webview-ui/src/components/chat/ErrorRow.stories.tsx:74:			options: ["error", "mistake_limit_reached", "diff_error", "clineignore_error"],
+webview-ui/src/components/chat/ErrorRow.stories.tsx:123:// Cline-specific errors
+webview-ui/src/components/chat/ErrorRow.stories.tsx:124:export const ClineBalanceError: Story = {
+webview-ui/src/components/chat/ErrorRow.stories.tsx:132:			providerId: "cline",
+webview-ui/src/components/chat/ErrorRow.stories.tsx:144:export const ClineRateLimitError: Story = {
+webview-ui/src/components/chat/ErrorRow.stories.tsx:151:			providerId: "cline",
+webview-ui/src/components/chat/ErrorRow.stories.tsx:165:			providerId: "cline",
+webview-ui/src/components/chat/ErrorRow.stories.tsx:188:			clineUser: { id: "user123", email: "user@example.com" },
+webview-ui/src/components/chat/ErrorRow.stories.tsx:209:			message: "Please sign in to access Cline services.",
+webview-ui/src/components/chat/ErrorRow.stories.tsx:212:			providerId: "cline",
+webview-ui/src/components/chat/ErrorRow.stories.tsx:219:		const signInButton = canvas.getByRole("button", { name: /sign in to cline/i })
+webview-ui/src/components/chat/ErrorRow.stories.tsx:258:			providerId: "cline",
+webview-ui/src/components/chat/CompletionOutputRow.tsx:4:import { Int64Request } from "@shared/proto/cline/common"
+webview-ui/src/components/chat/auto-approve-menu/AutoApproveModal.tsx:75:					Let Cline take these actions without asking for approval.{" "}
+webview-ui/src/components/chat/auto-approve-menu/AutoApproveModal.tsx:78:						href="https://docs.cline.bot/features/auto-approve#auto-approve"
+webview-ui/src/components/chat/chat-view/types/chatTypes.ts:5:import { ClineAsk, ClineMessage } from "@shared/ExtensionMessage"
+webview-ui/src/components/chat/chat-view/types/chatTypes.ts:49:	lastMessage: ClineMessage | undefined
+webview-ui/src/components/chat/chat-view/types/chatTypes.ts:50:	secondLastMessage: ClineMessage | undefined
+webview-ui/src/components/chat/chat-view/types/chatTypes.ts:51:	clineAsk: ClineAsk | undefined
+webview-ui/src/components/chat/chat-view/types/chatTypes.ts:52:	task: ClineMessage | undefined
+webview-ui/src/components/chat/chat-view/types/chatTypes.ts:93:	scrolledPastUserMessage: ClineMessage | null
+webview-ui/src/components/chat/chat-view/types/chatTypes.ts:121:	task: ClineMessage
+webview-ui/src/components/chat/chat-view/types/chatTypes.ts:122:	messages: ClineMessage[]
+webview-ui/src/components/chat/chat-view/types/chatTypes.ts:140:	clineAsk?: ClineAsk
+webview-ui/src/components/chat/chat-view/types/chatTypes.ts:141:	modifiedMessages: ClineMessage[]
+webview-ui/src/components/chat/chat-view/utils/messageUtils.test.ts:1:import type { ClineMessage } from "@shared/ExtensionMessage"
+webview-ui/src/components/chat/chat-view/utils/messageUtils.test.ts:5:const createTextMessage = (ts: number, text: string): ClineMessage => ({
+webview-ui/src/components/chat/chat-view/utils/messageUtils.test.ts:12:const createToolMessage = (ts: number, tool: string): ClineMessage => ({
+webview-ui/src/components/chat/chat-view/utils/messageUtils.test.ts:19:const createReasoningMessage = (ts: number, text: string): ClineMessage => ({
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:7:import type { ClineMessage, ClineSayBrowserAction, ClineSayTool } from "@shared/ExtensionMessage"
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:24:export function isLowStakesTool(message: ClineMessage): boolean {
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:29:		const tool = JSON.parse(message.text || "{}") as ClineSayTool
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:39:export function isToolGroup(item: ClineMessage | ClineMessage[]): item is ClineMessage[] & { _isToolGroup: true } {
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:46:export function processMessages(messages: ClineMessage[]): ClineMessage[] {
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:53:export function filterVisibleMessages(messages: ClineMessage[]): ClineMessage[] {
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:57:				// don't show a chat row for a completion_result ask without text. This specific type of message only occurs if cline wants to execute a command as part of its completion result, in which case we interject the completion_result tool with the execute_command tool.
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:95:				// Sometimes cline returns an empty text message, we don't want to render these. (We also use a say text for user messages, so in case they just sent images we still render that)
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:115:export function isBrowserSessionMessage(message: ClineMessage): boolean {
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:137:export function groupMessages(visibleMessages: ClineMessage[]): (ClineMessage | ClineMessage[])[] {
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:138:	const result: (ClineMessage | ClineMessage[])[] = []
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:139:	let currentGroup: ClineMessage[] = []
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:178:					const browserAction = JSON.parse(message.text || "{}") as ClineSayBrowserAction
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:204:export function getTaskMessage(messages: ClineMessage[]): ClineMessage | undefined {
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:221:	allMessages: ClineMessage[],
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:261:	allMessages: ClineMessage[],
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:291:function isDisplayedCheckpoint(checkpointIndex: number, allMessages: ClineMessage[]): boolean {
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:315:				const tool = JSON.parse(msg.text || "{}") as ClineSayTool
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:338:export function findNextSegmentCost(checkpointTs: number, allMessages: ClineMessage[]): number | undefined {
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:381:export function isTextMessagePendingToolCall(textTs: number, allMessages: ClineMessage[]): boolean {
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:417:export function isToolGroupInFlight(toolGroupMessages: ClineMessage[], allMessages: ClineMessage[]): boolean {
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:423:	let mostRecentApiReq: ClineMessage | null = null
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:503:export function getToolsNotInCurrentActivities(toolGroupMessages: ClineMessage[], allMessages: ClineMessage[]): ClineMessage[] {
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:512:	let mostRecentApiReq: ClineMessage | null = null
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:625: * Note: this operates on a flat `ClineMessage[]` (e.g. `modifiedMessages`) rather than
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:629:export function isApiReqAbsorbable(apiReqTs: number, allMessages: ClineMessage[]): boolean {
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:681:function isApiReqFollowedOnlyByLowStakesTools(index: number, messages: (ClineMessage | ClineMessage[])[]): boolean {
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:729:export function groupLowStakesTools(groupedMessages: (ClineMessage | ClineMessage[])[]): (ClineMessage | ClineMessage[])[] {
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:730:	const result: (ClineMessage | ClineMessage[])[] = []
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:731:	let toolGroup: ClineMessage[] = []
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:732:	let pendingReasoning: ClineMessage[] = []
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:733:	let pendingApiReq: ClineMessage[] = []
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:735:	const pendingTools: ClineMessage[] = []
+webview-ui/src/components/chat/chat-view/utils/messageUtils.ts:746:			const group = toolGroup as ClineMessage[] & { _isToolGroup: boolean }
+webview-ui/src/components/chat/chat-view/shared/buttonConfig.test.ts:1:import type { ClineMessage } from "@shared/ExtensionMessage"
+webview-ui/src/components/chat/chat-view/shared/buttonConfig.test.ts:15:		const streamingMessage: ClineMessage = {
+webview-ui/src/components/chat/chat-view/shared/buttonConfig.test.ts:31:				const errorMessage: ClineMessage = {
+webview-ui/src/components/chat/chat-view/shared/buttonConfig.test.ts:47:			const toolMessage: ClineMessage = {
+webview-ui/src/components/chat/chat-view/shared/buttonConfig.test.ts:61:				const toolMessage: ClineMessage = {
+webview-ui/src/components/chat/chat-view/shared/buttonConfig.test.ts:76:			const commandMessage: ClineMessage = {
+webview-ui/src/components/chat/chat-view/shared/buttonConfig.test.ts:86:			const commandOutputMessage: ClineMessage = {
+webview-ui/src/components/chat/chat-view/shared/buttonConfig.test.ts:114:				const message: ClineMessage = {
+webview-ui/src/components/chat/chat-view/shared/buttonConfig.test.ts:127:		const apiReqMessage: ClineMessage = {
+webview-ui/src/components/chat/chat-view/shared/buttonConfig.test.ts:138:		const message: ClineMessage = {
+webview-ui/src/components/chat/chat-view/shared/buttonConfig.ts:1:import type { ClineMessage, ClineSayTool } from "@shared/ExtensionMessage"
+webview-ui/src/components/chat/chat-view/shared/buttonConfig.ts:216:export function getButtonConfig(message: ClineMessage | undefined, _mode: Mode = "act"): ButtonConfig {
+webview-ui/src/components/chat/chat-view/shared/buttonConfig.ts:249:					const tool = JSON.parse(message.text || "{}") as ClineSayTool
+webview-ui/src/components/chat/chat-view/components/messages/ToolGroupRenderer.tsx:1:import { ClineMessage, ClineSayTool } from "@shared/ExtensionMessage"
+webview-ui/src/components/chat/chat-view/components/messages/ToolGroupRenderer.tsx:2:import { StringRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/chat/chat-view/components/messages/ToolGroupRenderer.tsx:12:	messages: ClineMessage[]
+webview-ui/src/components/chat/chat-view/components/messages/ToolGroupRenderer.tsx:13:	allMessages: ClineMessage[]
+webview-ui/src/components/chat/chat-view/components/messages/ToolGroupRenderer.tsx:18:	tool: ClineMessage
+webview-ui/src/components/chat/chat-view/components/messages/ToolGroupRenderer.tsx:19:	parsedTool: ClineSayTool
+webview-ui/src/components/chat/chat-view/components/messages/ToolGroupRenderer.tsx:28:const getActivityText = (tool: ClineSayTool): string | null => {
+webview-ui/src/components/chat/chat-view/components/messages/ToolGroupRenderer.tsx:58:const getCurrentActivities = (allMessages: ClineMessage[]): ClineMessage[] => {
+webview-ui/src/components/chat/chat-view/components/messages/ToolGroupRenderer.tsx:82:	const activities: ClineMessage[] = []
+webview-ui/src/components/chat/chat-view/components/messages/ToolGroupRenderer.tsx:237:function buildToolsWithReasoning(messages: ClineMessage[]): ToolWithReasoning[] {
+webview-ui/src/components/chat/chat-view/components/messages/ToolGroupRenderer.tsx:262:function parseToolSafe(text: string | undefined): ClineSayTool {
+webview-ui/src/components/chat/chat-view/components/messages/ToolGroupRenderer.tsx:264:		return JSON.parse(text || "{}") as ClineSayTool
+webview-ui/src/components/chat/chat-view/components/messages/ToolGroupRenderer.tsx:266:		return {} as ClineSayTool
+webview-ui/src/components/chat/chat-view/components/messages/ToolGroupRenderer.tsx:273:function getToolDisplayInfo(tool: ClineSayTool) {
+webview-ui/src/components/chat/chat-view/components/messages/ToolGroupRenderer.tsx:322:function getToolGroupSummary(messages: ClineMessage[]): string {
+webview-ui/src/components/chat/chat-view/components/messages/ToolGroupRenderer.tsx:364:	return parts.length === 0 ? "Context" : "Cline" + action + parts.join(", ")
+webview-ui/src/components/chat/chat-view/components/messages/MessageRenderer.tsx:1:import type { ClineMessage } from "@shared/ExtensionMessage"
+webview-ui/src/components/chat/chat-view/components/messages/MessageRenderer.tsx:14:	messageOrGroup: ClineMessage | ClineMessage[]
+webview-ui/src/components/chat/chat-view/components/messages/MessageRenderer.tsx:15:	groupedMessages: (ClineMessage | ClineMessage[])[]
+webview-ui/src/components/chat/chat-view/components/messages/MessageRenderer.tsx:16:	modifiedMessages: ClineMessage[]
+webview-ui/src/components/chat/chat-view/components/messages/MessageRenderer.tsx:133:	groupedMessages: (ClineMessage | ClineMessage[])[],
+webview-ui/src/components/chat/chat-view/components/messages/MessageRenderer.tsx:134:	modifiedMessages: ClineMessage[],
+webview-ui/src/components/chat/chat-view/components/messages/MessageRenderer.tsx:143:	return (index: number, messageOrGroup: ClineMessage | ClineMessage[]) => (
+webview-ui/src/components/chat/chat-view/components/layout/IdleIndicator.stashed.tsx:13:import { ClineMessage } from "@shared/ExtensionMessage"
+webview-ui/src/components/chat/chat-view/components/layout/IdleIndicator.stashed.tsx:23:export function useIdleIndicator(scrollContainerRef: React.RefObject<HTMLDivElement>, clineMessages: ClineMessage[]): boolean {
+webview-ui/src/components/chat/chat-view/components/layout/IdleIndicator.stashed.tsx:35:		const isTaskComplete = clineMessages.some(
+webview-ui/src/components/chat/chat-view/components/layout/IdleIndicator.stashed.tsx:111:	}, [scrollContainerRef, clineMessages])
+webview-ui/src/components/chat/chat-view/components/layout/TaskSection.tsx:1:import { ClineMessage } from "@shared/ExtensionMessage"
+webview-ui/src/components/chat/chat-view/components/layout/TaskSection.tsx:7:	task: ClineMessage
+webview-ui/src/components/chat/chat-view/components/layout/WelcomeSection.tsx:1:import { BANNER_DATA, BannerAction, BannerActionType, BannerCardData } from "@shared/cline/banner"
+webview-ui/src/components/chat/chat-view/components/layout/WelcomeSection.tsx:2:import { EmptyRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/chat/chat-view/components/layout/WelcomeSection.tsx:3:import type { Worktree } from "@shared/proto/cline/worktree"
+webview-ui/src/components/chat/chat-view/components/layout/WelcomeSection.tsx:4:import { TrackWorktreeViewOpenedRequest } from "@shared/proto/cline/worktree"
+webview-ui/src/components/chat/chat-view/components/layout/WelcomeSection.tsx:15:import { useClineAuth } from "@/context/ClineAuthContext"
+webview-ui/src/components/chat/chat-view/components/layout/WelcomeSection.tsx:61:	const { clineUser } = useClineAuth()
+webview-ui/src/components/chat/chat-view/components/layout/WelcomeSection.tsx:163:			if (banner.isClineUserOnly !== undefined) {
+webview-ui/src/components/chat/chat-view/components/layout/WelcomeSection.tsx:164:				return banner.isClineUserOnly === !!clineUser
+webview-ui/src/components/chat/chat-view/components/layout/WelcomeSection.tsx:173:	}, [isBannerDismissed, clineUser])
+webview-ui/src/components/chat/chat-view/components/layout/WelcomeSection.tsx:195:						planModeApiProvider: "cline",
+webview-ui/src/components/chat/chat-view/components/layout/WelcomeSection.tsx:196:						actModeApiProvider: "cline",
+webview-ui/src/components/chat/chat-view/components/layout/WelcomeSection.tsx:222:					StateServiceClient.installClineCli({}).catch((error) =>
+webview-ui/src/components/chat/chat-view/components/layout/WelcomeSection.tsx:276:	}, [bannerConfig, banners, clineUser, handleBannerAction, handleBannerDismiss])
+webview-ui/src/components/chat/chat-view/components/layout/WelcomeSection.tsx:309:										Cline tasks.
+webview-ui/src/components/chat/chat-view/components/layout/WelcomeSection.tsx:333:											View and manage git worktrees. Great for running parallel Cline tasks.
+webview-ui/src/components/chat/chat-view/components/layout/MessagesArea.tsx:1:import type { ClineMessage } from "@shared/ExtensionMessage"
+webview-ui/src/components/chat/chat-view/components/layout/MessagesArea.tsx:13:	task: ClineMessage
+webview-ui/src/components/chat/chat-view/components/layout/MessagesArea.tsx:14:	groupedMessages: (ClineMessage | ClineMessage[])[]
+webview-ui/src/components/chat/chat-view/components/layout/MessagesArea.tsx:15:	modifiedMessages: ClineMessage[]
+webview-ui/src/components/chat/chat-view/components/layout/MessagesArea.tsx:33:	const { clineMessages } = useExtensionState()
+webview-ui/src/components/chat/chat-view/components/layout/MessagesArea.tsx:34:	const lastRawMessage = useMemo(() => clineMessages.at(-1), [clineMessages])
+webview-ui/src/components/chat/chat-view/components/layout/MessagesArea.tsx:54:		return clineMessages.findIndex((msg) => msg.ts === scrolledPastUserMessage.ts)
+webview-ui/src/components/chat/chat-view/components/layout/MessagesArea.tsx:55:	}, [clineMessages, scrolledPastUserMessage])
+webview-ui/src/components/chat/chat-view/components/layout/MessagesArea.tsx:156:	const displayedGroupedMessages = useMemo<(ClineMessage | ClineMessage[])[]>(() => {
+webview-ui/src/components/chat/chat-view/components/layout/MessagesArea.tsx:160:		const waitingRow: ClineMessage = {
+webview-ui/src/components/chat/chat-view/components/layout/ActionButtons.tsx:1:import type { ClineMessage } from "@shared/ExtensionMessage"
+webview-ui/src/components/chat/chat-view/components/layout/ActionButtons.tsx:11:	task?: ClineMessage
+webview-ui/src/components/chat/chat-view/components/layout/ActionButtons.tsx:12:	messages: ClineMessage[]
+webview-ui/src/components/chat/chat-view/hooks/useMessageHandlers.ts:1:import type { ClineMessage } from "@shared/ExtensionMessage"
+webview-ui/src/components/chat/chat-view/hooks/useMessageHandlers.ts:2:import { EmptyRequest, StringRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/chat/chat-view/hooks/useMessageHandlers.ts:3:import { AskResponseRequest, NewTaskRequest } from "@shared/proto/cline/task"
+webview-ui/src/components/chat/chat-view/hooks/useMessageHandlers.ts:14:export function useMessageHandlers(messages: ClineMessage[], chatState: ChatState): MessageHandlers {
+webview-ui/src/components/chat/chat-view/hooks/useMessageHandlers.ts:24:		clineAsk,
+webview-ui/src/components/chat/chat-view/hooks/useMessageHandlers.ts:56:				} else if (clineAsk) {
+webview-ui/src/components/chat/chat-view/hooks/useMessageHandlers.ts:59:					if (clineAsk === "resume_task" || clineAsk === "resume_completed_task") {
+webview-ui/src/components/chat/chat-view/hooks/useMessageHandlers.ts:71:						switch (clineAsk) {
+webview-ui/src/components/chat/chat-view/hooks/useMessageHandlers.ts:99:					// No clineAsk set - check if task is actively running
+webview-ui/src/components/chat/chat-view/hooks/useMessageHandlers.ts:137:			clineAsk,
+webview-ui/src/components/chat/chat-view/hooks/useMessageHandlers.ts:240:					if (clineAsk === "new_task") {
+webview-ui/src/components/chat/chat-view/hooks/useMessageHandlers.ts:277:					switch (clineAsk) {
+webview-ui/src/components/chat/chat-view/hooks/useMessageHandlers.ts:297:			clineAsk,
+webview-ui/src/components/chat/chat-view/hooks/useChatState.ts:1:import { ClineMessage } from "@shared/ExtensionMessage"
+webview-ui/src/components/chat/chat-view/hooks/useChatState.ts:9:export function useChatState(messages: ClineMessage[]): ChatState {
+webview-ui/src/components/chat/chat-view/hooks/useChatState.ts:30:	const clineAsk = useMemo(() => (lastMessage?.type === "ask" ? lastMessage.ask : undefined), [lastMessage])
+webview-ui/src/components/chat/chat-view/hooks/useChatState.ts:85:		clineAsk,
+webview-ui/src/components/chat/chat-view/hooks/useScrollBehavior.ts:1:import { ClineMessage } from "@shared/ExtensionMessage"
+webview-ui/src/components/chat/chat-view/hooks/useScrollBehavior.ts:16:	messages: ClineMessage[],
+webview-ui/src/components/chat/chat-view/hooks/useScrollBehavior.ts:17:	visibleMessages: ClineMessage[],
+webview-ui/src/components/chat/chat-view/hooks/useScrollBehavior.ts:18:	groupedMessages: (ClineMessage | ClineMessage[])[],
+webview-ui/src/components/chat/chat-view/hooks/useScrollBehavior.ts:28:	scrolledPastUserMessage: ClineMessage | null
+webview-ui/src/components/chat/chat-view/hooks/useScrollBehavior.ts:40:	const [scrolledPastUserMessage, setScrolledPastUserMessage] = useState<ClineMessage | null>(null)
+webview-ui/src/components/chat/chat-view/hooks/useScrollBehavior.ts:60:		let mostRecentScrolledPast: ClineMessage | null = null
+webview-ui/src/components/chat/DiffEditRow.tsx:1:import { StringRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/chat/SubagentStatusRow.tsx:2:	ClineAskUseSubagents,
+webview-ui/src/components/chat/SubagentStatusRow.tsx:3:	ClineMessage,
+webview-ui/src/components/chat/SubagentStatusRow.tsx:4:	ClineSaySubagentStatus,
+webview-ui/src/components/chat/SubagentStatusRow.tsx:22:	message: ClineMessage
+webview-ui/src/components/chat/SubagentStatusRow.tsx:24:	lastModifiedMessage?: ClineMessage
+webview-ui/src/components/chat/SubagentStatusRow.tsx:75:function parseSubagentRowData(message: ClineMessage): SubagentRowData | null {
+webview-ui/src/components/chat/SubagentStatusRow.tsx:82:			const parsed = JSON.parse(message.text) as ClineAskUseSubagents
+webview-ui/src/components/chat/SubagentStatusRow.tsx:108:		const parsed = JSON.parse(message.text) as ClineSaySubagentStatus
+webview-ui/src/components/chat/SubagentStatusRow.tsx:200:	const title = singular ? "Cline wants to use a subagent:" : "Cline wants to use subagents:"
+webview-ui/src/components/chat/UserMessage.tsx:1:import { CheckpointRestoreRequest } from "@shared/proto/cline/checkpoints"
+webview-ui/src/components/chat/UserMessage.tsx:2:import { ClineCheckpointRestore } from "@shared/WebviewMessage"
+webview-ui/src/components/chat/UserMessage.tsx:43:	const handleRestoreWorkspace = async (type: ClineCheckpointRestore) => {
+webview-ui/src/components/chat/UserMessage.tsx:161:	type: ClineCheckpointRestore
+webview-ui/src/components/chat/UserMessage.tsx:164:	onClick: (type: ClineCheckpointRestore) => void
+webview-ui/src/components/chat/ErrorRow.tsx:1:import { ClineMessage } from "@shared/ExtensionMessage"
+webview-ui/src/components/chat/ErrorRow.tsx:5:import { useClineAuth, useClineSignIn } from "@/context/ClineAuthContext"
+webview-ui/src/components/chat/ErrorRow.tsx:6:import { ClineError, ClineErrorType } from "../../../../src/services/error/ClineError"
+webview-ui/src/components/chat/ErrorRow.tsx:11:	message: ClineMessage
+webview-ui/src/components/chat/ErrorRow.tsx:12:	errorType: "error" | "mistake_limit_reached" | "diff_error" | "clineignore_error"
+webview-ui/src/components/chat/ErrorRow.tsx:18:	const { clineUser } = useClineAuth()
+webview-ui/src/components/chat/ErrorRow.tsx:21:	const { isLoginLoading, handleSignIn } = useClineSignIn()
+webview-ui/src/components/chat/ErrorRow.tsx:29:					// FIXME: ClineError parsing should not be applied to non-Cline providers, but it seems we're using clineErrorMessage below in the default error display
+webview-ui/src/components/chat/ErrorRow.tsx:30:					const clineError = ClineError.parse(rawApiError)
+webview-ui/src/components/chat/ErrorRow.tsx:31:					const errorMessage = clineError?._error?.message || clineError?.message || rawApiError
+webview-ui/src/components/chat/ErrorRow.tsx:32:					const requestId = clineError?._error?.request_id
+webview-ui/src/components/chat/ErrorRow.tsx:33:					const providerId = clineError?.providerId || clineError?._error?.providerId
+webview-ui/src/components/chat/ErrorRow.tsx:34:					const isClineProvider = providerId === "cline"
+webview-ui/src/components/chat/ErrorRow.tsx:35:					const errorCode = clineError?._error?.code
+webview-ui/src/components/chat/ErrorRow.tsx:37:					if (clineError?.isErrorType(ClineErrorType.Balance)) {
+webview-ui/src/components/chat/ErrorRow.tsx:38:						const errorDetails = clineError._error?.details
+webview-ui/src/components/chat/ErrorRow.tsx:50:					if (clineError?.isErrorType(ClineErrorType.RateLimit)) {
+webview-ui/src/components/chat/ErrorRow.tsx:61:							{/* Display the well-formatted error extracted from the ClineError instance */}
+webview-ui/src/components/chat/ErrorRow.tsx:76:										href="https://github.com/cline/cline/wiki/TroubleShooting-%E2%80%90-%22PowerShell-is-not-recognized-as-an-internal-or-external-command%22">
+webview-ui/src/components/chat/ErrorRow.tsx:86:							{/* Display Login button for non-logged in users using the Cline provider */}
+webview-ui/src/components/chat/ErrorRow.tsx:88:								{/* The user is signed in or not using cline provider */}
+webview-ui/src/components/chat/ErrorRow.tsx:89:								{isClineProvider && !clineUser ? (
+webview-ui/src/components/chat/ErrorRow.tsx:91:										Sign in to Cline
+webview-ui/src/components/chat/ErrorRow.tsx:116:			case "clineignore_error":
+webview-ui/src/components/chat/ErrorRow.tsx:120:							Cline tried to access <code>{message.text}</code> which is blocked by the <code>.clineignore</code>
+webview-ui/src/components/chat/ErrorRow.tsx:131:	// For diff_error and clineignore_error, we don't show the header separately
+webview-ui/src/components/chat/ErrorRow.tsx:132:	if (errorType === "diff_error" || errorType === "clineignore_error") {
+webview-ui/src/components/chat/BrowserSessionRow.tsx:2:import { BrowserAction, BrowserActionResult, ClineMessage, ClineSayBrowserAction } from "@shared/ExtensionMessage"
+webview-ui/src/components/chat/BrowserSessionRow.tsx:3:import { StringRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/chat/BrowserSessionRow.tsx:18:	messages: ClineMessage[]
+webview-ui/src/components/chat/BrowserSessionRow.tsx:21:	lastModifiedMessage?: ClineMessage
+webview-ui/src/components/chat/BrowserSessionRow.tsx:148:				messages: ClineMessage[] // messages up to and including the result
+webview-ui/src/components/chat/BrowserSessionRow.tsx:151:				messages: ClineMessage[] // messages leading to next result
+webview-ui/src/components/chat/BrowserSessionRow.tsx:155:		let currentStateMessages: ClineMessage[] = []
+webview-ui/src/components/chat/BrowserSessionRow.tsx:156:		let nextActionMessages: ClineMessage[] = []
+webview-ui/src/components/chat/BrowserSessionRow.tsx:327:				const browserAction = JSON.parse(message.text || "{}") as ClineSayBrowserAction
+webview-ui/src/components/chat/BrowserSessionRow.tsx:363:					{isAutoApproved ? "Cline is using the browser:" : "Cline wants to use the browser:"}
+webview-ui/src/components/chat/BrowserSessionRow.tsx:494:	message: ClineMessage
+webview-ui/src/components/chat/BrowserSessionRow.tsx:550:						const browserAction = JSON.parse(message.text || "{}") as ClineSayBrowserAction
+webview-ui/src/components/chat/ChatTextArea.tsx:2:import { StringRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/chat/ChatTextArea.tsx:3:import { FileSearchRequest, FileSearchType, RelativePathsRequest } from "@shared/proto/cline/file"
+webview-ui/src/components/chat/ChatTextArea.tsx:4:import { PlanActMode, TogglePlanActModeRequest } from "@shared/proto/cline/state"
+webview-ui/src/components/chat/ChatTextArea.tsx:44:import ClineRulesToggleModal from "../cline-rules/ClineRulesToggleModal"
+webview-ui/src/components/chat/ChatTextArea.tsx:1087:				case "cline":
+webview-ui/src/components/chat/ChatTextArea.tsx:1576:							<ClineRulesToggleModal />
+webview-ui/src/components/chat/ChatTextArea.tsx:1598:							{`In ${shownTooltipMode === "act" ? "Act" : "Plan"}  mode, Cline will ${shownTooltipMode === "act" ? "complete the task immediately" : "gather information to architect a plan"}`}
+webview-ui/src/components/chat/ChatRow.tsx:3:	ClineApiReqInfo,
+webview-ui/src/components/chat/ChatRow.tsx:4:	ClineAskQuestion,
+webview-ui/src/components/chat/ChatRow.tsx:5:	ClineAskUseMcpServer,
+webview-ui/src/components/chat/ChatRow.tsx:6:	ClineMessage,
+webview-ui/src/components/chat/ChatRow.tsx:7:	ClinePlanModeResponse,
+webview-ui/src/components/chat/ChatRow.tsx:8:	ClineSayGenerateExplanation,
+webview-ui/src/components/chat/ChatRow.tsx:9:	ClineSayTool,
+webview-ui/src/components/chat/ChatRow.tsx:12:import { BooleanRequest, StringRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/chat/ChatRow.tsx:71:	message: ClineMessage
+webview-ui/src/components/chat/ChatRow.tsx:74:	lastModifiedMessage?: ClineMessage
+webview-ui/src/components/chat/ChatRow.tsx:156:			clineMessages,
+webview-ui/src/components/chat/ChatRow.tsx:203:				const info: ClineApiReqInfo = JSON.parse(message.text)
+webview-ui/src/components/chat/ChatRow.tsx:321:						<span className="text-error font-bold">Cline is having trouble...</span>,
+webview-ui/src/components/chat/ChatRow.tsx:326:						<span className="font-bold text-foreground">Cline wants to execute this command:</span>,
+webview-ui/src/components/chat/ChatRow.tsx:329:					const mcpServerUse = JSON.parse(message.text || "{}") as ClineAskUseMcpServer
+webview-ui/src/components/chat/ChatRow.tsx:337:							Cline wants to {mcpServerUse.type === "use_mcp_tool" ? "use a tool" : "access a resource"} on the{" "}
+webview-ui/src/components/chat/ChatRow.tsx:356:						<span className="font-bold text-foreground">Cline has a question:</span>,
+webview-ui/src/components/chat/ChatRow.tsx:374:				return JSON.parse(message.text || "{}") as ClineSayTool
+webview-ui/src/components/chat/ChatRow.tsx:434:						? "Cline is creating patches to edit this file:"
+webview-ui/src/components/chat/ChatRow.tsx:435:						: "Cline wants to edit this file:"
+webview-ui/src/components/chat/ChatRow.tsx:469:								<span style={{ fontWeight: "bold" }}>Cline wants to delete this file:</span>
+webview-ui/src/components/chat/ChatRow.tsx:487:								<span className="font-bold">Cline wants to create a new file:</span>
+webview-ui/src/components/chat/ChatRow.tsx:510:								<span className="font-bold">Cline wants to read this file:</span>
+webview-ui/src/components/chat/ChatRow.tsx:544:										? "Cline wants to view the top level files in this directory:"
+webview-ui/src/components/chat/ChatRow.tsx:545:										: "Cline viewed the top level files in this directory:"}
+webview-ui/src/components/chat/ChatRow.tsx:566:										? "Cline wants to recursively view all files in this directory:"
+webview-ui/src/components/chat/ChatRow.tsx:567:										: "Cline recursively viewed all files in this directory:"}
+webview-ui/src/components/chat/ChatRow.tsx:588:										? "Cline wants to view source code definition names used in this directory:"
+webview-ui/src/components/chat/ChatRow.tsx:589:										: "Cline viewed source code definition names used in this directory:"}
+webview-ui/src/components/chat/ChatRow.tsx:608:									Cline wants to search this directory for <code className="break-all">{tool.regex}</code>:
+webview-ui/src/components/chat/ChatRow.tsx:625:								<span className="font-bold">Cline is condensing the conversation:</span>
+webview-ui/src/components/chat/ChatRow.tsx:670:										? "Cline wants to fetch content from this URL:"
+webview-ui/src/components/chat/ChatRow.tsx:671:										: "Cline fetched content from this URL:"}
+webview-ui/src/components/chat/ChatRow.tsx:699:										? "Cline wants to search the web for:"
+webview-ui/src/components/chat/ChatRow.tsx:700:										: "Cline searched the web for:"}
+webview-ui/src/components/chat/ChatRow.tsx:715:								<span className="font-bold">Cline loaded the skill:</span>
+webview-ui/src/components/chat/ChatRow.tsx:773:			const useMcpServer = JSON.parse(message.text || "{}") as ClineAskUseMcpServer
+webview-ui/src/components/chat/ChatRow.tsx:842:								clineMessages={clineMessages}
+webview-ui/src/components/chat/ChatRow.tsx:915:						const tool = JSON.parse(message.text || "{}") as ClineSayTool
+webview-ui/src/components/chat/ChatRow.tsx:930:					case "clineignore_error":
+webview-ui/src/components/chat/ChatRow.tsx:931:						return <ErrorRow errorType="clineignore_error" message={message} />
+webview-ui/src/components/chat/ChatRow.tsx:942:						let explanationInfo: ClineSayGenerateExplanation = {
+webview-ui/src/components/chat/ChatRow.tsx:1035:									Cline may have trouble viewing the command's output. Please update VSCode (
+webview-ui/src/components/chat/ChatRow.tsx:1041:										href="https://github.com/cline/cline/wiki/Troubleshooting-%E2%80%90-Shell-Integration-Unavailable">
+webview-ui/src/components/chat/ChatRow.tsx:1182:							const parsedMessage = JSON.parse(message.text || "{}") as ClineAskQuestion
+webview-ui/src/components/chat/ChatRow.tsx:1234:									<span className="text-foreground font-bold">Cline wants to start a new task:</span>
+webview-ui/src/components/chat/ChatRow.tsx:1244:									<span className="text-foreground font-bold">Cline wants to condense your conversation:</span>
+webview-ui/src/components/chat/ChatRow.tsx:1254:									<span className="text-foreground font-bold">Cline wants to create a Github issue:</span>
+webview-ui/src/components/chat/ChatRow.tsx:1264:							const parsedMessage = JSON.parse(message.text || "{}") as ClinePlanModeResponse
+webview-ui/src/components/chat/TaskFeedbackButtons.tsx:1:import { StringRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/chat/TaskFeedbackButtons.tsx:106:					href="https://github.com/cline/cline/issues/new?template=bug_report.yml"
+webview-ui/src/components/chat/CreditLimitError.tsx:1:import { AskResponseRequest } from "@shared/proto/cline/task"
+webview-ui/src/components/chat/CreditLimitError.tsx:5:import { useClineAuth } from "@/context/ClineAuthContext"
+webview-ui/src/components/chat/CreditLimitError.tsx:17:	USER: "https://app.cline.bot/dashboard/account?tab=credits&redirect=true",
+webview-ui/src/components/chat/CreditLimitError.tsx:18:	ORG: "https://app.cline.bot/dashboard/organization?tab=credits&redirect=true",
+webview-ui/src/components/chat/CreditLimitError.tsx:28:	const { activeOrganization } = useClineAuth()
+webview-ui/src/components/chat/ServersToggleModal.tsx:1:import { EmptyRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/chat/ServersToggleModal.tsx:2:import { McpServers } from "@shared/proto/cline/mcp"
+webview-ui/src/components/chat/ReportBugPreview.tsx:66:				{bugData.cline_version && (
+webview-ui/src/components/chat/ReportBugPreview.tsx:68:						<div className="font-semibold">Cline Version</div>
+webview-ui/src/components/chat/ReportBugPreview.tsx:69:						<MarkdownBlock markdown={bugData.cline_version} />
+webview-ui/src/components/chat/ChatView.tsx:6:import { BooleanRequest, StringRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/chat/ChatView.tsx:48:		clineMessages: messages,
+webview-ui/src/components/chat/ChatView.tsx:58:	const isProdHostedApp = userInfo?.apiBaseUrl === "https://app.cline.bot"
+webview-ui/src/components/chat/ChatView.tsx:62:	const task = useMemo(() => messages.at(0), [messages]) // leaving this less safe version here since if the first message is not a task, then the extension is in a bad state and needs to be debugged (see Cline.abort)
+webview-ui/src/components/chat/CommandOutputRow.tsx:2:import { ClineMessage } from "@shared/ExtensionMessage"
+webview-ui/src/components/chat/CommandOutputRow.tsx:3:import { StringRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/chat/CommandOutputRow.tsx:122:		message: ClineMessage
+webview-ui/src/components/chat/RequestStartRow.tsx:1:import type { ClineMessage, ClineSayTool } from "@shared/ExtensionMessage"
+webview-ui/src/components/chat/RequestStartRow.tsx:14:	message: ClineMessage
+webview-ui/src/components/chat/RequestStartRow.tsx:20:	clineMessages: ClineMessage[]
+webview-ui/src/components/chat/RequestStartRow.tsx:41:const getActivityText = (tool: ClineSayTool): string | null => {
+webview-ui/src/components/chat/RequestStartRow.tsx:60:	messages: ClineMessage[],
+webview-ui/src/components/chat/RequestStartRow.tsx:63:	stopCondition?: (msg: ClineMessage) => boolean,
+webview-ui/src/components/chat/RequestStartRow.tsx:81:			const tool = JSON.parse(msg.text || "{}") as ClineSayTool
+webview-ui/src/components/chat/RequestStartRow.tsx:95:const findCurrentApiReq = (messages: ClineMessage[]): { index: number; hasCost: boolean } | null => {
+webview-ui/src/components/chat/RequestStartRow.tsx:111:const findPrevCompletedApiReq = (messages: ClineMessage[], beforeIdx: number): number => {
+webview-ui/src/components/chat/RequestStartRow.tsx:137:	clineMessages,
+webview-ui/src/components/chat/RequestStartRow.tsx:147:	const hasCompletionResult = clineMessages.some(
+webview-ui/src/components/chat/RequestStartRow.tsx:163:		return isApiReqAbsorbable(message.ts, clineMessages)
+webview-ui/src/components/chat/RequestStartRow.tsx:164:	}, [message.ts, clineMessages])
+webview-ui/src/components/chat/RequestStartRow.tsx:169:		const currentApiReq = findCurrentApiReq(clineMessages)
+webview-ui/src/components/chat/RequestStartRow.tsx:177:			return collectToolsInRange(clineMessages, currentApiReq.index + 1, clineMessages.length)
+webview-ui/src/components/chat/RequestStartRow.tsx:181:	}, [clineMessages])
+webview-ui/src/components/chat/RequestStartRow.tsx:186:		return clineMessages.some((msg, idx) => {
+webview-ui/src/components/chat/RequestStartRow.tsx:191:					const prevMsg = clineMessages[i]
+webview-ui/src/components/chat/RequestStartRow.tsx:204:	}, [clineMessages])
+webview-ui/src/components/chat/ErrorRow.test.tsx:1:import type { ClineMessage } from "@shared/ExtensionMessage"
+webview-ui/src/components/chat/ErrorRow.test.tsx:7:vi.mock("@/context/ClineAuthContext", () => ({
+webview-ui/src/components/chat/ErrorRow.test.tsx:8:	useClineAuth: () => ({
+webview-ui/src/components/chat/ErrorRow.test.tsx:9:		clineUser: null,
+webview-ui/src/components/chat/ErrorRow.test.tsx:11:	useClineSignIn: () => ({
+webview-ui/src/components/chat/ErrorRow.test.tsx:22:// Mock ClineError
+webview-ui/src/components/chat/ErrorRow.test.tsx:23:vi.mock("../../../../src/services/error/ClineError", () => ({
+webview-ui/src/components/chat/ErrorRow.test.tsx:24:	ClineError: {
+webview-ui/src/components/chat/ErrorRow.test.tsx:27:	ClineErrorType: {
+webview-ui/src/components/chat/ErrorRow.test.tsx:35:	const mockMessage: ClineMessage = {
+webview-ui/src/components/chat/ErrorRow.test.tsx:67:	it("renders clineignore error", () => {
+webview-ui/src/components/chat/ErrorRow.test.tsx:68:		const clineignoreMessage = { ...mockMessage, text: "/path/to/file.txt" }
+webview-ui/src/components/chat/ErrorRow.test.tsx:69:		render(<ErrorRow errorType="clineignore_error" message={clineignoreMessage} />)
+webview-ui/src/components/chat/ErrorRow.test.tsx:71:		expect(screen.getByText(/Cline tried to access/)).toBeInTheDocument()
+webview-ui/src/components/chat/ErrorRow.test.tsx:77:			const mockClineError = {
+webview-ui/src/components/chat/ErrorRow.test.tsx:86:						buy_credits_url: "https://app.cline.bot/dashboard",
+webview-ui/src/components/chat/ErrorRow.test.tsx:91:			const { ClineError } = await import("../../../../src/services/error/ClineError")
+webview-ui/src/components/chat/ErrorRow.test.tsx:92:			vi.mocked(ClineError.parse).mockReturnValue(mockClineError as any)
+webview-ui/src/components/chat/ErrorRow.test.tsx:101:			const mockClineError = {
+webview-ui/src/components/chat/ErrorRow.test.tsx:109:			const { ClineError } = await import("../../../../src/services/error/ClineError")
+webview-ui/src/components/chat/ErrorRow.test.tsx:110:			vi.mocked(ClineError.parse).mockReturnValue(mockClineError as any)
+webview-ui/src/components/chat/ErrorRow.test.tsx:119:			const mockClineError = {
+webview-ui/src/components/chat/ErrorRow.test.tsx:122:				providerId: "cline",
+webview-ui/src/components/chat/ErrorRow.test.tsx:126:			const { ClineError } = await import("../../../../src/services/error/ClineError")
+webview-ui/src/components/chat/ErrorRow.test.tsx:127:			vi.mocked(ClineError.parse).mockReturnValue(mockClineError as any)
+webview-ui/src/components/chat/ErrorRow.test.tsx:132:			expect(screen.getByText("Sign in to Cline")).toBeInTheDocument()
+webview-ui/src/components/chat/ErrorRow.test.tsx:136:			const mockClineError = {
+webview-ui/src/components/chat/ErrorRow.test.tsx:142:			const { ClineError } = await import("../../../../src/services/error/ClineError")
+webview-ui/src/components/chat/ErrorRow.test.tsx:143:			vi.mocked(ClineError.parse).mockReturnValue(mockClineError as any)
+webview-ui/src/components/chat/ErrorRow.test.tsx:157:				"https://github.com/cline/cline/wiki/TroubleShooting-%E2%80%90-%22PowerShell-is-not-recognized-as-an-internal-or-external-command%22",
+webview-ui/src/components/chat/ErrorRow.test.tsx:162:			const mockClineError = {
+webview-ui/src/components/chat/ErrorRow.test.tsx:168:			const { ClineError } = await import("../../../../src/services/error/ClineError")
+webview-ui/src/components/chat/ErrorRow.test.tsx:169:			vi.mocked(ClineError.parse).mockReturnValue(mockClineError as any)
+webview-ui/src/components/chat/ErrorRow.test.tsx:176:		it("falls back to regular error message when ClineError.parse returns null", async () => {
+webview-ui/src/components/chat/ErrorRow.test.tsx:177:			const { ClineError } = await import("../../../../src/services/error/ClineError")
+webview-ui/src/components/chat/ErrorRow.test.tsx:178:			vi.mocked(ClineError.parse).mockReturnValue(undefined)
+webview-ui/src/components/chat/ErrorRow.test.tsx:182:			// When ClineError.parse returns null, we display the raw error message for non-Cline providers
+webview-ui/src/components/chat/ErrorRow.test.tsx:183:			// Since clineError is undefined, isClineProvider is false, so we show the raw apiRequestFailedMessage
+webview-ui/src/components/mcp/configuration/tabs/marketplace/McpMarketplaceCard.tsx:2:import { StringRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/mcp/configuration/tabs/marketplace/McpSubmitCard.tsx:38:					<a href="https://github.com/cline/mcp-marketplace">github.com/cline/mcp-marketplace</a>
+webview-ui/src/components/mcp/configuration/tabs/marketplace/McpMarketplaceView.tsx:1:import { EmptyRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/mcp/configuration/tabs/installed/server-row/McpToolRow.tsx:2:import { ToggleToolAutoApproveRequest } from "@shared/proto/cline/mcp"
+webview-ui/src/components/mcp/configuration/tabs/installed/server-row/ServerRow.tsx:2:import { StringRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/mcp/configuration/tabs/installed/server-row/ServerRow.tsx:8:} from "@shared/proto/cline/mcp"
+webview-ui/src/components/mcp/configuration/tabs/installed/ConfigureServersView.tsx:1:import { EmptyRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/mcp/configuration/tabs/installed/ConfigureServersView.tsx:27:				Cline's capabilities. You can use{" "}
+webview-ui/src/components/mcp/configuration/tabs/installed/ConfigureServersView.tsx:31:				or ask Cline to create new tools specific to your workflow (e.g., "add a tool that gets the latest npm docs").{" "}
+webview-ui/src/components/mcp/configuration/tabs/add-server/AddRemoteServerForm.tsx:1:import { EmptyRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/mcp/configuration/tabs/add-server/AddRemoteServerForm.tsx:2:import { AddRemoteMcpServerRequest, McpServers } from "@shared/proto/cline/mcp"
+webview-ui/src/components/mcp/configuration/tabs/add-server/AddLocalServerForm.tsx:1:import { EmptyRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/mcp/configuration/tabs/add-server/AddLocalServerForm.tsx:15:				Add a local MCP server by configuring it in <code>cline_mcp_settings.json</code>. You'll need to specify the
+webview-ui/src/components/mcp/configuration/tabs/add-server/AddLocalServerForm.tsx:30:				Open cline_mcp_settings.json
+webview-ui/src/components/mcp/configuration/McpConfigurationView.tsx:2:import { EmptyRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/mcp/configuration/McpConfigurationView.tsx:3:import { McpServers } from "@shared/proto/cline/mcp"
+webview-ui/src/components/mcp/chat-display/ImagePreview.tsx:1:import { StringRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/mcp/chat-display/LinkPreview.tsx:1:import { StringRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/mcp/chat-display/utils/mcpRichUtil.ts:1:import { StringRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/welcome/HomeHeader.tsx:1:import { EmptyRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/welcome/HomeHeader.tsx:2:import ClineLogoSanta from "@/assets/ClineLogoSanta"
+webview-ui/src/components/welcome/HomeHeader.tsx:3:import ClineLogoVariable from "@/assets/ClineLogoVariable"
+webview-ui/src/components/welcome/HomeHeader.tsx:24:	const LogoComponent = isDecember ? ClineLogoSanta : ClineLogoVariable
+webview-ui/src/components/welcome/WelcomeView.tsx:1:import { BooleanRequest, EmptyRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/welcome/WelcomeView.tsx:4:import ClineLogoWhite from "@/assets/ClineLogoWhite"
+webview-ui/src/components/welcome/WelcomeView.tsx:42:				<h2 className="text-lg font-semibold">Hi, I'm Cline</h2>
+webview-ui/src/components/welcome/WelcomeView.tsx:44:					<ClineLogoWhite className="size-16" />
+webview-ui/src/components/welcome/quickWinTasks.ts:17:		actionCommand: "cline/createNextJsApp",
+webview-ui/src/components/welcome/quickWinTasks.ts:26:		actionCommand: "cline/createCliTool",
+webview-ui/src/components/welcome/quickWinTasks.ts:35:		actionCommand: "cline/createSnakeGame",
+webview-ui/src/components/welcome/SuggestedTasks.tsx:1:import { NewTaskRequest } from "@shared/proto/cline/task"
+webview-ui/src/components/welcome/SuggestedTasks.tsx:17:					Quick <span className="text-white">[Wins]</span> with Cline
+webview-ui/src/components/browser/BrowserSettingsMenu.tsx:1:import { EmptyRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/common/Thumbnails.tsx:2:import { StringRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/common/MarkdownBlock.tsx:1:import { StringRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/common/MarkdownBlock.tsx:2:import { PlanActMode, TogglePlanActModeRequest } from "@shared/proto/cline/state"
+webview-ui/src/components/common/MarkdownBlock.tsx:269: * Solves https://github.com/cline/cline/issues/1028
+webview-ui/src/components/common/WhatsNewItems.tsx:1:import type { BannerAction, BannerCardData } from "@shared/cline/banner"
+webview-ui/src/components/common/WhatsNewItems.tsx:82:						<strong>Try Codex 5.3:</strong> OpenAI's latest coding model, now available in Cline!{" "}
+webview-ui/src/components/common/WhatsNewItems.tsx:86:						<strong>Try latest SOTA coding model:</strong> Claude Sonnet 4.6 and Gemini 3.1 pro within Cline!{" "}
+webview-ui/src/components/common/WhatsNewItems.tsx:90:						<strong>Try Cline CLI 2.0:</strong> with /mcp functionality added in CLI{" "}
+webview-ui/src/components/common/WhatsNewItems.tsx:91:						<code style={inlineCodeStyle}>npm install -g cline</code>
+webview-ui/src/components/common/CheckmarkControl.tsx:2:import { CheckpointRestoreRequest } from "@shared/proto/cline/checkpoints"
+webview-ui/src/components/common/CheckmarkControl.tsx:3:import { Int64Request } from "@shared/proto/cline/common"
+webview-ui/src/components/common/CheckmarkControl.tsx:4:import { ClineCheckpointRestore } from "@shared/WebviewMessage"
+webview-ui/src/components/common/CheckmarkControl.tsx:105:			const restoreType: ClineCheckpointRestore = "task"
+webview-ui/src/components/common/CheckmarkControl.tsx:122:			const restoreType: ClineCheckpointRestore = "workspace"
+webview-ui/src/components/common/CheckmarkControl.tsx:139:			const restoreType: ClineCheckpointRestore = "taskAndWorkspace"
+webview-ui/src/components/common/MarkdownBlock.stories.tsx:128:- Official documentation: https://github.com/cline/cline
+webview-ui/src/components/common/MarkdownBlock.stories.tsx:129:- API reference: https://api.cline.bot/docs
+webview-ui/src/components/common/MarkdownBlock.stories.tsx:130:- Support forum: https://community.cline.bot
+webview-ui/src/components/common/MarkdownBlock.stories.tsx:132:You can also visit our website at https://cline.bot for more information.`,
+webview-ui/src/components/common/WhatsNewModal.tsx:1:import { BannerAction, BannerCardData } from "@shared/cline/banner"
+webview-ui/src/components/common/WhatsNewModal.tsx:31:			// Switch to Cline provider first so the model picker tab works
+webview-ui/src/components/common/WhatsNewModal.tsx:34:				planModeApiProvider: "cline",
+webview-ui/src/components/common/WhatsNewModal.tsx:35:				actModeApiProvider: "cline",
+webview-ui/src/components/common/WhatsNewModal.tsx:88:								href="https://x.com/cline"
+webview-ui/src/components/common/WhatsNewModal.tsx:98:								href="https://discord.gg/cline"
+webview-ui/src/components/common/WhatsNewModal.tsx:108:								href="https://github.com/cline/cline"
+webview-ui/src/components/common/WhatsNewModal.tsx:118:								href="https://www.reddit.com/r/cline/"
+webview-ui/src/components/common/WhatsNewModal.tsx:128:								href="https://www.linkedin.com/company/clinebot/"
+webview-ui/src/components/common/WhatsNewModal.tsx:137:							Please support Cline by{" "}
+webview-ui/src/components/common/WhatsNewModal.tsx:139:								href="https://github.com/cline/cline"
+webview-ui/src/components/common/CheckpointControls.tsx:1:import { CheckpointRestoreRequest } from "@shared/proto/cline/checkpoints"
+webview-ui/src/components/common/CheckpointControls.tsx:2:import { Int64Request } from "@shared/proto/cline/common"
+webview-ui/src/components/common/MermaidBlock.tsx:1:import { StringRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/common/TelemetryBanner.tsx:1:import { TelemetrySettingEnum, TelemetrySettingRequest } from "@shared/proto/cline/state"
+webview-ui/src/components/common/TelemetryBanner.tsx:24:			<h3 className="m-0">Help Improve Cline</h3>
+webview-ui/src/components/common/TelemetryBanner.tsx:27:				Cline collects error and usage data to help us fix bugs and improve the extension. No code, prompts, or personal
+webview-ui/src/components/common/PopupModalContainer.tsx:12: * Shared styled container for popup modals (ModelPicker, ServersToggle, ClineRulesToggle).
+webview-ui/src/components/worktrees/WorktreesView.tsx:1:import { EmptyRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/worktrees/WorktreesView.tsx:2:import { NewTaskRequest } from "@shared/proto/cline/task"
+webview-ui/src/components/worktrees/WorktreesView.tsx:3:import type { MergeWorktreeResult, Worktree as WorktreeProto } from "@shared/proto/cline/worktree"
+webview-ui/src/components/worktrees/WorktreesView.tsx:9:} from "@shared/proto/cline/worktree"
+webview-ui/src/components/worktrees/WorktreesView.tsx:219:	// Ask Cline to resolve conflicts
+webview-ui/src/components/worktrees/WorktreesView.tsx:220:	const handleAskClineToResolve = useCallback(async () => {
+webview-ui/src/components/worktrees/WorktreesView.tsx:235:			setMergeError(err instanceof Error ? err.message : "Failed to create task for Cline")
+webview-ui/src/components/worktrees/WorktreesView.tsx:254:					their own windows so Cline can work on multiple tasks in parallel.{" "}
+webview-ui/src/components/worktrees/WorktreesView.tsx:257:						href="https://docs.cline.bot/features/worktrees"
+webview-ui/src/components/worktrees/WorktreesView.tsx:279:									href="https://docs.cline.bot/features/worktrees#worktreeinclude"
+webview-ui/src/components/worktrees/WorktreesView.tsx:300:										href="https://docs.cline.bot/features/worktrees#worktreeinclude"
+webview-ui/src/components/worktrees/WorktreesView.tsx:576:									<VSCodeButton onClick={handleAskClineToResolve} style={{ width: "100%" }}>
+webview-ui/src/components/worktrees/WorktreesView.tsx:577:										Ask Cline to Resolve
+webview-ui/src/components/worktrees/CreateWorktreeModal.tsx:1:import { EmptyRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/worktrees/CreateWorktreeModal.tsx:2:import { CreateWorktreeRequest, SwitchWorktreeRequest } from "@shared/proto/cline/worktree"
+webview-ui/src/components/worktrees/CreateWorktreeModal.tsx:135:								href="https://docs.cline.bot/features/worktrees#worktreeinclude"
+webview-ui/src/components/menu/Navbar.tsx:70:			id="cline-navbar-container">
+webview-ui/src/components/history/HistoryPreview.tsx:1:import { StringRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/history/HistoryViewItem.tsx:2:import { StringRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/history/HistoryView.tsx:1:import { BooleanRequest, EmptyRequest, StringArrayRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/history/HistoryView.tsx:2:import { GetTaskHistoryRequest, TaskFavoriteRequest } from "@shared/proto/cline/task"
+webview-ui/src/components/account/helpers.ts:1:import type { UsageTransaction as ClineAccountUsageTransaction } from "@shared/ClineAccount"
+webview-ui/src/components/account/helpers.ts:2:import type { UsageTransaction as ProtoUsageTransaction, UserOrganization } from "@shared/proto/cline/account"
+webview-ui/src/components/account/helpers.ts:19:export const getClineUris = (base: string, type: "dashboard" | "credits", route?: "account" | "organization") => {
+webview-ui/src/components/account/helpers.ts:33: * Converts a protobuf UsageTransaction to a ClineAccount UsageTransaction
+webview-ui/src/components/account/helpers.ts:36:export function convertProtoUsageTransaction(protoTransaction: ProtoUsageTransaction): ClineAccountUsageTransaction {
+webview-ui/src/components/account/helpers.ts:49: * Converts an array of protobuf UsageTransactions to ClineAccount UsageTransactions
+webview-ui/src/components/account/helpers.ts:51:export function convertProtoUsageTransactions(protoTransactions: ProtoUsageTransaction[]): ClineAccountUsageTransaction[] {
+webview-ui/src/components/account/AccountView.tsx:1:import type { UsageTransaction as ClineAccountUsageTransaction, PaymentTransaction } from "@shared/ClineAccount"
+webview-ui/src/components/account/AccountView.tsx:2:import { isClineInternalTester } from "@shared/internal/account"
+webview-ui/src/components/account/AccountView.tsx:3:import type { UserOrganization } from "@shared/proto/cline/account"
+webview-ui/src/components/account/AccountView.tsx:4:import { EmptyRequest } from "@shared/proto/cline/common"
+webview-ui/src/components/account/AccountView.tsx:10:import { type ClineUser, handleSignOut } from "@/context/ClineAuthContext"
+webview-ui/src/components/account/AccountView.tsx:19:import { convertProtoUsageTransactions, getClineUris, getMainRole } from "./helpers"
+webview-ui/src/components/account/AccountView.tsx:23:	clineUser: ClineUser | null
+webview-ui/src/components/account/AccountView.tsx:29:type ClineAccountViewProps = {
+webview-ui/src/components/account/AccountView.tsx:30:	clineUser: ClineUser
+webview-ui/src/components/account/AccountView.tsx:33:	clineEnv: "Production" | "Staging" | "Local"
+webview-ui/src/components/account/AccountView.tsx:38:	usageData: ClineAccountUsageTransaction[]
+webview-ui/src/components/account/AccountView.tsx:43:const ClineEnvOptions = ["Production", "Staging", "Local"] as const
+webview-ui/src/components/account/AccountView.tsx:45:const AccountView = ({ onDone, clineUser, organizations, activeOrganization }: AccountViewProps) => {
+webview-ui/src/components/account/AccountView.tsx:52:				{clineUser?.uid ? (
+webview-ui/src/components/account/AccountView.tsx:53:					<ClineAccountView
+webview-ui/src/components/account/AccountView.tsx:55:						clineEnv={environment === "local" ? "Local" : environment === "staging" ? "Staging" : "Production"}
+webview-ui/src/components/account/AccountView.tsx:56:						clineUser={clineUser}
+webview-ui/src/components/account/AccountView.tsx:57:						key={clineUser.uid}
+webview-ui/src/components/account/AccountView.tsx:68:export const ClineAccountView = ({ clineUser, userOrganizations, activeOrganization, clineEnv }: ClineAccountViewProps) => {
+webview-ui/src/components/account/AccountView.tsx:69:	const { email, displayName, appBaseUrl, uid } = clineUser
+webview-ui/src/components/account/AccountView.tsx:85:	const [usageData, setUsageData] = useState<ClineAccountUsageTransaction[]>([])
+webview-ui/src/components/account/AccountView.tsx:123:	const isClineTester = useMemo(() => (email ? isClineInternalTester(email) : false), [email])
+webview-ui/src/components/account/AccountView.tsx:232:	const clineUrl = appBaseUrl || "https://app.cline.bot"
+webview-ui/src/components/account/AccountView.tsx:359:						<VSCodeButtonLink appearance="primary" className="w-full" href={getClineUris(clineUrl, "dashboard").href}>
+webview-ui/src/components/account/AccountView.tsx:372:					creditUrl={getClineUris(clineUrl, "credits", dropdownValue === uid ? "account" : "organization")}
+webview-ui/src/components/account/AccountView.tsx:390:				{isClineTester && environment !== "selfHosted" && (
+webview-ui/src/components/account/AccountView.tsx:393:						<div className="text-sm font-semibold">Cline Environment</div>
+webview-ui/src/components/account/AccountView.tsx:396:							currentValue={clineEnv}
+webview-ui/src/components/account/AccountView.tsx:401:									updateSetting("clineEnv", value.toLowerCase())
+webview-ui/src/components/account/AccountView.tsx:404:							{ClineEnvOptions.map((env) => (
+webview-ui/src/components/account/AccountWelcomeView.tsx:2:import { useClineSignIn } from "@/context/ClineAuthContext"
+webview-ui/src/components/account/AccountWelcomeView.tsx:4:import ClineLogoVariable from "../../assets/ClineLogoVariable"
+webview-ui/src/components/account/AccountWelcomeView.tsx:8:// 		<ClineLogoWhite className="size-16 mb-4" />
+webview-ui/src/components/account/AccountWelcomeView.tsx:11:	const { isLoginLoading, handleSignIn } = useClineSignIn()
+webview-ui/src/components/account/AccountWelcomeView.tsx:15:			<ClineLogoVariable className="size-16 mb-4" environment={environment} />
+webview-ui/src/components/account/AccountWelcomeView.tsx:23:				Sign up with Cline
+webview-ui/src/components/account/AccountWelcomeView.tsx:32:				By continuing, you agree to the <VSCodeLink href="https://cline.bot/tos">Terms of Service</VSCodeLink> and{" "}
+webview-ui/src/components/account/AccountWelcomeView.tsx:33:				<VSCodeLink href="https://cline.bot/privacy">Privacy Policy.</VSCodeLink>
+webview-ui/src/components/account/CreditsHistoryTable.tsx:1:import type { PaymentTransaction, UsageTransaction } from "@shared/ClineAccount"
+webview-ui/src/components/account/RemoteConfigToggle.tsx:1:import { UpdateSettingsRequest, UserOrganization } from "@shared/proto/index.cline"
+webview-ui/src/components/onboarding/OnboardingView.tsx:2:import type { OnboardingModel, OnboardingModelGroup, OpenRouterModelInfo } from "@shared/proto/index.cline"
+webview-ui/src/components/onboarding/OnboardingView.tsx:5:import ClineLogoWhite from "@/assets/ClineLogoWhite"
+webview-ui/src/components/onboarding/OnboardingView.tsx:17:	getClineUIOnboardingGroups,
+webview-ui/src/components/onboarding/OnboardingView.tsx:284:	const models = useMemo(() => getClineUIOnboardingGroups(onboardingModels), [onboardingModels])
+webview-ui/src/components/onboarding/OnboardingView.tsx:321:					planModeApiProvider: "cline",
+webview-ui/src/components/onboarding/OnboardingView.tsx:322:					actModeApiProvider: "cline",
+webview-ui/src/components/onboarding/OnboardingView.tsx:380:				<ClineLogoWhite className="size-16 flex-shrink-0" />
+webview-ui/src/components/onboarding/data-models.ts:1:import type { OpenRouterModelInfo } from "@shared/proto/cline/models"
+webview-ui/src/components/onboarding/data-models.ts:2:import type { OnboardingModel, OnboardingModelGroup } from "@shared/proto/cline/state"
+webview-ui/src/components/onboarding/data-models.ts:14:export function getClineUIOnboardingGroups(groupedModels: OnboardingModelGroup): OnboardingModelsByGroup {
+webview-ui/src/components/onboarding/data-steps.ts:15:		title: "How will you use Cline?",
+webview-ui/src/components/onboarding/data-steps.ts:19:			{ text: "Login to Cline", action: "signin", variant: "secondary" },
+webview-ui/src/components/onboarding/data-steps.ts:53:	{ title: "Bring my own API key", description: "Use Cline with your provider of choice", type: NEW_USER_TYPE.BYOK },
+webview-ui/src/constants.ts:3:		REMOTE_MCP_SERVER_DOCS: "https://docs.cline.bot/mcp/connecting-to-a-remote-server",
+webview-ui/src/constants.ts:4:		LOCAL_MCP_SERVER_DOCS: "https://docs.cline.bot/mcp/configuring-mcp-servers#editing-mcp-settings-files",
+webview-ui/src/App.stories.tsx:4:import { CLINE_ONBOARDING_MODELS } from "@shared/cline/onboarding"
+webview-ui/src/App.stories.tsx:5:import type { ClineMessage, ClineSayTool } from "@shared/ExtensionMessage"
+webview-ui/src/App.stories.tsx:51:The ChatView component is the main interface for interacting with Cline. It provides a comprehensive chat experience with AI assistance, task management, and various tools.
+webview-ui/src/App.stories.tsx:148:	type: ClineMessage["type"],
+webview-ui/src/App.stories.tsx:149:	say: ClineMessage["say"],
+webview-ui/src/App.stories.tsx:151:	overrides: Partial<ClineMessage> = {},
+webview-ui/src/App.stories.tsx:152:): ClineMessage => ({
+webview-ui/src/App.stories.tsx:162:	sayTool: ClineSayTool,
+webview-ui/src/App.stories.tsx:163:	overrides: Partial<ClineMessage> = {},
+webview-ui/src/App.stories.tsx:164:): ClineMessage => ({
+webview-ui/src/App.stories.tsx:192:const mockActiveMessages: ClineMessage[] = [
+webview-ui/src/App.stories.tsx:228:const mockStreamingMessages: ClineMessage[] = [
+webview-ui/src/App.stories.tsx:246:	clineMessages: mockActiveMessages,
+webview-ui/src/App.stories.tsx:272:	decorators: [createStoryDecorator({ welcomeViewCompleted: false, showWelcome: true, clineMessages: [] })],
+webview-ui/src/App.stories.tsx:300:			clineMessages: [],
+webview-ui/src/App.stories.tsx:301:			onboardingModels: { models: CLINE_ONBOARDING_MODELS },
+webview-ui/src/App.stories.tsx:312:		onboardingModels: { models: CLINE_ONBOARDING_MODELS },
+webview-ui/src/App.stories.tsx:324:		const title = canvas.getByText("How will you use Cline?")
+webview-ui/src/App.stories.tsx:371:		await expect(canvas.getByText("How will you use Cline?")).toBeInTheDocument()
+webview-ui/src/App.stories.tsx:386:	decorators: [createStoryDecorator({ clineMessages: [], taskHistory: [], isNewUser: true, showAnnouncement: true })],
+webview-ui/src/App.stories.tsx:398:		createStoryDecorator({ clineMessages: [], taskHistory: mockTaskHistory, isNewUser: true, showAnnouncement: false }),
+webview-ui/src/App.stories.tsx:414:				story: "An active conversation showing a typical interaction with Cline, including task creation, tool usage, and AI responses.",
+webview-ui/src/App.stories.tsx:421:	decorators: [createStoryDecorator({ clineMessages: mockStreamingMessages })],
+webview-ui/src/App.stories.tsx:431:const createLongMessages = (): ClineMessage[] => [
+webview-ui/src/App.stories.tsx:486:	decorators: [createStoryDecorator({ clineMessages: createLongMessages() })],
+webview-ui/src/App.stories.tsx:532:	decorators: [createStoryDecorator({ clineMessages: createErrorMessages() })],
+webview-ui/src/App.stories.tsx:536:				story: "Shows how Cline handles and displays error messages, helping users understand and resolve issues.",
+webview-ui/src/App.stories.tsx:554:				story: "Shows the interface with auto-approval enabled, allowing Cline to execute certain actions automatically without user confirmation.",
+webview-ui/src/App.stories.tsx:579:			clineMessages: createPlanModeMessages(),
+webview-ui/src/App.stories.tsx:587:				story: "Shows Cline in Plan mode, where it focuses on creating detailed plans and discussing approaches before implementation.",
+webview-ui/src/App.stories.tsx:619:	decorators: [createStoryDecorator({ clineMessages: createBrowserMessages() })],
+webview-ui/src/App.stories.tsx:623:				story: "Shows Cline performing browser automation tasks, including launching browsers, clicking elements, and testing web applications.",
+webview-ui/src/App.stories.tsx:637:	decorators: [createStoryDecorator({ clineMessages: createToolApprovalMessages() })],
+webview-ui/src/App.stories.tsx:650:			clineMessages: [
+webview-ui/src/App.stories.tsx:676:			clineMessages: [
+webview-ui/src/App.stories.tsx:698:			clineMessages: [
+webview-ui/src/App.stories.tsx:748:	"Shows followup question state where Cline asks for next steps.",
+webview-ui/src/App.stories.tsx:765:			clineMessages: [
+webview-ui/src/App.stories.tsx:777:	"Shows plan mode response where Cline presents a detailed plan for user approval.",
+webview-ui/src/App.stories.tsx:789:		steps_to_reproduce: "1. Open Cline\n2. Start a new task\n3. Observe the error",
+webview-ui/src/App.stories.tsx:790:		what_happened: "Cline crashes unexpectedly",
+webview-ui/src/App.stories.tsx:804:			clineMessages: [
+webview-ui/src/App.stories.tsx:824:			clineMessages: [
+webview-ui/src/App.stories.tsx:844:			clineMessages: [
+webview-ui/src/App.stories.tsx:863:			clineMessages: [
+webview-ui/src/App.stories.tsx:887:			clineMessages: [
+webview-ui/src/App.stories.tsx:911:			clineMessages: [
+webview-ui/src/App.stories.tsx:940:			clineMessages: [
+webview-ui/src/App.stories.tsx:969:			clineMessages: [
+webview-ui/src/App.stories.tsx:999:			clineMessages: [
+webview-ui/src/App.stories.tsx:1074:	decorators: [createStoryDecorator({ backgroundEditEnabled: true, clineMessages: createNewFormatMultiFileMessages() })],
+webview-ui/src/App.stories.tsx:1087:			const [messages, setMessages] = useState<ClineMessage[]>([
+webview-ui/src/App.stories.tsx:1091:			const mockState = useMemo(() => createMockState({ backgroundEditEnabled: true, clineMessages: messages }), [messages])
+webview-ui/src/App.stories.tsx:1118:					setMessages((prev: ClineMessage[]) => [
+webview-ui/src/App.stories.tsx:1134:					setMessages((prev: ClineMessage[]) => {
+webview-ui/src/App.stories.tsx:1151:					setMessages((prev: ClineMessage[]) => {
+webview-ui/src/App.stories.tsx:1214:	decorators: [createStoryDecorator({ backgroundEditEnabled: true, clineMessages: createReplaceDiffFormatPatchMessages() })],
+webview-ui/src/App.stories.tsx:1227:			const [messages, setMessages] = useState<ClineMessage[]>([
+webview-ui/src/App.stories.tsx:1231:			const mockState = useMemo(() => createMockState({ backgroundEditEnabled: true, clineMessages: messages }), [messages])
+webview-ui/src/App.stories.tsx:1263:					setMessages((prev: ClineMessage[]) => {
+webview-ui/src/App.stories.tsx:1349:	decorators: [createStoryDecorator({ clineMessages: createMixedFormatMessages() })],
+webview-ui/src/assets/ClineLogoVariable.tsx:6: * ClineLogoVariable component renders the Cline logo with automatic theme adaptation
+webview-ui/src/assets/ClineLogoVariable.tsx:15: * @returns {JSX.Element} SVG Cline logo that adapts to VS Code themes and environment
+webview-ui/src/assets/ClineLogoVariable.tsx:17:const ClineLogoVariable = (props: SVGProps<SVGSVGElement> & { environment?: Environment }) => {
+webview-ui/src/assets/ClineLogoVariable.tsx:32:export default ClineLogoVariable
+webview-ui/src/assets/ClineLogoBlack.tsx:3:const ClineLogoBlack = (props: SVGProps<SVGSVGElement>) => (
+webview-ui/src/assets/ClineLogoBlack.tsx:11:export default ClineLogoBlack
+webview-ui/src/assets/ClineCompactIcon.tsx:1:export const ClineCompactIcon = () => (
+webview-ui/src/assets/ClineLogoSanta.tsx:6: * ClineLogoSanta component renders the Cline logo with a festive Santa hat
+webview-ui/src/assets/ClineLogoSanta.tsx:10: * the same theme and environment color system as ClineLogoVariable.
+webview-ui/src/assets/ClineLogoSanta.tsx:13: * @returns {JSX.Element} SVG Cline logo with Santa hat that adapts to VS Code themes and environment
+webview-ui/src/assets/ClineLogoSanta.tsx:15:const ClineLogoSanta = (props: SVGProps<SVGSVGElement> & { environment?: Environment }) => {
+webview-ui/src/assets/ClineLogoSanta.tsx:23:			{/* Original Cline robot logo */}
+webview-ui/src/assets/ClineLogoSanta.tsx:46:export default ClineLogoSanta
+webview-ui/src/assets/ClineLogoWhite.tsx:3:const ClineLogoWhite = (props: SVGProps<SVGSVGElement>) => (
+webview-ui/src/assets/ClineLogoWhite.tsx:11:export default ClineLogoWhite
+webview-ui/src/services/grpc-client.ts:7:	static override serviceName: string = "cline.AccountService"
+webview-ui/src/services/grpc-client.ts:8:    static async accountLoginClicked(request: proto.cline.EmptyRequest): Promise<proto.cline.String> {
+webview-ui/src/services/grpc-client.ts:9:		return this.makeUnaryRequest("accountLoginClicked", request, proto.cline.EmptyRequest.toJSON, proto.cline.String.fromJSON)
+webview-ui/src/services/grpc-client.ts:11:    static async accountLogoutClicked(request: proto.cline.EmptyRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:12:		return this.makeUnaryRequest("accountLogoutClicked", request, proto.cline.EmptyRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:14:    static subscribeToAuthStatusUpdate(request: proto.cline.EmptyRequest, callbacks: Callbacks<proto.cline.AuthState>): ()=>void {
+webview-ui/src/services/grpc-client.ts:15:		return this.makeStreamingRequest("subscribeToAuthStatusUpdate", request, proto.cline.EmptyRequest.toJSON, proto.cline.AuthState.fromJSON, callbacks)
+webview-ui/src/services/grpc-client.ts:17:    static async authStateChanged(request: proto.cline.AuthStateChangedRequest): Promise<proto.cline.AuthState> {
+webview-ui/src/services/grpc-client.ts:18:		return this.makeUnaryRequest("authStateChanged", request, proto.cline.AuthStateChangedRequest.toJSON, proto.cline.AuthState.fromJSON)
+webview-ui/src/services/grpc-client.ts:20:    static async getUserCredits(request: proto.cline.EmptyRequest): Promise<proto.cline.UserCreditsData> {
+webview-ui/src/services/grpc-client.ts:21:		return this.makeUnaryRequest("getUserCredits", request, proto.cline.EmptyRequest.toJSON, proto.cline.UserCreditsData.fromJSON)
+webview-ui/src/services/grpc-client.ts:23:    static async getOrganizationCredits(request: proto.cline.GetOrganizationCreditsRequest): Promise<proto.cline.OrganizationCreditsData> {
+webview-ui/src/services/grpc-client.ts:24:		return this.makeUnaryRequest("getOrganizationCredits", request, proto.cline.GetOrganizationCreditsRequest.toJSON, proto.cline.OrganizationCreditsData.fromJSON)
+webview-ui/src/services/grpc-client.ts:26:    static async getUserOrganizations(request: proto.cline.EmptyRequest): Promise<proto.cline.UserOrganizationsResponse> {
+webview-ui/src/services/grpc-client.ts:27:		return this.makeUnaryRequest("getUserOrganizations", request, proto.cline.EmptyRequest.toJSON, proto.cline.UserOrganizationsResponse.fromJSON)
+webview-ui/src/services/grpc-client.ts:29:    static async setUserOrganization(request: proto.cline.UserOrganizationUpdateRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:30:		return this.makeUnaryRequest("setUserOrganization", request, proto.cline.UserOrganizationUpdateRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:32:    static async openrouterAuthClicked(request: proto.cline.EmptyRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:33:		return this.makeUnaryRequest("openrouterAuthClicked", request, proto.cline.EmptyRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:35:    static async requestyAuthClicked(request: proto.cline.StringRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:36:		return this.makeUnaryRequest("requestyAuthClicked", request, proto.cline.StringRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:38:    static async hicapAuthClicked(request: proto.cline.EmptyRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:39:		return this.makeUnaryRequest("hicapAuthClicked", request, proto.cline.EmptyRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:41:    static async getRedirectUrl(request: proto.cline.EmptyRequest): Promise<proto.cline.String> {
+webview-ui/src/services/grpc-client.ts:42:		return this.makeUnaryRequest("getRedirectUrl", request, proto.cline.EmptyRequest.toJSON, proto.cline.String.fromJSON)
+webview-ui/src/services/grpc-client.ts:44:    static async openAiCodexSignIn(request: proto.cline.EmptyRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:45:		return this.makeUnaryRequest("openAiCodexSignIn", request, proto.cline.EmptyRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:47:    static async openAiCodexSignOut(request: proto.cline.EmptyRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:48:		return this.makeUnaryRequest("openAiCodexSignOut", request, proto.cline.EmptyRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:52:	static override serviceName: string = "cline.BrowserService"
+webview-ui/src/services/grpc-client.ts:53:    static async getBrowserConnectionInfo(request: proto.cline.EmptyRequest): Promise<proto.cline.BrowserConnectionInfo> {
+webview-ui/src/services/grpc-client.ts:54:		return this.makeUnaryRequest("getBrowserConnectionInfo", request, proto.cline.EmptyRequest.toJSON, proto.cline.BrowserConnectionInfo.fromJSON)
+webview-ui/src/services/grpc-client.ts:56:    static async testBrowserConnection(request: proto.cline.StringRequest): Promise<proto.cline.BrowserConnection> {
+webview-ui/src/services/grpc-client.ts:57:		return this.makeUnaryRequest("testBrowserConnection", request, proto.cline.StringRequest.toJSON, proto.cline.BrowserConnection.fromJSON)
+webview-ui/src/services/grpc-client.ts:59:    static async discoverBrowser(request: proto.cline.EmptyRequest): Promise<proto.cline.BrowserConnection> {
+webview-ui/src/services/grpc-client.ts:60:		return this.makeUnaryRequest("discoverBrowser", request, proto.cline.EmptyRequest.toJSON, proto.cline.BrowserConnection.fromJSON)
+webview-ui/src/services/grpc-client.ts:62:    static async getDetectedChromePath(request: proto.cline.EmptyRequest): Promise<proto.cline.ChromePath> {
+webview-ui/src/services/grpc-client.ts:63:		return this.makeUnaryRequest("getDetectedChromePath", request, proto.cline.EmptyRequest.toJSON, proto.cline.ChromePath.fromJSON)
+webview-ui/src/services/grpc-client.ts:65:    static async relaunchChromeDebugMode(request: proto.cline.EmptyRequest): Promise<proto.cline.String> {
+webview-ui/src/services/grpc-client.ts:66:		return this.makeUnaryRequest("relaunchChromeDebugMode", request, proto.cline.EmptyRequest.toJSON, proto.cline.String.fromJSON)
+webview-ui/src/services/grpc-client.ts:70:	static override serviceName: string = "cline.CheckpointsService"
+webview-ui/src/services/grpc-client.ts:71:    static async checkpointDiff(request: proto.cline.Int64Request): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:72:		return this.makeUnaryRequest("checkpointDiff", request, proto.cline.Int64Request.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:74:    static async checkpointRestore(request: proto.cline.CheckpointRestoreRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:75:		return this.makeUnaryRequest("checkpointRestore", request, proto.cline.CheckpointRestoreRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:77:    static subscribeToCheckpoints(request: proto.cline.CheckpointSubscriptionRequest, callbacks: Callbacks<proto.cline.CheckpointEvent>): ()=>void {
+webview-ui/src/services/grpc-client.ts:78:		return this.makeStreamingRequest("subscribeToCheckpoints", request, proto.cline.CheckpointSubscriptionRequest.toJSON, proto.cline.CheckpointEvent.fromJSON, callbacks)
+webview-ui/src/services/grpc-client.ts:80:    static async getCwdHash(request: proto.cline.StringArrayRequest): Promise<proto.cline.PathHashMap> {
+webview-ui/src/services/grpc-client.ts:81:		return this.makeUnaryRequest("getCwdHash", request, proto.cline.StringArrayRequest.toJSON, proto.cline.PathHashMap.fromJSON)
+webview-ui/src/services/grpc-client.ts:85:	static override serviceName: string = "cline.CommandsService"
+webview-ui/src/services/grpc-client.ts:86:    static async addToCline(request: proto.cline.CommandContext): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:87:		return this.makeUnaryRequest("addToCline", request, proto.cline.CommandContext.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:89:    static async fixWithCline(request: proto.cline.CommandContext): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:90:		return this.makeUnaryRequest("fixWithCline", request, proto.cline.CommandContext.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:92:    static async explainWithCline(request: proto.cline.CommandContext): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:93:		return this.makeUnaryRequest("explainWithCline", request, proto.cline.CommandContext.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:95:    static async improveWithCline(request: proto.cline.CommandContext): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:96:		return this.makeUnaryRequest("improveWithCline", request, proto.cline.CommandContext.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:100:	static override serviceName: string = "cline.FileService"
+webview-ui/src/services/grpc-client.ts:101:    static async copyToClipboard(request: proto.cline.StringRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:102:		return this.makeUnaryRequest("copyToClipboard", request, proto.cline.StringRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:104:    static async openFile(request: proto.cline.StringRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:105:		return this.makeUnaryRequest("openFile", request, proto.cline.StringRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:107:    static async openImage(request: proto.cline.StringRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:108:		return this.makeUnaryRequest("openImage", request, proto.cline.StringRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:110:    static async openMention(request: proto.cline.StringRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:111:		return this.makeUnaryRequest("openMention", request, proto.cline.StringRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:113:    static async deleteRuleFile(request: proto.cline.RuleFileRequest): Promise<proto.cline.RuleFile> {
+webview-ui/src/services/grpc-client.ts:114:		return this.makeUnaryRequest("deleteRuleFile", request, proto.cline.RuleFileRequest.toJSON, proto.cline.RuleFile.fromJSON)
+webview-ui/src/services/grpc-client.ts:116:    static async createRuleFile(request: proto.cline.RuleFileRequest): Promise<proto.cline.RuleFile> {
+webview-ui/src/services/grpc-client.ts:117:		return this.makeUnaryRequest("createRuleFile", request, proto.cline.RuleFileRequest.toJSON, proto.cline.RuleFile.fromJSON)
+webview-ui/src/services/grpc-client.ts:119:    static async searchCommits(request: proto.cline.StringRequest): Promise<proto.cline.GitCommits> {
+webview-ui/src/services/grpc-client.ts:120:		return this.makeUnaryRequest("searchCommits", request, proto.cline.StringRequest.toJSON, proto.cline.GitCommits.fromJSON)
+webview-ui/src/services/grpc-client.ts:122:    static async selectFiles(request: proto.cline.BooleanRequest): Promise<proto.cline.StringArrays> {
+webview-ui/src/services/grpc-client.ts:123:		return this.makeUnaryRequest("selectFiles", request, proto.cline.BooleanRequest.toJSON, proto.cline.StringArrays.fromJSON)
+webview-ui/src/services/grpc-client.ts:125:    static async getRelativePaths(request: proto.cline.RelativePathsRequest): Promise<proto.cline.RelativePaths> {
+webview-ui/src/services/grpc-client.ts:126:		return this.makeUnaryRequest("getRelativePaths", request, proto.cline.RelativePathsRequest.toJSON, proto.cline.RelativePaths.fromJSON)
+webview-ui/src/services/grpc-client.ts:128:    static async searchFiles(request: proto.cline.FileSearchRequest): Promise<proto.cline.FileSearchResults> {
+webview-ui/src/services/grpc-client.ts:129:		return this.makeUnaryRequest("searchFiles", request, proto.cline.FileSearchRequest.toJSON, proto.cline.FileSearchResults.fromJSON)
+webview-ui/src/services/grpc-client.ts:131:    static async toggleClineRule(request: proto.cline.ToggleClineRuleRequest): Promise<proto.cline.ToggleClineRules> {
+webview-ui/src/services/grpc-client.ts:132:		return this.makeUnaryRequest("toggleClineRule", request, proto.cline.ToggleClineRuleRequest.toJSON, proto.cline.ToggleClineRules.fromJSON)
+webview-ui/src/services/grpc-client.ts:134:    static async toggleCursorRule(request: proto.cline.ToggleCursorRuleRequest): Promise<proto.cline.ClineRulesToggles> {
+webview-ui/src/services/grpc-client.ts:135:		return this.makeUnaryRequest("toggleCursorRule", request, proto.cline.ToggleCursorRuleRequest.toJSON, proto.cline.ClineRulesToggles.fromJSON)
+webview-ui/src/services/grpc-client.ts:137:    static async toggleWindsurfRule(request: proto.cline.ToggleWindsurfRuleRequest): Promise<proto.cline.ClineRulesToggles> {
+webview-ui/src/services/grpc-client.ts:138:		return this.makeUnaryRequest("toggleWindsurfRule", request, proto.cline.ToggleWindsurfRuleRequest.toJSON, proto.cline.ClineRulesToggles.fromJSON)
+webview-ui/src/services/grpc-client.ts:140:    static async toggleAgentsRule(request: proto.cline.ToggleAgentsRuleRequest): Promise<proto.cline.ClineRulesToggles> {
+webview-ui/src/services/grpc-client.ts:141:		return this.makeUnaryRequest("toggleAgentsRule", request, proto.cline.ToggleAgentsRuleRequest.toJSON, proto.cline.ClineRulesToggles.fromJSON)
+webview-ui/src/services/grpc-client.ts:143:    static async refreshRules(request: proto.cline.EmptyRequest): Promise<proto.cline.RefreshedRules> {
+webview-ui/src/services/grpc-client.ts:144:		return this.makeUnaryRequest("refreshRules", request, proto.cline.EmptyRequest.toJSON, proto.cline.RefreshedRules.fromJSON)
+webview-ui/src/services/grpc-client.ts:146:    static async openDiskConversationHistory(request: proto.cline.StringRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:147:		return this.makeUnaryRequest("openDiskConversationHistory", request, proto.cline.StringRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:149:    static async toggleWorkflow(request: proto.cline.ToggleWorkflowRequest): Promise<proto.cline.ClineRulesToggles> {
+webview-ui/src/services/grpc-client.ts:150:		return this.makeUnaryRequest("toggleWorkflow", request, proto.cline.ToggleWorkflowRequest.toJSON, proto.cline.ClineRulesToggles.fromJSON)
+webview-ui/src/services/grpc-client.ts:152:    static async ifFileExistsRelativePath(request: proto.cline.StringRequest): Promise<proto.cline.BooleanResponse> {
+webview-ui/src/services/grpc-client.ts:153:		return this.makeUnaryRequest("ifFileExistsRelativePath", request, proto.cline.StringRequest.toJSON, proto.cline.BooleanResponse.fromJSON)
+webview-ui/src/services/grpc-client.ts:155:    static async openFileRelativePath(request: proto.cline.StringRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:156:		return this.makeUnaryRequest("openFileRelativePath", request, proto.cline.StringRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:158:    static async openFocusChainFile(request: proto.cline.StringRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:159:		return this.makeUnaryRequest("openFocusChainFile", request, proto.cline.StringRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:161:    static async refreshHooks(request: proto.cline.EmptyRequest): Promise<proto.cline.HooksToggles> {
+webview-ui/src/services/grpc-client.ts:162:		return this.makeUnaryRequest("refreshHooks", request, proto.cline.EmptyRequest.toJSON, proto.cline.HooksToggles.fromJSON)
+webview-ui/src/services/grpc-client.ts:164:    static async toggleHook(request: proto.cline.ToggleHookRequest): Promise<proto.cline.ToggleHookResponse> {
+webview-ui/src/services/grpc-client.ts:165:		return this.makeUnaryRequest("toggleHook", request, proto.cline.ToggleHookRequest.toJSON, proto.cline.ToggleHookResponse.fromJSON)
+webview-ui/src/services/grpc-client.ts:167:    static async createHook(request: proto.cline.CreateHookRequest): Promise<proto.cline.CreateHookResponse> {
+webview-ui/src/services/grpc-client.ts:168:		return this.makeUnaryRequest("createHook", request, proto.cline.CreateHookRequest.toJSON, proto.cline.CreateHookResponse.fromJSON)
+webview-ui/src/services/grpc-client.ts:170:    static async deleteHook(request: proto.cline.DeleteHookRequest): Promise<proto.cline.DeleteHookResponse> {
+webview-ui/src/services/grpc-client.ts:171:		return this.makeUnaryRequest("deleteHook", request, proto.cline.DeleteHookRequest.toJSON, proto.cline.DeleteHookResponse.fromJSON)
+webview-ui/src/services/grpc-client.ts:173:    static async refreshSkills(request: proto.cline.EmptyRequest): Promise<proto.cline.RefreshedSkills> {
+webview-ui/src/services/grpc-client.ts:174:		return this.makeUnaryRequest("refreshSkills", request, proto.cline.EmptyRequest.toJSON, proto.cline.RefreshedSkills.fromJSON)
+webview-ui/src/services/grpc-client.ts:176:    static async toggleSkill(request: proto.cline.ToggleSkillRequest): Promise<proto.cline.SkillsToggles> {
+webview-ui/src/services/grpc-client.ts:177:		return this.makeUnaryRequest("toggleSkill", request, proto.cline.ToggleSkillRequest.toJSON, proto.cline.SkillsToggles.fromJSON)
+webview-ui/src/services/grpc-client.ts:179:    static async createSkillFile(request: proto.cline.CreateSkillRequest): Promise<proto.cline.SkillsToggles> {
+webview-ui/src/services/grpc-client.ts:180:		return this.makeUnaryRequest("createSkillFile", request, proto.cline.CreateSkillRequest.toJSON, proto.cline.SkillsToggles.fromJSON)
+webview-ui/src/services/grpc-client.ts:182:    static async deleteSkillFile(request: proto.cline.DeleteSkillRequest): Promise<proto.cline.SkillsToggles> {
+webview-ui/src/services/grpc-client.ts:183:		return this.makeUnaryRequest("deleteSkillFile", request, proto.cline.DeleteSkillRequest.toJSON, proto.cline.SkillsToggles.fromJSON)
+webview-ui/src/services/grpc-client.ts:187:	static override serviceName: string = "cline.McpService"
+webview-ui/src/services/grpc-client.ts:188:    static async toggleMcpServer(request: proto.cline.ToggleMcpServerRequest): Promise<proto.cline.McpServers> {
+webview-ui/src/services/grpc-client.ts:189:		return this.makeUnaryRequest("toggleMcpServer", request, proto.cline.ToggleMcpServerRequest.toJSON, proto.cline.McpServers.fromJSON)
+webview-ui/src/services/grpc-client.ts:191:    static async updateMcpTimeout(request: proto.cline.UpdateMcpTimeoutRequest): Promise<proto.cline.McpServers> {
+webview-ui/src/services/grpc-client.ts:192:		return this.makeUnaryRequest("updateMcpTimeout", request, proto.cline.UpdateMcpTimeoutRequest.toJSON, proto.cline.McpServers.fromJSON)
+webview-ui/src/services/grpc-client.ts:194:    static async addRemoteMcpServer(request: proto.cline.AddRemoteMcpServerRequest): Promise<proto.cline.McpServers> {
+webview-ui/src/services/grpc-client.ts:195:		return this.makeUnaryRequest("addRemoteMcpServer", request, proto.cline.AddRemoteMcpServerRequest.toJSON, proto.cline.McpServers.fromJSON)
+webview-ui/src/services/grpc-client.ts:197:    static async downloadMcp(request: proto.cline.StringRequest): Promise<proto.cline.McpDownloadResponse> {
+webview-ui/src/services/grpc-client.ts:198:		return this.makeUnaryRequest("downloadMcp", request, proto.cline.StringRequest.toJSON, proto.cline.McpDownloadResponse.fromJSON)
+webview-ui/src/services/grpc-client.ts:200:    static async restartMcpServer(request: proto.cline.StringRequest): Promise<proto.cline.McpServers> {
+webview-ui/src/services/grpc-client.ts:201:		return this.makeUnaryRequest("restartMcpServer", request, proto.cline.StringRequest.toJSON, proto.cline.McpServers.fromJSON)
+webview-ui/src/services/grpc-client.ts:203:    static async deleteMcpServer(request: proto.cline.StringRequest): Promise<proto.cline.McpServers> {
+webview-ui/src/services/grpc-client.ts:204:		return this.makeUnaryRequest("deleteMcpServer", request, proto.cline.StringRequest.toJSON, proto.cline.McpServers.fromJSON)
+webview-ui/src/services/grpc-client.ts:206:    static async toggleToolAutoApprove(request: proto.cline.ToggleToolAutoApproveRequest): Promise<proto.cline.McpServers> {
+webview-ui/src/services/grpc-client.ts:207:		return this.makeUnaryRequest("toggleToolAutoApprove", request, proto.cline.ToggleToolAutoApproveRequest.toJSON, proto.cline.McpServers.fromJSON)
+webview-ui/src/services/grpc-client.ts:209:    static async refreshMcpMarketplace(request: proto.cline.EmptyRequest): Promise<proto.cline.McpMarketplaceCatalog> {
+webview-ui/src/services/grpc-client.ts:210:		return this.makeUnaryRequest("refreshMcpMarketplace", request, proto.cline.EmptyRequest.toJSON, proto.cline.McpMarketplaceCatalog.fromJSON)
+webview-ui/src/services/grpc-client.ts:212:    static async openMcpSettings(request: proto.cline.EmptyRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:213:		return this.makeUnaryRequest("openMcpSettings", request, proto.cline.EmptyRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:215:    static async authenticateMcpServer(request: proto.cline.StringRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:216:		return this.makeUnaryRequest("authenticateMcpServer", request, proto.cline.StringRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:218:    static subscribeToMcpMarketplaceCatalog(request: proto.cline.EmptyRequest, callbacks: Callbacks<proto.cline.McpMarketplaceCatalog>): ()=>void {
+webview-ui/src/services/grpc-client.ts:219:		return this.makeStreamingRequest("subscribeToMcpMarketplaceCatalog", request, proto.cline.EmptyRequest.toJSON, proto.cline.McpMarketplaceCatalog.fromJSON, callbacks)
+webview-ui/src/services/grpc-client.ts:221:    static async getLatestMcpServers(request: proto.cline.Empty): Promise<proto.cline.McpServers> {
+webview-ui/src/services/grpc-client.ts:222:		return this.makeUnaryRequest("getLatestMcpServers", request, proto.cline.Empty.toJSON, proto.cline.McpServers.fromJSON)
+webview-ui/src/services/grpc-client.ts:224:    static subscribeToMcpServers(request: proto.cline.EmptyRequest, callbacks: Callbacks<proto.cline.McpServers>): ()=>void {
+webview-ui/src/services/grpc-client.ts:225:		return this.makeStreamingRequest("subscribeToMcpServers", request, proto.cline.EmptyRequest.toJSON, proto.cline.McpServers.fromJSON, callbacks)
+webview-ui/src/services/grpc-client.ts:229:	static override serviceName: string = "cline.ModelsService"
+webview-ui/src/services/grpc-client.ts:230:    static async getOllamaModels(request: proto.cline.StringRequest): Promise<proto.cline.StringArray> {
+webview-ui/src/services/grpc-client.ts:231:		return this.makeUnaryRequest("getOllamaModels", request, proto.cline.StringRequest.toJSON, proto.cline.StringArray.fromJSON)
+webview-ui/src/services/grpc-client.ts:233:    static async getLmStudioModels(request: proto.cline.StringRequest): Promise<proto.cline.StringArray> {
+webview-ui/src/services/grpc-client.ts:234:		return this.makeUnaryRequest("getLmStudioModels", request, proto.cline.StringRequest.toJSON, proto.cline.StringArray.fromJSON)
+webview-ui/src/services/grpc-client.ts:236:    static async getVsCodeLmModels(request: proto.cline.EmptyRequest): Promise<proto.cline.VsCodeLmModelsArray> {
+webview-ui/src/services/grpc-client.ts:237:		return this.makeUnaryRequest("getVsCodeLmModels", request, proto.cline.EmptyRequest.toJSON, proto.cline.VsCodeLmModelsArray.fromJSON)
+webview-ui/src/services/grpc-client.ts:239:    static async refreshOpenRouterModelsRpc(request: proto.cline.EmptyRequest): Promise<proto.cline.OpenRouterCompatibleModelInfo> {
+webview-ui/src/services/grpc-client.ts:240:		return this.makeUnaryRequest("refreshOpenRouterModelsRpc", request, proto.cline.EmptyRequest.toJSON, proto.cline.OpenRouterCompatibleModelInfo.fromJSON)
+webview-ui/src/services/grpc-client.ts:242:    static async refreshClineRecommendedModelsRpc(request: proto.cline.EmptyRequest): Promise<proto.cline.ClineRecommendedModelsResponse> {
+webview-ui/src/services/grpc-client.ts:243:		return this.makeUnaryRequest("refreshClineRecommendedModelsRpc", request, proto.cline.EmptyRequest.toJSON, proto.cline.ClineRecommendedModelsResponse.fromJSON)
+webview-ui/src/services/grpc-client.ts:245:    static async refreshClineModelsRpc(request: proto.cline.EmptyRequest): Promise<proto.cline.OpenRouterCompatibleModelInfo> {
+webview-ui/src/services/grpc-client.ts:246:		return this.makeUnaryRequest("refreshClineModelsRpc", request, proto.cline.EmptyRequest.toJSON, proto.cline.OpenRouterCompatibleModelInfo.fromJSON)
+webview-ui/src/services/grpc-client.ts:248:    static async refreshHuggingFaceModels(request: proto.cline.EmptyRequest): Promise<proto.cline.OpenRouterCompatibleModelInfo> {
+webview-ui/src/services/grpc-client.ts:249:		return this.makeUnaryRequest("refreshHuggingFaceModels", request, proto.cline.EmptyRequest.toJSON, proto.cline.OpenRouterCompatibleModelInfo.fromJSON)
+webview-ui/src/services/grpc-client.ts:251:    static async refreshOpenAiModels(request: proto.cline.OpenAiModelsRequest): Promise<proto.cline.StringArray> {
+webview-ui/src/services/grpc-client.ts:252:		return this.makeUnaryRequest("refreshOpenAiModels", request, proto.cline.OpenAiModelsRequest.toJSON, proto.cline.StringArray.fromJSON)
+webview-ui/src/services/grpc-client.ts:254:    static async refreshRequestyModels(request: proto.cline.EmptyRequest): Promise<proto.cline.OpenRouterCompatibleModelInfo> {
+webview-ui/src/services/grpc-client.ts:255:		return this.makeUnaryRequest("refreshRequestyModels", request, proto.cline.EmptyRequest.toJSON, proto.cline.OpenRouterCompatibleModelInfo.fromJSON)
+webview-ui/src/services/grpc-client.ts:257:    static async refreshHicapModels(request: proto.cline.EmptyRequest): Promise<proto.cline.OpenRouterCompatibleModelInfo> {
+webview-ui/src/services/grpc-client.ts:258:		return this.makeUnaryRequest("refreshHicapModels", request, proto.cline.EmptyRequest.toJSON, proto.cline.OpenRouterCompatibleModelInfo.fromJSON)
+webview-ui/src/services/grpc-client.ts:260:    static async refreshLiteLlmModelsRpc(request: proto.cline.EmptyRequest): Promise<proto.cline.OpenRouterCompatibleModelInfo> {
+webview-ui/src/services/grpc-client.ts:261:		return this.makeUnaryRequest("refreshLiteLlmModelsRpc", request, proto.cline.EmptyRequest.toJSON, proto.cline.OpenRouterCompatibleModelInfo.fromJSON)
+webview-ui/src/services/grpc-client.ts:263:    static subscribeToOpenRouterModels(request: proto.cline.EmptyRequest, callbacks: Callbacks<proto.cline.OpenRouterCompatibleModelInfo>): ()=>void {
+webview-ui/src/services/grpc-client.ts:264:		return this.makeStreamingRequest("subscribeToOpenRouterModels", request, proto.cline.EmptyRequest.toJSON, proto.cline.OpenRouterCompatibleModelInfo.fromJSON, callbacks)
+webview-ui/src/services/grpc-client.ts:266:    static subscribeToLiteLlmModels(request: proto.cline.EmptyRequest, callbacks: Callbacks<proto.cline.OpenRouterCompatibleModelInfo>): ()=>void {
+webview-ui/src/services/grpc-client.ts:267:		return this.makeStreamingRequest("subscribeToLiteLlmModels", request, proto.cline.EmptyRequest.toJSON, proto.cline.OpenRouterCompatibleModelInfo.fromJSON, callbacks)
+webview-ui/src/services/grpc-client.ts:269:    static async updateApiConfigurationProto(request: proto.cline.UpdateApiConfigurationRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:270:		return this.makeUnaryRequest("updateApiConfigurationProto", request, proto.cline.UpdateApiConfigurationRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:272:    static async updateApiConfiguration(request: proto.cline.UpdateApiConfigurationRequestNew): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:273:		return this.makeUnaryRequest("updateApiConfiguration", request, proto.cline.UpdateApiConfigurationRequestNew.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:275:    static async updateApiConfigurationPartial(request: proto.cline.UpdateApiConfigurationPartialRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:276:		return this.makeUnaryRequest("updateApiConfigurationPartial", request, proto.cline.UpdateApiConfigurationPartialRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:278:    static async refreshGroqModelsRpc(request: proto.cline.EmptyRequest): Promise<proto.cline.OpenRouterCompatibleModelInfo> {
+webview-ui/src/services/grpc-client.ts:279:		return this.makeUnaryRequest("refreshGroqModelsRpc", request, proto.cline.EmptyRequest.toJSON, proto.cline.OpenRouterCompatibleModelInfo.fromJSON)
+webview-ui/src/services/grpc-client.ts:281:    static async refreshBasetenModelsRpc(request: proto.cline.EmptyRequest): Promise<proto.cline.OpenRouterCompatibleModelInfo> {
+webview-ui/src/services/grpc-client.ts:282:		return this.makeUnaryRequest("refreshBasetenModelsRpc", request, proto.cline.EmptyRequest.toJSON, proto.cline.OpenRouterCompatibleModelInfo.fromJSON)
+webview-ui/src/services/grpc-client.ts:284:    static async getSapAiCoreModels(request: proto.cline.SapAiCoreModelsRequest): Promise<proto.cline.SapAiCoreModelsResponse> {
+webview-ui/src/services/grpc-client.ts:285:		return this.makeUnaryRequest("getSapAiCoreModels", request, proto.cline.SapAiCoreModelsRequest.toJSON, proto.cline.SapAiCoreModelsResponse.fromJSON)
+webview-ui/src/services/grpc-client.ts:287:    static async refreshOcaModels(request: proto.cline.StringRequest): Promise<proto.cline.OcaCompatibleModelInfo> {
+webview-ui/src/services/grpc-client.ts:288:		return this.makeUnaryRequest("refreshOcaModels", request, proto.cline.StringRequest.toJSON, proto.cline.OcaCompatibleModelInfo.fromJSON)
+webview-ui/src/services/grpc-client.ts:290:    static async getAihubmixModels(request: proto.cline.EmptyRequest): Promise<proto.cline.OpenRouterCompatibleModelInfo> {
+webview-ui/src/services/grpc-client.ts:291:		return this.makeUnaryRequest("getAihubmixModels", request, proto.cline.EmptyRequest.toJSON, proto.cline.OpenRouterCompatibleModelInfo.fromJSON)
+webview-ui/src/services/grpc-client.ts:293:    static async refreshVercelAiGatewayModelsRpc(request: proto.cline.EmptyRequest): Promise<proto.cline.OpenRouterCompatibleModelInfo> {
+webview-ui/src/services/grpc-client.ts:294:		return this.makeUnaryRequest("refreshVercelAiGatewayModelsRpc", request, proto.cline.EmptyRequest.toJSON, proto.cline.OpenRouterCompatibleModelInfo.fromJSON)
+webview-ui/src/services/grpc-client.ts:298:	static override serviceName: string = "cline.OcaAccountService"
+webview-ui/src/services/grpc-client.ts:299:    static async ocaAccountLoginClicked(request: proto.cline.EmptyRequest): Promise<proto.cline.String> {
+webview-ui/src/services/grpc-client.ts:300:		return this.makeUnaryRequest("ocaAccountLoginClicked", request, proto.cline.EmptyRequest.toJSON, proto.cline.String.fromJSON)
+webview-ui/src/services/grpc-client.ts:302:    static async ocaAccountLogoutClicked(request: proto.cline.EmptyRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:303:		return this.makeUnaryRequest("ocaAccountLogoutClicked", request, proto.cline.EmptyRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:305:    static ocaSubscribeToAuthStatusUpdate(request: proto.cline.EmptyRequest, callbacks: Callbacks<proto.cline.OcaAuthState>): ()=>void {
+webview-ui/src/services/grpc-client.ts:306:		return this.makeStreamingRequest("ocaSubscribeToAuthStatusUpdate", request, proto.cline.EmptyRequest.toJSON, proto.cline.OcaAuthState.fromJSON, callbacks)
+webview-ui/src/services/grpc-client.ts:310:	static override serviceName: string = "cline.SlashService"
+webview-ui/src/services/grpc-client.ts:311:    static async reportBug(request: proto.cline.StringRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:312:		return this.makeUnaryRequest("reportBug", request, proto.cline.StringRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:314:    static async condense(request: proto.cline.StringRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:315:		return this.makeUnaryRequest("condense", request, proto.cline.StringRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:317:    static async getAvailableSlashCommands(request: proto.cline.EmptyRequest): Promise<proto.cline.SlashCommandsResponse> {
+webview-ui/src/services/grpc-client.ts:318:		return this.makeUnaryRequest("getAvailableSlashCommands", request, proto.cline.EmptyRequest.toJSON, proto.cline.SlashCommandsResponse.fromJSON)
+webview-ui/src/services/grpc-client.ts:322:	static override serviceName: string = "cline.StateService"
+webview-ui/src/services/grpc-client.ts:323:    static async getLatestState(request: proto.cline.EmptyRequest): Promise<proto.cline.State> {
+webview-ui/src/services/grpc-client.ts:324:		return this.makeUnaryRequest("getLatestState", request, proto.cline.EmptyRequest.toJSON, proto.cline.State.fromJSON)
+webview-ui/src/services/grpc-client.ts:326:    static async updateTerminalConnectionTimeout(request: proto.cline.UpdateTerminalConnectionTimeoutRequest): Promise<proto.cline.UpdateTerminalConnectionTimeoutResponse> {
+webview-ui/src/services/grpc-client.ts:327:		return this.makeUnaryRequest("updateTerminalConnectionTimeout", request, proto.cline.UpdateTerminalConnectionTimeoutRequest.toJSON, proto.cline.UpdateTerminalConnectionTimeoutResponse.fromJSON)
+webview-ui/src/services/grpc-client.ts:329:    static async updateTerminalReuseEnabled(request: proto.cline.BooleanRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:330:		return this.makeUnaryRequest("updateTerminalReuseEnabled", request, proto.cline.BooleanRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:332:    static async getAvailableTerminalProfiles(request: proto.cline.EmptyRequest): Promise<proto.cline.TerminalProfiles> {
+webview-ui/src/services/grpc-client.ts:333:		return this.makeUnaryRequest("getAvailableTerminalProfiles", request, proto.cline.EmptyRequest.toJSON, proto.cline.TerminalProfiles.fromJSON)
+webview-ui/src/services/grpc-client.ts:335:    static subscribeToState(request: proto.cline.EmptyRequest, callbacks: Callbacks<proto.cline.State>): ()=>void {
+webview-ui/src/services/grpc-client.ts:336:		return this.makeStreamingRequest("subscribeToState", request, proto.cline.EmptyRequest.toJSON, proto.cline.State.fromJSON, callbacks)
+webview-ui/src/services/grpc-client.ts:338:    static async toggleFavoriteModel(request: proto.cline.StringRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:339:		return this.makeUnaryRequest("toggleFavoriteModel", request, proto.cline.StringRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:341:    static async resetState(request: proto.cline.ResetStateRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:342:		return this.makeUnaryRequest("resetState", request, proto.cline.ResetStateRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:344:    static async togglePlanActModeProto(request: proto.cline.TogglePlanActModeRequest): Promise<proto.cline.Boolean> {
+webview-ui/src/services/grpc-client.ts:345:		return this.makeUnaryRequest("togglePlanActModeProto", request, proto.cline.TogglePlanActModeRequest.toJSON, proto.cline.Boolean.fromJSON)
+webview-ui/src/services/grpc-client.ts:347:    static async updateAutoApprovalSettings(request: proto.cline.AutoApprovalSettingsRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:348:		return this.makeUnaryRequest("updateAutoApprovalSettings", request, proto.cline.AutoApprovalSettingsRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:350:    static async updateSettings(request: proto.cline.UpdateSettingsRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:351:		return this.makeUnaryRequest("updateSettings", request, proto.cline.UpdateSettingsRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:353:    static async updateSettingsCli(request: proto.cline.UpdateSettingsRequestCli): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:354:		return this.makeUnaryRequest("updateSettingsCli", request, proto.cline.UpdateSettingsRequestCli.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:356:    static async updateTaskSettings(request: proto.cline.UpdateTaskSettingsRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:357:		return this.makeUnaryRequest("updateTaskSettings", request, proto.cline.UpdateTaskSettingsRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:359:    static async updateTelemetrySetting(request: proto.cline.TelemetrySettingRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:360:		return this.makeUnaryRequest("updateTelemetrySetting", request, proto.cline.TelemetrySettingRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:362:    static async captureOnboardingProgress(request: proto.cline.OnboardingProgressRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:363:		return this.makeUnaryRequest("captureOnboardingProgress", request, proto.cline.OnboardingProgressRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:365:    static async setWelcomeViewCompleted(request: proto.cline.BooleanRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:366:		return this.makeUnaryRequest("setWelcomeViewCompleted", request, proto.cline.BooleanRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:368:    static async updateInfoBannerVersion(request: proto.cline.Int64Request): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:369:		return this.makeUnaryRequest("updateInfoBannerVersion", request, proto.cline.Int64Request.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:371:    static async updateModelBannerVersion(request: proto.cline.Int64Request): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:372:		return this.makeUnaryRequest("updateModelBannerVersion", request, proto.cline.Int64Request.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:374:    static async updateCliBannerVersion(request: proto.cline.Int64Request): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:375:		return this.makeUnaryRequest("updateCliBannerVersion", request, proto.cline.Int64Request.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:377:    static async dismissBanner(request: proto.cline.StringRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:378:		return this.makeUnaryRequest("dismissBanner", request, proto.cline.StringRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:380:    static async trackBannerEvent(request: proto.cline.TrackBannerEventRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:381:		return this.makeUnaryRequest("trackBannerEvent", request, proto.cline.TrackBannerEventRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:383:    static async installClineCli(request: proto.cline.EmptyRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:384:		return this.makeUnaryRequest("installClineCli", request, proto.cline.EmptyRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:386:    static async checkCliInstallation(request: proto.cline.EmptyRequest): Promise<proto.cline.Boolean> {
+webview-ui/src/services/grpc-client.ts:387:		return this.makeUnaryRequest("checkCliInstallation", request, proto.cline.EmptyRequest.toJSON, proto.cline.Boolean.fromJSON)
+webview-ui/src/services/grpc-client.ts:389:    static async getProcessInfo(request: proto.cline.EmptyRequest): Promise<proto.cline.ProcessInfo> {
+webview-ui/src/services/grpc-client.ts:390:		return this.makeUnaryRequest("getProcessInfo", request, proto.cline.EmptyRequest.toJSON, proto.cline.ProcessInfo.fromJSON)
+webview-ui/src/services/grpc-client.ts:392:    static async flushPendingState(request: proto.cline.EmptyRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:393:		return this.makeUnaryRequest("flushPendingState", request, proto.cline.EmptyRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:395:    static async refreshRemoteConfig(request: proto.cline.EmptyRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:396:		return this.makeUnaryRequest("refreshRemoteConfig", request, proto.cline.EmptyRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:398:    static async testOtelConnection(request: proto.cline.EmptyRequest): Promise<proto.cline.TestConnectionResult> {
+webview-ui/src/services/grpc-client.ts:399:		return this.makeUnaryRequest("testOtelConnection", request, proto.cline.EmptyRequest.toJSON, proto.cline.TestConnectionResult.fromJSON)
+webview-ui/src/services/grpc-client.ts:401:    static async testPromptUploading(request: proto.cline.EmptyRequest): Promise<proto.cline.TestConnectionResult> {
+webview-ui/src/services/grpc-client.ts:402:		return this.makeUnaryRequest("testPromptUploading", request, proto.cline.EmptyRequest.toJSON, proto.cline.TestConnectionResult.fromJSON)
+webview-ui/src/services/grpc-client.ts:406:	static override serviceName: string = "cline.TaskService"
+webview-ui/src/services/grpc-client.ts:407:    static async cancelTask(request: proto.cline.EmptyRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:408:		return this.makeUnaryRequest("cancelTask", request, proto.cline.EmptyRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:410:    static async cancelBackgroundCommand(request: proto.cline.EmptyRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:411:		return this.makeUnaryRequest("cancelBackgroundCommand", request, proto.cline.EmptyRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:413:    static async clearTask(request: proto.cline.EmptyRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:414:		return this.makeUnaryRequest("clearTask", request, proto.cline.EmptyRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:416:    static async getTotalTasksSize(request: proto.cline.EmptyRequest): Promise<proto.cline.Int64> {
+webview-ui/src/services/grpc-client.ts:417:		return this.makeUnaryRequest("getTotalTasksSize", request, proto.cline.EmptyRequest.toJSON, proto.cline.Int64.fromJSON)
+webview-ui/src/services/grpc-client.ts:419:    static async deleteTasksWithIds(request: proto.cline.StringArrayRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:420:		return this.makeUnaryRequest("deleteTasksWithIds", request, proto.cline.StringArrayRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:422:    static async newTask(request: proto.cline.NewTaskRequest): Promise<proto.cline.String> {
+webview-ui/src/services/grpc-client.ts:423:		return this.makeUnaryRequest("newTask", request, proto.cline.NewTaskRequest.toJSON, proto.cline.String.fromJSON)
+webview-ui/src/services/grpc-client.ts:425:    static async showTaskWithId(request: proto.cline.StringRequest): Promise<proto.cline.TaskResponse> {
+webview-ui/src/services/grpc-client.ts:426:		return this.makeUnaryRequest("showTaskWithId", request, proto.cline.StringRequest.toJSON, proto.cline.TaskResponse.fromJSON)
+webview-ui/src/services/grpc-client.ts:428:    static async exportTaskWithId(request: proto.cline.StringRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:429:		return this.makeUnaryRequest("exportTaskWithId", request, proto.cline.StringRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:431:    static async toggleTaskFavorite(request: proto.cline.TaskFavoriteRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:432:		return this.makeUnaryRequest("toggleTaskFavorite", request, proto.cline.TaskFavoriteRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:434:    static async getTaskHistory(request: proto.cline.GetTaskHistoryRequest): Promise<proto.cline.TaskHistoryArray> {
+webview-ui/src/services/grpc-client.ts:435:		return this.makeUnaryRequest("getTaskHistory", request, proto.cline.GetTaskHistoryRequest.toJSON, proto.cline.TaskHistoryArray.fromJSON)
+webview-ui/src/services/grpc-client.ts:437:    static async askResponse(request: proto.cline.AskResponseRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:438:		return this.makeUnaryRequest("askResponse", request, proto.cline.AskResponseRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:440:    static async taskFeedback(request: proto.cline.StringRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:441:		return this.makeUnaryRequest("taskFeedback", request, proto.cline.StringRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:443:    static async taskCompletionViewChanges(request: proto.cline.Int64Request): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:444:		return this.makeUnaryRequest("taskCompletionViewChanges", request, proto.cline.Int64Request.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:446:    static async executeQuickWin(request: proto.cline.ExecuteQuickWinRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:447:		return this.makeUnaryRequest("executeQuickWin", request, proto.cline.ExecuteQuickWinRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:449:    static async deleteAllTaskHistory(request: proto.cline.EmptyRequest): Promise<proto.cline.DeleteAllTaskHistoryCount> {
+webview-ui/src/services/grpc-client.ts:450:		return this.makeUnaryRequest("deleteAllTaskHistory", request, proto.cline.EmptyRequest.toJSON, proto.cline.DeleteAllTaskHistoryCount.fromJSON)
+webview-ui/src/services/grpc-client.ts:452:    static async explainChanges(request: proto.cline.ExplainChangesRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:453:		return this.makeUnaryRequest("explainChanges", request, proto.cline.ExplainChangesRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:457:	static override serviceName: string = "cline.UiService"
+webview-ui/src/services/grpc-client.ts:458:    static async scrollToSettings(request: proto.cline.StringRequest): Promise<proto.cline.KeyValuePair> {
+webview-ui/src/services/grpc-client.ts:459:		return this.makeUnaryRequest("scrollToSettings", request, proto.cline.StringRequest.toJSON, proto.cline.KeyValuePair.fromJSON)
+webview-ui/src/services/grpc-client.ts:461:    static async setTerminalExecutionMode(request: proto.cline.BooleanRequest): Promise<proto.cline.KeyValuePair> {
+webview-ui/src/services/grpc-client.ts:462:		return this.makeUnaryRequest("setTerminalExecutionMode", request, proto.cline.BooleanRequest.toJSON, proto.cline.KeyValuePair.fromJSON)
+webview-ui/src/services/grpc-client.ts:464:    static async onDidShowAnnouncement(request: proto.cline.EmptyRequest): Promise<proto.cline.Boolean> {
+webview-ui/src/services/grpc-client.ts:465:		return this.makeUnaryRequest("onDidShowAnnouncement", request, proto.cline.EmptyRequest.toJSON, proto.cline.Boolean.fromJSON)
+webview-ui/src/services/grpc-client.ts:467:    static subscribeToAddToInput(request: proto.cline.EmptyRequest, callbacks: Callbacks<proto.cline.String>): ()=>void {
+webview-ui/src/services/grpc-client.ts:468:		return this.makeStreamingRequest("subscribeToAddToInput", request, proto.cline.EmptyRequest.toJSON, proto.cline.String.fromJSON, callbacks)
+webview-ui/src/services/grpc-client.ts:470:    static subscribeToMcpButtonClicked(request: proto.cline.EmptyRequest, callbacks: Callbacks<proto.cline.Empty>): ()=>void {
+webview-ui/src/services/grpc-client.ts:471:		return this.makeStreamingRequest("subscribeToMcpButtonClicked", request, proto.cline.EmptyRequest.toJSON, proto.cline.Empty.fromJSON, callbacks)
+webview-ui/src/services/grpc-client.ts:473:    static subscribeToHistoryButtonClicked(request: proto.cline.EmptyRequest, callbacks: Callbacks<proto.cline.Empty>): ()=>void {
+webview-ui/src/services/grpc-client.ts:474:		return this.makeStreamingRequest("subscribeToHistoryButtonClicked", request, proto.cline.EmptyRequest.toJSON, proto.cline.Empty.fromJSON, callbacks)
+webview-ui/src/services/grpc-client.ts:476:    static subscribeToChatButtonClicked(request: proto.cline.EmptyRequest, callbacks: Callbacks<proto.cline.Empty>): ()=>void {
+webview-ui/src/services/grpc-client.ts:477:		return this.makeStreamingRequest("subscribeToChatButtonClicked", request, proto.cline.EmptyRequest.toJSON, proto.cline.Empty.fromJSON, callbacks)
+webview-ui/src/services/grpc-client.ts:479:    static subscribeToAccountButtonClicked(request: proto.cline.EmptyRequest, callbacks: Callbacks<proto.cline.Empty>): ()=>void {
+webview-ui/src/services/grpc-client.ts:480:		return this.makeStreamingRequest("subscribeToAccountButtonClicked", request, proto.cline.EmptyRequest.toJSON, proto.cline.Empty.fromJSON, callbacks)
+webview-ui/src/services/grpc-client.ts:482:    static subscribeToSettingsButtonClicked(request: proto.cline.EmptyRequest, callbacks: Callbacks<proto.cline.Empty>): ()=>void {
+webview-ui/src/services/grpc-client.ts:483:		return this.makeStreamingRequest("subscribeToSettingsButtonClicked", request, proto.cline.EmptyRequest.toJSON, proto.cline.Empty.fromJSON, callbacks)
+webview-ui/src/services/grpc-client.ts:485:    static subscribeToWorktreesButtonClicked(request: proto.cline.EmptyRequest, callbacks: Callbacks<proto.cline.Empty>): ()=>void {
+webview-ui/src/services/grpc-client.ts:486:		return this.makeStreamingRequest("subscribeToWorktreesButtonClicked", request, proto.cline.EmptyRequest.toJSON, proto.cline.Empty.fromJSON, callbacks)
+webview-ui/src/services/grpc-client.ts:488:    static subscribeToPartialMessage(request: proto.cline.EmptyRequest, callbacks: Callbacks<proto.cline.ClineMessage>): ()=>void {
+webview-ui/src/services/grpc-client.ts:489:		return this.makeStreamingRequest("subscribeToPartialMessage", request, proto.cline.EmptyRequest.toJSON, proto.cline.ClineMessage.fromJSON, callbacks)
+webview-ui/src/services/grpc-client.ts:491:    static async initializeWebview(request: proto.cline.EmptyRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:492:		return this.makeUnaryRequest("initializeWebview", request, proto.cline.EmptyRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:494:    static subscribeToRelinquishControl(request: proto.cline.EmptyRequest, callbacks: Callbacks<proto.cline.Empty>): ()=>void {
+webview-ui/src/services/grpc-client.ts:495:		return this.makeStreamingRequest("subscribeToRelinquishControl", request, proto.cline.EmptyRequest.toJSON, proto.cline.Empty.fromJSON, callbacks)
+webview-ui/src/services/grpc-client.ts:497:    static subscribeToShowWebview(request: proto.cline.EmptyRequest, callbacks: Callbacks<proto.cline.ShowWebviewEvent>): ()=>void {
+webview-ui/src/services/grpc-client.ts:498:		return this.makeStreamingRequest("subscribeToShowWebview", request, proto.cline.EmptyRequest.toJSON, proto.cline.ShowWebviewEvent.fromJSON, callbacks)
+webview-ui/src/services/grpc-client.ts:500:    static async getWebviewHtml(request: proto.cline.EmptyRequest): Promise<proto.cline.String> {
+webview-ui/src/services/grpc-client.ts:501:		return this.makeUnaryRequest("getWebviewHtml", request, proto.cline.EmptyRequest.toJSON, proto.cline.String.fromJSON)
+webview-ui/src/services/grpc-client.ts:503:    static async openUrl(request: proto.cline.StringRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:504:		return this.makeUnaryRequest("openUrl", request, proto.cline.StringRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:506:    static async openWalkthrough(request: proto.cline.EmptyRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:507:		return this.makeUnaryRequest("openWalkthrough", request, proto.cline.EmptyRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:511:	static override serviceName: string = "cline.WebService"
+webview-ui/src/services/grpc-client.ts:512:    static async checkIsImageUrl(request: proto.cline.StringRequest): Promise<proto.cline.IsImageUrl> {
+webview-ui/src/services/grpc-client.ts:513:		return this.makeUnaryRequest("checkIsImageUrl", request, proto.cline.StringRequest.toJSON, proto.cline.IsImageUrl.fromJSON)
+webview-ui/src/services/grpc-client.ts:515:    static async fetchOpenGraphData(request: proto.cline.StringRequest): Promise<proto.cline.OpenGraphData> {
+webview-ui/src/services/grpc-client.ts:516:		return this.makeUnaryRequest("fetchOpenGraphData", request, proto.cline.StringRequest.toJSON, proto.cline.OpenGraphData.fromJSON)
+webview-ui/src/services/grpc-client.ts:518:    static async openInBrowser(request: proto.cline.StringRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:519:		return this.makeUnaryRequest("openInBrowser", request, proto.cline.StringRequest.toJSON, proto.cline.Empty.fromJSON)
+webview-ui/src/services/grpc-client.ts:523:	static override serviceName: string = "cline.WorktreeService"
+webview-ui/src/services/grpc-client.ts:524:    static async listWorktrees(request: proto.cline.EmptyRequest): Promise<proto.cline.WorktreeList> {
+webview-ui/src/services/grpc-client.ts:525:		return this.makeUnaryRequest("listWorktrees", request, proto.cline.EmptyRequest.toJSON, proto.cline.WorktreeList.fromJSON)
+webview-ui/src/services/grpc-client.ts:527:    static async createWorktree(request: proto.cline.CreateWorktreeRequest): Promise<proto.cline.WorktreeResult> {
+webview-ui/src/services/grpc-client.ts:528:		return this.makeUnaryRequest("createWorktree", request, proto.cline.CreateWorktreeRequest.toJSON, proto.cline.WorktreeResult.fromJSON)
+webview-ui/src/services/grpc-client.ts:530:    static async deleteWorktree(request: proto.cline.DeleteWorktreeRequest): Promise<proto.cline.WorktreeResult> {
+webview-ui/src/services/grpc-client.ts:531:		return this.makeUnaryRequest("deleteWorktree", request, proto.cline.DeleteWorktreeRequest.toJSON, proto.cline.WorktreeResult.fromJSON)
+webview-ui/src/services/grpc-client.ts:533:    static async switchWorktree(request: proto.cline.SwitchWorktreeRequest): Promise<proto.cline.WorktreeResult> {
+webview-ui/src/services/grpc-client.ts:534:		return this.makeUnaryRequest("switchWorktree", request, proto.cline.SwitchWorktreeRequest.toJSON, proto.cline.WorktreeResult.fromJSON)
+webview-ui/src/services/grpc-client.ts:536:    static async getAvailableBranches(request: proto.cline.EmptyRequest): Promise<proto.cline.BranchList> {
+webview-ui/src/services/grpc-client.ts:537:		return this.makeUnaryRequest("getAvailableBranches", request, proto.cline.EmptyRequest.toJSON, proto.cline.BranchList.fromJSON)
+webview-ui/src/services/grpc-client.ts:539:    static async getWorktreeDefaults(request: proto.cline.EmptyRequest): Promise<proto.cline.WorktreeDefaults> {
+webview-ui/src/services/grpc-client.ts:540:		return this.makeUnaryRequest("getWorktreeDefaults", request, proto.cline.EmptyRequest.toJSON, proto.cline.WorktreeDefaults.fromJSON)
+webview-ui/src/services/grpc-client.ts:542:    static async getWorktreeIncludeStatus(request: proto.cline.EmptyRequest): Promise<proto.cline.WorktreeIncludeStatus> {
+webview-ui/src/services/grpc-client.ts:543:		return this.makeUnaryRequest("getWorktreeIncludeStatus", request, proto.cline.EmptyRequest.toJSON, proto.cline.WorktreeIncludeStatus.fromJSON)
+webview-ui/src/services/grpc-client.ts:545:    static async createWorktreeInclude(request: proto.cline.CreateWorktreeIncludeRequest): Promise<proto.cline.WorktreeResult> {
+webview-ui/src/services/grpc-client.ts:546:		return this.makeUnaryRequest("createWorktreeInclude", request, proto.cline.CreateWorktreeIncludeRequest.toJSON, proto.cline.WorktreeResult.fromJSON)
+webview-ui/src/services/grpc-client.ts:548:    static async checkoutBranch(request: proto.cline.CheckoutBranchRequest): Promise<proto.cline.WorktreeResult> {
+webview-ui/src/services/grpc-client.ts:549:		return this.makeUnaryRequest("checkoutBranch", request, proto.cline.CheckoutBranchRequest.toJSON, proto.cline.WorktreeResult.fromJSON)
+webview-ui/src/services/grpc-client.ts:551:    static async mergeWorktree(request: proto.cline.MergeWorktreeRequest): Promise<proto.cline.MergeWorktreeResult> {
+webview-ui/src/services/grpc-client.ts:552:		return this.makeUnaryRequest("mergeWorktree", request, proto.cline.MergeWorktreeRequest.toJSON, proto.cline.MergeWorktreeResult.fromJSON)
+webview-ui/src/services/grpc-client.ts:554:    static async trackWorktreeViewOpened(request: proto.cline.TrackWorktreeViewOpenedRequest): Promise<proto.cline.Empty> {
+webview-ui/src/services/grpc-client.ts:555:		return this.makeUnaryRequest("trackWorktreeViewOpened", request, proto.cline.TrackWorktreeViewOpenedRequest.toJSON, proto.cline.Empty.fromJSON)
+3:	"displayName": "Cline",
+15:		"name": "Cline Bot Inc."
+21:		"url": "https://github.com/cline/cline"
+23:	"homepage": "https://cline.bot",
+33:		"cline",
+55:			"cline-icon": {
+56:				"description": "cline",
+58:					"fontPath": "assets/icons/cline-bot.woff",
+65:				"id": "ClineWalkthrough",
+66:				"title": "Meet Cline, your new coding partner",
+67:				"description": "Cline codes like a developer because it thinks like one. Here are 5 ways to put it to work:",
+72:						"description": "Tell Cline what you want to achieve. It plans, asks, and then codes, like a true partner.",
+79:						"title": "Let Cline Learn Your Codebase",
+80:						"description": "Point Cline to your project. It builds understanding to make smart, context-aware changes.",
+88:						"description": "Cline empowers you with State-of-the-Art AI, connecting to top models (Anthropic, Gemini, OpenAI & more).",
+104:						"description": "Review Cline's plans and diffs. Approve changes before they happen. No surprises.",
+119:					"title": "Cline",
+136:				"command": "cline.plusButtonClicked",
+141:				"command": "cline.mcpButtonClicked",
+146:				"command": "cline.historyButtonClicked",
+151:				"command": "cline.accountButtonClicked",
+156:				"command": "cline.settingsButtonClicked",
+161:				"command": "cline.dev.createTestTasks",
+163:				"category": "Cline",
+164:				"when": "cline.isDevMode"
+167:				"command": "cline.dev.expireMcpOAuthTokens",
+169:				"category": "Cline",
+170:				"when": "cline.isDevMode"
+173:				"command": "cline.addToChat",
+174:				"title": "Add to Cline",
+175:				"category": "Cline"
+178:				"command": "cline.addTerminalOutputToChat",
+179:				"title": "Add to Cline",
+180:				"category": "Cline"
+183:				"command": "cline.focusChatInput",
+185:				"category": "Cline"
+188:				"command": "cline.generateGitCommitMessage",
+189:				"title": "Generate Commit Message with Cline",
+190:				"category": "Cline",
+191:				"icon": "$(cline-icon)"
+194:				"command": "cline.abortGitCommitMessage",
+195:				"title": "Generate Commit Message with Cline - Stop",
+196:				"category": "Cline",
+200:				"command": "cline.explainCode",
+201:				"title": "Explain with Cline",
+202:				"category": "Cline"
+205:				"command": "cline.improveCode",
+206:				"title": "Improve with Cline",
+207:				"category": "Cline"
+210:				"command": "cline.jupyterGenerateCell",
+211:				"title": "Generate Jupyter Cell with Cline",
+212:				"category": "Cline",
+216:				"command": "cline.jupyterExplainCell",
+217:				"title": "Explain Jupyter Cell with Cline",
+218:				"category": "Cline",
+222:				"command": "cline.jupyterImproveCell",
+223:				"title": "Improve Jupyter Cell with Cline",
+224:				"category": "Cline",
+228:				"command": "cline.openWalkthrough",
+230:				"category": "Cline"
+233:				"command": "cline.reconstructTaskHistory",
+235:				"category": "Cline"
+238:				"command": "cline.reviewComment.reply",
+240:				"category": "Cline",
+244:				"command": "cline.reviewComment.addToChat",
+245:				"title": "Add to Cline Chat",
+246:				"category": "Cline",
+254:				"when": "commentEditorFocused && commentController == cline-ai-review && !commentIsEmpty"
+257:				"command": "cline.addToChat",
+265:				"command": "cline.generateGitCommitMessage",
+269:				"command": "cline.focusChatInput",
+280:					"command": "cline.plusButtonClicked",
+285:					"command": "cline.mcpButtonClicked",
+290:					"command": "cline.historyButtonClicked",
+295:					"command": "cline.accountButtonClicked",
+300:					"command": "cline.settingsButtonClicked",
+307:					"command": "cline.addToChat",
+314:					"command": "cline.addTerminalOutputToChat",
+320:					"command": "cline.generateGitCommitMessage",
+322:					"when": "config.git.enabled && scmProvider == git && !cline.isGeneratingCommit"
+325:					"command": "cline.abortGitCommitMessage",
+327:					"when": "config.git.enabled && scmProvider == git && cline.isGeneratingCommit"
+332:					"command": "cline.jupyterGenerateCell",
+339:					"command": "cline.jupyterExplainCell",
+344:					"command": "cline.jupyterImproveCell",
+351:					"command": "cline.generateGitCommitMessage",
+352:					"when": "config.git.enabled && !cline.isGeneratingCommit"
+355:					"command": "cline.abortGitCommitMessage",
+356:					"when": "config.git.enabled && cline.isGeneratingCommit"
+359:					"command": "cline.reviewComment.reply",
+365:					"command": "cline.reviewComment.reply",
+367:					"when": "commentController == cline-ai-review"
+372:					"command": "cline.reviewComment.addToChat",
+374:					"when": "commentController == cline-ai-review"
+379:			"title": "Cline",
+454:			"git add proto/cline/state.proto"

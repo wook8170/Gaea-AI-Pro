@@ -21,7 +21,7 @@ const GeneralSettingsSection = ({ renderSectionHeader }: GeneralSettingsSectionP
 				<div className="mb-[5px]">
 					<Tooltip>
 						<TooltipContent hidden={remoteConfigSettings?.telemetrySetting === undefined}>
-							This setting is managed by your organization's remote configuration
+							이 설정은 소속 조직의 원격 구성에 의해 관리됩니다.
 						</TooltipContent>
 						<TooltipTrigger asChild>
 							<div className="flex items-center gap-2 mb-[5px]">
@@ -32,7 +32,7 @@ const GeneralSettingsSection = ({ renderSectionHeader }: GeneralSettingsSectionP
 										const checked = e.target.checked === true
 										updateSetting("telemetrySetting", checked ? "enabled" : "disabled")
 									}}>
-									Allow error and usage reporting
+									오류 및 사용 보고 허용
 								</VSCodeCheckbox>
 								{!!remoteConfigSettings?.telemetrySetting && (
 									<i className="codicon codicon-lock text-description text-sm" />
@@ -42,22 +42,22 @@ const GeneralSettingsSection = ({ renderSectionHeader }: GeneralSettingsSectionP
 					</Tooltip>
 
 					<p className="text-sm mt-[5px] text-description">
-						Help improve Cline by sending usage data and error reports. No code, prompts, or personal information are
-						ever sent. See our{" "}
+						사용량 데이터와 오류 보고서를 전송하여 Gaea-AI-Pro의 성능 개선을 도와주세요. 어떠한 코드나 프롬프트, 개인
+						정보도 전송되지 않습니다. 자세한 내용은{" "}
 						<VSCodeLink
 							className="text-inherit"
-							href="https://docs.cline.bot/more-info/telemetry"
+							href="https://docs.gaea-ai-pro.bot/more-info/telemetry"
 							style={{ fontSize: "inherit", textDecoration: "underline" }}>
-							telemetry overview
-						</VSCodeLink>{" "}
-						and{" "}
+							원격 측정(Telemetry) 개요
+						</VSCodeLink>
+						와{" "}
 						<VSCodeLink
 							className="text-inherit"
-							href="https://cline.bot/privacy"
+							href="https://gaea-ai-pro.bot/privacy"
 							style={{ fontSize: "inherit", textDecoration: "underline" }}>
-							privacy policy
-						</VSCodeLink>{" "}
-						for more details.
+							개인정보 처리방침
+						</VSCodeLink>
+						을 확인하세요.
 					</p>
 				</div>
 			</Section>

@@ -79,7 +79,7 @@ export class CliDiffServiceClient implements DiffServiceClientInterface {
  * CLI implementation of EnvService - handles environment operations
  */
 export class CliEnvServiceClient implements EnvServiceClientInterface {
-	private clipboardContent: string = ""
+	private clipboardContent = ""
 
 	private getTelemetrySetting(): proto.host.Setting {
 		// Read from StateManager - defaults to ENABLED if not set or "unset"
@@ -100,7 +100,7 @@ export class CliEnvServiceClient implements EnvServiceClientInterface {
 	async getHostVersion(_request: proto.cline.EmptyRequest): Promise<proto.host.GetHostVersionResponse> {
 		return proto.host.GetHostVersionResponse.create({
 			version: CLI_VERSION,
-			platform: "Cline CLI - Node.js",
+			platform: "Gaea-AI-Pro CLI - Node.js",
 			clineType: ClineClient.Cli,
 		})
 	}
@@ -208,7 +208,7 @@ export class CliWindowServiceClient implements WindowServiceClientInterface {
 	}
 
 	async openSettings(_request: proto.host.OpenSettingsRequest): Promise<proto.host.OpenSettingsResponse> {
-		printInfo("Settings can be configured in ~/.cline/data/globalState.json")
+		printInfo("Settings can be configured in ~/.gaea-ai-pro/data/globalState.json")
 		return proto.host.OpenSettingsResponse.create({})
 	}
 

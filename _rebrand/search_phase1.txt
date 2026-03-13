@@ -1,0 +1,300 @@
+src/generated/grpc-js/cline/account.ts:5:// source: cline/account.proto
+src/generated/grpc-js/cline/account.ts:42:  /** Cline app base URL */
+src/generated/grpc-js/cline/account.ts:1742:  fullName: "cline.AccountService",
+src/generated/grpc-js/cline/account.ts:1896:    path: "/cline.AccountService/accountLoginClicked",
+src/generated/grpc-js/cline/account.ts:1909:    path: "/cline.AccountService/accountLogoutClicked",
+src/generated/grpc-js/cline/account.ts:1919:    path: "/cline.AccountService/subscribeToAuthStatusUpdate",
+src/generated/grpc-js/cline/account.ts:1932:    path: "/cline.AccountService/authStateChanged",
+src/generated/grpc-js/cline/account.ts:1946:    path: "/cline.AccountService/getUserCredits",
+src/generated/grpc-js/cline/account.ts:1955:    path: "/cline.AccountService/getOrganizationCredits",
+src/generated/grpc-js/cline/account.ts:1970:    path: "/cline.AccountService/getUserOrganizations",
+src/generated/grpc-js/cline/account.ts:1980:    path: "/cline.AccountService/setUserOrganization",
+src/generated/grpc-js/cline/account.ts:1990:    path: "/cline.AccountService/openrouterAuthClicked",
+src/generated/grpc-js/cline/account.ts:1999:    path: "/cline.AccountService/requestyAuthClicked",
+src/generated/grpc-js/cline/account.ts:2008:    path: "/cline.AccountService/hicapAuthClicked",
+src/generated/grpc-js/cline/account.ts:2018:    path: "/cline.AccountService/getRedirectUrl",
+src/generated/grpc-js/cline/account.ts:2031:    path: "/cline.AccountService/openAiCodexSignIn",
+src/generated/grpc-js/cline/account.ts:2041:    path: "/cline.AccountService/openAiCodexSignOut",
+src/generated/grpc-js/cline/account.ts:2330:  "cline.AccountService",
+src/generated/grpc-js/cline/state.ts:5:// source: cline/state.proto
+src/generated/grpc-js/cline/state.ts:219:  clineAccountId?: string | undefined;
+src/generated/grpc-js/cline/state.ts:261:  clineApiKey?: string | undefined;
+src/generated/grpc-js/cline/state.ts:398:  globalClineRulesToggles?: string | undefined;
+src/generated/grpc-js/cline/state.ts:412:  clineWebToolsEnabled?: boolean | undefined;
+src/generated/grpc-js/cline/state.ts:440:  planModeClineModelId?: string | undefined;
+src/generated/grpc-js/cline/state.ts:441:  planModeClineModelInfo?: OpenRouterModelInfo | undefined;
+src/generated/grpc-js/cline/state.ts:442:  actModeClineModelId?: string | undefined;
+src/generated/grpc-js/cline/state.ts:443:  actModeClineModelInfo?: OpenRouterModelInfo | undefined;
+src/generated/grpc-js/cline/state.ts:552:  clineEnv?: string | undefined;
+src/generated/grpc-js/cline/state.ts:555:  clineWebToolsEnabled?: boolean | undefined;
+src/generated/grpc-js/cline/state.ts:570:  remindClineInterval: number;
+src/generated/grpc-js/cline/state.ts:930:    clineAccountId: undefined,
+src/generated/grpc-js/cline/state.ts:972:    clineApiKey: undefined,
+src/generated/grpc-js/cline/state.ts:982:    if (message.clineAccountId !== undefined) {
+src/generated/grpc-js/cline/state.ts:983:      writer.uint32(18).string(message.clineAccountId);
+src/generated/grpc-js/cline/state.ts:1108:    if (message.clineApiKey !== undefined) {
+src/generated/grpc-js/cline/state.ts:1109:      writer.uint32(354).string(message.clineApiKey);
+src/generated/grpc-js/cline/state.ts:1137:          message.clineAccountId = reader.string();
+src/generated/grpc-js/cline/state.ts:1473:          message.clineApiKey = reader.string();
+src/generated/grpc-js/cline/state.ts:1500:      clineAccountId: isSet(object.clineAccountId)
+src/generated/grpc-js/cline/state.ts:1501:        ? globalThis.String(object.clineAccountId)
+src/generated/grpc-js/cline/state.ts:1502:        : isSet(object.cline_account_id)
+src/generated/grpc-js/cline/state.ts:1503:        ? globalThis.String(object.cline_account_id)
+src/generated/grpc-js/cline/state.ts:1710:      clineApiKey: isSet(object.clineApiKey)
+src/generated/grpc-js/cline/state.ts:1711:        ? globalThis.String(object.clineApiKey)
+src/generated/grpc-js/cline/state.ts:1712:        : isSet(object.cline_api_key)
+src/generated/grpc-js/cline/state.ts:1713:        ? globalThis.String(object.cline_api_key)
+src/generated/grpc-js/cline/state.ts:1728:    if (message.clineAccountId !== undefined) {
+src/generated/grpc-js/cline/state.ts:1729:      obj.clineAccountId = message.clineAccountId;
+src/generated/grpc-js/cline/state.ts:1854:    if (message.clineApiKey !== undefined) {
+src/generated/grpc-js/cline/state.ts:1855:      obj.clineApiKey = message.clineApiKey;
+src/generated/grpc-js/cline/state.ts:1869:    message.clineAccountId = object.clineAccountId ?? undefined;
+src/generated/grpc-js/cline/state.ts:1911:    message.clineApiKey = object.clineApiKey ?? undefined;
+src/generated/grpc-js/cline/state.ts:2046:    globalClineRulesToggles: undefined,
+src/generated/grpc-js/cline/state.ts:2060:    clineWebToolsEnabled: undefined,
+src/generated/grpc-js/cline/state.ts:2088:    planModeClineModelId: undefined,
+src/generated/grpc-js/cline/state.ts:2089:    planModeClineModelInfo: undefined,
+src/generated/grpc-js/cline/state.ts:2090:    actModeClineModelId: undefined,
+src/generated/grpc-js/cline/state.ts:2091:    actModeClineModelInfo: undefined,
+src/generated/grpc-js/cline/state.ts:2478:    if (message.globalClineRulesToggles !== undefined) {
+src/generated/grpc-js/cline/state.ts:2479:      writer.uint32(1034).string(message.globalClineRulesToggles);
+src/generated/grpc-js/cline/state.ts:2520:    if (message.clineWebToolsEnabled !== undefined) {
+src/generated/grpc-js/cline/state.ts:2521:      writer.uint32(1152).bool(message.clineWebToolsEnabled);
+src/generated/grpc-js/cline/state.ts:2604:    if (message.planModeClineModelId !== undefined) {
+src/generated/grpc-js/cline/state.ts:2605:      writer.uint32(1426).string(message.planModeClineModelId);
+src/generated/grpc-js/cline/state.ts:2607:    if (message.planModeClineModelInfo !== undefined) {
+src/generated/grpc-js/cline/state.ts:2608:      OpenRouterModelInfo.encode(message.planModeClineModelInfo, writer.uint32(1434).fork()).join();
+src/generated/grpc-js/cline/state.ts:2610:    if (message.actModeClineModelId !== undefined) {
+src/generated/grpc-js/cline/state.ts:2611:      writer.uint32(1442).string(message.actModeClineModelId);
+src/generated/grpc-js/cline/state.ts:2613:    if (message.actModeClineModelInfo !== undefined) {
+src/generated/grpc-js/cline/state.ts:2614:      OpenRouterModelInfo.encode(message.actModeClineModelInfo, writer.uint32(1450).fork()).join();
+src/generated/grpc-js/cline/state.ts:3647:          message.globalClineRulesToggles = reader.string();
+src/generated/grpc-js/cline/state.ts:3759:          message.clineWebToolsEnabled = reader.bool();
+src/generated/grpc-js/cline/state.ts:3986:          message.planModeClineModelId = reader.string();
+src/generated/grpc-js/cline/state.ts:3994:          message.planModeClineModelInfo = OpenRouterModelInfo.decode(reader, reader.uint32());
+src/generated/grpc-js/cline/state.ts:4002:          message.actModeClineModelId = reader.string();
+src/generated/grpc-js/cline/state.ts:4010:          message.actModeClineModelInfo = OpenRouterModelInfo.decode(reader, reader.uint32());
+src/generated/grpc-js/cline/state.ts:4659:      globalClineRulesToggles: isSet(object.globalClineRulesToggles)
+src/generated/grpc-js/cline/state.ts:4660:        ? globalThis.String(object.globalClineRulesToggles)
+src/generated/grpc-js/cline/state.ts:4661:        : isSet(object.global_cline_rules_toggles)
+src/generated/grpc-js/cline/state.ts:4662:        ? globalThis.String(object.global_cline_rules_toggles)
+src/generated/grpc-js/cline/state.ts:4729:      clineWebToolsEnabled: isSet(object.clineWebToolsEnabled)
+src/generated/grpc-js/cline/state.ts:4730:        ? globalThis.Boolean(object.clineWebToolsEnabled)
+src/generated/grpc-js/cline/state.ts:4731:        : isSet(object.cline_web_tools_enabled)
+src/generated/grpc-js/cline/state.ts:4732:        ? globalThis.Boolean(object.cline_web_tools_enabled)
+src/generated/grpc-js/cline/state.ts:4877:      planModeClineModelId: isSet(object.planModeClineModelId)
+src/generated/grpc-js/cline/state.ts:4878:        ? globalThis.String(object.planModeClineModelId)
+src/generated/grpc-js/cline/state.ts:4879:        : isSet(object.plan_mode_cline_model_id)
+src/generated/grpc-js/cline/state.ts:4880:        ? globalThis.String(object.plan_mode_cline_model_id)
+src/generated/grpc-js/cline/state.ts:4882:      planModeClineModelInfo: isSet(object.planModeClineModelInfo)
+src/generated/grpc-js/cline/state.ts:4883:        ? OpenRouterModelInfo.fromJSON(object.planModeClineModelInfo)
+src/generated/grpc-js/cline/state.ts:4884:        : isSet(object.plan_mode_cline_model_info)
+src/generated/grpc-js/cline/state.ts:4885:        ? OpenRouterModelInfo.fromJSON(object.plan_mode_cline_model_info)
+src/generated/grpc-js/cline/state.ts:4887:      actModeClineModelId: isSet(object.actModeClineModelId)
+src/generated/grpc-js/cline/state.ts:4888:        ? globalThis.String(object.actModeClineModelId)
+src/generated/grpc-js/cline/state.ts:4889:        : isSet(object.act_mode_cline_model_id)
+src/generated/grpc-js/cline/state.ts:4890:        ? globalThis.String(object.act_mode_cline_model_id)
+src/generated/grpc-js/cline/state.ts:4892:      actModeClineModelInfo: isSet(object.actModeClineModelInfo)
+src/generated/grpc-js/cline/state.ts:4893:        ? OpenRouterModelInfo.fromJSON(object.actModeClineModelInfo)
+src/generated/grpc-js/cline/state.ts:4894:        : isSet(object.act_mode_cline_model_info)
+src/generated/grpc-js/cline/state.ts:4895:        ? OpenRouterModelInfo.fromJSON(object.act_mode_cline_model_info)
+src/generated/grpc-js/cline/state.ts:5283:    if (message.globalClineRulesToggles !== undefined) {
+src/generated/grpc-js/cline/state.ts:5284:      obj.globalClineRulesToggles = message.globalClineRulesToggles;
+src/generated/grpc-js/cline/state.ts:5325:    if (message.clineWebToolsEnabled !== undefined) {
+src/generated/grpc-js/cline/state.ts:5326:      obj.clineWebToolsEnabled = message.clineWebToolsEnabled;
+src/generated/grpc-js/cline/state.ts:5415:    if (message.planModeClineModelId !== undefined) {
+src/generated/grpc-js/cline/state.ts:5416:      obj.planModeClineModelId = message.planModeClineModelId;
+src/generated/grpc-js/cline/state.ts:5418:    if (message.planModeClineModelInfo !== undefined) {
+src/generated/grpc-js/cline/state.ts:5419:      obj.planModeClineModelInfo = OpenRouterModelInfo.toJSON(message.planModeClineModelInfo);
+src/generated/grpc-js/cline/state.ts:5421:    if (message.actModeClineModelId !== undefined) {
+src/generated/grpc-js/cline/state.ts:5422:      obj.actModeClineModelId = message.actModeClineModelId;
+src/generated/grpc-js/cline/state.ts:5424:    if (message.actModeClineModelInfo !== undefined) {
+src/generated/grpc-js/cline/state.ts:5425:      obj.actModeClineModelInfo = OpenRouterModelInfo.toJSON(message.actModeClineModelInfo);
+src/generated/grpc-js/cline/state.ts:5639:    message.globalClineRulesToggles = object.globalClineRulesToggles ?? undefined;
+src/generated/grpc-js/cline/state.ts:5655:    message.clineWebToolsEnabled = object.clineWebToolsEnabled ?? undefined;
+src/generated/grpc-js/cline/state.ts:5693:    message.planModeClineModelId = object.planModeClineModelId ?? undefined;
+src/generated/grpc-js/cline/state.ts:5694:    message.planModeClineModelInfo =
+src/generated/grpc-js/cline/state.ts:5695:      (object.planModeClineModelInfo !== undefined && object.planModeClineModelInfo !== null)
+src/generated/grpc-js/cline/state.ts:5696:        ? OpenRouterModelInfo.fromPartial(object.planModeClineModelInfo)
+src/generated/grpc-js/cline/state.ts:5698:    message.actModeClineModelId = object.actModeClineModelId ?? undefined;
+src/generated/grpc-js/cline/state.ts:5699:    message.actModeClineModelInfo =
+src/generated/grpc-js/cline/state.ts:5700:      (object.actModeClineModelInfo !== undefined && object.actModeClineModelInfo !== null)
+src/generated/grpc-js/cline/state.ts:5701:        ? OpenRouterModelInfo.fromPartial(object.actModeClineModelInfo)
+src/generated/grpc-js/cline/state.ts:6998:    clineEnv: undefined,
+src/generated/grpc-js/cline/state.ts:7001:    clineWebToolsEnabled: undefined,
+src/generated/grpc-js/cline/state.ts:7091:    if (message.clineEnv !== undefined) {
+src/generated/grpc-js/cline/state.ts:7092:      writer.uint32(250).string(message.clineEnv);
+src/generated/grpc-js/cline/state.ts:7100:    if (message.clineWebToolsEnabled !== undefined) {
+src/generated/grpc-js/cline/state.ts:7101:      writer.uint32(272).bool(message.clineWebToolsEnabled);
+src/generated/grpc-js/cline/state.ts:7344:          message.clineEnv = reader.string();
+src/generated/grpc-js/cline/state.ts:7368:          message.clineWebToolsEnabled = reader.bool();
+src/generated/grpc-js/cline/state.ts:7552:      clineEnv: isSet(object.clineEnv)
+src/generated/grpc-js/cline/state.ts:7553:        ? globalThis.String(object.clineEnv)
+src/generated/grpc-js/cline/state.ts:7554:        : isSet(object.cline_env)
+src/generated/grpc-js/cline/state.ts:7555:        ? globalThis.String(object.cline_env)
+src/generated/grpc-js/cline/state.ts:7567:      clineWebToolsEnabled: isSet(object.clineWebToolsEnabled)
+src/generated/grpc-js/cline/state.ts:7568:        ? globalThis.Boolean(object.clineWebToolsEnabled)
+src/generated/grpc-js/cline/state.ts:7569:        : isSet(object.cline_web_tools_enabled)
+src/generated/grpc-js/cline/state.ts:7570:        ? globalThis.Boolean(object.cline_web_tools_enabled)
+src/generated/grpc-js/cline/state.ts:7685:    if (message.clineEnv !== undefined) {
+src/generated/grpc-js/cline/state.ts:7686:      obj.clineEnv = message.clineEnv;
+src/generated/grpc-js/cline/state.ts:7694:    if (message.clineWebToolsEnabled !== undefined) {
+src/generated/grpc-js/cline/state.ts:7695:      obj.clineWebToolsEnabled = message.clineWebToolsEnabled;
+src/generated/grpc-js/cline/state.ts:7757:    message.clineEnv = object.clineEnv ?? undefined;
+src/generated/grpc-js/cline/state.ts:7762:    message.clineWebToolsEnabled = object.clineWebToolsEnabled ?? undefined;
+src/generated/grpc-js/cline/state.ts:7842:  return { enabled: false, remindClineInterval: 0 };
+src/generated/grpc-js/cline/state.ts:7850:    if (message.remindClineInterval !== 0) {
+src/generated/grpc-js/cline/state.ts:7851:      writer.uint32(16).int32(message.remindClineInterval);
+src/generated/grpc-js/cline/state.ts:7876:          message.remindClineInterval = reader.int32();
+src/generated/grpc-js/cline/state.ts:7891:      remindClineInterval: isSet(object.remindClineInterval)
+src/generated/grpc-js/cline/state.ts:7892:        ? globalThis.Number(object.remindClineInterval)
+src/generated/grpc-js/cline/state.ts:7893:        : isSet(object.remind_cline_interval)
+src/generated/grpc-js/cline/state.ts:7894:        ? globalThis.Number(object.remind_cline_interval)
+src/generated/grpc-js/cline/state.ts:7904:    if (message.remindClineInterval !== 0) {
+src/generated/grpc-js/cline/state.ts:7905:      obj.remindClineInterval = Math.round(message.remindClineInterval);
+src/generated/grpc-js/cline/state.ts:7916:    message.remindClineInterval = object.remindClineInterval ?? 0;
+src/generated/grpc-js/cline/state.ts:8600:  fullName: "cline.StateService",
+src/generated/grpc-js/cline/state.ts:8762:    installClineCli: {
+src/generated/grpc-js/cline/state.ts:8763:      name: "installClineCli",
+src/generated/grpc-js/cline/state.ts:8824:    path: "/cline.StateService/getLatestState",
+src/generated/grpc-js/cline/state.ts:8833:    path: "/cline.StateService/updateTerminalConnectionTimeout",
+src/generated/grpc-js/cline/state.ts:8846:    path: "/cline.StateService/updateTerminalReuseEnabled",
+src/generated/grpc-js/cline/state.ts:8855:    path: "/cline.StateService/getAvailableTerminalProfiles",
+src/generated/grpc-js/cline/state.ts:8864:    path: "/cline.StateService/subscribeToState",
+src/generated/grpc-js/cline/state.ts:8873:    path: "/cline.StateService/toggleFavoriteModel",
+src/generated/grpc-js/cline/state.ts:8882:    path: "/cline.StateService/resetState",
+src/generated/grpc-js/cline/state.ts:8891:    path: "/cline.StateService/togglePlanActModeProto",
+src/generated/grpc-js/cline/state.ts:8901:    path: "/cline.StateService/updateAutoApprovalSettings",
+src/generated/grpc-js/cline/state.ts:8911:    path: "/cline.StateService/updateSettings",
+src/generated/grpc-js/cline/state.ts:8921:    path: "/cline.StateService/updateSettingsCli",
+src/generated/grpc-js/cline/state.ts:8931:    path: "/cline.StateService/updateTaskSettings",
+src/generated/grpc-js/cline/state.ts:8941:    path: "/cline.StateService/updateTelemetrySetting",
+src/generated/grpc-js/cline/state.ts:8951:    path: "/cline.StateService/captureOnboardingProgress",
+src/generated/grpc-js/cline/state.ts:8961:    path: "/cline.StateService/setWelcomeViewCompleted",
+src/generated/grpc-js/cline/state.ts:8970:    path: "/cline.StateService/updateInfoBannerVersion",
+src/generated/grpc-js/cline/state.ts:8979:    path: "/cline.StateService/updateModelBannerVersion",
+src/generated/grpc-js/cline/state.ts:8988:    path: "/cline.StateService/updateCliBannerVersion",
+src/generated/grpc-js/cline/state.ts:8997:    path: "/cline.StateService/dismissBanner",
+src/generated/grpc-js/cline/state.ts:9006:    path: "/cline.StateService/trackBannerEvent",
+src/generated/grpc-js/cline/state.ts:9015:  installClineCli: {
+src/generated/grpc-js/cline/state.ts:9016:    path: "/cline.StateService/installClineCli",
+src/generated/grpc-js/cline/state.ts:9025:    path: "/cline.StateService/checkCliInstallation",
+src/generated/grpc-js/cline/state.ts:9034:    path: "/cline.StateService/getProcessInfo",
+src/generated/grpc-js/cline/state.ts:9043:    path: "/cline.StateService/flushPendingState",
+src/generated/grpc-js/cline/state.ts:9052:    path: "/cline.StateService/refreshRemoteConfig",
+src/generated/grpc-js/cline/state.ts:9061:    path: "/cline.StateService/testOtelConnection",
+src/generated/grpc-js/cline/state.ts:9071:    path: "/cline.StateService/testPromptUploading",
+src/generated/grpc-js/cline/state.ts:9106:  installClineCli: handleUnaryCall<EmptyRequest, Empty>;
+src/generated/grpc-js/cline/state.ts:9407:  installClineCli(
+src/generated/grpc-js/cline/state.ts:9411:  installClineCli(
+src/generated/grpc-js/cline/state.ts:9416:  installClineCli(
+src/generated/grpc-js/cline/state.ts:9516:  "cline.StateService",
+src/generated/grpc-js/cline/commands.ts:5:// source: cline/commands.proto
+src/generated/grpc-js/cline/commands.ts:168:  fullName: "cline.CommandsService",
+src/generated/grpc-js/cline/commands.ts:170:    addToCline: {
+src/generated/grpc-js/cline/commands.ts:171:      name: "addToCline",
+src/generated/grpc-js/cline/commands.ts:178:    fixWithCline: {
+src/generated/grpc-js/cline/commands.ts:179:      name: "fixWithCline",
+src/generated/grpc-js/cline/commands.ts:186:    explainWithCline: {
+src/generated/grpc-js/cline/commands.ts:187:      name: "explainWithCline",
+src/generated/grpc-js/cline/commands.ts:194:    improveWithCline: {
+src/generated/grpc-js/cline/commands.ts:195:      name: "improveWithCline",
+src/generated/grpc-js/cline/commands.ts:214:  addToCline: {
+src/generated/grpc-js/cline/commands.ts:215:    path: "/cline.CommandsService/addToCline",
+src/generated/grpc-js/cline/commands.ts:223:  fixWithCline: {
+src/generated/grpc-js/cline/commands.ts:224:    path: "/cline.CommandsService/fixWithCline",
+src/generated/grpc-js/cline/commands.ts:232:  explainWithCline: {
+src/generated/grpc-js/cline/commands.ts:233:    path: "/cline.CommandsService/explainWithCline",
+src/generated/grpc-js/cline/commands.ts:241:  improveWithCline: {
+src/generated/grpc-js/cline/commands.ts:242:    path: "/cline.CommandsService/improveWithCline",
+src/generated/grpc-js/cline/commands.ts:253:  addToCline: handleUnaryCall<CommandContext, Empty>;
+src/generated/grpc-js/cline/commands.ts:254:  fixWithCline: handleUnaryCall<CommandContext, Empty>;
+src/generated/grpc-js/cline/commands.ts:255:  explainWithCline: handleUnaryCall<CommandContext, Empty>;
+src/generated/grpc-js/cline/commands.ts:256:  improveWithCline: handleUnaryCall<CommandContext, Empty>;
+src/generated/grpc-js/cline/commands.ts:260:  addToCline(request: CommandContext, callback: (error: ServiceError | null, response: Empty) => void): ClientUnaryCall;
+src/generated/grpc-js/cline/commands.ts:261:  addToCline(
+src/generated/grpc-js/cline/commands.ts:266:  addToCline(
+src/generated/grpc-js/cline/commands.ts:272:  fixWithCline(
+src/generated/grpc-js/cline/commands.ts:276:  fixWithCline(
+src/generated/grpc-js/cline/commands.ts:281:  fixWithCline(
+src/generated/grpc-js/cline/commands.ts:287:  explainWithCline(
+src/generated/grpc-js/cline/commands.ts:291:  explainWithCline(
+src/generated/grpc-js/cline/commands.ts:296:  explainWithCline(
+src/generated/grpc-js/cline/commands.ts:302:  improveWithCline(
+src/generated/grpc-js/cline/commands.ts:306:  improveWithCline(
+src/generated/grpc-js/cline/commands.ts:311:  improveWithCline(
+src/generated/grpc-js/cline/commands.ts:321:  "cline.CommandsService",
+src/generated/grpc-js/cline/worktree.ts:5:// source: cline/worktree.proto
+src/generated/grpc-js/cline/worktree.ts:121:  /** Auto-generated branch name like "worktree/cline-abc12" */
+src/generated/grpc-js/cline/worktree.ts:123:  /** Path in Documents/Cline/Worktrees/<project>-<suffix> */
+src/generated/grpc-js/cline/worktree.ts:1775:  fullName: "cline.WorktreeService",
+src/generated/grpc-js/cline/worktree.ts:1884:    path: "/cline.WorktreeService/listWorktrees",
+src/generated/grpc-js/cline/worktree.ts:1894:    path: "/cline.WorktreeService/createWorktree",
+src/generated/grpc-js/cline/worktree.ts:1905:    path: "/cline.WorktreeService/deleteWorktree",
+src/generated/grpc-js/cline/worktree.ts:1916:    path: "/cline.WorktreeService/switchWorktree",
+src/generated/grpc-js/cline/worktree.ts:1927:    path: "/cline.WorktreeService/getAvailableBranches",
+src/generated/grpc-js/cline/worktree.ts:1937:    path: "/cline.WorktreeService/getWorktreeDefaults",
+src/generated/grpc-js/cline/worktree.ts:1947:    path: "/cline.WorktreeService/getWorktreeIncludeStatus",
+src/generated/grpc-js/cline/worktree.ts:1958:    path: "/cline.WorktreeService/createWorktreeInclude",
+src/generated/grpc-js/cline/worktree.ts:1969:    path: "/cline.WorktreeService/checkoutBranch",
+src/generated/grpc-js/cline/worktree.ts:1980:    path: "/cline.WorktreeService/mergeWorktree",
+src/generated/grpc-js/cline/worktree.ts:1990:    path: "/cline.WorktreeService/trackWorktreeViewOpened",
+src/generated/grpc-js/cline/worktree.ts:2207:  "cline.WorktreeService",
+src/generated/grpc-js/cline/mcp.ts:5:// source: cline/mcp.proto
+src/generated/grpc-js/cline/mcp.ts:2187:  fullName: "cline.McpService",
+src/generated/grpc-js/cline/mcp.ts:2301:    path: "/cline.McpService/toggleMcpServer",
+src/generated/grpc-js/cline/mcp.ts:2311:    path: "/cline.McpService/updateMcpTimeout",
+src/generated/grpc-js/cline/mcp.ts:2321:    path: "/cline.McpService/addRemoteMcpServer",
+src/generated/grpc-js/cline/mcp.ts:2331:    path: "/cline.McpService/downloadMcp",
+src/generated/grpc-js/cline/mcp.ts:2340:    path: "/cline.McpService/restartMcpServer",
+src/generated/grpc-js/cline/mcp.ts:2349:    path: "/cline.McpService/deleteMcpServer",
+src/generated/grpc-js/cline/mcp.ts:2358:    path: "/cline.McpService/toggleToolAutoApprove",
+src/generated/grpc-js/cline/mcp.ts:2368:    path: "/cline.McpService/refreshMcpMarketplace",
+src/generated/grpc-js/cline/mcp.ts:2378:    path: "/cline.McpService/openMcpSettings",
+src/generated/grpc-js/cline/mcp.ts:2387:    path: "/cline.McpService/authenticateMcpServer",
+src/generated/grpc-js/cline/mcp.ts:2397:    path: "/cline.McpService/subscribeToMcpMarketplaceCatalog",
+src/generated/grpc-js/cline/mcp.ts:2407:    path: "/cline.McpService/getLatestMcpServers",
+src/generated/grpc-js/cline/mcp.ts:2417:    path: "/cline.McpService/subscribeToMcpServers",
+src/generated/grpc-js/cline/mcp.ts:2630:export const McpServiceClient = makeGenericClientConstructor(McpServiceService, "cline.McpService") as unknown as {
+src/generated/grpc-js/cline/common.ts:5:// source: cline/common.proto
+src/generated/grpc-js/cline/file.ts:5:// source: cline/file.proto
+src/generated/grpc-js/cline/file.ts:107:  globalClineRulesToggles: ClineRulesToggles | undefined;
+src/generated/grpc-js/cline/file.ts:108:  localClineRulesToggles: ClineRulesToggles | undefined;
+src/generated/grpc-js/cline/file.ts:109:  localCursorRulesToggles: ClineRulesToggles | undefined;
+src/generated/grpc-js/cline/file.ts:110:  localWindsurfRulesToggles: ClineRulesToggles | undefined;
+src/generated/grpc-js/cline/file.ts:111:  localAgentsRulesToggles: ClineRulesToggles | undefined;
+src/generated/grpc-js/cline/file.ts:112:  localWorkflowToggles: ClineRulesToggles | undefined;
+src/generated/grpc-js/cline/file.ts:113:  globalWorkflowToggles: ClineRulesToggles | undefined;
+src/generated/grpc-js/cline/file.ts:237:/** Request to toggle a Cline rule */
+src/generated/grpc-js/cline/file.ts:238:export interface ToggleClineRuleRequest {
+src/generated/grpc-js/cline/file.ts:250:/** Maps from filepath to enabled/disabled status, matching app's ClineRulesToggles type */
+src/generated/grpc-js/cline/file.ts:251:export interface ClineRulesToggles {
+src/generated/grpc-js/cline/file.ts:255:export interface ClineRulesToggles_TogglesEntry {
+src/generated/grpc-js/cline/file.ts:260:/** Response for toggleClineRule operation */
+src/generated/grpc-js/cline/file.ts:261:export interface ToggleClineRules {
+src/generated/grpc-js/cline/file.ts:262:  globalClineRulesToggles: ClineRulesToggles | undefined;
+src/generated/grpc-js/cline/file.ts:263:  localClineRulesToggles: ClineRulesToggles | undefined;
+src/generated/grpc-js/cline/file.ts:264:  remoteRulesToggles: ClineRulesToggles | undefined;
+src/generated/grpc-js/cline/file.ts:433:    globalClineRulesToggles: undefined,
+src/generated/grpc-js/cline/file.ts:434:    localClineRulesToggles: undefined,
+src/generated/grpc-js/cline/file.ts:445:    if (message.globalClineRulesToggles !== undefined) {
+src/generated/grpc-js/cline/file.ts:446:      ClineRulesToggles.encode(message.globalClineRulesToggles, writer.uint32(10).fork()).join();
+src/generated/grpc-js/cline/file.ts:448:    if (message.localClineRulesToggles !== undefined) {
+src/generated/grpc-js/cline/file.ts:449:      ClineRulesToggles.encode(message.localClineRulesToggles, writer.uint32(18).fork()).join();
+src/generated/grpc-js/cline/file.ts:452:      ClineRulesToggles.encode(message.localCursorRulesToggles, writer.uint32(26).fork()).join();
+src/generated/grpc-js/cline/file.ts:455:      ClineRulesToggles.encode(message.localWindsurfRulesToggles, writer.uint32(34).fork()).join();
+src/generated/grpc-js/cline/file.ts:458:      ClineRulesToggles.encode(message.localAgentsRulesToggles, writer.uint32(42).fork()).join();
+src/generated/grpc-js/cline/file.ts:461:      ClineRulesToggles.encode(message.localWorkflowToggles, writer.uint32(50).fork()).join();
+src/generated/grpc-js/cline/file.ts:464:      ClineRulesToggles.encode(message.globalWorkflowToggles, writer.uint32(58).fork()).join();
+src/generated/grpc-js/cline/file.ts:481:          message.globalClineRulesToggles = ClineRulesToggles.decode(reader, reader.uint32());
+src/generated/grpc-js/cline/file.ts:489:          message.localClineRulesToggles = ClineRulesToggles.decode(reader, reader.uint32());
+src/generated/grpc-js/cline/file.ts:497:          message.localCursorRulesToggles = ClineRulesToggles.decode(reader, reader.uint32());
+src/generated/grpc-js/cline/file.ts:505:          message.localWindsurfRulesToggles = ClineRulesToggles.decode(reader, reader.uint32());
+src/generated/grpc-js/cline/file.ts:513:          message.localAgentsRulesToggles = ClineRulesToggles.decode(reader, reader.uint32());
+src/generated/grpc-js/cline/file.ts:521:          message.localWorkflowToggles = ClineRulesToggles.decode(reader, reader.uint32());
+src/generated/grpc-js/cline/file.ts:529:          message.globalWorkflowToggles = ClineRulesToggles.decode(reader, reader.uint32());
+src/generated/grpc-js/cline/file.ts:543:      globalClineRulesToggles: isSet(object.globalClineRulesToggles)
+src/generated/grpc-js/cline/file.ts:544:        ? ClineRulesToggles.fromJSON(object.globalClineRulesToggles)
+src/generated/grpc-js/cline/file.ts:545:        : isSet(object.global_cline_rules_toggles)
+src/generated/grpc-js/cline/file.ts:546:        ? ClineRulesToggles.fromJSON(object.global_cline_rules_toggles)
+src/generated/grpc-js/cline/file.ts:548:      localClineRulesToggles: isSet(object.localClineRulesToggles)

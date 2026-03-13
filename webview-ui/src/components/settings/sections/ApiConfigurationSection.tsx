@@ -35,7 +35,7 @@ const ApiConfigurationSection = ({ renderSectionHeader, initialModelTab }: ApiCo
 									opacity: 1,
 									cursor: "pointer",
 								}}>
-								Plan Mode
+								기획 모드 (Plan)
 							</TabButton>
 							<TabButton
 								disabled={currentTab === "act"}
@@ -45,7 +45,7 @@ const ApiConfigurationSection = ({ renderSectionHeader, initialModelTab }: ApiCo
 									opacity: 1,
 									cursor: "pointer",
 								}}>
-								Act Mode
+								실행 모드 (Act)
 							</TabButton>
 						</div>
 
@@ -78,11 +78,11 @@ const ApiConfigurationSection = ({ renderSectionHeader, initialModelTab }: ApiCo
 								console.error("Failed to update separate models setting:", error)
 							}
 						}}>
-						Use different models for Plan and Act modes
+						기획(Plan)과 실행(Act) 모드에 서로 다른 모델 사용
 					</VSCodeCheckbox>
 					<p className="text-xs mt-[5px] text-(--vscode-descriptionForeground)">
-						Switching between Plan and Act mode will persist the API and model used in the previous mode. This may be
-						helpful e.g. when using a strong reasoning model to architect a plan for a cheaper coding model to act on.
+						기획 모드와 실행 모드 간 전환 시 이전 모드에서 사용한 API 및 모델 설정이 유지됩니다. 이는 강력한 추론
+						모델로 계획을 설계하고, 저렴한 코딩 모델로 실제 작업을 수행할 때 유용합니다.
 					</p>
 				</div>
 			</Section>

@@ -69,7 +69,7 @@ export type ClineSessionEvents = {
 export interface ClineAgentOptions {
 	/** Whether debug logging is enabled */
 	debug?: boolean
-	/** Cline Config Directory (defaults to ~/.cline) */
+	/** Cline Config Directory (defaults to ~/.gaea-ai-pro) */
 	clineDir?: string
 	/** Additional runtime hooks directory */
 	hooksDir?: string

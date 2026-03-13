@@ -79,16 +79,16 @@ export const WhatsNewItems: React.FC<WhatsNewItemsProps> = ({
 				<>
 					{/* Hardcoded fallback items shown when remote welcome banners feature flag is off */}
 					<li className="mb-2">
-						<strong>Try Codex 5.3:</strong> OpenAI's latest coding model, now available in Cline!{" "}
-						<InlineModelLink label="Try now" modelId="openai/gpt-5.3-codex" pickerTab="recommended" />
+						<strong>Codex 5.3 체험하기:</strong> OpenAI의 최신 코딩 모델을 이제 Gaea-AI-Pro에서 사용할 수 있습니다!{" "}
+						<InlineModelLink label="지금 체험하기" modelId="openai/gpt-5.3-codex" pickerTab="recommended" />
 					</li>
 					<li className="mb-2">
-						<strong>Try latest SOTA coding model:</strong> Claude Sonnet 4.6 and Gemini 3.1 pro within Cline!{" "}
-						<InlineModelLink label="Try now" modelId="anthropic/claude-sonnet-4.6" pickerTab="recommended" />
+						<strong>최신 SOTA 코딩 모델:</strong> Claude Sonnet 4.6 및 Gemini 3.1 Pro를 Gaea-AI-Pro에서 만나보세요!{" "}
+						<InlineModelLink label="지금 체험하기" modelId="anthropic/claude-sonnet-4.6" pickerTab="recommended" />
 					</li>
 					<li className="mb-2">
-						<strong>Try Cline CLI 2.0:</strong> with /mcp functionality added in CLI{" "}
-						<code style={inlineCodeStyle}>npm install -g cline</code>
+						<strong>Gaea-AI-Pro CLI 2.0:</strong> CLI에 /mcp 기능이 추가되었습니다.{" "}
+						<code style={inlineCodeStyle}>npm install -g gaea-ai-pro</code>
 					</li>
 					<li className="mb-2">
 						<strong>Minimax M2.5 and Z.ai GLM 5:</strong> no longer free starting Feb 23, 2026
