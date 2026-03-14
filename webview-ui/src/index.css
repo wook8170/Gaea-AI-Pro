@@ -15,15 +15,16 @@
 @layer base {
 	* {
 		@apply border-border outline-ring/50;
-		font-size: 14px;
+		font-size: 12px;
+		line-height: 20px;
 	}
 	body {
 		@apply bg-background text-foreground;
 	}
 	p {
 		@apply my-0 py-0 text-inherit block line-clamp-3;
-		font-size: 14px;
-		line-height: 28px;
+		font-size: 12px;
+		line-height: 20px;
 		margin-block-start: 1em;
 		margin-block-end: 1em;
 		margin-inline-start: 0px;
@@ -31,8 +32,8 @@
 		unicode-bidi: isolate;
 	}
 	span {
-		font-size: 14px;
-		line-height: 28px;
+		font-size: 12px;
+		line-height: 20px;
 		color: inherit;
 	}
 	pre {
@@ -42,19 +43,19 @@
 		@apply bg-code;
 	}
 	h1 {
-		font-size: var(--text-lg);
+		font-size: 15px;
 		font-weight: var(--font-weight-semibold);
 	}
 	h2 {
-		font-size: var(--text-md);
+		font-size: 14px;
 		font-weight: var(--font-weight-semibold);
 	}
 	h3 {
-		font-size: var(--text-sm);
+		font-size: 13px;
 		font-weight: var(--font-weight-semibold);
 	}
 	h4 {
-		font-size: var(--text-base);
+		font-size: 12px;
 		font-weight: var(--font-weight-bold);
 	}
 	a {

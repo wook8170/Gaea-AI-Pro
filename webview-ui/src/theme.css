@@ -320,7 +320,7 @@
 		li,
 		ol,
 		ul {
-			@apply leading-tight;
+			line-height: 20px;
 		}
 		hr,
 		ul,
