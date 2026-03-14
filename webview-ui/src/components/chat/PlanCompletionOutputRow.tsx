@@ -11,8 +11,8 @@ interface PlanCompletionOutputProps {
 }
 
 /**
- * Styled completion output for Plan Mode responses
- * Uses grayscale colors to distinguish from Act Mode's green success theme
+ * Styled completion output for 계획 모드 responses
+ * Uses grayscale colors to distinguish from 실행 모드's green success theme
  */
 const PlanCompletionOutputRow = memo(({ text, headClassNames }: PlanCompletionOutputProps) => {
 	return (

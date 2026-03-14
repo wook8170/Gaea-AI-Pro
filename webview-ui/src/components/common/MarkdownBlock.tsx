@@ -65,10 +65,10 @@ const MemoizedMarkdownBlock = memo(
 							})
 							.join("")
 
-						// Case-insensitive check for "Act Mode (⌘⇧A)" pattern
-						// This ensures we only style the exact "Act Mode" mentions with keyboard shortcut
+						// Case-insensitive check for "실행 모드 (⌘⇧A)" pattern
+						// This ensures we only style the exact "실행 모드" mentions with keyboard shortcut
 						// Using case-insensitive flag to catch all capitalization variations
-						if (/^act mode\s*\(⌘⇧A\)$/i.test(childrenText)) {
+						if (/^실행 모드\s*\(⌘⇧A\)$/i.test(childrenText)) {
 							return <ActModeHighlight />
 						}
 
@@ -136,11 +136,11 @@ const ActModeHighlight: React.FC = () => {
 					)
 				}
 			}}
-			title={mode === "plan" ? "Click to toggle to Act Mode" : "Already in Act Mode"}>
+			title={mode === "plan" ? "클릭하여 실행 모드로 전환" : "이미 실행 모드입니다"}>
 			<div className="p-1 rounded-md bg-code flex items-center justify-end w-7 border border-input-border">
 				<div className="rounded-full bg-link w-2 h-2" />
 			</div>
-			Act Mode (⌘⇧A)
+			실행 모드 (⌘⇧A)
 		</span>
 	)
 }
@@ -196,15 +196,15 @@ const remarkUrlToLink = () => {
 }
 
 /**
- * Custom remark plugin that highlights "to Act Mode" mentions and adds keyboard shortcut hint
+ * Custom remark plugin that highlights "실행 모드로" mentions and adds keyboard shortcut hint
  */
 const remarkHighlightActMode = () => {
 	return (tree: Node) => {
 		visit(tree, "text", (node: any, index, parent) => {
-			// Case-insensitive regex to match "to Act Mode" in various capitalizations
+			// Case-insensitive regex to match "실행 모드로" in various capitalizations
 			// Using word boundaries to avoid matching within words
 			// Added negative lookahead to avoid matching if already followed by the shortcut
-			const actModeRegex = /\bto\s+Act\s+Mode\b(?!\s*\(⌘⇧A\))/i
+			const actModeRegex = /\b실행\s+모드로\b(?!\s*\(⌘⇧A\))/i
 
 			if (!node.value.match(actModeRegex)) {
 				return
@@ -226,24 +226,24 @@ const remarkHighlightActMode = () => {
 					children.push({ type: "text", value: part })
 				}
 
-				// Add the match, but only make "Act Mode" bold (not the "to" part)
+				// Add the match, but only make "실행 모드" bold (not the "로" part)
 				if (matches[i]) {
-					// Extract "to" and "Act Mode" parts
+					// Extract "실행 모드" and "로" parts
 					const matchText = matches[i]
-					const toIndex = matchText.toLowerCase().indexOf("to")
-					const actModeIndex = matchText.toLowerCase().indexOf("act mode", toIndex + 2)
+					const actModeIndex = matchText.indexOf("실행 모드")
+					const roIndex = matchText.indexOf("로", actModeIndex + 4)
 
-					if (toIndex !== -1 && actModeIndex !== -1) {
-						// Add "to" as regular text
-						const toPart = matchText.substring(toIndex, actModeIndex).trim()
-						children.push({ type: "text", value: toPart + " " })
-
-						// Add "Act Mode" as bold with keyboard shortcut
-						const actModePart = matchText.substring(actModeIndex)
+					if (actModeIndex !== -1 && roIndex !== -1) {
+						// Add "실행 모드" as bold with keyboard shortcut
+						const actModePart = matchText.substring(actModeIndex, roIndex).trim()
 						children.push({
 							type: "strong",
 							children: [{ type: "text", value: `${actModePart} (⌘⇧A)` }],
 						})
+
+						// Add "로" as regular text
+						const roPart = matchText.substring(roIndex)
+						children.push({ type: "text", value: roPart + " " })
 					} else {
 						// Fallback if we can't parse it correctly
 						children.push({ type: "text", value: matchText + " " })
