@@ -121,7 +121,7 @@ const AutoApproveModal: React.FC<AutoApproveModalProps> = ({ isVisible, setIsVis
 								enableNotifications: checked,
 							})
 						}}>
-						<span className="text-sm">알림 활성화</span>
+						<span className="text-xs">알림 활성화</span>
 					</VSCodeCheckbox>
 				</div>
 			</div>
