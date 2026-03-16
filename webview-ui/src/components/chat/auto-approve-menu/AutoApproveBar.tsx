@@ -3,7 +3,7 @@ import { useRef, useState } from "react"
 import { useExtensionState } from "@/context/ExtensionStateContext"
 import { getAsVar, VSC_TITLEBAR_INACTIVE_FOREGROUND } from "@/utils/vscStyles"
 import AutoApproveModal from "./AutoApproveModal"
-import { ACTION_METADATA } from "./constants"
+import { ACTION_METADATA, NOTIFICATIONS_SETTING } from "./constants"
 
 interface AutoApproveBarProps {
 	style?: React.CSSProperties
@@ -25,11 +25,16 @@ const AutoApproveBar = ({ style }: AutoApproveBarProps) => {
 		const baseClasses = isModalVisible
 			? "text-foreground truncate"
 			: "text-muted-foreground group-hover:text-foreground truncate"
-		const enabledActionsNames = Object.keys(autoApprovalSettings.actions).filter(
-			(key) => autoApprovalSettings.actions[key as keyof typeof autoApprovalSettings.actions],
-		)
+		const enabledActionsNames = [
+			...Object.keys(autoApprovalSettings.actions).filter(
+				(key) => autoApprovalSettings.actions[key as keyof typeof autoApprovalSettings.actions],
+			),
+			...(autoApprovalSettings.enableNotifications ? ["enableNotifications"] : []),
+		]
 		const enabledActions = enabledActionsNames.map((action) => {
-			return ACTION_METADATA.flatMap((a) => [a, a.subAction]).find((a) => a?.id === action)
+			return [...ACTION_METADATA, NOTIFICATIONS_SETTING]
+				.flatMap((a) => (a && "subAction" in a ? [a, a.subAction] : [a]))
+				.find((a) => a?.id === action)
 		})
 
 		// Filter out parent actions if their subaction is also enabled (show only subaction)

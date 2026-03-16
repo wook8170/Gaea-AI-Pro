@@ -72,4 +72,27 @@
 	[role="checkbox"] {
 		margin: calc(var(--design-unit) * 1px) 0;
 	}
+
+	/* VSCode Checkbox Size Adjustment */
+	vscode-checkbox {
+		--checkbox-size: 14px;
+	}
+
+	vscode-checkbox::part(control) {
+		width: var(--checkbox-size);
+		height: var(--checkbox-size);
+		min-width: var(--checkbox-size);
+		min-height: var(--checkbox-size);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-width: 1.5px; /* 테두리를 조금 더 선명하게 */
+	}
+
+	vscode-checkbox::part(checked-indicator) {
+		width: 9px;
+		height: 9px;
+		/* 체크 표시 색상을 더 진하게 (기존보다 대비가 높은 색상 적용) */
+		background-color: var(--vscode-checkbox-foreground);
+	}
 }

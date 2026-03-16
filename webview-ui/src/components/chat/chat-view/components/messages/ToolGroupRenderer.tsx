@@ -346,20 +346,26 @@ function getToolGroupSummary(messages: ClineMessage[]): string {
 	}
 
 	const parts: string[] = []
-	const action = counts.read > 0 || counts.list > 0 ? " read " : " "
-
 	if (counts.read > 0) {
-		parts.push(`${counts.read} file${counts.read > 1 ? "s" : ""}`)
+		parts.push(`${counts.read}개의 파일`)
 	}
 	if (counts.list > 0) {
-		parts.push(`${counts.list} folder${counts.list > 1 ? "s" : ""}`)
+		parts.push(`${counts.list}개의 폴더`)
 	}
 	if (counts.def > 0) {
-		parts.push(`${counts.def} definition${counts.def > 1 ? "s" : ""}`)
-	}
-	if (counts.search > 0) {
-		parts.push(`performed ${counts.search} search${counts.search > 1 ? "es" : ""}`)
+		parts.push(`${counts.def}개의 정의`)
 	}
 
-	return parts.length === 0 ? "Context" : "Cline" + action + parts.join(", ")
+	const readParts = parts.join(", ")
+	let summary = "Gaea AI Pro가 "
+
+	if (readParts && counts.search > 0) {
+		summary += `${readParts}를 읽고, ${counts.search}번의 검색을 수행했습니다`
+	} else if (readParts) {
+		summary += `${readParts}를 읽었습니다`
+	} else if (counts.search > 0) {
+		summary += `${counts.search}번의 검색을 수행했습니다`
+	}
+
+	return parts.length === 0 && counts.search === 0 ? "컨텍스트" : summary + ":"
 }
