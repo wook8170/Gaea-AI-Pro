@@ -89,7 +89,15 @@ const CompletionOutputActionRow = memo(
 		messageTs: number
 	}) => {
 		return (
-			<div style={{ paddingTop: 10, display: "flex", flexDirection: "column", gap: 8 }}>
+			<div
+				style={{
+					paddingTop: 10,
+					display: "flex",
+					flexDirection: "row",
+					justifyContent: "flex-end",
+					gap: 8,
+					flexWrap: "wrap",
+				}}>
 				<SuccessButton
 					disabled={seeNewChangesDisabled}
 					onClick={() => {
@@ -100,12 +108,9 @@ const CompletionOutputActionRow = memo(
 							}),
 						).catch((err) => console.error("Failed to show task completion view changes:", err))
 					}}
-					style={{
-						cursor: seeNewChangesDisabled ? "wait" : "pointer",
-						width: "100%",
-					}}>
-					<i className="codicon codicon-new-file" style={{ marginRight: 6 }} />
-					변경 사항 보기
+					style={seeNewChangesDisabled ? { cursor: "wait" } : {}}>
+					<i className="codicon codicon-new-file" style={{ fontSize: "12px", marginRight: "4px" }} />
+					<span>변경 사항 보기</span>
 				</SuccessButton>
 
 				{PLATFORM_CONFIG.type === PlatformType.VSCODE && (
@@ -121,12 +126,9 @@ const CompletionOutputActionRow = memo(
 								setExplainChangesDisabled(false)
 							})
 						}}
-						style={{
-							cursor: explainChangesDisabled ? "wait" : "pointer",
-							width: "100%",
-						}}>
-						<i className="codicon codicon-comment-discussion" style={{ marginRight: 6 }} />
-						{explainChangesDisabled ? "설명 중..." : "변경 사항 설명"}
+						style={explainChangesDisabled ? { cursor: "wait" } : {}}>
+						<i className="codicon codicon-comment-discussion" style={{ fontSize: "12px", marginRight: "4px" }} />
+						<span>{explainChangesDisabled ? "설명 중..." : "변경 사항 설명"}</span>
 					</SuccessButton>
 				)}
 			</div>

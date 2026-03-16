@@ -176,6 +176,7 @@ export const CheckmarkControl = ({ messageTs, isCheckpointCheckedOut }: Checkmar
 				className={cn("text-xs text-description shrink-0 size-2", {
 					"text-link": isCheckpointCheckedOut,
 				})}
+				fill={isCheckpointCheckedOut ? "currentColor" : "none"}
 			/>
 			<DottedLine $isCheckedOut={isCheckpointCheckedOut} className="hover-show-inverse" />
 			<div className="hover-content">
@@ -205,6 +206,7 @@ export const CheckmarkControl = ({ messageTs, isCheckpointCheckedOut }: Checkmar
 							}
 						}}
 						style={{ cursor: compareDisabled ? "wait" : "pointer" }}>
+						<i className="codicon codicon-diff-multiple" style={{ fontSize: "10px", marginRight: "4px" }} />
 						비교
 					</CustomButton>
 					<DottedLine $isCheckedOut={isCheckpointCheckedOut} small />
@@ -213,6 +215,7 @@ export const CheckmarkControl = ({ messageTs, isCheckpointCheckedOut }: Checkmar
 							$isCheckedOut={isCheckpointCheckedOut}
 							isActive={showRestoreConfirm}
 							onClick={() => setShowRestoreConfirm(true)}>
+							<i className="codicon codicon-discard" style={{ fontSize: "10px", marginRight: "4px" }} />
 							복원
 						</CustomButton>
 						{showRestoreConfirm &&
@@ -298,15 +301,13 @@ export const CheckmarkControl = ({ messageTs, isCheckpointCheckedOut }: Checkmar
 const Container = styled.div<{ isMenuOpen?: boolean; $isCheckedOut?: boolean }>`
 	display: flex;
 	align-items: center;
-	padding: 8px 0px 0px 0px;
+	padding: 0;
+	margin: 6px 0;
 	gap: 4px;
 	position: relative;
 	min-width: 0;
-	min-height: 17px;
-	margin-top: -2px;
-	margin-bottom: 1px;
+	height: 24px;
 	opacity: ${(props) => (props.$isCheckedOut ? 1 : props.isMenuOpen ? 1 : 0.5)};
-	height: 0.5rem;
 
 	&:first-of-type {
 		padding-top: 0px;
@@ -353,7 +354,7 @@ const DottedLine = styled.div<{ small?: boolean; $isCheckedOut?: boolean }>`
 const ButtonGroup = styled.div`
 	display: flex;
 	align-items: center;
-	gap: 4px;
+	gap: 2px;
 	shrink: 0;
 `
 
@@ -371,8 +372,13 @@ const CustomButton = styled.button<{ disabled?: boolean; isActive?: boolean; $is
 			: props.$isCheckedOut
 				? "var(--vscode-textLink-foreground)"
 				: "var(--vscode-descriptionForeground)"};
-	padding: 2px 6px;
+	padding: 4px;
 	font-size: 9px;
+	line-height: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 4px;
 	cursor: pointer;
 	position: relative;
 

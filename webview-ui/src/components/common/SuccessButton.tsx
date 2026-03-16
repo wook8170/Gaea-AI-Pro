@@ -1,25 +1,43 @@
-import { VSCodeButton } from "@vscode/webview-ui-toolkit/react"
+import { memo } from "react"
+import styled from "styled-components"
 
-interface SuccessButtonTWProps extends React.ComponentProps<typeof VSCodeButton> {}
+interface SuccessButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
-const SuccessButtonTW: React.FC<SuccessButtonTWProps> = (props) => {
-	return (
-		<VSCodeButton
-			{...props}
-			className={`
-				bg-[#176f2c]! 
-				border-[#176f2c]! 
-				text-white!
-				hover:bg-[#197f31]! 
-				hover:border-[#197f31]!
-				active:bg-[#156528]! 
-				active:border-[#156528]!
-				${props.className || ""}
-			`
-				.replace(/\s+/g, " ")
-				.trim()}
-		/>
-	)
-}
+const StyledButton = styled.button`
+	background-color: #176f2c;
+	border: 1px solid #176f2c;
+	color: white;
+	border-radius: 2px;
+	padding: 0 8px;
+	height: 24px;
+	font-size: 11px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: background-color 0.2s, border-color 0.2s;
+	outline: none;
 
-export default SuccessButtonTW
+	&:hover:not(:disabled) {
+		background-color: #197f31;
+		border-color: #197f31;
+	}
+
+	&:active:not(:disabled) {
+		background-color: #156528;
+		border-color: #156528;
+	}
+
+	&:disabled {
+		opacity: 0.5;
+		cursor: wait;
+	}
+`
+
+const SuccessButton: React.FC<SuccessButtonProps> = memo(({ children, ...props }) => {
+	return <StyledButton {...props}>{children}</StyledButton>
+})
+
+SuccessButton.displayName = "SuccessButton"
+
+export default SuccessButton

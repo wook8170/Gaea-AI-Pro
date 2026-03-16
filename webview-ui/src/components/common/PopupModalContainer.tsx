@@ -21,7 +21,7 @@ const PopupModalContainer = styled.div<PopupModalContainerProps>`
 	flex-direction: column;
 	max-height: ${(props) => props.$maxHeight ?? "calc(100vh - 100px)"};
 	background: ${CODE_BLOCK_BG_COLOR};
-	border: 1px solid var(--vscode-editorGroup-border);
+	border: 1px solid var(--vscode-focusBorder);
 	border-bottom: none;
 	border-radius: 6px 6px 0 0;
 	z-index: 49;
@@ -34,7 +34,7 @@ const PopupModalContainer = styled.div<PopupModalContainerProps>`
 		left: 0;
 		right: 0;
 		height: 1px;
-		background: var(--vscode-editorGroup-border);
+		background: var(--vscode-focusBorder);
 		z-index: -1;
 	}
 
@@ -46,8 +46,8 @@ const PopupModalContainer = styled.div<PopupModalContainerProps>`
 		height: 10px;
 		width: 10px;
 		transform: rotate(45deg);
-		border-right: 1px solid var(--vscode-editorGroup-border);
-		border-bottom: 1px solid var(--vscode-editorGroup-border);
+		border-right: 1px solid var(--vscode-focusBorder);
+		border-bottom: 1px solid var(--vscode-focusBorder);
 		background: ${CODE_BLOCK_BG_COLOR};
 		z-index: -1;
 	}

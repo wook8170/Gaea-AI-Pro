@@ -144,15 +144,18 @@ Another explanation here.
 @@@
 
 Rules:
-1. Start each comment with @@@ FILE: followed by the absolute file path
-2. Next line must be @@@ LINE: followed by a single line number (0-indexed from the "After" content)
+1. Start each comment with @@@ FILE: followed by the absolute file path. This MUST be on a new line.
+2. Next line must be @@@ LINE: followed by a single line number (0-indexed from the "After" content).
    - For ADDITIONS or MODIFICATIONS: Use the LAST LINE of the changed code block
-   - For DELETIONS: Use the FIRST LINE where the deletion occurred (the line number in "After" where content was removed)
-   - The diff view collapses unchanged lines, so comments must be on a line that's part of the diff to be visible
-3. Then write your comment text (can span multiple lines). Use markdown formatting where appropriate.
-4. End with @@@ on its own line
-5. Each file MUST have at least one comment, MAX ${maxCommentsPerFile} comment${maxCommentsPerFile > 1 ? "s" : ""} per file - focus on the most significant changes
-6. Explain important/non-obvious changes, not every little thing. Skip trivial changes - ignore whitespace, formatting, simple renames, obvious fixes.
+   - For DELETIONS: Use the FIRST LINE where the deletion occurred
+   - The comment must be on a line that's part of the diff to be visible.
+3. Then write your explanation text. Use markdown formatting.
+4. End each comment with @@@ on its own line.
+5. Each file MUST have at least one comment, MAX ${maxCommentsPerFile} comment${maxCommentsPerFile > 1 ? "s" : ""} per file.
+6. Explain non-obvious changes. Skip trivial changes (whitespace, renames).
+
+CRITICAL: Do NOT translate markers (@@@ FILE:, @@@ LINE:, @@@). Use English for these markers. Only translate your explanation text.
+CRITICAL: Ensure each marker is on its own separate line.
 `
 
 	const userMessage = `Explain these code changes:
@@ -174,6 +177,8 @@ Output your explanation comments now using the @@@ format:`
 	let currentStartLine: number | null = null
 	let currentEndLine: number | null = null
 	let inComment = false
+	let isDuplicate = false
+	const seenComments = new Set<string>()
 
 	try {
 		for await (const chunk of apiHandler.createMessage(systemPrompt, [{ role: "user", content: userMessage }])) {
@@ -188,6 +193,11 @@ Output your explanation comments now using the @@@ format:`
 
 			if (chunk.type === "text") {
 				buffer += chunk.text
+
+				// Regex for markers (Case-insensitive, handles variable @ counts and spaces)
+				const fileMarkerRegex = /^@+\s*FILE:\s*(.+)$/i
+				const lineMarkerRegex = /^@+\s*LINE:\s*(\d+)$/i
+				const endMarkerRegex = /^@+\s*$/
 
 				// Process buffer line by line, keeping incomplete lines
 				while (true) {
@@ -210,21 +220,39 @@ Output your explanation comments now using the @@@ format:`
 					const trimmedLine = line.trim()
 
 					// Check for FILE header
-					if (trimmedLine.startsWith("@@@ FILE:")) {
-						const filePath = trimmedLine.substring("@@@ FILE:".length).trim()
+					const fileMatch = trimmedLine.match(fileMarkerRegex)
+					if (fileMatch) {
+						if (inComment) {
+							onCommentEnd()
+							inComment = false
+						}
+						isDuplicate = false // Reset duplicate flag for new file
+						const filePath = fileMatch[1].trim()
 						const matchingFile = changedFiles.find((f) => f.absolutePath === filePath || f.relativePath === filePath)
 						currentFile = matchingFile?.absolutePath || filePath
 						continue
 					}
 
-					// Check for LINE header (single line number)
-					if (trimmedLine.startsWith("@@@ LINE:")) {
-						const lineStr = trimmedLine.substring("@@@ LINE:".length).trim()
-						const lineNum = parseInt(lineStr, 10)
+					// Check for LINE header
+					const lineMatch = trimmedLine.match(lineMarkerRegex)
+					if (lineMatch) {
+						const lineNum = Number.parseInt(lineMatch[1], 10)
 						if (!Number.isNaN(lineNum) && currentFile) {
+							// Deduplication: check if we've already commented on this exact spot in this session
+							const locationKey = `${currentFile}:${lineNum}`
+							if (seenComments.has(locationKey)) {
+								isDuplicate = true
+								continue
+							}
+							isDuplicate = false
+							seenComments.add(locationKey)
+
+							// If we're already in a comment (missing end marker), close it first
+							if (inComment) {
+								onCommentEnd()
+							}
 							currentStartLine = lineNum
 							currentEndLine = lineNum
-							// Now we have location - create the comment UI immediately!
 							onCommentStart(currentFile, currentStartLine, currentEndLine)
 							inComment = true
 							commentCount++
@@ -233,7 +261,7 @@ Output your explanation comments now using the @@@ format:`
 					}
 
 					// Check for end marker
-					if (trimmedLine === "@@@") {
+					if (endMarkerRegex.test(trimmedLine)) {
 						if (inComment) {
 							onCommentEnd()
 							inComment = false
@@ -241,18 +269,19 @@ Output your explanation comments now using the @@@ format:`
 							currentStartLine = null
 							currentEndLine = null
 						}
+						isDuplicate = false // Reset duplicate flag on end marker
 						continue
 					}
 
-					// If we're in a comment, stream the text
-					if (inComment) {
+					// If we're in a comment and it's NOT a duplicate, stream the text
+					if (inComment && !isDuplicate) {
 						onCommentChunk(line + "\n")
 					}
 				}
 
 				// Stream partial content in buffer for more responsive UI
-				// But don't stream if it might be a marker (starts with @)
-				if (inComment && buffer.length > 0 && !buffer.startsWith("@")) {
+				// But don't stream if it might be a marker (starts with @) or if it's a duplicate
+				if (inComment && !isDuplicate && buffer.length > 0 && !buffer.startsWith("@")) {
 					onCommentChunk(buffer)
 					buffer = "" // Clear buffer after streaming
 				}
@@ -267,7 +296,7 @@ Output your explanation comments now using the @@@ format:`
 					onCommentEnd()
 					inComment = false
 				}
-			} else if (inComment && !trimmedBuffer.startsWith("@@@")) {
+			} else if (inComment && !isDuplicate && !trimmedBuffer.startsWith("@@@")) {
 				onCommentChunk(buffer)
 				onCommentEnd()
 				inComment = false

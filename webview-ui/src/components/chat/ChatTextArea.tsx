@@ -42,6 +42,7 @@ import {
 	validateSlashCommand,
 } from "@/utils/slash-commands"
 import ClineRulesToggleModal from "../cline-rules/ClineRulesToggleModal"
+import AutoApproveToggleModal from "./auto-approve-menu/AutoApproveToggleModal"
 import ServersToggleModal from "./ServersToggleModal"
 
 const { MAX_IMAGES_AND_FILES_PER_MESSAGE } = CHAT_CONSTANTS
@@ -99,14 +100,16 @@ const SwitchContainer = styled.div<{ disabled: boolean }>`
 	align-items: center;
 	background-color: transparent;
 	border: 1px solid var(--vscode-input-border);
-	border-radius: 12px;
+	border-radius: 4px;
 	overflow: hidden;
 	cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
 	opacity: ${(props) => (props.disabled ? 0.5 : 1)};
-	transform: scale(1);
+	transform: scale(1.1);
 	transform-origin: right center;
 	margin-left: 0;
 	user-select: none; // Prevent text selection
+	height: 24px;
+	min-width: 80px;
 `
 
 const Slider = styled.div.withConfig({
@@ -1573,6 +1576,8 @@ const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 
 							<ServersToggleModal />
 
+							<AutoApproveToggleModal />
+
 							<ClineRulesToggleModal />
 
 							<ModelContainer>
@@ -1595,7 +1600,7 @@ const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 							className="text-xs px-2 flex flex-col gap-1"
 							hidden={shownTooltipMode === null}
 							side="top">
-							{`Gaea-AI-Pro는 ${shownTooltipMode === "act" ? "실행(Act)" : "계획(Plan)"} 모드에서 ${shownTooltipMode === "act" ? "작업을 즉시 완료합니다" : "계획을 설계하기 위한 정보를 수집합니다"}`}
+							{`Gaea-AI-Pro는 ${shownTooltipMode === "act" ? "Act(실행)" : "Plan(계획)"} 모드에서 ${shownTooltipMode === "act" ? "작업을 즉시 완료합니다" : "계획을 설계하기 위한 정보를 수집합니다"}`}
 							<p className="text-description/80 text-xs mb-0">
 								단축키로 전환: <kbd className="text-muted-foreground mx-1">{togglePlanActKeys}</kbd>
 							</p>
@@ -1603,15 +1608,15 @@ const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 						<TooltipTrigger>
 							<SwitchContainer data-testid="mode-switch" disabled={false} onClick={onModeToggle}>
 								<Slider isAct={mode === "act"} isPlan={mode === "plan"} />
-								{["계획", "실행"].map((m) => (
+								{["Plan", "Act"].map((m) => (
 									<div
-										aria-checked={mode === (m === "계획" ? "plan" : "act")}
+										aria-checked={mode === (m === "Plan" ? "plan" : "act")}
 										className={cn(
-											"pt-0.5 pb-px px-2 z-10 text-xs w-1/2 text-center bg-transparent",
-											mode === (m === "계획" ? "plan" : "act") ? "text-white" : "text-input-foreground",
+											"pt-0.5 pb-px px-2 z-10 text-[11.5px] w-1/2 text-center bg-transparent font-medium",
+											mode === (m === "Plan" ? "plan" : "act") ? "text-white" : "text-input-foreground",
 										)}
 										onMouseLeave={() => setShownTooltipMode(null)}
-										onMouseOver={() => setShownTooltipMode(m === "계획" ? "plan" : "act")}
+										onMouseOver={() => setShownTooltipMode(m === "Plan" ? "plan" : "act")}
 										role="switch">
 										{m}
 									</div>
