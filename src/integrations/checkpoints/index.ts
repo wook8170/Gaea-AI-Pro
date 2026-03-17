@@ -149,7 +149,7 @@ export class TaskCheckpointManager implements ICheckpointManager {
 			// Critical failure to initialize checkpoint tracker, return early
 			if (!this.state.checkpointTracker) {
 				Logger.error(
-					`[TaskCheckpointManager] Failed to save checkpoint for task ${this.task.taskId}: Checkpoint tracker not available`,
+					`[TaskCheckpointManager] ${this.task.taskId} 작업의 체크포인트 저장 실패: 체크포인트 추적기를 사용할 수 없습니다`,
 				)
 				return
 			}
@@ -192,7 +192,7 @@ export class TaskCheckpointManager implements ICheckpointManager {
 				const lastFiveclineMessages = this.services.messageStateHandler.getClineMessages().slice(-3)
 				const lastCompletionResultMessage = findLast(lastFiveclineMessages, (m) => m.say === "completion_result")
 				if (lastCompletionResultMessage?.lastCheckpointHash) {
-					Logger.log("Completion checkpoint already exists, skipping duplicate checkpoint creation")
+					Logger.log("완료 체크포인트가 이미 존재하여 중복 생성을 건너뜁니다.")
 					return
 				}
 
@@ -453,7 +453,7 @@ export class TaskCheckpointManager implements ICheckpointManager {
 				Logger.error(`[TaskCheckpointManager] Checkpoint tracker not available for task ${this.task.taskId}`)
 				HostProvider.window.showMessage({
 					type: ShowMessageType.ERROR,
-					message: "Checkpoint tracker not available",
+					message: "체크포인트 추적기를 사용할 수 없습니다.",
 				})
 				relinquishButton()
 				return
@@ -790,7 +790,7 @@ export class TaskCheckpointManager implements ICheckpointManager {
 				if (!checkpointsWarningShown) {
 					checkpointsWarningShown = true
 					await this.setcheckpointManagerErrorMessage(
-						"Checkpoints are taking longer than expected to initialize. Working in a large repository? Consider re-opening Cline in a project that uses git, or disabling checkpoints.",
+						"체크포인트 초기화 시간이 평소보다 오래 소요되고 있습니다. 대규모 프로젝트인 경우 Git을 사용하는 프로젝트에서 Gaea AI Pro를 다시 열거나 체크포인트를 비활성화하는 것을 고려해 보세요.",
 					)
 				}
 			}, 7_000)
@@ -802,7 +802,7 @@ export class TaskCheckpointManager implements ICheckpointManager {
 				{
 					milliseconds: 15_000,
 					message:
-						"Checkpoints taking too long to initialize. Consider re-opening Cline in a project that uses git, or disabling checkpoints.",
+						"체크포인트 초기화 시간이 초과되었습니다. Git을 사용하는 프로젝트에서 Gaea AI Pro를 다시 열거나 체크포인트를 비활성화해 주세요.",
 				},
 			)
 
@@ -811,7 +811,7 @@ export class TaskCheckpointManager implements ICheckpointManager {
 			return tracker
 		} catch (error) {
 			const errorMessage = error instanceof Error ? error.message : "Unknown error"
-			Logger.error("Failed to initialize checkpoint tracker:", errorMessage)
+			Logger.error("체크포인트 추적기 초기화 실패:", errorMessage)
 
 			// If the error was a timeout, we disable all checkpoint operations for the rest of the task
 			if (errorMessage.includes("체크포인트 초기화에 너무 많은 시간이 소요됩니다")) {

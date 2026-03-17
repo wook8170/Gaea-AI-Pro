@@ -4,9 +4,9 @@
 <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
  width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000"
  preserveAspectRatio="xMidYMid meet">
-
+<rect x="0" y="0" width="512" height="512" rx="100" fill="#2D2D2D" />
 <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
- fill="currentColor" stroke="white" stroke-width="15" paint-order="stroke fill">
+ fill="white" stroke="none">
 <path d="M2480 4595 c-181 -57 -233 -300 -92 -427 l42 -38 0 -190 0 -190 -275
 0 -275 0 -2 173 -3 172 -167 3 -168 2 -2 -172 -3 -173 -145 -6 c-114 -4 -156
 -10 -197 -26 -154 -61 -262 -172 -314 -323 -22 -61 -23 -84 -27 -366 l-4 -302
