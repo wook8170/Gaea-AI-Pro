@@ -3,7 +3,7 @@
 	"displayName": "Gaea-AI-Pro",
 	"description": "IDE 내에서 자율적으로 코드를 작성하는 AI 에이전트. 사용자의 승인 하에 파일 생성/수정, 명령어 실행, 브라우저 사용 등 다양한 작업을 수행할 수 있습니다.",
 	"version": "0.1.0",
-	"icon": "assets/icons/icon.png",
+	"icon": "assets/icons/gaea-ai-pro.png",
 	"workspaces": [
 		".",
 		"cli"
@@ -55,16 +55,16 @@
 			"cline-icon": {
 				"description": "Gaea-AI-Pro",
 				"default": {
-					"fontPath": "assets/icons/cline-bot.woff",
+					"fontPath": "assets/icons/gaea-ai-pro.png",
 					"fontCharacter": "\\e900"
 				}
 			}
 		},
 		"walkthroughs": [
 			{
-				"id": "ClineWalkthrough",
-				"title": "Gaea-AI-Pro를 만나보세요. 당신의 새로운 코딩 파트너입니다.",
-				"description": "Gaea-AI-Pro는 개발자처럼 생각하고 코딩합니다. 여기 5가지 활용 방법이 있습니다:",
+				"id": "GaeaWalkthrough",
+				"title": "Gaea AI Pro를 만나보세요. 당신의 새로운 코딩 파트너입니다.",
+				"description": "Gaea AI Pro는 개발자처럼 생각하고 코딩합니다. 여기 5가지 활용 방법이 있습니다:",
 				"steps": [
 					{
 						"id": "welcome",
@@ -117,7 +117,7 @@
 				{
 					"id": "claude-dev-ActivityBar",
 					"title": "Gaea-AI-Pro",
-					"icon": "assets/icons/icon.svg"
+					"icon": "assets/icons/gaea-ai-pro.svg"
 				}
 			]
 		},
@@ -127,7 +127,7 @@
 					"type": "webview",
 					"id": "claude-dev.SidebarProvider",
 					"name": "",
-					"icon": "assets/icons/icon.svg"
+					"icon": "assets/icons/gaea-ai-pro.svg"
 				}
 			]
 		},
@@ -160,90 +160,90 @@
 			{
 				"command": "cline.dev.createTestTasks",
 				"title": "Create Test Tasks",
-				"category": "Cline",
+				"category": "Gaea AI Pro",
 				"when": "cline.isDevMode"
 			},
 			{
 				"command": "cline.dev.expireMcpOAuthTokens",
 				"title": "Expire MCP OAuth Tokens (for testing)",
-				"category": "Cline",
+				"category": "Gaea AI Pro",
 				"when": "cline.isDevMode"
 			},
 			{
 				"command": "cline.addToChat",
 				"title": "Gaea-AI-Pro에 추가",
-				"category": "Cline"
+				"category": "Gaea AI Pro"
 			},
 			{
 				"command": "cline.addTerminalOutputToChat",
 				"title": "Add to Cline",
-				"category": "Cline"
+				"category": "Gaea AI Pro"
 			},
 			{
 				"command": "cline.focusChatInput",
 				"title": "Jump to Chat Input",
-				"category": "Cline"
+				"category": "Gaea AI Pro"
 			},
 			{
 				"command": "cline.generateGitCommitMessage",
 				"title": "Gaea-AI-Pro로 커밋 메시지 생성",
-				"category": "Cline",
+				"category": "Gaea AI Pro",
 				"icon": "$(cline-icon)"
 			},
 			{
 				"command": "cline.abortGitCommitMessage",
 				"title": "Generate Commit Message with Cline - Stop",
-				"category": "Cline",
+				"category": "Gaea AI Pro",
 				"icon": "$(debug-stop)"
 			},
 			{
 				"command": "cline.explainCode",
 				"title": "Gaea-AI-Pro로 설명하기",
-				"category": "Cline"
+				"category": "Gaea AI Pro"
 			},
 			{
 				"command": "cline.improveCode",
 				"title": "Gaea-AI-Pro로 개선하기",
-				"category": "Cline"
+				"category": "Gaea AI Pro"
 			},
 			{
 				"command": "cline.jupyterGenerateCell",
 				"title": "Gaea-AI-Pro로 Jupyter 셀 생성",
-				"category": "Cline",
+				"category": "Gaea AI Pro",
 				"icon": "$(sparkle)"
 			},
 			{
 				"command": "cline.jupyterExplainCell",
 				"title": "Gaea-AI-Pro로 Jupyter 셀 설명하기",
-				"category": "Cline",
+				"category": "Gaea AI Pro",
 				"icon": "$(question)"
 			},
 			{
 				"command": "cline.jupyterImproveCell",
 				"title": "Gaea-AI-Pro로 Jupyter 셀 개선하기",
-				"category": "Cline",
+				"category": "Gaea AI Pro",
 				"icon": "$(lightbulb)"
 			},
 			{
 				"command": "cline.openWalkthrough",
 				"title": "Open Walkthrough",
-				"category": "Cline"
+				"category": "Gaea AI Pro"
 			},
 			{
 				"command": "cline.reconstructTaskHistory",
 				"title": "Reconstruct Task History",
-				"category": "Cline"
+				"category": "Gaea AI Pro"
 			},
 			{
 				"command": "cline.reviewComment.reply",
 				"title": "Reply",
-				"category": "Cline",
+				"category": "Gaea AI Pro",
 				"enablement": "!commentIsEmpty"
 			},
 			{
 				"command": "cline.reviewComment.addToChat",
 				"title": "Gaea-AI-Pro 채팅에 추가",
-				"category": "Cline",
+				"category": "Gaea AI Pro",
 				"icon": "$(link-external)"
 			}
 		],
@@ -376,7 +376,7 @@
 			]
 		},
 		"configuration": {
-			"title": "Cline",
+			"title": "Gaea AI Pro",
 			"properties": {}
 		}
 	},

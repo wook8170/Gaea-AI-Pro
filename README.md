@@ -1,23 +1,26 @@
 # Gaea AI Pro
 
 <p align="center">
-    <img src="https://media.githubusercontent.com/media/cline/cline/main/assets/docs/demo.gif" width="100%" />
+    <img src="assets/icons/gaea-ai-pro.png" width="200px" />
+    <br />
+    <br />
+    <strong>IDE 내에서 자율적으로 코드를 작성하는 강력한 에이전트 AI</strong>
 </p>
 
 <div align="center">
 <table>
 <tbody>
 <td align="center">
-<a href="https://marketplace.visualstudio.com/items?itemName=saoudrizwan.claude-dev" target="_blank"><strong>VS Marketplace에서 다운로드</strong></a>
+<a href="https://marketplace.visualstudio.com/items?itemName=wook8170.gaea-ai-pro" target="_blank"><strong>VS Marketplace에서 다운로드</strong></a>
 </td>
 <td align="center">
-<a href="https://discord.gg/cline" target="_blank"><strong>Discord</strong></a>
+<strong>Discord (준비 중)</strong>
 </td>
 <td align="center">
-<a href="https://www.reddit.com/r/cline/" target="_blank"><strong>r/cline</strong></a>
+<strong>Reddit (준비 중)</strong>
 </td>
 <td align="center">
-<a href="https://github.com/cline/cline/discussions/categories/feature-requests?discussions_q=is%3Aopen+category%3A%22Feature+Requests%22+sort%3Atop" target="_blank"><strong>기능 요청</strong></a>
+<a href="https://github.com/wook8170/Gaea-AI-Pro/discussions/categories/feature-requests?discussions_q=is%3Aopen+category%3A%22Feature+Requests%22+sort%3Atop" target="_blank"><strong>기능 요청</strong></a>
 </td>
 <td align="center">
 <a href="https://gaea-ai-pro.bot/join-us" target="_blank"><strong>채용 정보</strong></a>
@@ -39,11 +42,11 @@ Gaea AI Pro를 만나보세요. **CLI** 및 **에디터**를 활용할 수 있�
 4. 작업이 완료되면 Gaea AI Pro는 `open -a "Google Chrome" index.html`과 같은 터미널 명령을 제공하여 버튼 클릭 한 번으로 결과를 확인할 수 있도록 합니다.
 
 > [!TIP]
-> `CMD/CTRL + Shift + P` 단축키를 사용하여 명령 팔레트를 열고 "Cline: Open In New Tab"을 입력하여 에디터의 탭으로 확장 프로그램을 엽니다. 이를 통해 파일 탐색기와 병행하여 Gaea AI Pro를 사용하고 워크스페이스의 변경을 더 명확하게 확인할 수 있습니다.
+> `CMD/CTRL + Shift + P` 단축키를 사용하여 명령 팔레트를 열고 "Gaea-AI-Pro: Open In New Tab"을 입력하여 에디터의 탭으로 확장 프로그램을 엽니다. 이를 통해 파일 탐색기와 병행하여 Gaea AI Pro를 사용하고 워크스페이스의 변경을 더 명확하게 확인할 수 있습니다.
 
 ---
 
-<img align="right" width="340" src="https://github.com/user-attachments/assets/3cf21e04-7ce9-4d22-a7b9-ba2c595e88a4">
+<img align="right" width="340" src="assets/icons/gaea-ai-pro.png">
 
 ### 어떤 API나 모델이든 사용 가능
 
@@ -51,9 +54,9 @@ Gaea AI Pro는 OpenRouter, Anthropic, OpenAI, Google Gemini, AWS Bedrock, Azure,
 
 또한, Gaea AI Pro는 전체 작업 루프와 개별 요청별로 토큰 사용량과 API 비용을 추적하여, 진행 중인 작업의 비용을 실시간으로 확인할 수 있도록 도와줍니다.
 
-<img width="2000" height="0" src="https://github.com/user-attachments/assets/ee14e6f7-20b8-4391-9091-8e8e25561929"><br>
+<img width="2000" height="0" src="assets/icons/gaea-ai-pro.png"><br>
 
-<img align="left" width="370" src="https://github.com/user-attachments/assets/81be79a8-1fdb-4028-9129-5fe055e01e76">
+<img align="left" width="370" src="assets/icons/gaea-ai-pro.png">
 
 ### 터미널에서 명령 실행
 
@@ -61,9 +64,9 @@ VSCode v1.93의 새로운 [셸 통합 업데이트](https://code.visualstudio.co
 
 개발 서버와 같은 오래 실행되는 프로세스의 경우, "실행 중 계속"(Proceed While Running) 버튼을 사용하여 명령이 백그라운드에서 실행되는 동안 Gaea AI Pro가 작업을 계속할 수 있게 합니다. 작업이 진행되는 동안 Gaea AI Pro는 새로운 터미널 출력을 실시간으로 확인하여, 파일 편집 시 발생하는 컴파일 오류와 같은 문제에 즉시 대응할 수 있습니다.
 
-<img width="2000" height="0" src="https://github.com/user-attachments/assets/ee14e6f7-20b8-4391-9091-8e8e25561929"><br>
+<img width="2000" height="0" src="assets/icons/gaea-ai-pro.png"><br>
 
-<img align="right" width="400" src="https://github.com/user-attachments/assets/c5977833-d9b8-491e-90f9-05f9cd38c588">
+<img align="right" width="400" src="assets/icons/gaea-ai-pro.png">
 
 ### 파일 생성과 편집
 
@@ -72,19 +75,19 @@ Gaea AI Pro는 에디터 내에서 파일을 생성 및 편집하고 변경의 D
 Gaea AI Pro에 의한 모든 변경은 파일의 타임라인에 기록되어 필요할 때 변경을 추적하고 되돌릴 수 있는 간단한 방법을 제공합니다.
 
 
-<img width="2000" height="0" src="https://github.com/user-attachments/assets/ee14e6f7-20b8-4391-9091-8e8e25561929"><br>
+<img width="2000" height="0" src="assets/icons/gaea-ai-pro.png"><br>
 
-<img align="left" width="370" src="https://github.com/user-attachments/assets/bc2e85ba-dfeb-4fe6-9942-7cfc4703cbe5">
+<img align="left" width="370" src="assets/icons/gaea-ai-pro.png">
 
 ### 브라우저 사용
 
 Claude 4 Sonnet의 새로운 [컴퓨터 사용](https://www.anthropic.com/news/3-5-models-and-computer-use) 기능으로 인해, Gaea AI Pro는 브라우저를 실행하고 요소를 클릭하고 텍스트를 입력하고 스크롤하며 각 단계에서 스크린샷과 콘솔 로그를 캡처할 수 있습니다. 이를 통해 인터랙티브한 디버깅, 엔드투엔드 테스트, 심지어 일반적인 웹 탐색까지 가능해집니다. 이로 인해 오류 로그를 수동으로 복사 & 붙여넣기 할 필요 없이 시각적 버그나 런타임 문제를 자율적으로 수정할 수 있습니다.
 
-Gaea AI Pro에게 "앱을 테스트해줘"라고 요청하면, `npm run dev`와 같은 명령을 실행하고 로컬에서 실행 중인 개발 서버를 브라우저에서 실행하여 일련의 테스트를 수행하고 모든 것이 정상적으로 작동하는지 확인합니다. [데모는 여기를 참조하세요.](https://x.com/sdrzn/status/1850880547825823989)
+Gaea AI Pro에게 "앱을 테스트해줘"라고 요청하면, `npm run dev`와 같은 명령을 실행하고 로컬에서 실행 중인 개발 서버를 브라우저에서 실행하여 일련의 테스트를 수행하고 모든 것이 정상적으로 작동하는지 확인합니다.
 
-<img width="2000" height="0" src="https://github.com/user-attachments/assets/ee14e6f7-20b8-4391-9091-8e8e25561929"><br>
+<img width="2000" height="0" src="assets/icons/gaea-ai-pro.png"><br>
 
-<img align="right" width="350" src="https://github.com/user-attachments/assets/ac0efa14-5c1f-4c26-a42d-9d7c56f5fadd">
+<img align="right" width="350" src="assets/icons/gaea-ai-pro.png">
 
 ### "도구를 추가 해주세요."
 
@@ -94,9 +97,9 @@ Gaea AI Pro는 [Model Context Protocol](https://github.com/modelcontextprotocol)
 - "AWS EC2를 관리하는 도구를 추가해주세요": 서버 메트릭을 확인하고 인스턴스를 확장 또는 축소
 - "최신 PagerDuty 인시던트를 가져오는 도구를 추가해주세요": 최신 장애 정보를 가져와 Gaea AI Pro에게 버그 수정 요청
 
-<img width="2000" height="0" src="https://github.com/user-attachments/assets/ee14e6f7-20b8-4391-9091-8e8e25561929"><br>
+<img width="2000" height="0" src="assets/icons/gaea-ai-pro.png"><br>
 
-<img align="left" width="360" src="https://github.com/user-attachments/assets/7fdf41e6-281a-4b4b-ac19-020b838b6970">
+<img align="left" width="360" src="assets/icons/gaea-ai-pro.png">
 
 ### 컨텍스트 추가
 
@@ -108,9 +111,9 @@ Gaea AI Pro는 [Model Context Protocol](https://github.com/modelcontextprotocol)
 
 **`@folder`：** 폴더 내 모든 파일을 한 번에 추가하여 워크플로우를 더욱 빠르게 진행할 수 있습니다.
 
-<img width="2000" height="0" src="https://github.com/user-attachments/assets/ee14e6f7-20b8-4391-9091-8e8e25561929"><br>
+<img width="2000" height="0" src="assets/icons/gaea-ai-pro.png"><br>
 
-<img align="right" width="350" src="https://github.com/user-attachments/assets/140c8606-d3bf-41b9-9a1f-4dbf0d4c90cb">
+<img align="right" width="350" src="assets/icons/gaea-ai-pro.png">
 
 ### 체크포인트: 비교 및 복원
 
@@ -118,22 +121,22 @@ Gaea AI Pro가 작업을 진행하는 동안 확장 프로그램은 각 단계�
 
 예를 들어, 로컬 웹 서버에서 작업 중일 때 “Restore Workspace Only”을 사용하여 서로 다른 버전의 앱을 신속하게 테스트하고, “Restore Task and Workspace”을 사용하여 계속 진행할 버전을 찾을 수 있습니다. 이를 통해 진행 상황을 잃지 않고 안전하게 다양한 접근 방식을 실험할 수 있습니다.
 
-<img width="2000" height="0" src="https://github.com/user-attachments/assets/ee14e6f7-20b8-4391-9091-8e8e25561929"><br>
+<img width="2000" height="0" src="assets/icons/gaea-ai-pro.png"><br>
 
 ## 기여
 
-프로젝트에 기여하려면, [기여 가이드](CONTRIBUTING.md)에서 기본 사항을 익히세요. 또한, [Discord](https://discord.gg/cline)에 참여하여 `#contributors` 채널에서 다른 기여자들과 이야기할 수 있습니다. 풀타임 직업을 찾고 있다면, [채용 페이지](https://gaea-ai-pro.bot/join-us)에서 열려있는 포지션을 확인하세요.
+프로젝트에 기여하려면, [기여 가이드](CONTRIBUTING.md)에서 기본 사항을 익히세요. 또한, Discord에 참여하여 다른 기여자들과 이야기할 수 있습니다. 풀타임 직업을 찾고 있다면, [채용 페이지](https://gaea-ai-pro.bot/join-us)에서 열려있는 포지션을 확인하세요.
 
 <details>
 <summary>로컬 개발 방법</summary>
 
 1. 리포지토리를 클론합니다 _(Requires [git-lfs](https://git-lfs.com/))_：
         ```bash
-        git clone https://github.com/cline/cline.git
+        git clone https://github.com/gaeasoft/gaea-ai-pro.git
         ```
 2. 프로젝트를 VSCode에서 엽니다：
         ```bash
-        code cline
+        code gaea-ai-pro
         ```
 3. 확장 프로그램과 webview-gui의 필요한 의존성을 설치합니다：
         ```bash

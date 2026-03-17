@@ -95,11 +95,13 @@ interface GitCommit {
 const PLAN_MODE_COLOR = "var(--vscode-activityWarningBadge-background)"
 const ACT_MODE_COLOR = "var(--vscode-focusBorder)"
 
-const SwitchContainer = styled.div<{ disabled: boolean }>`
+const SwitchContainer = styled.div.withConfig({
+	shouldForwardProp: (prop: string) => !["disabled", "mode"].includes(prop),
+})<{ disabled: boolean; mode: string }>`
 	display: flex;
 	align-items: center;
 	background-color: transparent;
-	border: 1px solid var(--vscode-input-border);
+	border: 1px solid ${(props) => (props.mode === "plan" ? PLAN_MODE_COLOR : ACT_MODE_COLOR)};
 	border-radius: 4px;
 	overflow: hidden;
 	cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
@@ -1606,7 +1608,7 @@ const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 							</p>
 						</TooltipContent>
 						<TooltipTrigger>
-							<SwitchContainer data-testid="mode-switch" disabled={false} onClick={onModeToggle}>
+							<SwitchContainer data-testid="mode-switch" disabled={false} mode={mode} onClick={onModeToggle}>
 								<Slider isAct={mode === "act"} isPlan={mode === "plan"} />
 								{["Plan", "Act"].map((m) => (
 									<div

@@ -1,5 +1,7 @@
 import { StringRequest } from "@shared/proto/cline/common"
+import { FolderIcon } from "lucide-react"
 import { memo } from "react"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { useExtensionState } from "@/context/ExtensionStateContext"
 import { TaskServiceClient } from "@/services/grpc-client"
 
@@ -36,12 +38,19 @@ const HistoryPreview = ({ showHistoryView }: HistoryPreviewProps) => {
 						margin-bottom: 8px;
 						padding: 10px 12px;
 						display: flex;
-						align-items: flex-start;
-						gap: 12px;
+						flex-direction: column;
+						gap: 6px;
 					}
 					.history-preview-item:hover {
 						background-color: color-mix(in srgb, var(--vscode-toolbar-hoverBackground) 100%, transparent);
 						pointer-events: auto;
+					}
+					.history-row {
+						display: flex;
+						justify-content: space-between;
+						align-items: center;
+						width: 100%;
+						gap: 12px;
 					}
 					.history-task-content {
 						flex: 1;
@@ -54,23 +63,17 @@ const HistoryPreview = ({ showHistoryView }: HistoryPreviewProps) => {
 						flex: 1;
 						overflow: hidden;
 						display: -webkit-box;
-						-webkit-line-clamp: 2;
+						-webkit-line-clamp: 1;
 						-webkit-box-orient: vertical;
 						color: var(--vscode-foreground);
 						font-size: var(--vscode-font-size);
 						line-height: 1.4;
 					}
-					.history-meta-stack {
-						display: flex;
-						flex-direction: column;
-						align-items: center;
-						gap: 4px;
-						flex-shrink: 0;
-					}
 					.history-date {
 						color: var(--vscode-descriptionForeground);
 						font-size: 0.85em;
 						white-space: nowrap;
+						flex-shrink: 0;
 					}
 					.history-cost-chip {
 						background-color: var(--vscode-badge-background);
@@ -80,6 +83,7 @@ const HistoryPreview = ({ showHistoryView }: HistoryPreviewProps) => {
 						font-size: 0.85em;
 						font-weight: 500;
 						white-space: nowrap;
+						flex-shrink: 0;
 					}
 					.history-view-all-btn {
 						background: none;
@@ -147,29 +151,60 @@ const HistoryPreview = ({ showHistoryView }: HistoryPreviewProps) => {
 						taskHistory
 							.filter((item) => item.ts && item.task)
 							.slice(0, 3)
-							.map((item) => (
-								<div className="history-preview-item" key={item.id} onClick={() => handleHistorySelect(item.id)}>
-									<div className="history-task-content">
-										{item.isFavorited && (
-											<span
-												aria-label="Favorited"
-												className="codicon codicon-star-full"
-												style={{
-													color: "var(--vscode-button-background)",
-													flexShrink: 0,
-												}}
-											/>
-										)}
-										<div className="history-task-description ph-no-capture">{item.task}</div>
+							.map((item) => {
+								const workspacePath = item.cwdOnTaskInitialization || ""
+
+								return (
+									<div
+										className="history-preview-item"
+										key={item.id}
+										onClick={() => handleHistorySelect(item.id)}>
+										<div className="history-row">
+											<div className="history-task-content">
+												{item.isFavorited && (
+													<span
+														aria-label="Favorited"
+														className="codicon codicon-star-full"
+														style={{
+															color: "var(--vscode-button-background)",
+															flexShrink: 0,
+														}}
+													/>
+												)}
+												<div className="history-task-description ph-no-capture">{item.task}</div>
+											</div>
+											<span className="history-date">{formatDate(item.ts)}</span>
+										</div>
+
+										<div className="history-row mt-0.5">
+											{workspacePath ? (
+												<Tooltip>
+													<TooltipTrigger asChild>
+														<div
+															className="flex items-center gap-1 px-1.5 py-0.5 rounded-xs bg-accent/5 border border-accent/10 min-w-0 cursor-help flex-1"
+															onClick={(e) => e.stopPropagation()}
+															style={{
+																fontSize: "10px",
+																color: "var(--vscode-descriptionForeground)",
+															}}>
+															<FolderIcon className="!size-1 flex-shrink-0" />
+															<span className="truncate max-w-[500px]">{workspacePath}</span>
+														</div>
+													</TooltipTrigger>
+													<TooltipContent className="max-w-md break-all" side="bottom">
+														{workspacePath}
+													</TooltipContent>
+												</Tooltip>
+											) : (
+												<div />
+											)}
+											{item.totalCost != null && (
+												<span className="history-cost-chip">${item.totalCost.toFixed(2)}</span>
+											)}
+										</div>
 									</div>
-									<div className="history-meta-stack">
-										<span className="history-date">{formatDate(item.ts)}</span>
-										{item.totalCost != null && (
-											<span className="history-cost-chip">${item.totalCost.toFixed(2)}</span>
-										)}
-									</div>
-								</div>
-							))
+								)
+							})
 					) : (
 						<div
 							style={{

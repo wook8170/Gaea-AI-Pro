@@ -336,13 +336,17 @@
 		}
 		th,
 		td {
-			@apply p-2 border border-border-panel text-left;
+			@apply p-2 text-left;
+			border: 1px solid var(--vscode-editorGroup-border, var(--vscode-panel-border));
 		}
 		th {
-			@apply bg-code/20 font-semibold;
+			@apply bg-code font-semibold;
 		}
 		tr:nth-child(even) {
-			@apply bg-list-hover;
+			background-color: color-mix(in srgb, var(--vscode-editor-background) 95%, var(--vscode-foreground) 5%);
+		}
+		tr:nth-child(odd) {
+			background-color: transparent;
 		}
 		del {
 			@apply line-through opacity-70;

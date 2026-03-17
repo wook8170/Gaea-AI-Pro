@@ -1230,9 +1230,7 @@ export const ChatRowContent = memo(
 							<div>
 								<div className={HEADER_CLASSNAMES}>
 									<FilePlus2Icon className="size-2" />
-									<span className="text-foreground font-bold">
-										Gaea-AI-Pro가 새로운 작업을 시작하려고 합니다:
-									</span>
+									<span className="text-foreground font-bold">Gaea-AI-Pro가 새로운 작업을 시작합니다:</span>
 								</div>
 								<NewTaskPreview context={message.text || ""} />
 							</div>
@@ -1242,9 +1240,7 @@ export const ChatRowContent = memo(
 							<div>
 								<div className={HEADER_CLASSNAMES}>
 									<FilePlus2Icon className="size-2" />
-									<span className="text-foreground font-bold">
-										Gaea-AI-Pro가 대화 내용을 요약하려고 합니다:
-									</span>
+									<span className="text-foreground font-bold">Gaea-AI-Pro가 대화 내용을 요약했습니다:</span>
 								</div>
 								<NewTaskPreview context={message.text || ""} />
 							</div>

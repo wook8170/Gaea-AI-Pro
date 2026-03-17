@@ -6,9 +6,16 @@ interface NewTaskPreviewProps {
 }
 
 const NewTaskPreview: React.FC<NewTaskPreviewProps> = ({ context }) => {
+	const BLUE_COLOR = "var(--vscode-charts-blue)"
+
 	return (
-		<div className="bg-(--vscode-badge-background) text-(--vscode-badge-foreground) rounded-[3px] p-[14px] pb-[6px]">
-			<span style={{ fontWeight: "bold" }}>Task</span>
+		<div
+			className="rounded-sm border p-[14px] pb-[6px]"
+			style={{
+				borderColor: `color-mix(in srgb, ${BLUE_COLOR}, transparent 60%)`,
+				backgroundColor: `color-mix(in srgb, ${BLUE_COLOR}, transparent 85%)`,
+			}}>
+			<span style={{ fontWeight: "bold", color: BLUE_COLOR }}>작업 내용</span>
 			<MarkdownBlock markdown={context} />
 		</div>
 	)

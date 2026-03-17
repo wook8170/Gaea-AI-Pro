@@ -1,5 +1,5 @@
 import { Int64Request } from "@shared/proto/cline/common"
-import { CheckIcon } from "lucide-react"
+import { CircleCheckBig } from "lucide-react"
 import { memo } from "react"
 import { PLATFORM_CONFIG, PlatformType } from "@/config/platform.config"
 import { cn } from "@/lib/utils"
@@ -36,19 +36,27 @@ export const CompletionOutputRow = memo(
 		messageTs,
 		handleQuoteClick,
 	}: CompletionOutputRowProps) => {
+		const SUCCESS_COLOR = "var(--vscode-charts-green)"
 		return (
 			<div>
-				<div className="rounded-sm border border-success/20 overflow-visible bg-success/10 p-2 pt-3">
+				<div
+					className="rounded-sm border overflow-visible p-2 pt-3"
+					style={{
+						borderColor: `color-mix(in srgb, ${SUCCESS_COLOR}, transparent 70%)`,
+						backgroundColor: `color-mix(in srgb, ${SUCCESS_COLOR}, transparent 90%)`,
+					}}>
 					{/* Title */}
 					<div className={cn(headClassNames, "justify-between px-1")}>
 						<div className="flex gap-2 items-center">
-							<CheckIcon className="size-3 text-success" />
+							<CircleCheckBig className="size-3 text-success" />
 							<span className="text-success font-bold">작업 완료</span>
 						</div>
 						<CopyButton className="text-success" textToCopy={text} />
 					</div>
 					{/* Content */}
-					<div className="w-full relative border-t-1 border-description/20 rounded-b-sm">
+					<div
+						className="w-full relative border-t-1 rounded-b-sm"
+						style={{ borderColor: `color-mix(in srgb, ${SUCCESS_COLOR}, transparent 80%)` }}>
 						<div className="completion-output-content p-2 pt-3 w-full [&_hr]:opacity-20 [&_p:last-child]:mb-0 rounded-sm">
 							<MarkdownRow markdown={text} />
 							{quoteButtonState.visible && (

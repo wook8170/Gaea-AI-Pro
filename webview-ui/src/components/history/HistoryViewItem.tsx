@@ -9,11 +9,13 @@ import {
 	ChevronsDownUpIcon,
 	ChevronsUpDownIcon,
 	DownloadIcon,
+	FolderIcon,
 	StarIcon,
 	TrashIcon,
 } from "lucide-react"
 import { memo, useCallback, useMemo, useState } from "react"
 import { Button } from "@/components/ui/button"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
 import { TaskServiceClient } from "@/services/grpc-client"
 import { formatLargeNumber, formatSize } from "@/utils/format"
@@ -49,31 +51,38 @@ const HistoryViewItem = ({
 		)
 	}, [])
 
-	const formatDate = useCallback((timestamp: number) => {
-		const date = new Date(timestamp)
-		const today = new Date()
-		const isToday = today.toDateString() === date.toDateString()
+	const formatDate = useCallback(
+		(timestamp: number) => {
+			const date = new Date(timestamp)
+			const today = new Date()
+			const isToday = today.toDateString() === date.toDateString()
 
-		return date
-			.toLocaleString(
-				"ko-KR",
-				isToday
-					? {
-							hour: "numeric",
-							minute: "2-digit",
-							hour12: true,
-						}
-					: {
-							month: "long",
-							day: "numeric",
-							hour: "numeric",
-							minute: "2-digit",
-							hour12: true,
-						},
-			)
-			.replace(", ", " ")
-			.replace(" at", ",")
-	}, [])
+			return date
+				.toLocaleString(
+					"ko-KR",
+					isToday
+						? {
+								hour: "numeric",
+								minute: "2-digit",
+								hour12: true,
+							}
+						: {
+								month: "long",
+								day: "numeric",
+								hour: "numeric",
+								minute: "2-digit",
+								hour12: true,
+							},
+				)
+				.replace(", ", " ")
+				.replace(" at", ",")
+		},
+		[item.ts],
+	)
+
+	const workspacePath = useMemo(() => {
+		return item.cwdOnTaskInitialization || ""
+	}, [item.cwdOnTaskInitialization])
 
 	return (
 		<div className="history-item cursor-pointer flex group mb-1 hover:bg-list-hover border-b border-accent/10" key={item.id}>
@@ -131,15 +140,34 @@ const HistoryViewItem = ({
 				</div>
 
 				<Button
-					className="p-0"
+					className="p-0 w-full h-auto justify-start"
 					onClick={(e) => {
 						e.stopPropagation()
 						setExpanded(!expanded)
 					}}
-					variant="icon">
+					variant="ghost">
 					<div className="flex items-center justify-between w-full">
-						<div className="text-description text-xs uppercase">{formatDate(item.ts)}</div>
-						<div className="self-end flex items-center text-xs">
+						<div className="flex items-center gap-2 overflow-hidden flex-1 mr-2">
+							<div className="flex items-center gap-2 min-w-0">
+								<div className="text-description text-xs uppercase whitespace-nowrap flex-shrink-0">
+									{formatDate(item.ts)}
+								</div>
+								{workspacePath && (
+									<Tooltip>
+										<TooltipTrigger asChild>
+											<div className="flex items-center gap-1 text-description px-1.5 py-0.5 rounded-xs bg-accent/5 border border-accent/10 min-w-0 cursor-help flex-1">
+												<FolderIcon className="!size-1 flex-shrink-0" />
+												<span className="text-[10px] truncate max-w-[400px]">{workspacePath}</span>
+											</div>
+										</TooltipTrigger>
+										<TooltipContent className="max-w-md break-all" side="bottom">
+											{workspacePath}
+										</TooltipContent>
+									</Tooltip>
+								)}
+							</div>
+						</div>
+						<div className="self-end flex items-center text-xs flex-shrink-0">
 							<span className="text-description">${item.totalCost?.toFixed(4) ?? 0}</span>
 							{expanded ? (
 								<ChevronsDownUpIcon className="text-description" />

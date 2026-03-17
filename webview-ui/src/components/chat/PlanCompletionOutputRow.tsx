@@ -29,10 +29,10 @@ const PlanCompletionOutputRow = memo(({ text, headClassNames }: PlanCompletionOu
 				<div className="flex gap-2 items-center">
 					<NotepadTextIcon className="size-2" style={{ color: PLAN_COLOR }} />
 					<span className="font-bold" style={{ color: PLAN_COLOR }}>
-						Plan created
+						계획 생성됨
 					</span>
 				</div>
-				<CopyButton textToCopy={text || ""} />
+				<CopyButton className="text-[var(--vscode-activityWarningBadge-background)]" textToCopy={text || ""} />
 			</div>
 
 			{/* Content */}
