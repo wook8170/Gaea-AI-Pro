@@ -31,7 +31,7 @@
 
 Gaea AI Pro를 만나보세요. **CLI** 및 **에디터**를 활용할 수 있는 AI 어시스턴트입니다.
 
-[Claude 4 Sonnet의 에이전트형 코딩 기능](https://www.anthropic.com/claude/sonnet) 덕분에, Gaea AI Pro는 복잡한 소프트웨어 개발 작업을 단계별로 처리할 수 있습니다. 파일 생성과 편집, 대규모 프로젝트 탐색, 브라우저 사용, 터미널 명령 실행(권한 허가 필요) 등의 도구를 사용하여 단순 코드 완성이나 기술 지원을 넘어서는 도움을 제공합니다. Gaea AI Pro는 Model Context Protocol(MCP)를 사용하여 새로운 도구를 만들고 자신의 기능을 확장할 수도 있습니다. 자율적인 AI 스크립트는 일반적으로 샌드박스 환경에서 실행되지만, 이 확장 프로그램은 모든 파일 변경 및 터미널 명령을 승인할 수 있는 사람이 개입가능한 GUI를 제공하여, 에이전트형 AI의 잠재력을 보다 안전하고 쉽게 탐색할 수 있도록 합니다.
+[Claude 4.6 sonnet의 에이전트형 코딩 기능](https://www.anthropic.com/claude/sonnet) 덕분에, Gaea AI Pro는 복잡한 소프트웨어 개발 작업을 단계별로 처리할 수 있습니다. 파일 생성과 편집, 대규모 프로젝트 탐색, 브라우저 사용, 터미널 명령 실행(권한 허가 필요) 등의 도구를 사용하여 단순 코드 완성이나 기술 지원을 넘어서는 도움을 제공합니다. Gaea AI Pro는 Model Context Protocol(MCP)를 사용하여 새로운 도구를 만들고 자신의 기능을 확장할 수도 있습니다. 자율적인 AI 스크립트는 일반적으로 샌드박스 환경에서 실행되지만, 이 확장 프로그램은 모든 파일 변경 및 터미널 명령을 승인할 수 있는 사람이 개입가능한 GUI를 제공하여, 에이전트형 AI의 잠재력을 보다 안전하고 쉽게 탐색할 수 있도록 합니다.
 
 1. 작업을 입력하고, 목업을 기능하는 앱으로 변환하거나 스크린샷으로 버그를 수정합니다.
 2. Gaea AI Pro는 파일 구조와 소스코드 AST의 분석, 정규식 검색 실행, 관련 파일 읽기부터 시작하여 기존 프로젝트를 파악합니다. 또한, 어떤 정보를 컨텍스트에 추가할지를 신중하게 관리하여, 대규모 복잡한 프로젝트에서도 컨텍스트 윈도우를 과부하시키지 않으면서도 효과적인 지원을 제공합니다.
@@ -46,7 +46,7 @@ Gaea AI Pro를 만나보세요. **CLI** 및 **에디터**를 활용할 수 있�
 
 ---
 
-<img align="right" width="340" src="assets/icons/gaea-ai-pro.png">
+
 
 ### 어떤 API나 모델이든 사용 가능
 
@@ -54,9 +54,7 @@ Gaea AI Pro는 OpenRouter, Anthropic, OpenAI, Google Gemini, AWS Bedrock, Azure,
 
 또한, Gaea AI Pro는 전체 작업 루프와 개별 요청별로 토큰 사용량과 API 비용을 추적하여, 진행 중인 작업의 비용을 실시간으로 확인할 수 있도록 도와줍니다.
 
-<img width="2000" height="0" src="assets/icons/gaea-ai-pro.png"><br>
 
-<img align="left" width="370" src="assets/icons/gaea-ai-pro.png">
 
 ### 터미널에서 명령 실행
 
@@ -64,9 +62,7 @@ VSCode v1.93의 새로운 [셸 통합 업데이트](https://code.visualstudio.co
 
 개발 서버와 같은 오래 실행되는 프로세스의 경우, "실행 중 계속"(Proceed While Running) 버튼을 사용하여 명령이 백그라운드에서 실행되는 동안 Gaea AI Pro가 작업을 계속할 수 있게 합니다. 작업이 진행되는 동안 Gaea AI Pro는 새로운 터미널 출력을 실시간으로 확인하여, 파일 편집 시 발생하는 컴파일 오류와 같은 문제에 즉시 대응할 수 있습니다.
 
-<img width="2000" height="0" src="assets/icons/gaea-ai-pro.png"><br>
 
-<img align="right" width="400" src="assets/icons/gaea-ai-pro.png">
 
 ### 파일 생성과 편집
 
@@ -75,19 +71,14 @@ Gaea AI Pro는 에디터 내에서 파일을 생성 및 편집하고 변경의 D
 Gaea AI Pro에 의한 모든 변경은 파일의 타임라인에 기록되어 필요할 때 변경을 추적하고 되돌릴 수 있는 간단한 방법을 제공합니다.
 
 
-<img width="2000" height="0" src="assets/icons/gaea-ai-pro.png"><br>
-
-<img align="left" width="370" src="assets/icons/gaea-ai-pro.png">
 
 ### 브라우저 사용
 
-Claude 4 Sonnet의 새로운 [컴퓨터 사용](https://www.anthropic.com/news/3-5-models-and-computer-use) 기능으로 인해, Gaea AI Pro는 브라우저를 실행하고 요소를 클릭하고 텍스트를 입력하고 스크롤하며 각 단계에서 스크린샷과 콘솔 로그를 캡처할 수 있습니다. 이를 통해 인터랙티브한 디버깅, 엔드투엔드 테스트, 심지어 일반적인 웹 탐색까지 가능해집니다. 이로 인해 오류 로그를 수동으로 복사 & 붙여넣기 할 필요 없이 시각적 버그나 런타임 문제를 자율적으로 수정할 수 있습니다.
+Claude 4.6 sonnet의 새로운 [컴퓨터 사용](https://www.anthropic.com/news/3-5-models-and-computer-use) 기능으로 인해, Gaea AI Pro는 브라우저를 실행하고 요소를 클릭하고 텍스트를 입력하고 스크롤하며 각 단계에서 스크린샷과 콘솔 로그를 캡처할 수 있습니다. 이를 통해 인터랙티브한 디버깅, 엔드투엔드 테스트, 심지어 일반적인 웹 탐색까지 가능해집니다. 이로 인해 오류 로그를 수동으로 복사 & 붙여넣기 할 필요 없이 시각적 버그나 런타임 문제를 자율적으로 수정할 수 있습니다.
 
 Gaea AI Pro에게 "앱을 테스트해줘"라고 요청하면, `npm run dev`와 같은 명령을 실행하고 로컬에서 실행 중인 개발 서버를 브라우저에서 실행하여 일련의 테스트를 수행하고 모든 것이 정상적으로 작동하는지 확인합니다.
 
-<img width="2000" height="0" src="assets/icons/gaea-ai-pro.png"><br>
 
-<img align="right" width="350" src="assets/icons/gaea-ai-pro.png">
 
 ### "도구를 추가 해주세요."
 
@@ -97,9 +88,7 @@ Gaea AI Pro는 [Model Context Protocol](https://github.com/modelcontextprotocol)
 - "AWS EC2를 관리하는 도구를 추가해주세요": 서버 메트릭을 확인하고 인스턴스를 확장 또는 축소
 - "최신 PagerDuty 인시던트를 가져오는 도구를 추가해주세요": 최신 장애 정보를 가져와 Gaea AI Pro에게 버그 수정 요청
 
-<img width="2000" height="0" src="assets/icons/gaea-ai-pro.png"><br>
 
-<img align="left" width="360" src="assets/icons/gaea-ai-pro.png">
 
 ### 컨텍스트 추가
 
@@ -111,28 +100,22 @@ Gaea AI Pro는 [Model Context Protocol](https://github.com/modelcontextprotocol)
 
 **`@folder`：** 폴더 내 모든 파일을 한 번에 추가하여 워크플로우를 더욱 빠르게 진행할 수 있습니다.
 
-<img width="2000" height="0" src="assets/icons/gaea-ai-pro.png"><br>
 
-<img align="right" width="350" src="assets/icons/gaea-ai-pro.png">
 
 ### 체크포인트: 비교 및 복원
 
-Gaea AI Pro가 작업을 진행하는 동안 확장 프로그램은 각 단계에서 워크스페이스의 스냅샷을 저장합니다. “Compare” 버튼을 사용하여 스냅샷과 현재 워크스페이스의 차이를 확인하고, “Restore” 버튼을 사용하여 해당 시점으로 롤백할 수 있습니다.
+Gaea AI Pro가 작업을 진행하는 동안 확장 프로그램은 각 단계에서 워크스페이스의 스냅샷을 저장합니다. “비교” 버튼을 사용하여 스냅샷과 현재 워크스페이스의 차이를 확인하고, “복원” 버튼을 사용하여 해당 시점으로 롤백할 수 있습니다.
 
 예를 들어, 로컬 웹 서버에서 작업 중일 때 “Restore Workspace Only”을 사용하여 서로 다른 버전의 앱을 신속하게 테스트하고, “Restore Task and Workspace”을 사용하여 계속 진행할 버전을 찾을 수 있습니다. 이를 통해 진행 상황을 잃지 않고 안전하게 다양한 접근 방식을 실험할 수 있습니다.
 
-<img width="2000" height="0" src="assets/icons/gaea-ai-pro.png"><br>
 
-## 기여
-
-프로젝트에 기여하려면, [기여 가이드](CONTRIBUTING.md)에서 기본 사항을 익히세요. 또한, Discord에 참여하여 다른 기여자들과 이야기할 수 있습니다. 풀타임 직업을 찾고 있다면, [채용 페이지](https://gaea-ai-pro.bot/join-us)에서 열려있는 포지션을 확인하세요.
 
 <details>
 <summary>로컬 개발 방법</summary>
 
 1. 리포지토리를 클론합니다 _(Requires [git-lfs](https://git-lfs.com/))_：
         ```bash
-        git clone https://github.com/gaeasoft/gaea-ai-pro.git
+        git clone https://github.com/wook8170/gaea-ai-pro.git
         ```
 2. 프로젝트를 VSCode에서 엽니다：
         ```bash
@@ -160,4 +143,4 @@ Gaea AI Pro가 작업을 진행하는 동안 확장 프로그램은 각 단계�
 
 ## 라이센스
 
-[Apache 2.0 © 2025 Gaea AI Pro Bot Inc.](/LICENSE)
+[Apache 2.0 © 2026 Gaea AI Pro Inc.](/LICENSE)

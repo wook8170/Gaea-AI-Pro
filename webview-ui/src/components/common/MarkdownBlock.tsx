@@ -162,7 +162,7 @@ interface MarkdownBlockProps {
 const remarkUrlToLink = () => {
 	return (tree: Node) => {
 		// Visit all "text" nodes in the markdown AST (Abstract Syntax Tree)
-		visit(tree, "text", (node: any, index, parent) => {
+		visit(tree, "text", (node: any, index: number | undefined, parent: any) => {
 			const urlRegex = /https?:\/\/[^\s<>)"]+/g
 			const matches = node.value.match(urlRegex)
 			if (!matches) {
@@ -200,7 +200,7 @@ const remarkUrlToLink = () => {
  */
 const remarkHighlightActMode = () => {
 	return (tree: Node) => {
-		visit(tree, "text", (node: any, index, parent) => {
+		visit(tree, "text", (node: any, index: number | undefined, parent: any) => {
 			// Case-insensitive regex to match "실행 모드로" in various capitalizations
 			// Using word boundaries to avoid matching within words
 			// Added negative lookahead to avoid matching if already followed by the shortcut

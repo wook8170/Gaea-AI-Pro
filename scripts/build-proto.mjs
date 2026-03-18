@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import chalk from "chalk"
-import { execSync } from "child_process"
+import { execSync, spawnSync } from "child_process"
 import * as fs from "fs/promises"
 import { globby } from "globby"
 import { createRequire } from "module"
@@ -11,8 +11,24 @@ import { rmrf } from "./file-utils.mjs"
 import { main as generateHostBridgeClient } from "./generate-host-bridge-client.mjs"
 import { main as generateProtoBusSetup } from "./generate-protobus-setup.mjs"
 
-const require = createRequire(import.meta.url)
-const PROTOC = path.join(require.resolve("grpc-tools"), "../bin/protoc")
+const isWindows = process.platform === "win32"
+
+// Verified absolute path for protoc on Apple Silicon (Homebrew)
+let PROTOC = "/opt/homebrew/bin/protoc"
+try {
+	if (isWindows) {
+		PROTOC = path.join(require.resolve("grpc-tools"), "../bin/protoc.exe")
+	} else {
+		// Verify if brew protoc exists, otherwise fallback to grpc-tools
+		execSync(`${PROTOC} --version`)
+	}
+} catch (_) {
+	try {
+		PROTOC = path.join(require.resolve("grpc-tools"), "../bin/protoc")
+	} catch (__) {
+		PROTOC = "protoc" // Final fallback
+	}
+}
 
 const PROTO_DIR = path.resolve("proto")
 const TS_OUT_DIR = path.resolve("src/shared/proto")
@@ -20,10 +36,11 @@ const GRPC_JS_OUT_DIR = path.resolve("src/generated/grpc-js")
 const NICE_JS_OUT_DIR = path.resolve("src/generated/nice-grpc")
 const DESCRIPTOR_OUT_DIR = path.resolve("dist-standalone/proto")
 
-const isWindows = process.platform === "win32"
+
 const TS_PROTO_PLUGIN = isWindows
-	? path.resolve("node_modules/.bin/protoc-gen-ts_proto.cmd") // Use the .bin directory path for Windows
-	: require.resolve("ts-proto/protoc-gen-ts_proto")
+	? path.resolve(process.cwd(), "node_modules/.bin/protoc-gen-ts_proto.cmd")
+	: path.resolve(process.cwd(), "node_modules/.bin/protoc-gen-ts_proto")
+console.log(chalk.yellow(`Using TS_PROTO_PLUGIN: ${TS_PROTO_PLUGIN}`))
 
 const TS_PROTO_OPTIONS = [
 	"env=both",
@@ -35,6 +52,11 @@ const TS_PROTO_OPTIONS = [
 ]
 
 async function main() {
+	// Add node_modules/.bin to PATH for the current process
+	const binPath = path.resolve(process.cwd(), "node_modules/.bin")
+	process.env.PATH = `${binPath}${path.delimiter}${process.env.PATH}`
+	log_verbose(chalk.yellow(`Updated PATH: ${process.env.PATH}`))
+
 	await cleanup()
 	await compileProtos()
 	await generateProtoBusSetup()
@@ -62,16 +84,18 @@ async function compileProtos() {
 	tsProtoc(NICE_JS_OUT_DIR, protoFiles, ["outputServices=nice-grpc,useExactTypes=false", ...TS_PROTO_OPTIONS])
 
 	const descriptorFile = path.join(DESCRIPTOR_OUT_DIR, "descriptor_set.pb")
-	const descriptorProtocCommand = [
-		`"${PROTOC}"`,
-		`--proto_path="${PROTO_DIR}"`,
-		`--descriptor_set_out="${descriptorFile}"`,
+	const descriptorArgs = [
+		`--proto_path=${PROTO_DIR}`,
+		`--descriptor_set_out=${descriptorFile}`,
 		"--include_imports",
 		...protoFiles,
-	].join(" ")
+	]
 	try {
 		log_verbose(chalk.cyan("Generating descriptor set..."))
-		execSync(descriptorProtocCommand, { stdio: "inherit" })
+		const result = spawnSync(PROTOC, descriptorArgs, { stdio: "inherit", env: process.env, shell: false })
+		if (result.status !== 0) {
+			throw new Error(`protoc exited with status ${result.status}`)
+		}
 	} catch (error) {
 		console.error(chalk.red("Error generating descriptor set for proto file:"), error)
 		process.exit(1)
@@ -83,18 +107,24 @@ async function compileProtos() {
 
 async function tsProtoc(outDir, protoFiles, protoOptions) {
 	// Build the protoc command with proper path handling for cross-platform
-	const command = [
-		`"${PROTOC}"`,
-		`--proto_path="${PROTO_DIR}"`,
-		`--plugin=protoc-gen-ts_proto="${TS_PROTO_PLUGIN}"`,
-		`--ts_proto_out="${outDir}"`,
-		`--ts_proto_opt=${protoOptions.join(",")} `,
-		...protoFiles.map((s) => `"${s}"`),
-	].join(" ")
+	const args = [
+		`--proto_path=${PROTO_DIR}`,
+		`--plugin=protoc-gen-ts_proto=${TS_PROTO_PLUGIN}`,
+		`--ts_proto_out=${outDir}`,
+		`--ts_proto_opt=${protoOptions.join(",")}`,
+		...protoFiles,
+	]
 	try {
 		log_verbose(chalk.cyan(`Generating TypeScript code in ${outDir} for:\n${protoFiles.join("\n")}...`))
-		log_verbose(command)
-		execSync(command, { stdio: "inherit" })
+		log_verbose(`${PROTOC} ${args.join(" ")}`)
+		const result = spawnSync(PROTOC, args, { stdio: "inherit", env: process.env, shell: false })
+		if (result.error) {
+			console.error(chalk.red("Spawn error:"), result.error)
+			throw result.error
+		}
+		if (result.status !== 0) {
+			throw new Error(`protoc exited with status ${result.status}`)
+		}
 	} catch (error) {
 		console.error(chalk.red("Error generating TypeScript for proto files:"), error)
 		process.exit(1)
