@@ -1,14 +1,13 @@
 import type { ToolUse } from "@core/assistant-message"
 import { formatResponse } from "@core/prompts/responses"
 import { WorkspacePathAdapter } from "@core/workspace/WorkspacePathAdapter"
-import { showSystemNotification } from "@integrations/notifications"
+import { showApprovalNotification, showSystemNotification } from "@integrations/notifications"
 import { COMMAND_REQ_APP_STRING } from "@shared/combineCommandSequences"
 import { ClineAsk } from "@shared/ExtensionMessage"
 import { arePathsEqual } from "@utils/path"
 import { telemetryService } from "@/services/telemetry"
 import { ClineDefaultTool } from "@/shared/tools"
 import type { ToolResponse } from "../../index"
-import { showNotificationForApproval } from "../../utils"
 import type { IFullyManagedTool } from "../ToolExecutorCoordinator"
 import type { ToolValidator } from "../ToolValidator"
 import type { TaskConfig } from "../types/TaskConfig"
@@ -240,8 +239,11 @@ export class ExecuteCommandToolHandler implements IFullyManagedTool {
 			)
 		} else {
 			// Manual approval flow
-			showNotificationForApproval(
-				`Gaea AI Pro가 명령어를 실행하려 합니다: ${actualCommand}`,
+			void showApprovalNotification(
+				{
+					message: `Gaea AI Pro가 명령어를 실행하려 합니다: ${actualCommand}`,
+					requiresExplicitApproval: autoApproveSafe && requiresApprovalPerLLM,
+				},
 				config.autoApprovalSettings.enableNotifications,
 			)
 
@@ -311,6 +313,13 @@ export class ExecuteCommandToolHandler implements IFullyManagedTool {
 
 		if (timeoutId) {
 			clearTimeout(timeoutId)
+		}
+
+		// Invalidate the entire file read cache after any command execution.
+		// Bash commands can modify files in ways we can't predict (sed, npm install, git checkout, mv, etc.),
+		// so we must clear the cache to prevent stale reads.
+		if (!userRejected) {
+			config.taskState.fileReadCache.clear()
 		}
 
 		if (userRejected) {
