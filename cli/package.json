@@ -72,7 +72,7 @@
 	},
 	"devDependencies": {
 		"@types/marked": "^5.0.2",
-		"@types/node": "20.x",
+		"@types/node": "25.x",
 		"@types/prompts": "^2.4.9",
 		"@types/react": "^19.2.9",
 		"dotenv": "^16.4.5",
