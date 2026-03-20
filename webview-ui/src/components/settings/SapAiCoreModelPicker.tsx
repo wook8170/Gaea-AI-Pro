@@ -161,7 +161,7 @@ const SapAiCoreModelPicker: React.FC<SapAiCoreModelPickerProps> = ({
 	return (
 		<DropdownContainer className="dropdown-container" zIndex={SAP_AI_CORE_MODEL_PICKER_Z_INDEX}>
 			<label htmlFor="sap-ai-core-model-dropdown">
-				<span className="font-medium">Model</span>
+				<span className="font-medium">모델</span>
 			</label>
 			<VSCodeDropdown
 				id="sap-ai-core-model-dropdown"

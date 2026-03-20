@@ -38,7 +38,7 @@ export const SambanovaProvider = ({ showModelOptions, isPopup, currentMode }: Sa
 			{showModelOptions && (
 				<>
 					<ModelSelector
-						label="Model"
+						label="모델"
 						models={sambanovaModels}
 						onChange={(e: any) =>
 							handleModeFieldChange(

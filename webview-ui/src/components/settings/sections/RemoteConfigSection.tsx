@@ -74,7 +74,7 @@ function SettingRow({ label, value, isSecret }: SettingRowProps) {
 			return <span className="text-description italic">Not configured</span>
 		}
 		if (typeof value === "boolean") {
-			return value ? <span className="text-green-500">Enabled</span> : <span className="text-description">Disabled</span>
+			return value ? <span className="text-green-500">활성화됨</span> : <span className="text-description">비활성화됨</span>
 		}
 		if (isSecret && typeof value === "string" && value.length > 0) {
 			return <span className="font-mono text-xs">{"•".repeat(Math.min(value.length, 20))}</span>
@@ -176,40 +176,40 @@ function OtelSettingsSection() {
 				OpenTelemetry Configuration
 			</h4>
 			<div className="bg-vscode-textBlockQuote-background rounded p-3 mb-2">
-				<SettingRow label="Enabled" value={otelEnabled} />
-				<SettingRow label="Metrics Exporter" value={remoteConfigSettings?.openTelemetryMetricsExporter} />
-				<SettingRow label="Logs Exporter" value={remoteConfigSettings?.openTelemetryLogsExporter} />
+				<SettingRow label="활성화 여부" value={otelEnabled} />
+				<SettingRow label="메트릭 내보내기" value={remoteConfigSettings?.openTelemetryMetricsExporter} />
+				<SettingRow label="로그 내보내기" value={remoteConfigSettings?.openTelemetryLogsExporter} />
 				<SettingRow label="OTLP Protocol" value={remoteConfigSettings?.openTelemetryOtlpProtocol} />
 				<SettingRow label="OTLP Endpoint" value={remoteConfigSettings?.openTelemetryOtlpEndpoint} />
 				{remoteConfigSettings?.openTelemetryOtlpMetricsEndpoint && (
-					<SettingRow label="Metrics Endpoint" value={remoteConfigSettings?.openTelemetryOtlpMetricsEndpoint} />
+					<SettingRow label="메트릭 엔드포인트" value={remoteConfigSettings?.openTelemetryOtlpMetricsEndpoint} />
 				)}
 				{remoteConfigSettings?.openTelemetryOtlpLogsEndpoint && (
-					<SettingRow label="Logs Endpoint" value={remoteConfigSettings?.openTelemetryOtlpLogsEndpoint} />
+					<SettingRow label="로그 엔드포인트" value={remoteConfigSettings?.openTelemetryOtlpLogsEndpoint} />
 				)}
 				{remoteConfigSettings?.openTelemetryOtlpHeaders && (
 					<SettingRow
-						label="OTLP Headers"
+						label="OTLP 헤더"
 						value={`${Object.keys(remoteConfigSettings.openTelemetryOtlpHeaders).length} header(s)`}
 					/>
 				)}
 				{remoteConfigSettings?.openTelemetryMetricExportInterval && (
 					<SettingRow
-						label="Metric Export Interval"
+						label="메트릭 내보내기 간격"
 						value={`${remoteConfigSettings.openTelemetryMetricExportInterval}ms`}
 					/>
 				)}
 				{remoteConfigSettings?.openTelemetryOtlpInsecure !== undefined && (
-					<SettingRow label="OTLP Insecure" value={remoteConfigSettings?.openTelemetryOtlpInsecure} />
+					<SettingRow label="OTLP 보안 비활성화" value={remoteConfigSettings?.openTelemetryOtlpInsecure} />
 				)}
 				{remoteConfigSettings?.openTelemetryLogBatchSize && (
-					<SettingRow label="Log Batch Size" value={remoteConfigSettings?.openTelemetryLogBatchSize} />
+					<SettingRow label="로그 배치 크기" value={remoteConfigSettings?.openTelemetryLogBatchSize} />
 				)}
 				{remoteConfigSettings?.openTelemetryLogBatchTimeout && (
-					<SettingRow label="Log Batch Timeout" value={`${remoteConfigSettings.openTelemetryLogBatchTimeout}ms`} />
+					<SettingRow label="로그 배치 타임아웃" value={`${remoteConfigSettings.openTelemetryLogBatchTimeout}ms`} />
 				)}
 				{remoteConfigSettings?.openTelemetryLogMaxQueueSize && (
-					<SettingRow label="Log Max Queue Size" value={remoteConfigSettings?.openTelemetryLogMaxQueueSize} />
+					<SettingRow label="로그 최대 큐 크기" value={remoteConfigSettings?.openTelemetryLogMaxQueueSize} />
 				)}
 			</div>
 
@@ -217,9 +217,9 @@ function OtelSettingsSection() {
 				<div className="flex gap-2 flex-wrap">
 					<TestButton
 						disabled={!remoteConfigSettings?.openTelemetryMetricsExporter}
-						label="Test"
-						onClick={handleTestOtel}
+						label="테스트"
 						successMessage="Flushed buffers! Please check the output channel for more detailed information"
+						onClick={handleTestOtel}
 					/>
 				</div>
 			)}
@@ -249,21 +249,21 @@ function PromptUploadingSection() {
 				Prompt Uploading Configuration
 			</h4>
 			<div className="bg-vscode-textBlockQuote-background rounded p-3 mb-2">
-				<SettingRow label="Storage Type" value={blobStoreConfig.adapterType?.toUpperCase()} />
-				<SettingRow label="Bucket" value={blobStoreConfig.bucket} />
-				<SettingRow label="Region" value={blobStoreConfig.region} />
-				{blobStoreConfig.endpoint && <SettingRow label="Endpoint" value={blobStoreConfig.endpoint} />}
-				{blobStoreConfig.accountId && <SettingRow label="Account ID" value={blobStoreConfig.accountId} />}
-				<SettingRow isSecret label="Access Key ID" value={blobStoreConfig.accessKeyId} />
-				<SettingRow isSecret label="Secret Access Key" value={blobStoreConfig.secretAccessKey} />
-				{blobStoreConfig.intervalMs && <SettingRow label="Sync Interval" value={`${blobStoreConfig.intervalMs}ms`} />}
-				{blobStoreConfig.batchSize && <SettingRow label="Batch Size" value={blobStoreConfig.batchSize} />}
-				{blobStoreConfig.maxRetries && <SettingRow label="Max Retries" value={blobStoreConfig.maxRetries} />}
-				{blobStoreConfig.maxQueueSize && <SettingRow label="Max Queue Size" value={blobStoreConfig.maxQueueSize} />}
-				<SettingRow label="Backfill Enabled" value={blobStoreConfig.backfillEnabled} />
+				<SettingRow label="저장소 유형" value={blobStoreConfig.adapterType?.toUpperCase()} />
+				<SettingRow label="버킷(Bucket)" value={blobStoreConfig.bucket} />
+				<SettingRow label="리전(Region)" value={blobStoreConfig.region} />
+				{blobStoreConfig.endpoint && <SettingRow label="엔드포인트" value={blobStoreConfig.endpoint} />}
+				{blobStoreConfig.accountId && <SettingRow label="계정 ID" value={blobStoreConfig.accountId} />}
+				<SettingRow isSecret label="액세스 키 ID" value={blobStoreConfig.accessKeyId} />
+				<SettingRow isSecret label="비밀 액세스 키" value={blobStoreConfig.secretAccessKey} />
+				{blobStoreConfig.intervalMs && <SettingRow label="동기화 간격" value={`${blobStoreConfig.intervalMs}ms`} />}
+				{blobStoreConfig.batchSize && <SettingRow label="배치 크기" value={blobStoreConfig.batchSize} />}
+				{blobStoreConfig.maxRetries && <SettingRow label="최대 재시도 횟수" value={blobStoreConfig.maxRetries} />}
+				{blobStoreConfig.maxQueueSize && <SettingRow label="최대 큐 크기" value={blobStoreConfig.maxQueueSize} />}
+				<SettingRow label="백필 활성화 (Backfill)" value={blobStoreConfig.backfillEnabled} />
 			</div>
 
-			<TestButton label="Test Upload" onClick={handleTestPromptUploading} />
+			<TestButton label="업로드 테스트" onClick={handleTestPromptUploading} />
 		</div>
 	)
 }

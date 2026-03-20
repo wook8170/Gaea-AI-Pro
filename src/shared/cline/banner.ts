@@ -110,7 +110,7 @@ export const BANNER_DATA: BannerCardData[] = [
 		id: "minimax-m2.5-free-2026-feb-18",
 		icon: "zap",
 		title: "Try MiniMax M2.5 Free",
-		description: "SOTA coding capability with lightning fast inference, free in Cline.",
+		description: "SOTA coding capability with lightning fast inference, free in Gaea AI Pro.",
 		actions: [
 			{
 				title: "Try now",
@@ -125,9 +125,9 @@ export const BANNER_DATA: BannerCardData[] = [
 	{
 		id: "chatgpt-integration-v1",
 		icon: "megaphone",
-		title: "Use ChatGPT with Cline",
+		title: "Use ChatGPT with Gaea AI Pro",
 		description:
-			"Bring your ChatGPT subscription to Cline! Use your existing plan directly with no per token costs or API keys to manage.",
+			"Bring your ChatGPT subscription to Gaea AI Pro! Use your existing plan directly with no per token costs or API keys to manage.",
 		actions: [
 			{
 				title: "Connect",
@@ -143,25 +143,25 @@ export const BANNER_DATA: BannerCardData[] = [
 		icon: "book-open",
 		title: "Jupyter Notebooks",
 		description:
-			"Comprehensive AI-assisted editing of `.ipynb` files with full cell-level context awareness. [Learn More →](https://docs.cline.bot/features/jupyter-notebooks)",
+			"Comprehensive AI-assisted editing of `.ipynb` files with full cell-level context awareness. [Learn More →](https://docs.gaea-ai-pro.bot/features/jupyter-notebooks)",
 	},
 
 	// Platform-specific banner (Windows)
 	{
 		id: "cli-info-windows-v1",
 		icon: "terminal",
-		title: "Cline CLI Info",
+		title: "Gaea AI Pro CLI Info",
 		platforms: ["windows"] satisfies BannerCardData["platforms"],
 		description:
-			"Available for macOS and Linux. Coming soon to other platforms. [Learn more](https://docs.cline.bot/cline-cli/overview)",
+			"Available for macOS and Linux. Coming soon to other platforms. [Learn more](https://docs.gaea-ai-pro.bot/gaea-cli/overview)",
 	},
 
 	// Info banner with inline link
 	{
 		id: "info-banner-v1",
 		icon: "lightbulb",
-		title: "Use Cline in Right Sidebar",
+		title: "Use Gaea AI Pro in Right Sidebar",
 		description:
-			"For the best experience, drag the Cline icon to your right sidebar. This keeps your file explorer and editor visible while you chat with Cline, making it easier to navigate your codebase and see changes in real-time. [See how →](https://docs.cline.bot/features/customization/opening-cline-in-sidebar)",
+			"For the best experience, drag the Gaea AI Pro icon to your right sidebar. This keeps your file explorer and editor visible while you chat with Gaea AI Pro, making it easier to navigate your codebase and see changes in real-time. [See how →](https://docs.gaea-ai-pro.bot/features/customization/opening-gaea-ai-pro-in-sidebar)",
 	},
 ]

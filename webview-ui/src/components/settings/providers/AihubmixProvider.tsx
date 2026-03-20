@@ -91,7 +91,7 @@ export const AIhubmixProvider = ({ showModelOptions, isPopup, currentMode }: AIh
 			{showModelOptions && (
 				<>
 					<ModelSelector
-						label="Model"
+						label="모델"
 						models={models}
 						onChange={(e) => {
 							const newModelId = e.target.value

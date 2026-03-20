@@ -48,7 +48,7 @@ export const GeminiProvider = ({ showModelOptions, isPopup, currentMode }: Gemin
 			{showModelOptions && (
 				<>
 					<ModelSelector
-						label="Model"
+						label="모델"
 						models={geminiModels}
 						onChange={(e: any) =>
 							handleModeFieldChange(

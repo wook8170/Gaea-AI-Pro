@@ -67,17 +67,17 @@ export const OllamaProvider = ({ showModelOptions, isPopup, currentMode }: Ollam
 
 			{apiConfiguration?.ollamaBaseUrl && (
 				<ApiKeyField
-					helpText="Optional API key for authenticated Ollama instances or cloud services. Leave empty for local installations."
+					helpText="인증된 Ollama 인스턴스 또는 클라우드 서비스를 위한 선택적 API 키입니다. 로컬 설치의 경우 비워두세요."
 					initialValue={apiConfiguration?.ollamaApiKey || ""}
 					onChange={(value) => handleFieldChange("ollamaApiKey", value)}
-					placeholder="Enter API Key (optional)..."
+					placeholder="API 키 입력 (선택 사항)..."
 					providerName="Ollama"
 				/>
 			)}
 
 			{/* Model selection - use filterable picker */}
 			<label htmlFor="ollama-model-selection">
-				<span className="font-semibold">Model</span>
+				<span className="font-semibold">모델</span>
 			</label>
 			<OllamaModelPicker
 				ollamaModels={ollamaModels}
@@ -99,9 +99,9 @@ export const OllamaProvider = ({ showModelOptions, isPopup, currentMode }: Ollam
 			<DebouncedTextField
 				initialValue={apiConfiguration?.ollamaApiOptionsCtxNum || "32768"}
 				onChange={(v) => handleFieldChange("ollamaApiOptionsCtxNum", v || undefined)}
-				placeholder={"e.g. 32768"}
+				placeholder="기본값: 8192"
 				style={{ width: "100%" }}>
-				<span className="font-semibold">Model Context Window</span>
+				<span className="font-semibold">모델 컨텍스트 창</span>
 			</DebouncedTextField>
 
 			{showModelOptions && (
@@ -115,12 +115,12 @@ export const OllamaProvider = ({ showModelOptions, isPopup, currentMode }: Ollam
 								handleFieldChange("requestTimeoutMs", numValue)
 							}
 						}}
-						placeholder="Default: 30000 (30 seconds)"
+						placeholder="기본값: 30000 (30초)"
 						style={{ width: "100%" }}>
-						<span className="font-semibold">Request Timeout (ms)</span>
+						<span className="font-semibold">요청 시간 제한 (ms)</span>
 					</DebouncedTextField>
 					<p className="text-xs mt-0 text-description">
-						Maximum time in milliseconds to wait for API responses before timing out.
+						API 응답을 기다리는 최대 시간(밀리초)입니다. 이 시간을 초과하면 타임아웃됩니다.
 					</p>
 				</>
 			)}

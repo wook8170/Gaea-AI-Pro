@@ -22,16 +22,16 @@ export async function deleteTasksWithIds(controller: Controller, request: String
 	const taskCount = request.value.length
 	const message =
 		taskCount === 1
-			? "Are you sure you want to delete this task? This action cannot be undone."
-			: `Are you sure you want to delete these ${taskCount} tasks? This action cannot be undone.`
+			? "이 태스크를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다."
+			: `이 ${taskCount}개의 태스크를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.`
 
 	const userChoice = await HostProvider.window.showMessage({
 		type: ShowMessageType.WARNING,
 		message,
-		options: { modal: true, items: ["Delete"] },
+		options: { modal: true, items: ["삭제"] },
 	})
 
-	if (userChoice.selectedOption !== "Delete") {
+	if (userChoice.selectedOption !== "삭제") {
 		return Empty.create()
 	}
 

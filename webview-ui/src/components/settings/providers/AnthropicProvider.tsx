@@ -67,9 +67,9 @@ export const AnthropicProvider = ({ showModelOptions, isPopup, currentMode }: An
 				<BaseUrlField
 					disabled={!!remoteConfigSettings?.anthropicBaseUrl}
 					initialValue={apiConfiguration?.anthropicBaseUrl}
-					label="Use custom base URL"
+					label="사용자 지정 기본 URL 사용"
 					onChange={(value) => handleFieldChange("anthropicBaseUrl", value)}
-					placeholder="Default: https://api.anthropic.com"
+					placeholder="기본값: https://api.anthropic.com"
 					showLockIcon={!!remoteConfigSettings?.anthropicBaseUrl}
 				/>
 			</RemotelyConfiguredInputWrapper>
@@ -77,7 +77,7 @@ export const AnthropicProvider = ({ showModelOptions, isPopup, currentMode }: An
 			{showModelOptions && (
 				<>
 					<ModelSelector
-						label="Model"
+						label="모델"
 						models={anthropicModels}
 						onChange={(e) =>
 							handleModeFieldChange(

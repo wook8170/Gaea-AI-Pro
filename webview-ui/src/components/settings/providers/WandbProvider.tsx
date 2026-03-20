@@ -32,7 +32,7 @@ export const WandbProvider = ({ showModelOptions, isPopup, currentMode }: WandbP
 			{showModelOptions && (
 				<>
 					<ModelSelector
-						label="Model"
+						label="모델"
 						models={wandbModels}
 						onChange={(e: any) =>
 							handleModeFieldChange(

@@ -62,7 +62,7 @@ export const ClaudeCodeProvider = ({ showModelOptions, isPopup, currentMode }: C
 			{showModelOptions && (
 				<>
 					<ModelSelector
-						label="Model"
+						label="모델"
 						models={claudeCodeModels}
 						onChange={(e: any) =>
 							handleModeFieldChange(

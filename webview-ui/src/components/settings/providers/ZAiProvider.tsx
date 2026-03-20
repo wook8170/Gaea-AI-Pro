@@ -37,20 +37,16 @@ export const ZAiProvider = ({ showModelOptions, isPopup, currentMode }: ZAiProvi
 	return (
 		<div>
 			<DropdownContainer className="dropdown-container" style={{ position: "inherit" }}>
-				<label htmlFor="zai-entrypoint">
-					<span style={{ fontWeight: 500, marginTop: 5 }}>Z AI Entrypoint</span>
-				</label>
-				<VSCodeDropdown
-					id="zai-entrypoint"
-					onChange={(e) => handleFieldChange("zaiApiLine", (e.target as any).value)}
-					style={{
-						minWidth: 130,
-						position: "relative",
-					}}
-					value={apiConfiguration?.zaiApiLine || "international"}>
-					<VSCodeOption value="international">api.z.ai</VSCodeOption>
-					<VSCodeOption value="china">open.bigmodel.cn</VSCodeOption>
-				</VSCodeDropdown>
+				<div className="flex flex-col gap-2 mb-2">
+					<span style={{ fontWeight: 500, marginTop: 5 }}>Z AI 엔트리포인트</span>
+					<VSCodeDropdown
+						onChange={(e) => handleFieldChange("zaiApiLine", (e.target as HTMLSelectElement).value)}
+						style={{ width: "100%" }}
+						value={apiConfiguration?.zaiApiLine || "international"}>
+						<VSCodeOption value="international">국제 서버 (api.z.ai)</VSCodeOption>
+						<VSCodeOption value="china">중국 서버 (open.bigmodel.cn)</VSCodeOption>
+					</VSCodeDropdown>
+				</div>
 			</DropdownContainer>
 			<p
 				style={{
@@ -75,7 +71,7 @@ export const ZAiProvider = ({ showModelOptions, isPopup, currentMode }: ZAiProvi
 			{showModelOptions && (
 				<>
 					<ModelSelector
-						label="Model"
+						label="모델"
 						models={zaiModels}
 						onChange={(e: any) =>
 							handleModeFieldChange(

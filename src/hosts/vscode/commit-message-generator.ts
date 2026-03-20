@@ -66,7 +66,7 @@ export async function generateCommitMsg(controller: Controller, scm?: vscode.Sou
 		const errorMessage = error instanceof Error ? error.message : String(error)
 		HostProvider.window.showMessage({
 			type: ShowMessageType.ERROR,
-			message: `[Commit Generation Failed] ${errorMessage}`,
+			message: `[커밋 메시지 생성 실패] ${errorMessage}`,
 		})
 	}
 }

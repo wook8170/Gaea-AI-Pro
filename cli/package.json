@@ -1,12 +1,12 @@
 {
-	"name": "cline",
-	"version": "2.8.0",
+	"name": "gaea-ai-pro-cli",
+	"version": "0.1.0",
 	"description": "Gaea AI Pro CLI",
 	"main": "dist/lib.mjs",
 	"types": "dist/lib.d.ts",
 	"bin": {
-		"cline": "./dist/cli.mjs",
-		"gaea-cli": "./dist/cli.mjs"
+		"gaea-cli": "./dist/cli.mjs",
+		"gaea-ai-pro": "./dist/cli.mjs"
 	},
 	"exports": {
 		".": {

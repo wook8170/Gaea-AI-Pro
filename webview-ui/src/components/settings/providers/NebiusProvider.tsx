@@ -38,7 +38,7 @@ export const NebiusProvider = ({ showModelOptions, isPopup, currentMode }: Nebiu
 			{showModelOptions && (
 				<>
 					<ModelSelector
-						label="Model"
+						label="모델"
 						models={nebiusModels}
 						onChange={(e: any) =>
 							handleModeFieldChange(

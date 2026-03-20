@@ -44,7 +44,7 @@ export const VSCodeLmProvider = ({ currentMode }: VSCodeLmProviderProps) => {
 		<div>
 			<DropdownContainer className="dropdown-container" zIndex={DROPDOWN_Z_INDEX - 2}>
 				<label htmlFor="vscode-lm-model">
-					<span style={{ fontWeight: 500 }}>Language Model</span>
+					<span style={{ fontWeight: 500 }}>언어 모델 (Language Model)</span>
 				</label>
 				{vsCodeLmModels.length > 0 ? (
 					<VSCodeDropdown

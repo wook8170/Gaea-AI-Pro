@@ -187,7 +187,7 @@ const RequestyModelPicker: React.FC<RequestyModelPickerProps> = ({ isPopup, base
 			</style>
 			<div style={{ display: "flex", flexDirection: "column" }}>
 				<label htmlFor="model-search">
-					<span style={{ fontWeight: 500 }}>Model</span>
+					<span style={{ fontWeight: 500 }}>모델</span>
 				</label>
 				<DropdownWrapper ref={dropdownRef}>
 					<VSCodeTextField

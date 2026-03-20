@@ -166,7 +166,7 @@ const HuggingFaceModelPicker: React.FC<HuggingFaceModelPickerProps> = ({ isPopup
 		<div className="w-full">
 			<div className="flex flex-col">
 				<label htmlFor="hf-model-search">
-					<span className="font-medium">Model</span>
+					<span className="font-medium">모델</span>
 				</label>
 
 				<div className="relative w-full" ref={dropdownRef}>

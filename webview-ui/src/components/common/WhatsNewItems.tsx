@@ -91,7 +91,7 @@ export const WhatsNewItems: React.FC<WhatsNewItemsProps> = ({
 						<code style={inlineCodeStyle}>npm install -g gaea-ai-pro</code>
 					</li>
 					<li className="mb-2">
-						<strong>Minimax M2.5 and Z.ai GLM 5:</strong> no longer free starting Feb 23, 2026
+						<strong>Minimax M2.5 및 Z.ai GLM 5:</strong> 2026년 2월 23일부터 더 이상 무료가 아닙니다.
 					</li>
 				</>
 			)}

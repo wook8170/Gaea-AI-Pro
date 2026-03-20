@@ -101,7 +101,7 @@ export const LMStudioProvider = ({ currentMode }: LMStudioProviderProps) => {
 				placeholder="Default: http://localhost:1234"
 			/>
 
-			<div className="font-semibold">Model</div>
+			<div className="font-semibold">모델</div>
 			{lmStudioModels.length > 0 ? (
 				<DropdownContainer className="dropdown-container" zIndex={10}>
 					<VSCodeDropdown
@@ -143,7 +143,7 @@ export const LMStudioProvider = ({ currentMode }: LMStudioProviderProps) => {
 				/>
 			)}
 
-			<div className="font-semibold">Context Window</div>
+			<div className="font-semibold">컨텍스트 창</div>
 			<VSCodeTextField
 				className="w-full pointer-events-none"
 				disabled={true}

@@ -184,7 +184,7 @@ export class McpHub {
 			} catch (_error) {
 				HostProvider.window.showMessage({
 					type: ShowMessageType.ERROR,
-					message: "Invalid MCP settings format. Please ensure your settings follow the correct JSON format.",
+					message: "MCP 설정 형식이 올바르지 않습니다. JSON 형식을 확인해 주세요.",
 				})
 				return undefined
 			}
@@ -198,7 +198,7 @@ export class McpHub {
 			if (!result.success) {
 				HostProvider.window.showMessage({
 					type: ShowMessageType.ERROR,
-					message: "Invalid MCP settings schema.",
+					message: "MCP 설정 스키마가 올바르지 않습니다.",
 				})
 				return undefined
 			}

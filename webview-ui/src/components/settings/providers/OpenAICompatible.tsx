@@ -78,7 +78,7 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 				<TooltipTrigger>
 					<div className="mb-2.5">
 						<div className="flex items-center gap-2 mb-1">
-							<span style={{ fontWeight: 500 }}>Base URL</span>
+							<span style={{ fontWeight: 500 }}>기본 URL</span>
 							{remoteConfigSettings?.openAiBaseUrl !== undefined && (
 								<i className="codicon codicon-lock text-description text-sm" />
 							)}
@@ -90,14 +90,14 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 								handleFieldChange("openAiBaseUrl", value)
 								debouncedRefreshOpenAiModels(value, apiConfiguration?.openAiApiKey)
 							}}
-							placeholder={"Enter base URL..."}
+							placeholder={"기본 URL 입력..."}
 							style={{ width: "100%", marginBottom: 10 }}
 							type="text"
 						/>
 					</div>
 				</TooltipTrigger>
 				<TooltipContent hidden={remoteConfigSettings?.openAiBaseUrl === undefined}>
-					This setting is managed by your organization's remote configuration
+					이 설정은 조직의 원격 구성에 의해 관리됩니다.
 				</TooltipContent>
 			</Tooltip>
 
@@ -115,9 +115,9 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 				onChange={(value) =>
 					handleModeFieldChange({ plan: "planModeOpenAiModelId", act: "actModeOpenAiModelId" }, value, currentMode)
 				}
-				placeholder={"Enter Model ID..."}
+				placeholder={"모델 ID 입력..."}
 				style={{ width: "100%", marginBottom: 10 }}>
-				<span style={{ fontWeight: 500 }}>Model ID</span>
+				<span style={{ fontWeight: 500 }}>모델 ID</span>
 			</DebouncedTextField>
 
 			{/* OpenAI Compatible Custom Headers */}
@@ -130,14 +130,14 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 							<Tooltip>
 								<TooltipTrigger>
 									<div className="flex items-center gap-2">
-										<span style={{ fontWeight: 500 }}>Custom Headers</span>
+										<span style={{ fontWeight: 500 }}>사용자 지정 헤더</span>
 										{remoteConfigSettings?.openAiHeaders !== undefined && (
 											<i className="codicon codicon-lock text-description text-sm" />
 										)}
 									</div>
 								</TooltipTrigger>
 								<TooltipContent hidden={remoteConfigSettings?.openAiHeaders === undefined}>
-									This setting is managed by your organization's remote configuration
+									이 설정은 조직의 원격 구성에 의해 관리됩니다.
 								</TooltipContent>
 							</Tooltip>
 							<VSCodeButton
@@ -149,7 +149,7 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 									currentHeaders[newKey] = ""
 									handleFieldChange("openAiHeaders", currentHeaders)
 								}}>
-								Add Header
+								헤더 추가
 							</VSCodeButton>
 						</div>
 
@@ -169,7 +169,7 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 												})
 											}
 										}}
-										placeholder="Header name"
+										placeholder="헤더 이름"
 										style={{ width: "40%" }}
 									/>
 									<DebouncedTextField
@@ -181,7 +181,7 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 												[key]: newValue,
 											})
 										}}
-										placeholder="Header value"
+										placeholder="헤더 값"
 										style={{ width: "40%" }}
 									/>
 									<VSCodeButton
@@ -191,7 +191,7 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 											const { [key]: _, ...rest } = apiConfiguration?.openAiHeaders ?? {}
 											handleFieldChange("openAiHeaders", rest)
 										}}>
-										Remove
+										삭제
 									</VSCodeButton>
 								</div>
 							))}
@@ -206,20 +206,20 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 						<BaseUrlField
 							disabled={true}
 							initialValue={apiConfiguration?.azureApiVersion}
-							label="Set Azure API version"
+							label="Azure API 버전 설정"
 							onChange={(value) => handleFieldChange("azureApiVersion", value)}
-							placeholder={`Default: ${azureOpenAiDefaultApiVersion}`}
+							placeholder={`기본값: ${azureOpenAiDefaultApiVersion}`}
 							showLockIcon={true}
 						/>
 					</TooltipTrigger>
-					<TooltipContent>This setting is managed by your organization's remote configuration</TooltipContent>
+					<TooltipContent>이 설정은 조직의 원격 구성에 의해 관리됩니다.</TooltipContent>
 				</Tooltip>
 			) : (
 				<BaseUrlField
 					initialValue={apiConfiguration?.azureApiVersion}
-					label="Set Azure API version"
+					label="Azure API 버전 설정"
 					onChange={(value) => handleFieldChange("azureApiVersion", value)}
-					placeholder={`Default: ${azureOpenAiDefaultApiVersion}`}
+					placeholder={`기본값: ${azureOpenAiDefaultApiVersion}`}
 				/>
 			)}
 
@@ -229,7 +229,7 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 					const isChecked = e.target.checked === true
 					return handleFieldChange("azureIdentity", isChecked)
 				}}>
-				Use Azure Identity Authentication
+				Azure Identity 인증 사용
 			</VSCodeCheckbox>
 
 			<div
@@ -252,7 +252,7 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 						fontWeight: 700,
 						textTransform: "uppercase",
 					}}>
-					Model Configuration
+					모델 상세 설정
 				</span>
 			</div>
 
@@ -270,7 +270,7 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 								currentMode,
 							)
 						}}>
-						Supports Images
+						이미지 지원
 					</VSCodeCheckbox>
 
 					<VSCodeCheckbox
@@ -286,7 +286,7 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 								currentMode,
 							)
 						}}>
-						Enable R1 messages format
+						R1 메시지 형식 활성화
 					</VSCodeCheckbox>
 
 					<div style={{ display: "flex", gap: 10, marginTop: "5px" }}>
@@ -306,7 +306,7 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 								)
 							}}
 							style={{ flex: 1 }}>
-							<span style={{ fontWeight: 500 }}>Context Window Size</span>
+							<span style={{ fontWeight: 500 }}>컨텍스트 창 크기</span>
 						</DebouncedTextField>
 
 						<DebouncedTextField
@@ -325,7 +325,7 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 								)
 							}}
 							style={{ flex: 1 }}>
-							<span style={{ fontWeight: 500 }}>Max Output Tokens</span>
+							<span style={{ fontWeight: 500 }}>최대 출력 토큰</span>
 						</DebouncedTextField>
 					</div>
 
@@ -346,7 +346,7 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 								)
 							}}
 							style={{ flex: 1 }}>
-							<span style={{ fontWeight: 500 }}>Input Price / 1M tokens</span>
+							<span style={{ fontWeight: 500 }}>입력 가격 / 100만 토큰</span>
 						</DebouncedTextField>
 
 						<DebouncedTextField
@@ -365,7 +365,7 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 								)
 							}}
 							style={{ flex: 1 }}>
-							<span style={{ fontWeight: 500 }}>Output Price / 1M tokens</span>
+							<span style={{ fontWeight: 500 }}>출력 가격 / 100만 토큰</span>
 						</DebouncedTextField>
 					</div>
 
@@ -385,7 +385,7 @@ export const OpenAICompatibleProvider = ({ showModelOptions, isPopup, currentMod
 									currentMode,
 								)
 							}}>
-							<span style={{ fontWeight: 500 }}>Temperature</span>
+							<span style={{ fontWeight: 500 }}>온도 (유연성)</span>
 						</DebouncedTextField>
 					</div>
 				</>

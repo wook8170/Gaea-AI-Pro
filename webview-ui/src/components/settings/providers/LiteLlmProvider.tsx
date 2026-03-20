@@ -110,7 +110,7 @@ export const LiteLlmProvider = ({ showModelOptions, isPopup, currentMode }: Lite
 			{showModelOptions && (
 				<>
 					<ModelAutocomplete
-						label="Model"
+						label="모델"
 						models={liteLlmModels}
 						onChange={handleModelChange}
 						placeholder="Search or enter a custom model ID..."

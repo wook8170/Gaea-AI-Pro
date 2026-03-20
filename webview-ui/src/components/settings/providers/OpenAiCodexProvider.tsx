@@ -70,7 +70,7 @@ export const OpenAiCodexProvider = ({ showModelOptions, isPopup, currentMode }: 
 			{showModelOptions && (
 				<>
 					<ModelSelector
-						label="Model"
+						label="모델"
 						models={openAiCodexModels}
 						onChange={(e: any) =>
 							handleModeFieldChange(

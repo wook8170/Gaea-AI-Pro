@@ -82,7 +82,7 @@ export const VertexProvider = ({ showModelOptions, isPopup, currentMode }: Verte
 						className="flex items-center gap-2 mb-1"
 						style={{ opacity: remoteConfigSettings?.vertexRegion !== undefined ? 0.4 : 1 }}>
 						<label htmlFor="vertex-region-dropdown">
-							<span className="font-medium">Google Cloud Region</span>
+							<span className="font-medium">Google Cloud 리전</span>
 						</label>
 						{remoteConfigSettings?.vertexRegion !== undefined && <LockIcon />}
 					</div>
@@ -124,7 +124,7 @@ export const VertexProvider = ({ showModelOptions, isPopup, currentMode }: Verte
 			{showModelOptions && (
 				<>
 					<ModelSelector
-						label="Model"
+						label="모델"
 						models={modelsToUse}
 						onChange={(e: any) =>
 							handleModeFieldChange(

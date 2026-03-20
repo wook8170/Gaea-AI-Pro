@@ -164,9 +164,9 @@ export const BedrockProvider = ({ showModelOptions, isPopup, currentMode }: Bedr
 					handleFieldChange("awsAuthentication", value)
 				}}
 				value={apiConfiguration?.awsAuthentication ?? (apiConfiguration?.awsProfile ? "profile" : "credentials")}>
-				<VSCodeRadio value="apikey">API Key</VSCodeRadio>
-				<VSCodeRadio value="profile">AWS Profile</VSCodeRadio>
-				<VSCodeRadio value="credentials">AWS Credentials</VSCodeRadio>
+				<VSCodeRadio value="apikey">API 키</VSCodeRadio>
+				<VSCodeRadio value="profile">AWS 프로필</VSCodeRadio>
+				<VSCodeRadio value="credentials">AWS 인증 정보</VSCodeRadio>
 			</VSCodeRadioGroup>
 
 			{(apiConfiguration?.awsAuthentication === undefined && apiConfiguration?.awsUseProfile) ||
@@ -176,8 +176,8 @@ export const BedrockProvider = ({ showModelOptions, isPopup, currentMode }: Bedr
 					initialValue={apiConfiguration?.awsProfile ?? ""}
 					key="profile"
 					onChange={(value) => handleFieldChange("awsProfile", value)}
-					placeholder="Enter profile name (default if empty)">
-					<span className="font-medium">AWS Profile Name</span>
+					placeholder="프로필 이름 입력 (비워두면 default 사용)">
+					<span className="font-medium">AWS 프로필 이름</span>
 				</DebouncedTextField>
 			) : apiConfiguration?.awsAuthentication === "apikey" ? (
 				<DebouncedTextField
@@ -185,9 +185,9 @@ export const BedrockProvider = ({ showModelOptions, isPopup, currentMode }: Bedr
 					initialValue={apiConfiguration?.awsBedrockApiKey ?? ""}
 					key="apikey"
 					onChange={(value) => handleFieldChange("awsBedrockApiKey", value)}
-					placeholder="Enter Bedrock Api Key"
+					placeholder="Bedrock API 키 입력"
 					type="password">
-					<span className="font-medium">AWS Bedrock Api Key</span>
+					<span className="font-medium">AWS Bedrock API 키</span>
 				</DebouncedTextField>
 			) : (
 				<>
@@ -227,7 +227,7 @@ export const BedrockProvider = ({ showModelOptions, isPopup, currentMode }: Bedr
 					<DropdownContainer className="dropdown-container mb-2.5" zIndex={DROPDOWN_Z_INDEX - 1}>
 						<div className="flex items-center gap-2 mb-1">
 							<label htmlFor="aws-region">
-								<span className="font-medium">AWS Region</span>
+								<span className="font-medium">AWS 리전</span>
 							</label>
 							{remoteConfigSettings?.awsRegion !== undefined && (
 								<i className="codicon codicon-lock text-description text-sm flex items-center" />
@@ -254,7 +254,7 @@ export const BedrockProvider = ({ showModelOptions, isPopup, currentMode }: Bedr
 									setIsDropdownVisible(true)
 								}}
 								onKeyDown={handleKeyDown}
-								placeholder="Search or enter custom region..."
+								placeholder="리전 검색 또는 직접 입력..."
 								role="combobox"
 								style={{
 									width: "100%",
@@ -328,7 +328,7 @@ export const BedrockProvider = ({ showModelOptions, isPopup, currentMode }: Bedr
 										handleFieldChange("awsBedrockEndpoint", "")
 									}
 								}}>
-								Use custom VPC endpoint
+								사용자 지정 VPC 엔드포인트 사용
 							</VSCodeCheckbox>
 							{remoteConfigSettings?.awsBedrockEndpoint !== undefined && (
 								<i className="codicon codicon-lock text-description text-sm flex items-center" />
@@ -341,7 +341,7 @@ export const BedrockProvider = ({ showModelOptions, isPopup, currentMode }: Bedr
 								disabled={remoteConfigSettings?.awsBedrockEndpoint !== undefined}
 								initialValue={apiConfiguration?.awsBedrockEndpoint || ""}
 								onChange={(value) => handleFieldChange("awsBedrockEndpoint", value)}
-								placeholder="Enter VPC Endpoint URL (optional)"
+								placeholder="VPC 엔드포인트 URL 입력 (선택 사항)"
 								type="text"
 							/>
 						)}
@@ -362,7 +362,7 @@ export const BedrockProvider = ({ showModelOptions, isPopup, currentMode }: Bedr
 
 									handleFieldChange("awsUseCrossRegionInference", isChecked)
 								}}>
-								Use cross-region inference
+								교차 리전 추론 사용 (Cross-region inference)
 							</VSCodeCheckbox>
 							{remoteConfigSettings?.awsUseCrossRegionInference !== undefined && (
 								<i className="codicon codicon-lock text-description text-sm" />
@@ -409,7 +409,7 @@ export const BedrockProvider = ({ showModelOptions, isPopup, currentMode }: Bedr
 										const isChecked = e.target.checked === true
 										handleFieldChange("awsBedrockUsePromptCache", isChecked)
 									}}>
-									Use prompt caching
+									프롬프트 캐싱 사용
 								</VSCodeCheckbox>
 								{remoteConfigSettings?.awsBedrockUsePromptCache !== undefined && (
 									<i className="codicon codicon-lock text-description text-sm" />
@@ -429,7 +429,7 @@ export const BedrockProvider = ({ showModelOptions, isPopup, currentMode }: Bedr
 			{showModelOptions && (
 				<>
 					<label htmlFor="bedrock-model-dropdown">
-						<span className="font-medium">Model</span>
+						<span className="font-medium">모델</span>
 					</label>
 					<DropdownContainer className="dropdown-container" zIndex={DROPDOWN_Z_INDEX - 2}>
 						<VSCodeDropdown
@@ -468,15 +468,14 @@ export const BedrockProvider = ({ showModelOptions, isPopup, currentMode }: Bedr
 									{modelId}
 								</VSCodeOption>
 							))}
-							<VSCodeOption value="custom">Custom</VSCodeOption>
+							<VSCodeOption value="custom">사용자 지정</VSCodeOption>
 						</VSCodeDropdown>
 					</DropdownContainer>
 
 					{modeFields.awsBedrockCustomSelected && (
 						<div>
 							<p className="mt-1 text-sm text-description">
-								Select "Custom" when using the Application Inference Profile in Bedrock. Enter the Application
-								Inference Profile ARN in the Model ID field.
+								Bedrock에서 Application Inference Profile을 사용하는 경우 "사용자 지정"을 선택하세요. 모델 ID 필드에 Application Inference Profile ARN을 입력하시면 됩니다.
 							</p>
 							<DebouncedTextField
 								className="w-full mt-0.5"
@@ -489,11 +488,11 @@ export const BedrockProvider = ({ showModelOptions, isPopup, currentMode }: Bedr
 										currentMode,
 									)
 								}
-								placeholder="Enter custom model ID...">
-								<span className="font-medium">Model ID</span>
+								placeholder="사용자 지정 모델 ID 입력...">
+								<span className="font-medium">모델 ID</span>
 							</DebouncedTextField>
 							<label htmlFor="bedrock-base-model-dropdown">
-								<span className="font-medium">Base Inference Model</span>
+								<span className="font-medium">기본 추론 모델</span>
 							</label>
 							<DropdownContainer className="dropdown-container" zIndex={DROPDOWN_Z_INDEX - 3}>
 								<VSCodeDropdown

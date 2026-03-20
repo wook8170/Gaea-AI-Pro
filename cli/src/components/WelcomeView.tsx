@@ -239,7 +239,7 @@ export const WelcomeView: React.FC<WelcomeViewProps> = ({ onSubmit, onExit, cont
 			<Box alignItems="center" flexDirection="column">
 				{GAEA_AI_PRO_LOGO.map((line, idx) => (
 					// biome-ignore lint/suspicious/noArrayIndexKey: static array that never changes
-					<Text color={COLORS.primaryNavy} key={idx}>
+					<Text color="white" key={idx}>
 						{line}
 					</Text>
 				))}
@@ -248,7 +248,7 @@ export const WelcomeView: React.FC<WelcomeViewProps> = ({ onSubmit, onExit, cont
 			{/* Main prompt - centered, bold */}
 			<Box justifyContent="center" marginTop={1}>
 				<Text bold color="white">
-					What can I do for you?
+					무엇을 도와드릴까요?
 				</Text>
 			</Box>
 
@@ -282,12 +282,12 @@ export const WelcomeView: React.FC<WelcomeViewProps> = ({ onSubmit, onExit, cont
 				<Box gap={1}>
 					<Box>
 						<Text bold={mode === "plan"} color={mode === "plan" ? "yellow" : "gray"}>
-							{mode === "plan" ? "●" : "○"} Plan
+							{mode === "plan" ? "●" : "○"} 설계(Plan)
 						</Text>
 					</Box>
 					<Box>
 						<Text bold={mode === "act"} color={mode === "act" ? "blue" : "gray"}>
-							{mode === "act" ? "●" : "○"} Act
+							{mode === "act" ? "●" : "○"} 실행(Act)
 						</Text>
 					</Box>
 					<Text color="gray">(Tab)</Text>
@@ -313,9 +313,9 @@ export const WelcomeView: React.FC<WelcomeViewProps> = ({ onSubmit, onExit, cont
 
 			{/* Help text */}
 			<Box>
-				<Text color="gray">Enter to submit · @ to mention files · </Text>
+				<Text color="gray">Enter로 전송 · @로 파일 멘션 · </Text>
 				<Text bold={escPressedOnce} color={escPressedOnce ? "white" : "gray"}>
-					{escPressedOnce ? "Press Esc again to exit" : "Esc to exit"}
+					{escPressedOnce ? "나가려면 Esc를 한 번 더 누르세요" : "Esc로 종료"}
 				</Text>
 			</Box>
 		</Box>

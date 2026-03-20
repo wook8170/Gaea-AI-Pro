@@ -31,29 +31,19 @@ export const MinimaxProvider = ({ showModelOptions, isPopup, currentMode }: Mini
 	return (
 		<div>
 			<DropdownContainer className="dropdown-container" style={{ position: "inherit" }}>
-				<label htmlFor="minimax-entrypoint">
-					<span style={{ fontWeight: 500, marginTop: 5 }}>MiniMax Entrypoint</span>
-				</label>
-				<VSCodeDropdown
-					id="minimax-entrypoint"
-					onChange={(e) => handleFieldChange("minimaxApiLine", (e.target as any).value)}
-					style={{
-						minWidth: 130,
-						position: "relative",
-					}}
-					value={apiConfiguration?.minimaxApiLine || "international"}>
-					<VSCodeOption value="international">api.minimax.io</VSCodeOption>
-					<VSCodeOption value="china">api.minimaxi.com</VSCodeOption>
-				</VSCodeDropdown>
+				<div className="flex flex-col gap-2 mb-2">
+					<span style={{ fontWeight: 500, marginTop: 5 }}>MiniMax 엔트리포인트</span>
+					<VSCodeDropdown
+						onChange={(e) => handleFieldChange("minimaxApiLine", (e.target as any).value)}
+						style={{ width: "100%" }}
+						value={apiConfiguration?.minimaxApiLine || "international"}>
+						<VSCodeOption value="international">국제 서버 (api.minimax.io)</VSCodeOption>
+						<VSCodeOption value="china">중국 서버 (api.minimaxi.com)</VSCodeOption>
+					</VSCodeDropdown>
+				</div>
 			</DropdownContainer>
-			<p
-				style={{
-					fontSize: "12px",
-					marginTop: 3,
-					color: "var(--vscode-descriptionForeground)",
-				}}>
-				Select the API endpoint according to your region: <code>api.minimaxi.com</code> for China, or{" "}
-				<code>api.minimax.io</code> for all other locations.
+			<p className="text-xs text-description mt-0 mb-3">
+				지역에 맞는 API 엔드포인트를 선택하세요: 중국 거주 시 <code>api.minimaxi.com</code>, 그 외 지역은 <code>api.minimax.io</code>를 선택하시면 됩니다.
 			</p>
 			<ApiKeyField
 				initialValue={apiConfiguration?.minimaxApiKey || ""}
@@ -69,7 +59,6 @@ export const MinimaxProvider = ({ showModelOptions, isPopup, currentMode }: Mini
 			{showModelOptions && (
 				<>
 					<ModelSelector
-						label="Model"
 						models={minimaxModels}
 						onChange={(e: any) =>
 							handleModeFieldChange(

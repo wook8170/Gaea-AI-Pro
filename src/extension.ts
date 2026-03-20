@@ -231,7 +231,7 @@ export async function activate(context: vscode.ExtensionContext) {
 				Logger.error("Error getting terminal contents:", error)
 				HostProvider.window.showMessage({
 					type: ShowMessageType.ERROR,
-					message: "Failed to get terminal contents",
+					message: "터미널 내용을 가져오지 못했습니다.",
 				})
 			}
 		}),
@@ -407,7 +407,7 @@ export async function activate(context: vscode.ExtensionContext) {
 		if (!activeNotebook) {
 			HostProvider.window.showMessage({
 				type: ShowMessageType.ERROR,
-				message: "No active Jupyter notebook found. Please open a .ipynb file first.",
+				message: "활성화된 Jupyter 노트북을 찾을 수 없습니다. .ipynb 파일을 먼저 열어주세요.",
 			})
 			return null
 		}

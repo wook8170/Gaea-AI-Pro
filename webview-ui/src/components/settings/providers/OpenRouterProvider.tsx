@@ -16,7 +16,7 @@ const OpenRouterBalanceDisplay = ({ apiKey }: { apiKey: string }) => {
 	const { data: keyInfo, isLoading, error } = useOpenRouterKeyInfo(apiKey)
 
 	if (isLoading) {
-		return <span style={{ fontSize: "12px", color: "var(--vscode-descriptionForeground)" }}>Loading...</span>
+		return <span style={{ fontSize: "12px", color: "var(--vscode-descriptionForeground)" }}>불러오는 중...</span>
 	}
 
 	if (error || !keyInfo || keyInfo.limit === null) {
@@ -39,8 +39,8 @@ const OpenRouterBalanceDisplay = ({ apiKey }: { apiKey: string }) => {
 				paddingLeft: 4,
 				cursor: "pointer",
 			}}
-			title={`Remaining balance: ${formattedBalance}\nLimit: ${formatPrice(keyInfo.limit)}\nUsage: ${formatPrice(keyInfo.usage)}`}>
-			Balance: {formattedBalance}
+			title={`잔액: ${formattedBalance}\n한도: ${formatPrice(keyInfo.limit)}\n사용량: ${formatPrice(keyInfo.usage)}`}>
+			잔액: {formattedBalance}
 		</VSCodeLink>
 	)
 }
@@ -67,11 +67,11 @@ export const OpenRouterProvider = ({ showModelOptions, isPopup, currentMode }: O
 				<DebouncedTextField
 					initialValue={apiConfiguration?.openRouterApiKey || ""}
 					onChange={(value) => handleFieldChange("openRouterApiKey", value)}
-					placeholder="Enter API Key..."
+					placeholder="API 키 입력..."
 					style={{ width: "100%" }}
 					type="password">
 					<div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
-						<span style={{ fontWeight: 500 }}>OpenRouter API Key</span>
+						<span style={{ fontWeight: 500 }}>OpenRouter API 키</span>
 						{apiConfiguration?.openRouterApiKey && (
 							<OpenRouterBalanceDisplay apiKey={apiConfiguration.openRouterApiKey} />
 						)}
@@ -88,7 +88,7 @@ export const OpenRouterProvider = ({ showModelOptions, isPopup, currentMode }: O
 							}
 						}}
 						style={{ margin: "5px 0 0 0" }}>
-						Get OpenRouter API Key
+						OpenRouter API 키 발급받기
 					</VSCodeButton>
 				)}
 				<p
@@ -97,7 +97,7 @@ export const OpenRouterProvider = ({ showModelOptions, isPopup, currentMode }: O
 						marginTop: "5px",
 						color: "var(--vscode-descriptionForeground)",
 					}}>
-					This key is stored locally and only used to make API requests from this extension.
+					이 키는 로컬에만 저장되며, 오직 이 확장에서 API 요청을 보내는 용도로만 사용됩니다.
 				</p>
 			</div>
 

@@ -192,7 +192,7 @@ const GroqModelPicker: React.FC<GroqModelPickerProps> = ({ isPopup, currentMode 
 			</style>
 			<div className="flex flex-col">
 				<label htmlFor="model-search">
-					<span className="font-medium">Model</span>
+					<span className="font-medium">모델</span>
 				</label>
 				<div className="relative w-full" ref={dropdownRef}>
 					<VSCodeTextField

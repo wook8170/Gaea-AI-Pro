@@ -38,7 +38,7 @@ export const CerebrasProvider = ({ showModelOptions, isPopup, currentMode }: Cer
 			{showModelOptions && (
 				<>
 					<ModelSelector
-						label="Model"
+						label="모델"
 						models={cerebrasModels}
 						onChange={(e: any) =>
 							handleModeFieldChange(

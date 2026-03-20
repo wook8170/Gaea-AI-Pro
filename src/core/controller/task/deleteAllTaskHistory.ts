@@ -26,10 +26,10 @@ export async function deleteAllTaskHistory(controller: Controller): Promise<Dele
 			await HostProvider.window.showMessage(
 				ShowMessageRequest.create({
 					type: ShowMessageType.WARNING,
-					message: "What would you like to delete?",
+					message: "어떤 항목을 삭제하시겠습니까?",
 					options: {
 						modal: true,
-						items: ["Delete All Except Favorites", "Delete Everything"],
+						items: ["즐겨찾기 제외하고 모두 삭제", "전체 삭제"],
 					},
 				}),
 			)
@@ -43,7 +43,7 @@ export async function deleteAllTaskHistory(controller: Controller): Promise<Dele
 		}
 
 		// If preserving favorites, filter out non-favorites
-		if (userChoice === "Delete All Except Favorites") {
+		if (userChoice === "즐겨찾기 제외하고 모두 삭제") {
 			const favoritedTasks = taskHistory.filter((task) => task.isFavorited === true)
 
 			// If there are favorited tasks, update state
@@ -69,10 +69,10 @@ export async function deleteAllTaskHistory(controller: Controller): Promise<Dele
 				const answer = (
 					await HostProvider.window.showMessage({
 						type: ShowMessageType.WARNING,
-						message: "No favorited tasks found. Would you like to delete all tasks anyway?",
+						message: "즐겨찾기된 태스크가 없습니다. 모든 태스크를 삭제하시겠습니까?",
 						options: {
 							modal: true,
-							items: ["Delete All Tasks"],
+							items: ["모든 태스크 삭제"],
 						},
 					})
 				).selectedOption
@@ -105,7 +105,7 @@ export async function deleteAllTaskHistory(controller: Controller): Promise<Dele
 		} catch (error) {
 			HostProvider.window.showMessage({
 				type: ShowMessageType.ERROR,
-				message: `Encountered error while deleting task history, there may be some files left behind. Error: ${error instanceof Error ? error.message : String(error)}`,
+				message: `태스크 히스토리를 삭제하는 중 에러가 발생했습니다. 일부 파일이 남아있을 수 있습니다. 에러: ${error instanceof Error ? error.message : String(error)}`,
 			})
 		}
 

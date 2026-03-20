@@ -146,7 +146,7 @@ const formatTiers = (
 
 			return (
 				<span key={`tier-${tier.contextWindow}`} style={{ paddingLeft: "15px" }}>
-					{formatPrice(price)}/million tokens (
+					{formatPrice(price)}/100만 토큰 (
 					{tier.contextWindow === Number.POSITIVE_INFINITY || tier.contextWindow >= Number.MAX_SAFE_INTEGER ? (
 						<span>
 							{">"} {prevLimit.toLocaleString()}
@@ -156,7 +156,7 @@ const formatTiers = (
 							{"<="} {tier.contextWindow?.toLocaleString()}
 						</span>
 					)}
-					{" tokens)"}
+					{" 토큰)"}
 					{index < arr.length - 1 && <br />}
 				</span>
 			)

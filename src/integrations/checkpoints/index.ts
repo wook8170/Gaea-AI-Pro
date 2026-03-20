@@ -261,7 +261,7 @@ export class TaskCheckpointManager implements ICheckpointManager {
 				case "taskAndWorkspace":
 				case "workspace":
 					if (!this.config.enableCheckpoints) {
-						const errorMessage = "Checkpoints are disabled in settings."
+						const errorMessage = "설정에서 체크포인트가 비활성화되어 있습니다."
 						Logger.error(`[TaskCheckpointManager] ${errorMessage} for task ${this.task.taskId}`)
 						HostProvider.window.showMessage({
 							type: ShowMessageType.ERROR,
@@ -395,7 +395,7 @@ export class TaskCheckpointManager implements ICheckpointManager {
 
 		try {
 			if (!this.config.enableCheckpoints) {
-				const errorMessage = "Checkpoints are disabled in settings. Cannot show diff."
+				const errorMessage = "설정에서 체크포인트가 비활성화되어 있습니다. 변경 사항을 볼 수 없습니다."
 				Logger.error(`[TaskCheckpointManager] ${errorMessage} for task ${this.task.taskId}`)
 				HostProvider.window.showMessage({
 					type: ShowMessageType.INFORMATION,
@@ -483,7 +483,7 @@ export class TaskCheckpointManager implements ICheckpointManager {
 				const previousCheckpointHash = lastTaskCompletedMessageCheckpointHash || firstCheckpointMessageCheckpointHash
 
 				if (!previousCheckpointHash) {
-					const errorMessage = "Unexpected error: No checkpoint hash found"
+					const errorMessage = "예기치 않은 오류: 체크포인트 해시를 찾을 수 없습니다."
 					Logger.error(`[TaskCheckpointManager] ${errorMessage} for task ${this.task.taskId}`)
 					HostProvider.window.showMessage({
 						type: ShowMessageType.ERROR,

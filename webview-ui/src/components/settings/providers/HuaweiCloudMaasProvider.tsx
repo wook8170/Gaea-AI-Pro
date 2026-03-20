@@ -30,7 +30,7 @@ export const HuaweiCloudMaasProvider = ({ showModelOptions, isPopup, currentMode
 			{showModelOptions && (
 				<>
 					<ModelSelector
-						label="Model"
+						label="모델"
 						models={huaweiCloudMaasModels}
 						onChange={(e: any) => {
 							const modelId = e.target.value

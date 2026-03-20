@@ -66,7 +66,7 @@ export const WhatsNewModal: React.FC<WhatsNewModalProps> = ({ open, onClose, ver
 						className="text-lg font-semibold mb-3 pr-6"
 						id="whats-new-title"
 						style={{ color: "var(--vscode-editor-foreground)" }}>
-						🎉 New in v{version}
+						🎉 v{version}의 새로운 기능
 					</h2>
 
 					<WhatsNewItems
@@ -134,15 +134,13 @@ export const WhatsNewModal: React.FC<WhatsNewModalProps> = ({ open, onClose, ver
 
 						{/* GitHub Star CTA */}
 						<p className="text-sm text-center" style={{ color: "var(--vscode-descriptionForeground)" }}>
-							Please support Cline by{" "}
-							<a
+							GitHub에서 <a
 								href="https://github.com/gaea-ai-pro/gaea-ai-pro"
 								rel="noopener noreferrer"
 								style={{ color: "var(--vscode-textLink-foreground)" }}
 								target="_blank">
-								starring us on GitHub
-							</a>
-							.
+								별(Star)을 눌러 Gaea AI Pro를 응원해 주세요
+							</a>.
 						</p>
 					</div>
 				</div>

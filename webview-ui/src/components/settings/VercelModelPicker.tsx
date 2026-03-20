@@ -196,7 +196,7 @@ const VercelModelPicker: React.FC<VercelModelPickerProps> = ({ isPopup, currentM
 			</style>
 			<div style={{ display: "flex", flexDirection: "column" }}>
 				<label htmlFor="vercel-model-search">
-					<span style={{ fontWeight: 500 }}>Model</span>
+					<span style={{ fontWeight: 500 }}>모델</span>
 				</label>
 
 				<DropdownWrapper ref={dropdownRef}>

@@ -145,7 +145,7 @@ const OcaModelPicker: React.FC<OcaModelPickerProps> = ({
 					overflow: auto;
 				}
 			`}</style>
-			<label className="font-medium text-[12px] mt-[10px] mb-[2px]">Model</label>
+			<label className="font-medium text-[12px] mt-[10px] mb-[2px]">모델</label>
 			<div className="relative z-100 flex items-center gap-2 mb-1">
 				<VSCodeDropdown
 					className="flex-1 text-[12px] min-h-[24px]"
@@ -193,7 +193,7 @@ const OcaModelPicker: React.FC<OcaModelPickerProps> = ({
 			) : null}
 			{!loading && selectedModelInfo && selectedModelInfo.supportsReasoning && reasoningEffortOptions.length > 0 && (
 				<React.Fragment>
-					<label className="font-medium text-[12px] mt-[10px] mb-[2px]">Reasoning Effort</label>
+					<label className="font-medium text-[12px] mt-[10px] mb-[2px]">추론 수준 (Reasoning Effort)</label>
 					<div className="flex items-center gap-2 mb-1">
 						<VSCodeDropdown
 							className="flex-1 text-[12px] min-h-[24px]"

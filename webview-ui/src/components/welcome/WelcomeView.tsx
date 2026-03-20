@@ -39,14 +39,14 @@ const WelcomeView = memo(() => {
 	return (
 		<div className="fixed inset-0 p-0 flex flex-col">
 			<div className="h-full px-5 overflow-auto flex flex-col gap-2.5">
-				<h2 className="text-lg font-semibold">안녕하세요, Gaea-AI-Pro입니다</h2>
+				<h2 className="text-lg font-semibold">안녕하세요, Gaea AI Pro입니다</h2>
 				<div className="flex justify-center my-5">
 					<ClineLogoWhite className="size-16" />
 				</div>
 				<p>
-					Gaea-AI-Pro는{" "}
+					Gaea AI Pro는{" "}
 					<VSCodeLink className="inline" href="https://www.anthropic.com/claude/sonnet">
-						Claude 4.6 Sonnet의
+						Claude 3.7 Sonnet의
 					</VSCodeLink>{" "}
 					혁신적인 에이전트 코딩 능력 덕분에 다양한 작업을 수행할 수 있습니다. 파일을 생성 및 수정하고, 복잡한
 					프로젝트를 탐색하며, 브라우저를 사용하고, 터미널 명령을 실행(물론 사용자의 허가가 필요합니다)할 수 있는

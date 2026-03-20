@@ -1504,7 +1504,7 @@ export const ChatView: React.FC<ChatViewProps> = ({
 							<Box flexDirection="column" key="header">
 								<Box alignItems="center" flexDirection="column" width="100%">
 									{GAEA_AI_PRO_LOGO.map((line, idx) => (
-										<Text color={COLORS.primaryNavy} key={idx}>
+										<Text color="white" key={idx}>
 											{line}
 										</Text>
 									))}
@@ -1534,7 +1534,7 @@ export const ChatView: React.FC<ChatViewProps> = ({
 					<Box flexDirection="column" marginBottom={1}>
 						<Box alignItems="center" flexDirection="column" width="100%">
 							{GAEA_AI_PRO_LOGO.map((line, idx) => (
-								<Text color={COLORS.primaryNavy} key={idx}>
+								<Text color="white" key={idx}>
 									{line}
 								</Text>
 							))}

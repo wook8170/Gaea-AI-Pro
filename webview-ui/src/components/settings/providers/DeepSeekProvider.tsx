@@ -38,7 +38,7 @@ export const DeepSeekProvider = ({ showModelOptions, isPopup, currentMode }: Dee
 			{showModelOptions && (
 				<>
 					<ModelSelector
-						label="Model"
+						label="모델"
 						models={deepSeekModels}
 						onChange={(e: any) =>
 							handleModeFieldChange(

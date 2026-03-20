@@ -321,7 +321,7 @@ export const OcaProvider = ({ isPopup, currentMode }: OcaProviderProps) => {
 							) : ocaUser?.uid ? (
 								<span className="font-semibold opacity-95 mt-2">{ocaUser.uid}</span>
 							) : (
-								<span className="font-semibold opacity-95 mt-2">Unknown User</span>
+								<span className="font-semibold opacity-95 mt-2">알 수 없는 사용자</span>
 							)}
 						</div>
 						<VSCodeButton

@@ -56,7 +56,7 @@ export const XaiProvider = ({ showModelOptions, isPopup, currentMode }: XaiProvi
 			{showModelOptions && (
 				<>
 					<ModelSelector
-						label="Model"
+						label="모델"
 						models={xaiModels}
 						onChange={(e: any) =>
 							handleModeFieldChange(
@@ -90,7 +90,7 @@ export const XaiProvider = ({ showModelOptions, isPopup, currentMode }: XaiProvi
 							{reasoningEffortSelected && (
 								<div>
 									<label htmlFor="reasoning-effort-dropdown">
-										<span style={{}}>Reasoning Effort</span>
+										<span style={{}}>추론 수준 (Reasoning Effort)</span>
 									</label>
 									<DropdownContainer className="dropdown-container" zIndex={DROPDOWN_Z_INDEX - 100}>
 										<VSCodeDropdown

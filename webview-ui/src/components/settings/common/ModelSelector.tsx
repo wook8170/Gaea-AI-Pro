@@ -46,14 +46,14 @@ OG Saoud Note:
 /**
  * A reusable component for selecting models from a dropdown
  */
-export const ModelSelector = ({ models, selectedModelId, onChange, zIndex, label = "Model" }: ModelSelectorProps) => {
+export const ModelSelector = ({ models, selectedModelId, onChange, zIndex, label = "모델" }: ModelSelectorProps) => {
 	return (
 		<DropdownContainer className="dropdown-container" zIndex={zIndex}>
 			<label htmlFor="model-id">
 				<span className="font-medium">{label}</span>
 			</label>
 			<VSCodeDropdown className="w-full" id="model-id" onChange={onChange} value={selectedModelId}>
-				<VSCodeOption value="">Select a model...</VSCodeOption>
+				<VSCodeOption value="">모델을 선택하세요...</VSCodeOption>
 				{Object.keys(models).map((modelId) => (
 					<VSCodeOption className="break-words whitespace-normal max-w-full" key={modelId} value={modelId}>
 						{modelId}

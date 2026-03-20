@@ -2,7 +2,7 @@
 	"name": "claude-dev",
 	"displayName": "Gaea-AI-Pro",
 	"description": "IDE 내에서 자율적으로 코드를 작성하는 AI 에이전트. 사용자의 승인 하에 파일 생성/수정, 명령어 실행, 브라우저 사용 등 다양한 작업을 수행할 수 있습니다.",
-	"version": "3.73.0",
+	"version": "0.1.0",
 	"icon": "assets/icons/gaea-ai-pro.png",
 	"workspaces": [
 		".",
@@ -119,7 +119,7 @@
 			"activitybar": [
 				{
 					"id": "claude-dev-ActivityBar",
-					"title": "Gaea-AI-Pro",
+					"title": "Gaea AI Pro",
 					"icon": "assets/icons/gaea-ai-pro.svg"
 				}
 			]
@@ -137,116 +137,137 @@
 		"commands": [
 			{
 				"command": "cline.plusButtonClicked",
-				"title": "New Task",
+				"title": "%gaea.command.plus%",
+				"description": "%gaea.command.plus.description%",
 				"icon": "$(add)"
 			},
 			{
 				"command": "cline.mcpButtonClicked",
-				"title": "MCP Servers",
+				"title": "%gaea.command.mcp%",
+				"description": "%gaea.command.mcp.description%",
 				"icon": "$(server)"
 			},
 			{
 				"command": "cline.historyButtonClicked",
-				"title": "History",
+				"title": "%gaea.command.history%",
+				"description": "%gaea.command.history.description%",
 				"icon": "$(history)"
 			},
 			{
 				"command": "cline.accountButtonClicked",
-				"title": "Account",
+				"title": "%gaea.command.account%",
+				"description": "%gaea.command.account.description%",
 				"icon": "$(account)"
 			},
 			{
 				"command": "cline.settingsButtonClicked",
-				"title": "Settings",
+				"title": "%gaea.command.settings%",
+				"description": "%gaea.command.settings.description%",
 				"icon": "$(settings-gear)"
 			},
 			{
 				"command": "cline.dev.createTestTasks",
-				"title": "Create Test Tasks",
-				"category": "Gaea AI Pro",
-				"when": "cline.isDevMode"
+				"title": "%gaea.command.createTestTasks%",
+				"description": "%gaea.command.createTestTasks.description%",
+				"category": "gaea",
+				"enablement": "cline.isDevMode"
 			},
 			{
 				"command": "cline.dev.expireMcpOAuthTokens",
-				"title": "Expire MCP OAuth Tokens (for testing)",
-				"category": "Gaea AI Pro",
-				"when": "cline.isDevMode"
+				"title": "%gaea.command.expireMcpOAuthTokens%",
+				"description": "%gaea.command.expireMcpOAuthTokens.description%",
+				"category": "gaea",
+				"enablement": "cline.isDevMode"
 			},
 			{
 				"command": "cline.addToChat",
-				"title": "Gaea-AI-Pro에 추가",
-				"category": "Gaea AI Pro"
+				"title": "%gaea.command.addToChat%",
+				"description": "%gaea.command.addToChat.description%",
+				"category": "gaea"
 			},
 			{
 				"command": "cline.addTerminalOutputToChat",
-				"title": "Add to Cline",
-				"category": "Gaea AI Pro"
+				"title": "%gaea.command.addTerminalOutputToChat%",
+				"description": "%gaea.command.addTerminalOutputToChat.description%",
+				"category": "gaea"
 			},
 			{
 				"command": "cline.focusChatInput",
-				"title": "Jump to Chat Input",
-				"category": "Gaea AI Pro"
+				"title": "%gaea.command.focusChatInput%",
+				"description": "%gaea.command.focusChatInput.description%",
+				"category": "gaea"
 			},
 			{
 				"command": "cline.generateGitCommitMessage",
-				"title": "Gaea-AI-Pro로 커밋 메시지 생성",
-				"category": "Gaea AI Pro",
+				"title": "%gaea.command.generateGitCommitMessage%",
+				"description": "%gaea.command.generateGitCommitMessage.description%",
+				"category": "gaea",
 				"icon": "$(cline-icon)"
 			},
 			{
 				"command": "cline.abortGitCommitMessage",
-				"title": "Generate Commit Message with Cline - Stop",
-				"category": "Gaea AI Pro",
+				"title": "%gaea.command.abortGitCommitMessage%",
+				"description": "%gaea.command.abortGitCommitMessage.description%",
+				"category": "gaea",
 				"icon": "$(debug-stop)"
 			},
 			{
 				"command": "cline.explainCode",
-				"title": "Gaea-AI-Pro로 설명하기",
-				"category": "Gaea AI Pro"
+				"title": "%gaea.command.explainCode%",
+				"description": "%gaea.command.explainCode.description%",
+				"category": "gaea"
 			},
 			{
 				"command": "cline.improveCode",
-				"title": "Gaea-AI-Pro로 개선하기",
-				"category": "Gaea AI Pro"
+				"title": "%gaea.command.improveCode%",
+				"description": "%gaea.command.improveCode.description%",
+				"category": "gaea"
 			},
 			{
 				"command": "cline.jupyterGenerateCell",
-				"title": "Gaea-AI-Pro로 Jupyter 셀 생성",
-				"category": "Gaea AI Pro",
+				"title": "%gaea.command.jupyterGenerateCell%",
+				"description": "%gaea.command.jupyterGenerateCell.description%",
+				"category": "gaea",
 				"icon": "$(sparkle)"
 			},
 			{
 				"command": "cline.jupyterExplainCell",
-				"title": "Gaea-AI-Pro로 Jupyter 셀 설명하기",
-				"category": "Gaea AI Pro",
+				"title": "%gaea.command.jupyterExplainCell%",
+				"description": "%gaea.command.jupyterExplainCell.description%",
+				"category": "gaea",
 				"icon": "$(question)"
 			},
 			{
 				"command": "cline.jupyterImproveCell",
-				"title": "Gaea-AI-Pro로 Jupyter 셀 개선하기",
-				"category": "Gaea AI Pro",
+				"title": "%gaea.command.jupyterImproveCell%",
+				"description": "%gaea.command.jupyterImproveCell.description%",
+				"category": "gaea",
 				"icon": "$(lightbulb)"
 			},
 			{
 				"command": "cline.openWalkthrough",
-				"title": "Open Walkthrough",
-				"category": "Gaea AI Pro"
+				"title": "%gaea.command.openWalkthrough%",
+				"description": "%gaea.command.openWalkthrough.description%",
+				"category": "gaea"
 			},
 			{
 				"command": "cline.reconstructTaskHistory",
-				"title": "Reconstruct Task History",
-				"category": "Gaea AI Pro"
+				"title": "%gaea.command.reconstructTaskHistory%",
+				"description": "%gaea.command.reconstructTaskHistory.description%",
+				"category": "gaea"
 			},
 			{
 				"command": "cline.reviewComment.reply",
-				"title": "Reply",
-				"category": "Gaea AI Pro",
+				"title": "%gaea.command.reviewComment.reply%",
+				"description": "%gaea.command.reviewComment.reply.description%",
+				"category": "gaea",
 				"enablement": "!commentIsEmpty"
 			},
 			{
 				"command": "cline.reviewComment.addToChat",
-				"title": "Gaea-AI-Pro 채팅에 추가",
-				"category": "Gaea AI Pro",
+				"title": "%gaea.command.reviewComment.addToChat%",
+				"description": "%gaea.command.reviewComment.addToChat.description%",
+				"category": "gaea",
 				"icon": "$(link-external)"
 			}
 		],
@@ -357,6 +378,14 @@
 				{
 					"command": "cline.abortGitCommitMessage",
 					"when": "config.git.enabled && cline.isGeneratingCommit"
+				},
+				{
+					"command": "cline.dev.createTestTasks",
+					"when": "cline.isDevMode"
+				},
+				{
+					"command": "cline.dev.expireMcpOAuthTokens",
+					"when": "cline.isDevMode"
 				},
 				{
 					"command": "cline.reviewComment.reply",
