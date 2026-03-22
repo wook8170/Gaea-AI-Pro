@@ -102,6 +102,8 @@ export class CliEnvServiceClient implements EnvServiceClientInterface {
 			version: CLI_VERSION,
 			platform: "Gaea-AI-Pro CLI - Node.js",
 			clineType: ClineClient.Cli,
+			// remoteName is intentionally omitted — the CLI runs locally on the user's machine.
+			// If CLI-in-container scenarios arise, populate this field to enable remote cadence tuning.
 		})
 	}
 
